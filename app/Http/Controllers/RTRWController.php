@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kecamatan;
-use App\Models\Kelurahan;
 use DataTables;
 
 use Illuminate\Http\Request;
 
 // Models
 use App\Models\RTRW;
+use App\Models\Kecamatan;
 
 class RTRWController extends Controller
 {

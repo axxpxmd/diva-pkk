@@ -45,7 +45,7 @@
                 </li>
 
                 <!-- Role -->
-                <li class="sidebar-title bg-light rounded p-2"><b>Setup Role</b></li>
+                <li class="sidebar-title rounded p-2"><b>Setup Role</b></li>
                 <li class="sidebar-item">
                     <a href="#" class='sidebar-link '>
                         <i class="bi bi-key-fill text-warning"></i>
@@ -66,7 +66,7 @@
                 </li>
 
                 <!-- Menu -->
-                <li class="sidebar-title bg-light rounded p-2"><b>Menu</b></li>
+                <li class="sidebar-title rounded p-2"><b>Menu</b></li>
                 <li class="sidebar-item {{ isset($active_rtrw) ? 'active' : '-' }}">
                     <a href="{{ route('rt-rw.index') }}" class='sidebar-link'>
                         <i class="bi bi-file-text-fill text-danger"></i>
@@ -89,7 +89,7 @@
                 </li> --}}
 
                 <!-- Profile -->
-                <li class="sidebar-title bg-light rounded p-2"><b>Profile</b></li>
+                <li class="sidebar-title rounded p-2"><b>Profile</b></li>
                 <li class="sidebar-item">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-person-fill text-warning"></i>

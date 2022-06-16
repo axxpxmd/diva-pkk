@@ -4,7 +4,7 @@
     <h3>{{ $title }}</h3>
     <p class="text-subtitle text-muted">{{ $desc }}</p>
 </div>
-<section class="section animate__animated animate__backInDown">
+<section class="section animate__animated animate__fadeInDown">
     <div class="mb-3 text-right">
         <a href="#" onclick="add()" class="btn btn-sm btn-success bdr-r-7 px-2"><i class="bi bi-plus font-weight-bold fs-16 m-r-5"></i>Tambah Data</a>
     </div>
