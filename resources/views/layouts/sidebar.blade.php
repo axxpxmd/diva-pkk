@@ -69,7 +69,7 @@
                 <li class="sidebar-title">Menu</li>
                 <li class="sidebar-item  ">
                     <a href="#" class='sidebar-link'>
-                        <i class="bi bi-envelope-fill text-danger"></i>
+                        <i class="bi bi-file-text-fill text-danger"></i>
                         <span>RT/RW</span>
                     </a>
                 </li>
@@ -98,7 +98,7 @@
                 </li>
                 <li class="sidebar-item  ">
                     <a href="{{ route('logout') }}" class='sidebar-link' onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        <i class="bi bi-arrow-right text-success"></i>
+                        <i class="bi bi-arrow-right text-danger"></i>
                         <span>Log Out</span>
                     </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
