@@ -5,6 +5,9 @@
     <p class="text-subtitle text-muted">{{ $desc }}</p>
 </div>
 <section class="section animate__animated animate__backInDown">
+    <div class="mb-2">
+        <a href="#" class="btn btn-sm btn-success bdr-r-7 px-2"><i class="bi bi-plus font-weight-bold fs-16 m-r-5"></i>Tambah Data</a>
+    </div>
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
@@ -27,11 +30,15 @@
 @push('script')
 <script type="text/javascript">
     var table = $('#dataTable').dataTable({
+        scrollX: true,
         processing: true,
         serverSide: true,
-        ajax: "{{ route('rt-rw.index') }}",
+        order: [ 0, 'asc' ],
         pageLength: 25,
-        order: 1,
+        ajax: {
+            url: "{{ route('rt-rw.index') }}",
+            method: 'GET'
+        },
         columns: [
             {data: 'id', name: 'id', className: 'text-center', orderable: false, searchable: false},
             {data: 'kecamatan_id', name: 'kecamatan_id'},
