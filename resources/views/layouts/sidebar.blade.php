@@ -4,7 +4,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div class="logo">
                     <a href="index.html">
-                        <span class="fs-20">DIVA PKK</span>
+                        <span class="fs-20 text-warning">DIVA PKK</span>
                     </a>
                 </div>
                 <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
