@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{{ asset('css/util.css') }}">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
     @stack('style')
 
     <!-- Icon -->
@@ -37,6 +38,7 @@
                 </a>
             </header>
             <main>
+                <div class="alert alert-warning text-center position-absolute fs-14 p-2" style="z-index: 9999999; left: 47%; display: none" id="loading">Harap tunggu.</div>
                 @yield('content')
             </main>
         </div>
@@ -47,9 +49,11 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
     <script type="text/javascript">
         var APP_URL = {!! json_encode(url('/').'/') !!};
         $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
     </script>
+    <script src="{{ asset('js/script.js') }}"></script>
     @stack('script')
 </html>

@@ -5,13 +5,13 @@
     <p class="text-subtitle text-muted">{{ $desc }}</p>
 </div>
 <section class="section animate__animated animate__backInDown">
-    <div class="mb-2">
-        <a href="#" class="btn btn-sm btn-success bdr-r-7 px-2"><i class="bi bi-plus font-weight-bold fs-16 m-r-5"></i>Tambah Data</a>
+    <div class="mb-3 text-right">
+        <a href="#" onclick="add()" class="btn btn-sm btn-success bdr-r-7 px-2"><i class="bi bi-plus font-weight-bold fs-16 m-r-5"></i>Tambah Data</a>
     </div>
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
-                <table id="dataTable" class="table data-table display nowrap table-striped table-bordered" style="width:100%">
+                <table id="dataTable" class="table data-table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -19,6 +19,8 @@
                             <th>Kelurahan</th>
                             <th>RT</th>
                             <th>RW</th>
+                            <th>Keterangan</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                 </table>
@@ -26,6 +28,63 @@
         </div>
     </div>
 </section>
+<div class="modal fade" id="modalForm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-black" id="exampleModalLabel"><span id="txtTitle"></span> Data {{ $title }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form" class="fs-14">
+                    {{ method_field('POST') }}
+                    <input type="hidden" id="id" name="id"/>
+                    <div id="alert"></div>
+                    <div class="row mb-2">
+                        <label for="kecamatan_id" class="col-3 col-form-label">Kecamatan</label>
+                        <div class="col-9">
+                            <select class="form-select" name="kecamatan_id" id="kecamatan_id" aria-label="Default select example">
+                                <option value="">Pilih</option>
+                                @foreach ($kecamatans as $i)
+                                    <option value="{{ $i->id }}">{{ $i->n_kecamatan }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <label for="kelurahan_id" class="col-3 col-form-label">Kelurahan</label>
+                        <div class="col-9">
+                            <select class="form-select" name="kelurahan_id" id="kelurahan_id" aria-label="Default select example">
+                                <option value="">Pilih</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <label for="rt" class="col-3 col-form-label">RT / RW</label>
+                        <div class="col-4">
+                          <input type="number" name="rt" id="rt" class="form-control" placeholder="RT / 001" autocomplete="off" required>
+                        </div>
+                        <div class="col-5">
+                            <input type="number" name="rw" id="rw" class="form-control" placeholder="RW / 002" autocomplete="off" required>
+                          </div>
+                    </div>
+                    <div class="row mb-2">
+                        <label for="keterangan" class="col-3 col-form-label">Keterangan</label>
+                        <div class="col-9">
+                          <input type="text" name="keterangan" id="keterangan" class="form-control" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3"></div>
+                        <div class="col-9">
+                            <button type="submit" class="btn btn-primary fs-14" id="btnSave"><i class="bi bi-save m-r-8"></i>Simpan <span id="txtSave"></span></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 @push('script')
 <script type="text/javascript">
@@ -40,12 +99,138 @@
             method: 'GET'
         },
         columns: [
-            {data: 'id', name: 'id', className: 'text-center', orderable: false, searchable: false},
+            {data: 'DT_RowIndex', name: 'DT_RowIndex', className: 'text-center', orderable: false, searchable: false},
             {data: 'kecamatan_id', name: 'kecamatan_id'},
             {data: 'kelurahan_id', name: 'kelurahan_id'},
             {data: 'rt', name: 'rt'},
-            {data: 'rw', name: 'rw'}
+            {data: 'rw', name: 'rw'},
+            {data: 'keterangan', name: 'keterangan'},
+            {data: 'action', name: 'action', className: 'text-center', orderable: false, searchable: false}
         ]
     });
+
+    $('#kecamatan_id').on('change', function(){
+        val = $(this).val();
+        option = "<option value=''>&nbsp;</option>";
+        if(val == ""){
+            $('#kelurahan_id').html(option);
+        }else{
+            $('#kelurahan_id').html("<option value=''>Loading...</option>");
+            url = "{{ route('kelurahanByKecamatan', ':id') }}".replace(':id', val);
+            $.get(url, function(data){
+                if(data){
+                    $.each(data, function(index, value){
+                        option += "<option value='" + value.id + "'>" + value.n_kelurahan +"</li>";
+                    });
+                    $('#kelurahan_id').empty().html(option);
+
+                    $("#kelurahan_id").val($("#kelurahan_id option:first").val());
+                }else{
+                    $('#kelurahan_id').html(option);
+                }
+            }, 'JSON'); 
+        }
+    });
+
+    function openForm(){
+        $('#modalForm').modal('show');
+    }
+
+    function add(){
+        openForm();
+        save_method = "add";
+        $('#form').trigger('reset');
+        $('input[name=_method]').val('POST');
+        $('#txtTitle').html('Tambah');
+        $('#txtSave').html('');
+        $('#alert').html('');
+    }
+
+    function edit(id){
+        $('#loading').show();
+        $.get("{{ Route('rt-rw.edit', ':id') }}".replace(':id', id), function(data){
+            save_method = 'edit';
+            $('#txtTitle').html('Edit');
+            $('#txtSave').html("Perubahan");
+            $('input[name=_method]').val('PATCH');
+            $('#alert').html('');
+            openForm();
+            $('#kecamatan_id').val(data.kecamatan_id);
+
+            val = data.kecamatan_id;
+            url = "{{ route('kelurahanByKecamatan', ':id') }}".replace(':id', val);
+            option = "<option value=''>&nbsp;</option>";
+            $.get(url, function(dataResult){
+                $.each(dataResult, function(index, value){
+                    option += "<option value='" + value.id + "'>" + value.n_kelurahan +"</li>";
+                });
+                $('#kelurahan_id').empty().html(option);
+
+                $("#kelurahan_id").val(data.kelurahan_id);
+            }, 'JSON'); 
+
+            $('#id').val(data.id);
+            $('#rt').val(data.rt);
+            $('#rw').val(data.rw);
+            $('#keterangan').val(data.keterangan);
+            $('#loading').hide();
+        });
+    }
+    
+    $('#form').on('submit', function (event) {
+        if ($(this)[0].checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        }else{    
+            $('#loading').show();
+            $('#alert').html('');
+            $('#btnSave').attr('disabled', true);
+            
+            url = (save_method == 'add') ? "{{ route('rt-rw.store') }}" : "{{ route('rt-rw.update', ':id') }}".replace(':id', $('#id').val());
+            $.post(url, $(this).serialize(), function(data){
+                $('#alert').html("<div class='alert alert-success alert-dismissible' role='alert'><strong>Sukses!</strong> " + data.message + "</div>");
+                table.api().ajax.reload();
+                if(save_method == 'add') $('#form').trigger('reset');
+            },'json').fail(function(data){
+                err = ''; respon = data.responseJSON;
+                $.each(respon.errors, function(index, value){
+                    err += "<li>" + value +"</li>";
+                });
+                $('#alert').html("<div class='alert alert-danger alert-dismissible' role='alert'>" + respon.message + "<ol class='pl-3 m-0'>" + err + "</ol></div>");
+            }).always(function(){
+                $('#loading').hide();
+                $('#btnSave').removeAttr('disabled');
+            });
+            return false;
+        }
+        $(this).addClass('was-validated');
+    });
+
+    function remove(id){
+        $.confirm({
+            title: 'Konfirmasi',
+            content: 'Apakah Anda yakin ingin menghapus data ini ?',
+            icon: 'bi bi-question text-danger',
+            theme: 'modern',
+            closeIcon: true,
+            animation: 'scale',
+            type: 'red',
+            buttons: {
+                ok: {
+                    text: "ok!",
+                    btnClass: 'btn-primary',
+                    keys: ['enter'],
+                    action: function(){
+                        $.post("{{ route('rt-rw.destroy', ':id') }}".replace(':id', id), {'_method' : 'DELETE'}, function(data) {
+                            success(data.message)
+                        }, "JSON").fail(function(){
+                            reload();
+                        });
+                    }
+                },
+                cancel: function(){}
+            }
+        });
+    }
 </script>
 @endpush
