@@ -4,7 +4,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div class="logo">
                     <a href="index.html">
-                        <span class="fs-20 text-warning">DIVA PKK</span>
+                        <span class="fs-20 text-info">DIVA PKK</span>
                     </a>
                 </div>
                 <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
@@ -37,28 +37,28 @@
         <div class="sidebar-menu">
             <ul class="menu">
 
-                <li class="sidebar-item active ">
-                    <a href="#" class='sidebar-link'>
+                <li class="sidebar-item {{ isset($active_dashboard) ? 'active' : '-' }}">
+                    <a href="{{ route('home') }}" class='sidebar-link'>
                         <i class="bi bi-grid-fill text-info"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
 
                 <!-- Role -->
-                <li class="sidebar-title">Setup Role</li>
-                <li class="sidebar-item  ">
+                <li class="sidebar-title bg-light rounded p-2"><b>Setup Role</b></li>
+                <li class="sidebar-item">
                     <a href="#" class='sidebar-link '>
                         <i class="bi bi-key-fill text-warning"></i>
                         <span>Role</span>
                     </a>
                 </li>
-                <li class="sidebar-item  ">
+                <li class="sidebar-item">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-clipboard-fill text-success"></i>
                         <span>Permission</span>
                     </a>
                 </li>
-                <li class="sidebar-item  ">
+                <li class="sidebar-item">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-people-fill text-info"></i>
                         <span>Pengguna</span>
@@ -66,14 +66,14 @@
                 </li>
 
                 <!-- Menu -->
-                <li class="sidebar-title">Menu</li>
-                <li class="sidebar-item  ">
-                    <a href="#" class='sidebar-link'>
+                <li class="sidebar-title bg-light rounded p-2"><b>Menu</b></li>
+                <li class="sidebar-item {{ isset($active_rtrw) ? 'active' : '-' }}">
+                    <a href="{{ route('rt-rw.index') }}" class='sidebar-link'>
                         <i class="bi bi-file-text-fill text-danger"></i>
                         <span>RT/RW</span>
                     </a>
                 </li>
-                {{-- <li class="sidebar-item  has-sub">
+                {{-- <li class="sidebar-itemhas-sub">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-stack"></i>
                         <span>Components</span>
@@ -89,14 +89,14 @@
                 </li> --}}
 
                 <!-- Profile -->
-                <li class="sidebar-title">Profile</li>
-                <li class="sidebar-item  ">
+                <li class="sidebar-title bg-light rounded p-2"><b>Profile</b></li>
+                <li class="sidebar-item">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-person-fill text-warning"></i>
                         <span>Akun</span>
                     </a>
                 </li>
-                <li class="sidebar-item  ">
+                <li class="sidebar-item">
                     <a href="{{ route('logout') }}" class='sidebar-link' onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class="bi bi-arrow-right text-danger"></i>
                         <span>Log Out</span>

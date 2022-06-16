@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 //* Controller
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\RTRWController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,4 +29,6 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::resource('/rt-rw', RTRWController::class);
 });

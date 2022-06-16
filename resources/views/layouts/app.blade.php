@@ -12,11 +12,13 @@
     <title>{{ env('APP_NAME') }} @yield('title')</title>
 
     <!-- CSS -->
-    @yield('style')
     <link rel="stylesheet" href="{{ asset('assets/css/main/app.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/app-dark.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/shared/iconly.css') }}">
     <link rel="stylesheet" href="{{ asset('css/util.css') }}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    @stack('style')
 
     <!-- Icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/fontawesome.min.css" integrity="sha384-zIaWifL2YFF1qaDiAo0JFgsmasocJ/rqu7LKYH8CoBEXqGbb9eO+Xi3s6fQhgFWM" crossorigin="anonymous">
@@ -42,6 +44,12 @@
 </body>
     <!-- Script -->
     <script src="{{ asset('assets/js/app.js') }}"></script>
-    <script src="{{ asset('assets/js/pages/dashboard.js') }}"></script>
-    @yield('script')
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript">
+        var APP_URL = {!! json_encode(url('/').'/') !!};
+        $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+    </script>
+    @stack('script')
 </html>

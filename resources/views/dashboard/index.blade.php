@@ -4,7 +4,7 @@
     <h3>{{ $title }}</h3>
 </div>
 <section class="section">
-    <div class="row" id="table-inverse">
+    <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-content">
