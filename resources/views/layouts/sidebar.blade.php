@@ -38,21 +38,42 @@
             <ul class="menu">
 
                 <li class="sidebar-item active ">
-                    <a href="index.html" class='sidebar-link'>
-                        <i class="bi bi-grid-fill"></i>
+                    <a href="#" class='sidebar-link'>
+                        <i class="bi bi-grid-fill text-info"></i>
                         <span>Dashboard</span>
+                    </a>
+                </li>
+
+                <!-- Role -->
+                <li class="sidebar-title">Setup Role</li>
+                <li class="sidebar-item  ">
+                    <a href="#" class='sidebar-link '>
+                        <i class="bi bi-key-fill text-warning"></i>
+                        <span>Role</span>
+                    </a>
+                </li>
+                <li class="sidebar-item  ">
+                    <a href="#" class='sidebar-link'>
+                        <i class="bi bi-clipboard-fill text-success"></i>
+                        <span>Permission</span>
+                    </a>
+                </li>
+                <li class="sidebar-item  ">
+                    <a href="#" class='sidebar-link'>
+                        <i class="bi bi-people-fill text-info"></i>
+                        <span>Pengguna</span>
                     </a>
                 </li>
 
                 <!-- Menu -->
                 <li class="sidebar-title">Menu</li>
                 <li class="sidebar-item  ">
-                    <a href="application-email.html" class='sidebar-link'>
-                        <i class="bi bi-envelope-fill"></i>
-                        <span>Email Application</span>
+                    <a href="#" class='sidebar-link'>
+                        <i class="bi bi-envelope-fill text-danger"></i>
+                        <span>RT/RW</span>
                     </a>
                 </li>
-                <li class="sidebar-item  has-sub">
+                {{-- <li class="sidebar-item  has-sub">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-stack"></i>
                         <span>Components</span>
@@ -64,59 +85,20 @@
                         <li class="submenu-item ">
                             <a href="component-badge.html">Badge</a>
                         </li>
-                        <li class="submenu-item ">
-                            <a href="component-breadcrumb.html">Breadcrumb</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="component-button.html">Button</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="component-card.html">Card</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="component-carousel.html">Carousel</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="component-collapse.html">Collapse</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="component-dropdown.html">Dropdown</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="component-list-group.html">List Group</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="component-modal.html">Modal</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="component-navs.html">Navs</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="component-pagination.html">Pagination</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="component-progress.html">Progress</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="component-spinner.html">Spinner</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="component-tooltip.html">Tooltip</a>
-                        </li>
                     </ul>
-                </li>
+                </li> --}}
 
                 <!-- Profile -->
                 <li class="sidebar-title">Profile</li>
                 <li class="sidebar-item  ">
-                    <a href="application-email.html" class='sidebar-link'>
-                        <i class="bi bi-person-fill"></i>
+                    <a href="#" class='sidebar-link'>
+                        <i class="bi bi-person-fill text-warning"></i>
                         <span>Akun</span>
                     </a>
                 </li>
                 <li class="sidebar-item  ">
                     <a href="{{ route('logout') }}" class='sidebar-link' onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        <i class="bi bi-arrow-right"></i>
+                        <i class="bi bi-arrow-right text-success"></i>
                         <span>Log Out</span>
                     </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
