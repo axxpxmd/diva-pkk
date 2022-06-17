@@ -39,7 +39,10 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::resource('/kader', KaderController::class);
     Route::resource('/permission', PermissionController::class);
     Route::resource('/role', RoleController::class);
-    Route::get('/role/permission', [RoleController::class, 'permission'])->name('role.permission');
+    Route::get('/role/{id}/permission', [RoleController::class, 'permission'])->name('role.permission');
+    Route::get('/role/{id}/get-permission', [RoleController::class, 'getPermission'])->name('role.getPermission');
+    Route::post('/role/store-permission', [RoleController::class, 'storePermission'])->name('role.storePermission');
+    Route::delete('/role/{name}/destroy-permission', [RoleController::class, 'destroyPermission'])->name('role.destroyPermission');
 
     Route::get('/get-kelurahan/{id}', [UtilityController::class, 'kelurahanByKecamatan'])->name('kelurahanByKecamatan');
 });

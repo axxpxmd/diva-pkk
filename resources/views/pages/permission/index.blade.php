@@ -4,9 +4,9 @@
     <h3>{{ $title }}</h3>
     <p class="text-subtitle text-muted">{{ $desc }}</p>
 </div>
-<section class="section animate__animated animate__fadeInDown">
+<section class="section animate__animated animate__fadeInRight">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-8">
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
@@ -21,10 +21,9 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-4">
             <div class="card">
                 <h5 class="card-header px-4 py-3 bg-info text-white" id="txtTitle"></h5>
-                <hr class="m-0">
                 <div class="card-body mt-4">
                     <form id="form" class="fs-14">
                         {{ method_field('POST') }}

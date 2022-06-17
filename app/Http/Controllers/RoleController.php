@@ -45,7 +45,7 @@ class RoleController extends Controller
                         <a href="#" onclick="remove(' . $p->id . ')" class="text-danger" title="Delete Data"><i class="bi bi-trash-fill"></i></a>';
             })
             ->addColumn('permissions', function ($p) {
-                return count($p->permissions) . " <a href='" . route('role.permission', $p->id) . "' class='text-success pull-right' title='Edit Permissions'><i class='icon-clipboard-list2 mr-1'></i></a>";
+                return count($p->permissions) . " <a href='" . route('role.permission', $p->id) . "' class='text-success pull-right' title='Edit Permissions'><i class='bi bi-clipboard2-fill m-l-5'></i></a>";
             })
             ->rawColumns(['id', 'action', 'permissions'])
             ->addIndexColumn()
@@ -95,6 +95,47 @@ class RoleController extends Controller
 
     public function permission($id)
     {
-        // 
+        $title = $this->title;
+        $desc  = $this->desc;
+        $active_role = $this->active_role;
+
+        $role  = Role::findOrFail($id);
+        $exist_permission = RoleHasPermission::select('permission_id')->whererole_id($id)->get()->toArray();
+        $permissions      = Permission::select('id', 'name')->whereNotIn('id', $exist_permission)->get();
+
+        return view('pages.role.permission', compact(
+            'title',
+            'desc',
+            'active_role',
+            'permissions',
+            'role'
+        ));
+    }
+
+    public function getPermission($id)
+    {
+        $data = Role::findOrFail($id);
+
+        return $data->permissions;
+    }
+
+    public function storePermission(Request $request)
+    {
+        $request->validate([
+            'permissions' => 'required'
+        ]);
+
+        $data = Role::findOrFail($request->id);
+        $data->givePermissionTo($request->permissions);
+
+        return response()->json(['message' => "Berhasil menyimpan data."]);
+    }
+
+    public function destroyPermission(Request $request, $name)
+    {
+        $data = Role::findOrFail($request->id);
+        $data->revokePermissionTo($name);
+
+        return response()->json(['success' => true]);
     }
 }
