@@ -39,8 +39,8 @@
                     <input type="text" class="d-none" id="id" name="id"/>
                     <div id="alert"></div>
                     <div class="row mb-2">
-                        <label for="rtrw_id" class="col-3 col-form-label">Alamat</label>
-                        <div class="col-9">
+                        <label for="rtrw_id" class="col-sm-3 col-form-label">Alamat</label>
+                        <div class="col-sm-9">
                             <select class="form-select" name="rtrw_id" id="rtrw_id" aria-label="Default select example">
                                 <option value="">Pilih</option>
                                 @foreach ($rtrws as $i)
@@ -52,14 +52,14 @@
                         </div>
                     </div>
                     <div class="row mb-2">
-                        <label for="nama" class="col-3 col-form-label">Nama</label>
-                        <div class="col-9">
+                        <label for="nama" class="col-sm-3 col-form-label">Nama</label>
+                        <div class="col-sm-9">
                           <input type="text" name="nama" id="nama" class="form-control" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="row mb-2" id="ketuaDisplay" style="display: none">
-                        <label for="ketua_id" class="col-3 col-form-label">Ketua</label>
-                        <div class="col-9">
+                        <label for="ketua_id" class="col-sm-3 col-form-label">Ketua</label>
+                        <div class="col-sm-9">
                             <select class="form-select" name="ketua_id" id="ketua_id" aria-label="Default select example">
                                 <option value="">Pilih</option>
                                 @foreach ($rtrws as $i)
@@ -69,8 +69,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-3"></div>
-                        <div class="col-9">
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-9">
                             <button type="submit" class="btn btn-primary fs-14" id="btnSave"><i class="bi bi-save m-r-8"></i>Simpan <span id="txtSave"></span></button>
                         </div>
                     </div>

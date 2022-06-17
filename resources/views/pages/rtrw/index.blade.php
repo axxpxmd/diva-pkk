@@ -41,8 +41,8 @@
                     <input type="text" class="d-none" id="id" name="id"/>
                     <div id="alert"></div>
                     <div class="row mb-2">
-                        <label for="kecamatan_id" class="col-3 col-form-label">Kecamatan</label>
-                        <div class="col-9">
+                        <label for="kecamatan_id" class="col-sm-3 col-form-label">Kecamatan</label>
+                        <div class="col-sm-9">
                             <select class="form-select" name="kecamatan_id" id="kecamatan_id" aria-label="Default select example">
                                 <option value="">Pilih</option>
                                 @foreach ($kecamatans as $i)
@@ -52,31 +52,31 @@
                         </div>
                     </div>
                     <div class="row mb-2">
-                        <label for="kelurahan_id" class="col-3 col-form-label">Kelurahan</label>
-                        <div class="col-9">
+                        <label for="kelurahan_id" class="col-sm-3 col-form-label">Kelurahan</label>
+                        <div class="col-sm-9">
                             <select class="form-select" name="kelurahan_id" id="kelurahan_id" aria-label="Default select example">
                                 <option value="">Pilih</option>
                             </select>
                         </div>
                     </div>
-                    <div class="row mb-2">
-                        <label for="rt" class="col-3 col-form-label">RT / RW</label>
-                        <div class="col-4">
+                    <div class="row">
+                        <label for="rt" class="col-sm-3 col-form-label">RT / RW</label>
+                        <div class="col-sm-4 mb-2">
                           <input type="number" name="rt" id="rt" class="form-control" placeholder="RT / 001" autocomplete="off" required>
                         </div>
-                        <div class="col-5">
+                        <div class="col-sm-5">
                             <input type="number" name="rw" id="rw" class="form-control" placeholder="RW / 002" autocomplete="off" required>
-                          </div>
+                        </div>
                     </div>
                     <div class="row mb-2">
-                        <label for="keterangan" class="col-3 col-form-label">Keterangan</label>
-                        <div class="col-9">
+                        <label for="keterangan" class="col-sm-3 col-form-label">Keterangan</label>
+                        <div class="col-sm-9">
                           <input type="text" name="keterangan" id="keterangan" class="form-control" autocomplete="off">
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-3"></div>
-                        <div class="col-9">
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-9">
                             <button type="submit" class="btn btn-primary fs-14" id="btnSave"><i class="bi bi-save m-r-8"></i>Simpan <span id="txtSave"></span></button>
                         </div>
                     </div>
