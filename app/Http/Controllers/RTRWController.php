@@ -28,7 +28,7 @@ class RTRWController extends Controller
 
         $kecamatans = Kecamatan::select('id', 'n_kecamatan')->where('kabupaten_id', 40)->get();
 
-        return view('rtrw.index', compact(
+        return view('pages.rtrw.index', compact(
             'title',
             'desc',
             'active_rtrw',

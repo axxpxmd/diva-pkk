@@ -14,7 +14,7 @@ class DashboardController extends Controller
         $title = $this->title;
         $active_dashboard = $this->active_dashboard;
 
-        return view('dashboard.index', compact(
+        return view('pages.dashboard.index', compact(
             'title',
             'active_dashboard'
         ));
