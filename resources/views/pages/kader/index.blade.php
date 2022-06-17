@@ -37,7 +37,7 @@
             <div class="modal-body">
                 <form id="form" class="fs-14">
                     {{ method_field('POST') }}
-                    <input type="hidden" id="id" name="id"/>
+                    <input type="text" class="d-none" id="id" name="id"/>
                     <div id="alert"></div>
                     <div class="row mb-2">
                         <label for="rtrw_id" class="col-3 col-form-label">Alamat</label>

@@ -52,8 +52,8 @@
                         <span>Role</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a href="#" class='sidebar-link'>
+                <li class="sidebar-item {{ isset($active_permission) ? 'active' : '-' }}">
+                    <a href="{{ route('permission.index') }}" class='sidebar-link'>
                         <i class="bi bi-clipboard-fill text-success"></i>
                         <span>Permission</span>
                     </a>
