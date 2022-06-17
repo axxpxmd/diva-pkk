@@ -37,8 +37,9 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::resource('/rt-rw', RTRWController::class);
     Route::resource('/dasawisma', DasawismaController::class);
     Route::resource('/kader', KaderController::class);
-    Route::resource('/role', RoleController::class);
     Route::resource('/permission', PermissionController::class);
+    Route::resource('/role', RoleController::class);
+    Route::get('/role/permission', [RoleController::class, 'permission'])->name('role.permission');
 
     Route::get('/get-kelurahan/{id}', [UtilityController::class, 'kelurahanByKecamatan'])->name('kelurahanByKecamatan');
 });

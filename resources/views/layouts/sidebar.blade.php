@@ -46,8 +46,8 @@
 
                 <!-- Role -->
                 <li class="sidebar-title rounded p-2"><b>Setup Role</b></li>
-                <li class="sidebar-item">
-                    <a href="#" class='sidebar-link '>
+                <li class="sidebar-item {{ isset($active_role) ? 'active' : '-' }}">
+                    <a href="{{ route('role.index') }}" class='sidebar-link '>
                         <i class="bi bi-key-fill text-warning"></i>
                         <span>Role</span>
                     </a>
