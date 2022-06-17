@@ -6614,6 +6614,7 @@ fieldset:disabled .btn {
 
 .modal-title {
     line-height: 1.5;
+    color: black;
     margin-bottom: 0
 }
 
@@ -20215,7 +20216,7 @@ body .bi:before {
     top: 0;
     transition: left .5s ease-out;
     width: 300px;
-    z-index: 10
+    z-index: 10;
 }
 
 .sidebar-wrapper .sidebar-header {
@@ -20299,11 +20300,12 @@ body .bi:before {
 }
 
 .sidebar-wrapper .menu .sidebar-item.active>.sidebar-link {
-    background-color: #2DA0F7
+    background-color: #F2F2F2
 }
 
 .sidebar-wrapper .menu .sidebar-item.active>.sidebar-link span {
-    color: #fff
+    color: black;
+    font-weight: bold;
 }
 
 .sidebar-wrapper .menu .sidebar-item.active>.sidebar-link i,

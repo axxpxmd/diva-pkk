@@ -11,7 +11,7 @@
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
-                <table id="dataTable" class="table data-table table-striped table-bordered" style="width:100%">
+                <table id="dataTable" class="table data-table table-hover table-bordered" style="width:100%;">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -32,7 +32,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-black" id="exampleModalLabel"><span id="txtTitle"></span> Data {{ $title }}</h5>
+                <h5 class="modal-title" id="exampleModalLabel"><span id="txtTitle"></span> Data {{ $title }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -222,6 +222,7 @@
                     keys: ['enter'],
                     action: function(){
                         $.post("{{ route('rt-rw.destroy', ':id') }}".replace(':id', id), {'_method' : 'DELETE'}, function(data) {
+                            table.api().ajax.reload();
                             success(data.message)
                         }, "JSON").fail(function(){
                             reload();

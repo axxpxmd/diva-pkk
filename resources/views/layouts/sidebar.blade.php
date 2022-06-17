@@ -1,5 +1,5 @@
 <div id="sidebar" class="active">
-    <div class="sidebar-wrapper active">
+    <div class="sidebar-wrapper shadow active">
         <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="logo">
@@ -58,12 +58,6 @@
                         <span>Permission</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a href="#" class='sidebar-link'>
-                        <i class="bi bi-people-fill text-info"></i>
-                        <span>Pengguna</span>
-                    </a>
-                </li>
 
                 <!-- Menu -->
                 <li class="sidebar-title rounded p-2"><b>Menu</b></li>
@@ -71,6 +65,18 @@
                     <a href="{{ route('rt-rw.index') }}" class='sidebar-link'>
                         <i class="bi bi-file-text-fill text-danger"></i>
                         <span>RT/RW</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class='sidebar-link'>
+                        <i class="bi bi-bank text-success"></i>
+                        <span>Dasawisma</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class='sidebar-link'>
+                        <i class="bi bi-people-fill text-info"></i>
+                        <span>Kader</span>
                     </a>
                 </li>
                 {{-- <li class="sidebar-itemhas-sub">
