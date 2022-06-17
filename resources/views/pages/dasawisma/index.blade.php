@@ -15,11 +15,9 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Kecamatan</th>
-                            <th>Kelurahan</th>
-                            <th>RT</th>
-                            <th>RW</th>
-                            <th>Keterangan</th>
+                            <th>Nama</th>
+                            <th>Alamat</th>
+                            <th>Ketua</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -41,37 +39,33 @@
                     <input type="hidden" id="id" name="id"/>
                     <div id="alert"></div>
                     <div class="row mb-2">
-                        <label for="kecamatan_id" class="col-3 col-form-label">Kecamatan</label>
+                        <label for="rtrw_id" class="col-3 col-form-label">Alamat</label>
                         <div class="col-9">
-                            <select class="form-select" name="kecamatan_id" id="kecamatan_id" aria-label="Default select example">
+                            <select class="form-select" name="rtrw_id" id="rtrw_id" aria-label="Default select example">
                                 <option value="">Pilih</option>
-                                @foreach ($kecamatans as $i)
-                                    <option value="{{ $i->id }}">{{ $i->n_kecamatan }}</option>
+                                @foreach ($rtrws as $i)
+                                    <option value="{{ $i->id }}">
+                                        {{ $i->kecamatan->n_kecamatan }} - {{ $i->kelurahan->n_kelurahan }} - RT {{ $i->rw }} / RW {{ $i->rt }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="row mb-2">
-                        <label for="kelurahan_id" class="col-3 col-form-label">Kelurahan</label>
+                        <label for="nama" class="col-3 col-form-label">Nama</label>
                         <div class="col-9">
-                            <select class="form-select" name="kelurahan_id" id="kelurahan_id" aria-label="Default select example">
+                          <input type="text" name="nama" id="nama" class="form-control" autocomplete="off" required>
+                        </div>
+                    </div>
+                    <div class="row mb-2" id="ketuaDisplay" style="display: none">
+                        <label for="ketua_id" class="col-3 col-form-label">Ketua</label>
+                        <div class="col-9">
+                            <select class="form-select" name="ketua_id" id="ketua_id" aria-label="Default select example">
                                 <option value="">Pilih</option>
+                                @foreach ($rtrws as $i)
+                                    <option value="{{ $i->id }}">{{ $i->nama }}</option>
+                                @endforeach
                             </select>
-                        </div>
-                    </div>
-                    <div class="row mb-2">
-                        <label for="rt" class="col-3 col-form-label">RT / RW</label>
-                        <div class="col-4">
-                          <input type="number" name="rt" id="rt" class="form-control" placeholder="RT / 001" autocomplete="off" required>
-                        </div>
-                        <div class="col-5">
-                            <input type="number" name="rw" id="rw" class="form-control" placeholder="RW / 002" autocomplete="off" required>
-                          </div>
-                    </div>
-                    <div class="row mb-2">
-                        <label for="keterangan" class="col-3 col-form-label">Keterangan</label>
-                        <div class="col-9">
-                          <input type="text" name="keterangan" id="keterangan" class="form-control" autocomplete="off">
                         </div>
                     </div>
                     <div class="row">
@@ -95,41 +89,16 @@
         order: [ 0, 'asc' ],
         pageLength: 25,
         ajax: {
-            url: "{{ route('rt-rw.index') }}",
+            url: "{{ route('dasawisma.index') }}",
             method: 'GET'
         },
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex', className: 'text-center', orderable: false, searchable: false},
-            {data: 'kecamatan_id', name: 'kecamatan_id'},
-            {data: 'kelurahan_id', name: 'kelurahan_id'},
-            {data: 'rt', name: 'rt'},
-            {data: 'rw', name: 'rw'},
-            {data: 'keterangan', name: 'keterangan'},
+            {data: 'nama', name: 'nama'},
+            {data: 'alamat', name: 'alamat'},
+            {data: 'ketua_id', name: 'ketua_id'},
             {data: 'action', name: 'action', className: 'text-center', orderable: false, searchable: false}
         ]
-    });
-
-    $('#kecamatan_id').on('change', function(){
-        val = $(this).val();
-        option = "<option value=''>&nbsp;</option>";
-        if(val == ""){
-            $('#kelurahan_id').html(option);
-        }else{
-            $('#kelurahan_id').html("<option value=''>Loading...</option>");
-            url = "{{ route('kelurahanByKecamatan', ':id') }}".replace(':id', val);
-            $.get(url, function(data){
-                if(data){
-                    $.each(data, function(index, value){
-                        option += "<option value='" + value.id + "'>" + value.n_kelurahan +"</li>";
-                    });
-                    $('#kelurahan_id').empty().html(option);
-
-                    $("#kelurahan_id").val($("#kelurahan_id option:first").val());
-                }else{
-                    $('#kelurahan_id').html(option);
-                }
-            }, 'JSON'); 
-        }
     });
 
     function openForm(){
@@ -148,32 +117,20 @@
 
     function edit(id){
         $('#loading').show();
-        $.get("{{ Route('rt-rw.edit', ':id') }}".replace(':id', id), function(data){
+        $.get("{{ Route('dasawisma.edit', ':id') }}".replace(':id', id), function(data){
             save_method = 'edit';
+            console.log(data)
             $('#txtTitle').html('Edit');
             $('#txtSave').html("Perubahan");
             $('input[name=_method]').val('PATCH');
             $('#alert').html('');
             $('#loading').hide();
+            $('#ketuaDisplay').show();
             openForm();
-            $('#kecamatan_id').val(data.kecamatan_id);
-
-            val = data.kecamatan_id;
-            url = "{{ route('kelurahanByKecamatan', ':id') }}".replace(':id', val);
-            option = "<option value=''>&nbsp;</option>";
-            $.get(url, function(dataResult){
-                $.each(dataResult, function(index, value){
-                    option += "<option value='" + value.id + "'>" + value.n_kelurahan +"</li>";
-                });
-                $('#kelurahan_id').empty().html(option);
-
-                $("#kelurahan_id").val(data.kelurahan_id);
-            }, 'JSON'); 
-
             $('#id').val(data.id);
-            $('#rt').val(data.rt);
-            $('#rw').val(data.rw);
-            $('#keterangan').val(data.keterangan);
+            $('#rtrw_id').val(data.rtrw_id);
+            $('#nama').val(data.nama);
+            $('#ketua_id').val(data.ketua_id);
         });
     }
     
@@ -186,7 +143,7 @@
             $('#alert').html('');
             $('#btnSave').attr('disabled', true);
             
-            url = (save_method == 'add') ? "{{ route('rt-rw.store') }}" : "{{ route('rt-rw.update', ':id') }}".replace(':id', $('#id').val());
+            url = (save_method == 'add') ? "{{ route('dasawisma.store') }}" : "{{ route('dasawisma.update', ':id') }}".replace(':id', $('#id').val());
             $.post(url, $(this).serialize(), function(data){
                 $('#alert').html("<div class='alert alert-success alert-dismissible' role='alert'><strong>Sukses!</strong> " + data.message + "</div>");
                 table.api().ajax.reload();
@@ -221,7 +178,7 @@
                     btnClass: 'btn-primary',
                     keys: ['enter'],
                     action: function(){
-                        $.post("{{ route('rt-rw.destroy', ':id') }}".replace(':id', id), {'_method' : 'DELETE'}, function(data) {
+                        $.post("{{ route('dasawisma.destroy', ':id') }}".replace(':id', id), {'_method' : 'DELETE'}, function(data) {
                             table.api().ajax.reload();
                             success(data.message)
                         }, "JSON").fail(function(){

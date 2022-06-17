@@ -67,8 +67,8 @@
                         <span>RT/RW</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a href="#" class='sidebar-link'>
+                <li class="sidebar-item {{ isset($active_dasawisma) ? 'active' : '-' }}">
+                    <a href="{{ route('dasawisma.index') }}" class='sidebar-link'>
                         <i class="bi bi-bank text-success"></i>
                         <span>Dasawisma</span>
                     </a>

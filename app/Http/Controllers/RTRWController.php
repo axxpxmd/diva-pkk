@@ -59,6 +59,7 @@ class RTRWController extends Controller
 
     public function store(Request $request)
     {
+        //* Validation
         $request->validate([
             'kecamatan_id' => 'required',
             'kelurahan_id' => 'required',
@@ -66,6 +67,18 @@ class RTRWController extends Controller
             'rw' => 'required|digits:3|numeric',
             'keterangan' => 'max:500'
         ]);
+
+        //* Get params
+        $kecamatan_id = $request->kecamatan_id;
+        $kelurahan_id = $request->kelurahan_id;
+        $rt = $request->rt;
+        $rw = $request->rw;
+
+        //* Check existing data
+        $check = RTRW::where('kecamatan_id', $kecamatan_id)->where('kelurahan_id', $kelurahan_id)->where('rt', $rt)->where('rw', $rw)->first();
+        if ($check) {
+            return response()->json(['message' => "Data sudah pernah disimpan."], 422);
+        }
 
         $input = $request->all();
         RTRW::create($input);
@@ -89,6 +102,18 @@ class RTRWController extends Controller
             'rw' => 'required|digits:3|numeric',
             'keterangan' => 'string|max:500'
         ]);
+
+        //* Get params
+        $kecamatan_id = $request->kecamatan_id;
+        $kelurahan_id = $request->kelurahan_id;
+        $rt = $request->rt;
+        $rw = $request->rw;
+
+        //* Check existing data
+        $check = RTRW::where('kecamatan_id', $kecamatan_id)->where('kelurahan_id', $kelurahan_id)->where('rt', $rt)->where('rw', $rw)->count();
+        if ($check == 2) {
+            return response()->json(['message' => "Data sudah pernah disimpan."], 422);
+        }
 
         $input = $request->all();
         $data  = RTRW::find($id);
