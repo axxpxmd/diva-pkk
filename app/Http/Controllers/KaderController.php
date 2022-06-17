@@ -27,10 +27,13 @@ class KaderController extends Controller
             return $this->dataTable();
         }
 
+        $rtrws = RTRW::select('id', 'kecamatan_id', 'kelurahan_id', 'rw', 'rt')->get();
+
         return view('pages.kader.index', compact(
             'title',
             'desc',
-            'active_kader'
+            'active_kader',
+            'rtrws'
         ));
     }
 
