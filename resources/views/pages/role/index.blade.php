@@ -30,18 +30,13 @@
                         {{ method_field('POST') }}
                         <input type="text" class="d-none" id="id" name="id"/>
                         <div id="alert"></div>
-                        <div class="row mb-2">
-                            <label for="name" class="col-3 col-form-label">Nama</label>
-                            <div class="col-9">
-                              <input type="text" name="name" id="name" class="form-control" autocomplete="off" required>
-                            </div>
+                        <div>
+                            <label for="name" class="form-label fw-bold">Nama</label>
+                            <input type="text" name="name" id="name" class="form-control" autocomplete="off" required/>
                         </div>
-                        <div class="row">
-                            <div class="col-3"></div>
-                            <div class="col-9">
-                                <button type="submit" class="btn btn-primary fs-14" id="btnSave"><i class="bi bi-save m-r-8"></i>Simpan <span id="txtSave"></span></button>
-                                <a href="#" onclick="add()" class="btn btn-outline-danger fs-14 m-l-5" id="batal" style="display: none"><i class="bi bi-x m-r-3"></i>Batal</a>
-                            </div>
+                        <div class="mt-2">
+                            <button type="submit" class="btn btn-primary fs-14" id="btnSave"><i class="bi bi-save m-r-8"></i>Simpan <span id="txtSave"></span></button>
+                            <a href="#" onclick="add()" class="btn btn-outline-danger fs-14 m-l-5" id="batal" style="display: none"><i class="bi bi-x m-r-3"></i>Batal</a>
                         </div>
                     </form>
                 </div>
