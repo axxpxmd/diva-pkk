@@ -95,6 +95,7 @@ class RTRWController extends Controller
 
     public function update(Request $request, $id)
     {
+        //* Validation
         $request->validate([
             'kecamatan_id' => 'required',
             'kelurahan_id' => 'required',

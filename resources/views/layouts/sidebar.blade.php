@@ -73,8 +73,8 @@
                         <span>Dasawisma</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a href="#" class='sidebar-link'>
+                <li class="sidebar-item {{ isset($active_kader) ? 'active' : '-' }}">
+                    <a href="{{ route('kader.index') }}" class='sidebar-link'>
                         <i class="bi bi-people-fill text-info"></i>
                         <span>Kader</span>
                     </a>

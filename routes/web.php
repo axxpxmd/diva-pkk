@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DasawismaController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KaderController;
 use App\Http\Controllers\RTRWController;
 use App\Http\Controllers\UtilityController;
 
@@ -33,6 +34,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
     Route::resource('/rt-rw', RTRWController::class);
     Route::resource('/dasawisma', DasawismaController::class);
+    Route::resource('/kader', KaderController::class);
 
     Route::get('/get-kelurahan/{id}', [UtilityController::class, 'kelurahanByKecamatan'])->name('kelurahanByKecamatan');
 });

@@ -38,7 +38,7 @@
                                         <br>
                                         <b>DIVA PKK</b>
                                     </h5>
-                                    <span class="fs-13">Aplikasi pendataan data penduduk oleh kader dasawisma</span>
+                                    <span class="fs-13">Pemberdayaan Dan Kesejahteraan Keluarga (PKK) Kota Tangerang Selatan</span>
 								</div>
 							</div>
 							<form method="POST" action="{{ route('login') }}" class="signin-form mb-5">
