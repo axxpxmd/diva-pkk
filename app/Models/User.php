@@ -12,7 +12,7 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasRoles;
 
-    protected $fillable = ['rtrw_id', 'dasawisma_id', 'username', 'password', 's_aktif', 'nama', 'nik', 'foto'];
+    protected $fillable = ['id', 'rtrw_id', 'dasawisma_id', 'username', 'password', 's_aktif', 'nama', 'nik', 'foto'];
 
     public function rtrw()
     {
@@ -24,5 +24,10 @@ class User extends Authenticatable
         return $this->belongsTo(Dasawisma::class, 'dasawisma_id')->withDefault([
             'nama' => '-'
         ]);
+    }
+
+    public function modelHasRole()
+    {
+        return $this->belongsTo(ModelHasRole::class, 'id', 'model_id');
     }
 }

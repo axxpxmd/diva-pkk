@@ -7,9 +7,12 @@ use DataTables;
 use Illuminate\Http\Request;
 
 // Models
-use App\Models\Dasawisma;
+use App\Models\ModelHasRole;
 use App\Models\RTRW;
 use App\Models\User;
+use Illuminate\Foundation\Auth\User as IlluminateUser;
+use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 
 class KaderController extends Controller
 {
@@ -28,12 +31,14 @@ class KaderController extends Controller
         }
 
         $rtrws = RTRW::select('id', 'kecamatan_id', 'kelurahan_id', 'rw', 'rt')->get();
+        $roles = Role::select('id', 'name')->get();
 
         return view('pages.kader.index', compact(
             'title',
             'desc',
             'active_kader',
-            'rtrws'
+            'rtrws',
+            'roles'
         ));
     }
 
@@ -56,5 +61,145 @@ class KaderController extends Controller
             ->rawColumns(['id', 'action'])
             ->addIndexColumn()
             ->toJson();
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'nama' => 'required',
+            'nik' => 'required|digits:16|unique:users,nik',
+            'rtrw_id' => 'required',
+            'dasawisma_id' => 'required',
+            'role_id' => 'required'
+        ], [
+            'rtrw_id.required' => 'Alamat wajib diisi',
+            'dasawisma_id.required' => 'Dasawisma wajib diisi',
+            'role_id.required' => 'Role Wajib diisi'
+        ]);
+
+        /* Tahapan : 
+         * 1. tmusers
+         * 2. model_has_roles
+         */
+
+        DB::beginTransaction(); //* DB Transaction Begin
+
+        try {
+            //* Tahap 1
+            $data_user = [
+                'username' => $request->username,
+                'password' => '123456789',
+                'rtrw_id' => $request->rtrw_id,
+                'dasawisma_id' => $request->dasawisma_id,
+                'nama' => $request->nama,
+                'nik' => $request->nik,
+                'foto' => 'default.png',
+                's_aktif' => 1
+            ];
+
+            $user = User::create($data_user);
+
+            //* Tahap 2
+            $path = 'app\Models\User';
+            $role_id = $request->role_id;
+
+            $model_has_role = new ModelHasRole();
+            $model_has_role->role_id    = $role_id;
+            $model_has_role->model_type = $path;
+            $model_has_role->model_id   = $user->id;
+            $model_has_role->save();
+        } catch (\Throwable $th) {
+            DB::rollback(); //* DB Transaction Failed
+            return response()->json(['message' => "Terjadi kesalahan, silahkan hubungi administrator"], 500);
+        }
+
+        DB::commit(); //* DB Transaction Success
+
+        return response()->json(['message' => "Berhasil menyiman data."]);
+    }
+
+    public function edit($id)
+    {
+        $data = User::where('id', $id)->with('modelHasRole')->first();
+
+        $data_user = [
+            'id' => $data->id,
+            'username' => $data->username,
+            'nama' => $data->nama,
+            'nik' => $data->nik,
+            'rtrw_id' => $data->rtrw_id,
+            'dasawisma_id' => $data->dasawisma_id,
+            'role_id' => $data->modelHasRole->role_id
+        ];
+
+        return $data_user;
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'nama' => 'required',
+            'nik' => 'required|digits:16|unique:users,nik,' . $id,
+            'rtrw_id' => 'required',
+            'dasawisma_id' => 'required',
+            'role_id' => 'required'
+        ], [
+            'rtrw_id.required' => 'Alamat wajib diisi',
+            'dasawisma_id.required' => 'Dasawisma wajib diisi',
+            'role_id.required' => 'Role Wajib diisi'
+        ]);
+
+        /* Tahapan : 
+         * 1. tmusers
+         * 2. model_has_roles
+         */
+
+        DB::beginTransaction(); //* DB Transaction Begin
+
+        try {
+            //* Tahap 1
+            $data_user = [
+                'username' => $request->username,
+                'password' => '123456789',
+                'rtrw_id' => $request->rtrw_id,
+                'dasawisma_id' => $request->dasawisma_id,
+                'nama' => $request->nama,
+                'nik' => $request->nik,
+                'foto' => 'default.png',
+                's_aktif' => 1
+            ];
+
+            $data = User::find($id);
+            $data->update($data_user);
+
+            //* Tahap 2
+            $model_has_role = ModelHasRole::where('model_id', $id);
+            $model_has_role->update([
+                'role_id' => $request->role_id
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollback(); //* DB Transaction Failed
+            return response()->json(['message' => "Terjadi kesalahan, silahkan hubungi administrator"], 500);
+        }
+
+        DB::commit(); //* DB Transaction Success
+
+        return response()->json(['message' => "Berhasil memperbaharui data."]);
+    }
+
+    public function destroy($id)
+    {
+        $data_user = User::find($id);
+
+        //TODO: Process delete photo
+        if ($data_user->foto != 'default.png') {
+            // $exist = $data_user->foto;
+            // $path  = $this->path . $exist;
+            // \File::delete(public_path($path));
+        }
+
+        $data_user->delete();
+
+        return response()->json(['message' => "Berhasil menghapus data."]);
     }
 }

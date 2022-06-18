@@ -8,7 +8,7 @@
     <div class="mb-3 text-right">
         <a href="#" onclick="add()" class="btn btn-sm btn-success bdr-r-7 px-2"><i class="bi bi-plus font-weight-bold fs-16 m-r-5"></i>Tambah Data</a>
     </div>
-    <div class="card">
+    <div class="card">  
         <div class="card-body">
             <div class="table-responsive">
                 <table id="dataTable" class="table data-table table-hover table-bordered" style="width:100%;">
@@ -40,6 +40,12 @@
                     <input type="text" class="d-none" id="id" name="id"/>
                     <div id="alert"></div>
                     <div class="row mb-2">
+                        <label for="username" class="col-sm-3 col-form-label">Username</label>
+                        <div class="col-sm-9">
+                          <input type="text" name="username" id="username" class="form-control" autocomplete="off" required>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
                         <label for="nama" class="col-sm-3 col-form-label">Nama</label>
                         <div class="col-sm-9">
                           <input type="text" name="nama" id="nama" class="form-control" autocomplete="off" required>
@@ -52,13 +58,33 @@
                         </div>
                     </div>
                     <div class="row mb-2">
-                        <label for="rtrw_id" class="col-sm-3 col-form-label">Alamat :</label>
+                        <label for="rtrw_id" class="col-sm-3 col-form-label">Alamat</label>
                         <div class="col-sm-9">
-                            <select class="select2 form-select" name="rtrw_id" id="rtrw_id" required>
+                            <select class="form-select" name="rtrw_id" id="rtrw_id" aria-label="Default select example">
+                                <option value="">Pilih</option>
                                 @foreach ($rtrws as $i)
-                                    <option value="{{ $i->id }}">
-                                        {{ $i->kecamatan->n_kecamatan }} - {{ $i->kelurahan->n_kelurahan }} - RT {{ $i->rw }} / RW {{ $i->rt }}
-                                    </option>
+                                <option value="{{ $i->id }}">
+                                    {{ $i->kecamatan->n_kecamatan }} - {{ $i->kelurahan->n_kelurahan }} - RT {{ $i->rw }} / RW {{ $i->rt }}
+                                </option>
+                            @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <label for="dasawisma_id" class="col-sm-3 col-form-label">Dasawisma</label>
+                        <div class="col-sm-9">
+                            <select class="form-select" name="dasawisma_id" id="dasawisma_id" aria-label="Default select example">
+                                <option value="">Pilih</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <label for="role_id" class="col-sm-3 col-form-label">Role</label>
+                        <div class="col-sm-9">
+                            <select class="form-select" name="role_id" id="role_id" aria-label="Default select example">
+                                <option value="">Pilih</option>
+                                @foreach ($roles as $i)
+                                    <option value="{{ $i->id }}">{{ $i->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -97,6 +123,29 @@
         ]
     });
 
+    $('#rtrw_id').on('change', function(){
+        val = $(this).val();
+        option = "<option value=''>Pilih</option>";
+        if(val == ""){
+            $('#dasawisma_id').html(option);
+        }else{
+            $('#dasawisma_id').html("<option value=''>Loading...</option>");
+            url = "{{ route('dasawismaByRTRW', ':id') }}".replace(':id', val);
+            $.get(url, function(data){
+                if(data){
+                    $.each(data, function(index, value){
+                        option += "<option value='" + value.id + "'>" + value.nama +"</li>";
+                    });
+                    $('#dasawisma_id').empty().html(option);
+
+                    $("#dasawisma_id").val($("#dasawisma_id option:first").val());
+                }else{
+                    $('#dasawisma_id').html(option);
+                }
+            }, 'JSON'); 
+        }
+    });
+
     function openForm(){
         $('#modalForm').modal('show');
     }
@@ -115,18 +164,32 @@
         $('#loading').show();
         $.get("{{ Route('kader.edit', ':id') }}".replace(':id', id), function(data){
             save_method = 'edit';
-            console.log(data)
             $('#txtTitle').html('Edit');
             $('#txtSave').html("Perubahan");
             $('input[name=_method]').val('PATCH');
             $('#alert').html('');
             $('#loading').hide();
-            $('#ketuaDisplay').show();
             openForm();
             $('#id').val(data.id);
-            $('#rtrw_id').val(data.rtrw_id);
             $('#nama').val(data.nama);
-            $('#ketua_id').val(data.ketua_id);
+            $('#username').val(data.username);
+            $('#nik').val(data.nik);
+            $('#rtrw_id').val(data.rtrw_id);
+
+            val = data.rtrw_id;
+            url = "{{ route('dasawismaByRTRW', ':id') }}".replace(':id', val);
+            option = "<option value=''>&nbsp;</option>";
+            $.get(url, function(dataResult){
+                $.each(dataResult, function(index, value){
+                    option += "<option value='" + value.id + "'>" + value.nama +"</li>";
+                });
+                $('#dasawisma_id').empty().html(option);
+
+                $("#dasawisma_id").val(data.dasawisma_id);
+            }, 'JSON'); 
+
+            $('#role_id').val(data.role_id);
+
         });
     }
     

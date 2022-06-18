@@ -111,7 +111,7 @@
 
     $('#kecamatan_id').on('change', function(){
         val = $(this).val();
-        option = "<option value=''>&nbsp;</option>";
+        option = "<option value=''>Pilih</option>";
         if(val == ""){
             $('#kelurahan_id').html(option);
         }else{
