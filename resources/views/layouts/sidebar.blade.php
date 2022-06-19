@@ -96,8 +96,8 @@
 
                 <!-- Profile -->
                 <li class="sidebar-title rounded p-2"><b>Profile</b></li>
-                <li class="sidebar-item">
-                    <a href="#" class='sidebar-link'>
+                <li class="sidebar-item {{ isset($active_profile) ? 'active' : '-' }}">
+                    <a href="{{ route('profile.index') }}" class='sidebar-link'>
                         <i class="bi bi-person-fill text-warning"></i>
                         <span>Akun</span>
                     </a>

@@ -7457,9 +7457,9 @@ body.theme-dark .avatar.avatar-lg img {
 
 body.theme-dark .avatar.avatar-xl .avatar-content,
 body.theme-dark .avatar.avatar-xl img {
-    font-size: 1.4rem;
-    height: 60px;
-    width: 60px
+    font-size: 50px;
+    height: 150px;
+    width: 150px
 }
 
 body.theme-dark .btn .badge {

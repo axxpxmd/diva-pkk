@@ -39,7 +39,7 @@
                 </a>
             </header>
             <main>
-                <div class="alert alert-warning text-center position-absolute fs-14 p-2" style="z-index: 9999999; left: 47%; display: none" id="loading">Harap tunggu.</div>
+                <div class="alert alert-warning text-center position-absolute fw-bold fs-14 p-2" style="z-index: 9999999; left: 47%; display: none" id="loading">Harap tunggu.</div>
                 @yield('content')
             </main>
         </div>

@@ -5,13 +5,12 @@ namespace App\Http\Controllers;
 use DataTables;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 // Models
-use App\Models\ModelHasRole;
 use App\Models\RTRW;
 use App\Models\User;
-use Illuminate\Foundation\Auth\User as IlluminateUser;
-use Illuminate\Support\Facades\DB;
+use App\Models\ModelHasRole;
 use Spatie\Permission\Models\Role;
 
 class KaderController extends Controller
@@ -44,7 +43,9 @@ class KaderController extends Controller
 
     public function dataTable()
     {
-        $data = User::all();
+        $data = User::join('model_has_roles', 'model_has_roles.model_id', '=', 'users.id')
+            ->whereNotIn('model_has_roles.role_id', [1])
+            ->get();
 
         return DataTables::of($data)
             ->rawColumns(['id', 'nama'])
@@ -88,7 +89,7 @@ class KaderController extends Controller
             //* Tahap 1
             $data_user = [
                 'username' => $request->username,
-                'password' => '123456789',
+                'password' => \md5('123456789'),
                 'rtrw_id' => $request->rtrw_id,
                 'dasawisma_id' => $request->dasawisma_id,
                 'nama' => $request->nama,
@@ -160,7 +161,6 @@ class KaderController extends Controller
             //* Tahap 1
             $data_user = [
                 'username' => $request->username,
-                'password' => '123456789',
                 'rtrw_id' => $request->rtrw_id,
                 'dasawisma_id' => $request->dasawisma_id,
                 'nama' => $request->nama,

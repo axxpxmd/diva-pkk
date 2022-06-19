@@ -19422,9 +19422,9 @@ body .bi:before {
 
 .avatar.avatar-xl .avatar-content,
 .avatar.avatar-xl img {
-    font-size: 1.4rem;
-    height: 60px;
-    width: 60px
+    font-size: 50px;
+    height: 150px;
+    width: 150px
 }
 
 .btn .badge {

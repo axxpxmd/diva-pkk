@@ -8,6 +8,10 @@
     .img-dynamic{
         display: none;
     } 
+
+    .mb-5-m {
+        margin-bottom: 5px;
+    }
 }  
 
 .css-selector {

@@ -8,6 +8,7 @@ use App\Http\Controllers\DasawismaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KaderController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\RTRWController;
 use App\Http\Controllers\UtilityController;
@@ -35,14 +36,21 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::resource('/rt-rw', RTRWController::class);
+
     Route::resource('/dasawisma', DasawismaController::class);
+
     Route::resource('/kader', KaderController::class);
+
     Route::resource('/permission', PermissionController::class);
+
     Route::resource('/role', RoleController::class);
     Route::get('/role/{id}/permission', [RoleController::class, 'permission'])->name('role.permission');
     Route::get('/role/{id}/get-permission', [RoleController::class, 'getPermission'])->name('role.getPermission');
     Route::post('/role/store-permission', [RoleController::class, 'storePermission'])->name('role.storePermission');
     Route::delete('/role/{name}/destroy-permission', [RoleController::class, 'destroyPermission'])->name('role.destroyPermission');
+
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::post('/profile/update-passowrd', [ProfileController::class, 'updatePassword'])->name('profile.updatePassword');
 
     Route::get('/get-kelurahan/{id}', [UtilityController::class, 'kelurahanByKecamatan'])->name('kelurahanByKecamatan');
     Route::Get('/get-dasawisma/{id}', [UtilityController::class, 'dasawismaByRTRW'])->name('dasawismaByRTRW');
