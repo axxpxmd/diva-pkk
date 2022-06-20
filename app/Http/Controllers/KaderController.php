@@ -29,7 +29,7 @@ class KaderController extends Controller
             return $this->dataTable();
         }
 
-        $rtrws = RTRW::select('id', 'kecamatan_id', 'kelurahan_id', 'rw', 'rt')->get();
+        $rtrws = RTRW::groupBy('kelurahan_id')->get();
         $roles = Role::select('id', 'name')->get();
 
         return view('pages.kader.index', compact(

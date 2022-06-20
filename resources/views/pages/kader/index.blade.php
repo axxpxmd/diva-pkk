@@ -28,60 +28,69 @@
     </div>
 </section>
 <div class="modal fade" id="modalForm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel"><span id="txtTitle"></span> Data {{ $title }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="form" class="fs-14">
+                <form id="form" class="fs-14 needs-validation">
                     {{ method_field('POST') }}
                     <input type="text" class="d-none" id="id" name="id"/>
                     <div id="alert"></div>
                     <div class="row mb-2">
-                        <label for="username" class="col-sm-3 col-form-label">Username</label>
+                        <label for="username" class="col-sm-3 col-form-label">Username <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
                           <input type="text" name="username" id="username" class="form-control" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="row mb-2">
-                        <label for="nama" class="col-sm-3 col-form-label">Nama</label>
+                        <label for="nama" class="col-sm-3 col-form-label">Nama <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
                           <input type="text" name="nama" id="nama" class="form-control" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="row mb-2">
-                        <label for="nik" class="col-sm-3 col-form-label">NIK</label>
+                        <label for="nik" class="col-sm-3 col-form-label">NIK <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
                           <input type="number" name="nik" id="nik" class="form-control" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="row mb-2">
-                        <label for="rtrw_id" class="col-sm-3 col-form-label">Alamat</label>
+                        <label for="no_telp" class="col-sm-3 col-form-label">No Telp <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
-                            <select class="form-select" name="rtrw_id" id="rtrw_id" aria-label="Default select example">
+                          <input type="number" name="no_telp" id="no_telp" class="form-control" autocomplete="off" required>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <label for="alamat" class="col-sm-3 col-form-label">Alamat Kader <span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                          <textarea type="number" name="alamat" id="alamat" class="form-control" autocomplete="off" required></textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <label for="alamat_dasawisma_id" class="col-sm-3 col-form-label">Dasawisma <span class="text-danger">*</span></label>
+                        <div class="col-sm-4">
+                            <select class="form-control select2" id="alamat_dasawisma_id" name="alamat_dasawisma_id"">
                                 <option value="">Pilih</option>
                                 @foreach ($rtrws as $i)
-                                <option value="{{ $i->id }}">
-                                    {{ $i->kecamatan->n_kecamatan }} - {{ $i->kelurahan->n_kelurahan }} - RT {{ $i->rw }} / RW {{ $i->rt }}
-                                </option>
-                            @endforeach
+                                    <option value="{{ $i->id }}">
+                                        {{ $i->kecamatan->n_kecamatan }} - {{ $i->kelurahan->n_kelurahan }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
-                    </div>
-                    <div class="row mb-2">
-                        <label for="dasawisma_id" class="col-sm-3 col-form-label">Dasawisma</label>
-                        <div class="col-sm-9">
-                            <select class="form-select" name="dasawisma_id" id="dasawisma_id" aria-label="Default select example">
+                        <div class="col-sm-5">
+                            <select class="form-control select2" name="dasawisma_id" id="dasawisma_id">
                                 <option value="">Pilih</option>
                             </select>
                         </div>
                     </div>
                     <div class="row mb-2">
-                        <label for="role_id" class="col-sm-3 col-form-label">Role</label>
+                        <label for="role_id" class="col-sm-3 col-form-label">Role <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
-                            <select class="form-select" name="role_id" id="role_id" aria-label="Default select example">
+                            <select class="form-control select2" name="role_id" id="role_id">
                                 <option value="">Pilih</option>
                                 @foreach ($roles as $i)
                                     <option value="{{ $i->id }}">{{ $i->name }}</option>
@@ -92,7 +101,8 @@
                     <div class="row">
                         <div class="col-3"></div>
                         <div class="col-9">
-                            <button type="submit" class="btn btn-primary fs-14" id="btnSave"><i class="bi bi-save m-r-8"></i>Simpan <span id="txtSave"></span></button>
+                            <button type="submit" class="btn btn-primary fs-14" id="btnSave" title="Simpan Data"><i class="bi bi-save m-r-8"></i>Simpan <span id="txtSave"></span></button>
+                            <a href="#" onclick="add()" class="m-l-5 btn btn-danger fs-14" title="Kosongkan Form"><i class="bi bi-arrow-clockwise m-r-8"></i>Reset</a>
                         </div>
                     </div>
                 </form>
@@ -123,7 +133,7 @@
         ]
     });
 
-    $('#rtrw_id').on('change', function(){
+    $('#alamat_dasawisma_id').on('change', function(){
         val = $(this).val();
         option = "<option value=''>Pilih</option>";
         if(val == ""){
@@ -138,7 +148,7 @@
                     });
                     $('#dasawisma_id').empty().html(option);
 
-                    $("#dasawisma_id").val($("#dasawisma_id option:first").val());
+                    $("#dasawisma_id").val($("#dasawisma_id option:first").val()).trigger("change.select2");
                 }else{
                     $('#dasawisma_id').html(option);
                 }
@@ -174,9 +184,9 @@
             $('#nama').val(data.nama);
             $('#username').val(data.username);
             $('#nik').val(data.nik);
-            $('#rtrw_id').val(data.rtrw_id);
+            $('#alamat_dasawisma_id').val(data.alamat_dasawisma_id);
 
-            val = data.rtrw_id;
+            val = data.alamat_dasawisma_id;
             url = "{{ route('dasawismaByRTRW', ':id') }}".replace(':id', val);
             option = "<option value=''>&nbsp;</option>";
             $.get(url, function(dataResult){

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 // Models
 use App\Models\Kelurahan;
+use App\Models\RTRW;
 
 class UtilityController extends Controller
 {
@@ -19,7 +20,10 @@ class UtilityController extends Controller
 
     public function dasawismaByRTRW($id)
     {
-        $data = Dasawisma::where('rtrw_id', $id)->get();
+        $rtrw = RTRW::find($id);
+        $rtrws = RTRW::select('id')->where('kelurahan_id', $rtrw->kelurahan_id)->get()->toArray();
+
+        $data = Dasawisma::whereIn('rtrw_id', $rtrws)->get();
 
         return $data;
     }
