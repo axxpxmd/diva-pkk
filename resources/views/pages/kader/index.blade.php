@@ -18,6 +18,7 @@
                             <th>Nama</th>
                             <th>Nik</th>
                             <th>Dasawisma</th>
+                            <th>No Telp</th>
                             <th>Alamat</th>
                             <th>Aksi</th>
                         </tr>
@@ -54,19 +55,29 @@
                     <div class="row mb-2">
                         <label for="nik" class="col-sm-3 col-form-label">NIK <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
-                          <input type="number" name="nik" id="nik" class="form-control" autocomplete="off" required>
+                          <input type="number" name="nik" id="nik" class="form-control" placeholder="16 Digit" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="row mb-2">
                         <label for="no_telp" class="col-sm-3 col-form-label">No Telp <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
-                          <input type="number" name="no_telp" id="no_telp" class="form-control" autocomplete="off" required>
+                          <input type="number" name="no_telp" id="no_telp" placeholder="08xxx" class="form-control" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="row mb-2">
-                        <label for="alamat" class="col-sm-3 col-form-label">Alamat Kader <span class="text-danger">*</span></label>
-                        <div class="col-sm-9">
-                          <textarea type="number" name="alamat" id="alamat" class="form-control" autocomplete="off" required></textarea>
+                        <label for="rtrw_id" class="col-sm-3 col-form-label">Alamat Kader <span class="text-danger">*</span></label>
+                        <div class="col-sm-4">
+                            <select class="form-control select2" id="rtrw_id" name="rtrw_id"">
+                                <option value="">Pilih</option>
+                                @foreach ($rtrwAlls as $i)
+                                    <option value="{{ $i->id }}">
+                                        {{ $i->kecamatan->n_kecamatan }} - {{ $i->kelurahan->n_kelurahan }} - RT {{ $i->rw }} / RW {{ $i->rt }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-sm-5">
+                          <textarea type="number" name="alamat" id="alamat" cols="9" placeholder="Alamat Detail" class="form-control" autocomplete="off" required></textarea>
                         </div>
                     </div>
                     <div class="row mb-2">
@@ -74,7 +85,7 @@
                         <div class="col-sm-4">
                             <select class="form-control select2" id="alamat_dasawisma_id" name="alamat_dasawisma_id"">
                                 <option value="">Pilih</option>
-                                @foreach ($rtrws as $i)
+                                @foreach ($rtrwKelurahans as $i)
                                     <option value="{{ $i->id }}">
                                         {{ $i->kecamatan->n_kecamatan }} - {{ $i->kelurahan->n_kelurahan }}
                                     </option>
@@ -102,7 +113,7 @@
                         <div class="col-3"></div>
                         <div class="col-9">
                             <button type="submit" class="btn btn-primary fs-14" id="btnSave" title="Simpan Data"><i class="bi bi-save m-r-8"></i>Simpan <span id="txtSave"></span></button>
-                            <a href="#" onclick="add()" class="m-l-5 btn btn-danger fs-14" title="Kosongkan Form"><i class="bi bi-arrow-clockwise m-r-8"></i>Reset</a>
+                            <a href="#" onclick="add()" class="m-l-5 text-danger fs-14" title="Kosongkan Form"><i class="bi bi-arrow-clockwise m-r-8"></i>Reset</a>
                         </div>
                     </div>
                 </form>
@@ -128,9 +139,14 @@
             {data: 'nama', name: 'nama'},
             {data: 'nik', name: 'nik'},
             {data: 'dasawisma_id', name: 'dasawisma_id'},
+            {data: 'no_telp', name: 'no_telp'},
             {data: 'alamat', name: 'alamat'},
             {data: 'action', name: 'action', className: 'text-center', orderable: false, searchable: false}
         ]
+    });
+
+    $('.select2').select2({
+        dropdownParent: $('#modalForm')
     });
 
     $('#alamat_dasawisma_id').on('change', function(){
@@ -184,22 +200,28 @@
             $('#nama').val(data.nama);
             $('#username').val(data.username);
             $('#nik').val(data.nik);
-            $('#alamat_dasawisma_id').val(data.alamat_dasawisma_id);
+            $('#no_telp').val(data.no_telp);
+            $('#alamat').val(data.alamat);
+            $('#rtrw_id').val(data.rtrw_id).trigger("change.select2");
+            $('#role_id').val(data.role_id).trigger("change.select2");
+
+            $('#alamat_dasawisma_id').val(data.alamat_dasawisma_id).trigger("change.select2");
 
             val = data.alamat_dasawisma_id;
             url = "{{ route('dasawismaByRTRW', ':id') }}".replace(':id', val);
             option = "<option value=''>&nbsp;</option>";
             $.get(url, function(dataResult){
-                $.each(dataResult, function(index, value){
-                    option += "<option value='" + value.id + "'>" + value.nama +"</li>";
-                });
-                $('#dasawisma_id').empty().html(option);
+                if(dataResult){
+                    $.each(dataResult, function(index, value){
+                        option += "<option value='" + value.id + "'>" + value.nama +"</li>";
+                    });
+                    $('#dasawisma_id').empty().html(option);
 
-                $("#dasawisma_id").val(data.dasawisma_id);
+                    $("#dasawisma_id").val(data.dasawisma_id).trigger("change.select2");
+                }else{
+                    $('#dasawisma_id').html(option);
+                }
             }, 'JSON'); 
-
-            $('#role_id').val(data.role_id);
-
         });
     }
     

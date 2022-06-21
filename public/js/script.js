@@ -44,11 +44,3 @@ function success(message) {
         }
     });
 }
-
-$('.select2').select2({
-    dropdownParent: $('#modalForm')
-});
-
-$(document).ready(function() {
-    $('.select2').select2();
-});

@@ -61,6 +61,10 @@
         });
     }
 
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
+
     $('#form').on('submit', function (e) {
         if ($(this)[0].checkValidity() === false) {
             event.preventDefault();

@@ -12,7 +12,7 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasRoles;
 
-    protected $fillable = ['id', 'rtrw_id', 'dasawisma_id', 'username', 'password', 's_aktif', 'nama', 'nik', 'foto'];
+    protected $fillable = ['id', 'rtrw_id', 'dasawisma_id', 'username', 'password', 'no_telp', 's_aktif', 'alamat', 'nama', 'nik', 'foto'];
 
     public function rtrw()
     {

@@ -29,7 +29,9 @@ class KaderController extends Controller
             return $this->dataTable();
         }
 
-        $rtrws = RTRW::groupBy('kelurahan_id')->get();
+        $rtrws = RTRW::select('id', 'kecamatan_id', 'kelurahan_id', 'rt', 'rw');
+        $rtrwAlls = $rtrws->get();
+        $rtrwKelurahans = $rtrws->groupBy('kelurahan_id')->get();
         $roles = Role::select('id', 'name')->get();
 
         return view('pages.kader.index', compact(
@@ -37,7 +39,9 @@ class KaderController extends Controller
             'desc',
             'active_kader',
             'rtrws',
-            'roles'
+            'roles',
+            'rtrwKelurahans',
+            'rtrwAlls'
         ));
     }
 
@@ -57,9 +61,10 @@ class KaderController extends Controller
                 return $p->dasawisma->nama;
             })
             ->addColumn('alamat', function ($p) {
-                return $p->rtrw->kecamatan->n_kecamatan . ' - ' . $p->rtrw->kelurahan->n_kelurahan . ' - RT ' . $p->rtrw->rt . ' / RW ' . $p->rtrw->rw;
+                return $p->rtrw->kecamatan->n_kecamatan . ' - ' . $p->rtrw->kelurahan->n_kelurahan . ' - RT ' . $p->rtrw->rt . ' / RW ' . $p->rtrw->rw .
+                    '</br>' . $p->alamat;
             })
-            ->rawColumns(['id', 'action'])
+            ->rawColumns(['id', 'action', 'alamat'])
             ->addIndexColumn()
             ->toJson();
     }
@@ -73,7 +78,7 @@ class KaderController extends Controller
             'dasawisma_id' => 'required',
             'role_id' => 'required'
         ], [
-            'rtrw_id.required' => 'Alamat wajib diisi',
+            'rtrw_id.required' => 'Alamat kader wajib diisi',
             'dasawisma_id.required' => 'Dasawisma wajib diisi',
             'role_id.required' => 'Role Wajib diisi'
         ]);
@@ -92,6 +97,8 @@ class KaderController extends Controller
                 'password' => \md5('123456789'),
                 'rtrw_id' => $request->rtrw_id,
                 'dasawisma_id' => $request->dasawisma_id,
+                'alamat' => $request->alamat,
+                'no_telp' => $request->no_telp,
                 'nama' => $request->nama,
                 'nik' => $request->nik,
                 'foto' => 'default.png',
@@ -121,16 +128,21 @@ class KaderController extends Controller
 
     public function edit($id)
     {
-        $data = User::where('id', $id)->with('modelHasRole')->first();
+        $data = User::where('id', $id)->with(['modelHasRole', 'dasawisma'])->first();
+
+        $rtrws = RTRW::where('kelurahan_id', $data->dasawisma->rtrw->kelurahan_id)->first();
 
         $data_user = [
             'id' => $data->id,
             'username' => $data->username,
             'nama' => $data->nama,
             'nik' => $data->nik,
+            'alamat' => $data->alamat,
+            'no_telp' => $data->no_telp,
             'rtrw_id' => $data->rtrw_id,
             'dasawisma_id' => $data->dasawisma_id,
-            'role_id' => $data->modelHasRole->role_id
+            'role_id' => $data->modelHasRole->role_id,
+            'alamat_dasawisma_id' => $rtrws->id
         ];
 
         return $data_user;
@@ -145,7 +157,7 @@ class KaderController extends Controller
             'dasawisma_id' => 'required',
             'role_id' => 'required'
         ], [
-            'rtrw_id.required' => 'Alamat wajib diisi',
+            'rtrw_id.required' => 'Alamat kader wajib diisi',
             'dasawisma_id.required' => 'Dasawisma wajib diisi',
             'role_id.required' => 'Role Wajib diisi'
         ]);
@@ -164,8 +176,9 @@ class KaderController extends Controller
                 'rtrw_id' => $request->rtrw_id,
                 'dasawisma_id' => $request->dasawisma_id,
                 'nama' => $request->nama,
+                'no_telp' => $request->no_telp,
+                'alamat' => $request->alamat,
                 'nik' => $request->nik,
-                'foto' => 'default.png',
                 's_aktif' => 1
             ];
 
