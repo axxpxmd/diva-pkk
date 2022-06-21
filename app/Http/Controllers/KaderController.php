@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Dasawisma;
 use DataTables;
 
 use Illuminate\Http\Request;
@@ -11,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 // Models
 use App\Models\RTRW;
 use App\Models\User;
+use App\Models\Dasawisma;
 use App\Models\ModelHasRole;
 use Spatie\Permission\Models\Role;
 

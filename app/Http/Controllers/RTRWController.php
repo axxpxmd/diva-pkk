@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Dasawisma;
 use DataTables;
 
 use Illuminate\Http\Request;
 
 // Models
 use App\Models\RTRW;
+use App\Models\Dasawisma;
 use App\Models\Kecamatan;
 
 class RTRWController extends Controller

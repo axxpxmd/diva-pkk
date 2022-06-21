@@ -7,9 +7,9 @@ use DataTables;
 use Illuminate\Http\Request;
 
 // Models
-use App\Models\Dasawisma;
 use App\Models\RTRW;
 use App\Models\User;
+use App\Models\Dasawisma;
 
 class DasawismaController extends Controller
 {

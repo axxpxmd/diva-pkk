@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dasawisma;
-use Illuminate\Http\Request;
 
 // Models
-use App\Models\Kelurahan;
 use App\Models\RTRW;
+use App\Models\Kelurahan;
 
 class UtilityController extends Controller
 {
