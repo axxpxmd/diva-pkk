@@ -30,4 +30,13 @@ class User extends Authenticatable
     {
         return $this->belongsTo(ModelHasRole::class, 'id', 'model_id');
     }
+
+    public static function queryTable()
+    {
+        $data =  User::join('model_has_roles', 'model_has_roles.model_id', '=', 'users.id')
+            ->whereNotIn('model_has_roles.role_id', [1])
+            ->get();
+
+        return $data;
+    }
 }

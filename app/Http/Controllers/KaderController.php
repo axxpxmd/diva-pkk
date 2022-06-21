@@ -47,9 +47,7 @@ class KaderController extends Controller
 
     public function dataTable()
     {
-        $data = User::join('model_has_roles', 'model_has_roles.model_id', '=', 'users.id')
-            ->whereNotIn('model_has_roles.role_id', [1])
-            ->get();
+        $data = User::queryTable();
 
         return DataTables::of($data)
             ->rawColumns(['id', 'nama'])

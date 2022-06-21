@@ -27,7 +27,7 @@
     </div>
 </section>
 <div class="modal fade" id="modalForm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel"><span id="txtTitle"></span> Data {{ $title }}</h5>
@@ -39,9 +39,9 @@
                     <input type="text" class="d-none" id="id" name="id"/>
                     <div id="alert"></div>
                     <div class="row mb-2">
-                        <label for="rtrw_id" class="col-sm-3 col-form-label">Alamat</label>
+                        <label for="rtrw_id" class="col-sm-3 col-form-label">Alamat <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
-                            <select class="form-select" name="rtrw_id" id="rtrw_id" aria-label="Default select example">
+                            <select class="form-select select2" name="rtrw_id" id="rtrw_id">
                                 <option value="">Pilih</option>
                                 @foreach ($rtrws as $i)
                                     <option value="{{ $i->id }}">
@@ -52,7 +52,7 @@
                         </div>
                     </div>
                     <div class="row mb-2">
-                        <label for="nama" class="col-sm-3 col-form-label">Nama</label>
+                        <label for="nama" class="col-sm-3 col-form-label">Nama <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
                           <input type="text" name="nama" id="nama" class="form-control" autocomplete="off" required>
                         </div>
@@ -60,9 +60,9 @@
                     <div class="row mb-2" id="ketuaDisplay" style="display: none">
                         <label for="ketua_id" class="col-sm-3 col-form-label">Ketua</label>
                         <div class="col-sm-9">
-                            <select class="form-select" name="ketua_id" id="ketua_id" aria-label="Default select example">
+                            <select class="form-select select2" name="ketua_id" id="ketua_id">
                                 <option value="">Pilih</option>
-                                @foreach ($rtrws as $i)
+                                @foreach ($users as $i)
                                     <option value="{{ $i->id }}">{{ $i->nama }}</option>
                                 @endforeach
                             </select>
@@ -101,6 +101,10 @@
         ]
     });
 
+    $('.select2').select2({
+        dropdownParent: $('#modalForm')
+    });
+
     function openForm(){
         $('#modalForm').modal('show');
     }
@@ -113,6 +117,7 @@
         $('#txtTitle').html('Tambah');
         $('#txtSave').html('');
         $('#alert').html('');
+        $('#ketuaDisplay').hide();
     }
 
     function edit(id){
@@ -127,9 +132,9 @@
             $('#ketuaDisplay').show();
             openForm();
             $('#id').val(data.id);
-            $('#rtrw_id').val(data.rtrw_id);
+            $('#rtrw_id').val(data.rtrw_id).trigger("change.select2");
             $('#nama').val(data.nama);
-            $('#ketua_id').val(data.ketua_id);
+            $('#ketua_id').val(data.ketua_id).trigger("change.select2");
         });
     }
     

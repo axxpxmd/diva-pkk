@@ -43,7 +43,7 @@
                     <div class="row mb-2">
                         <label for="kecamatan_id" class="col-sm-3 col-form-label">Kecamatan</label>
                         <div class="col-sm-9">
-                            <select class="form-select" name="kecamatan_id" id="kecamatan_id" aria-label="Default select example">
+                            <select class="form-select select2" name="kecamatan_id" id="kecamatan_id">
                                 <option value="">Pilih</option>
                                 @foreach ($kecamatans as $i)
                                     <option value="{{ $i->id }}">{{ $i->n_kecamatan }}</option>
@@ -54,7 +54,7 @@
                     <div class="row mb-2">
                         <label for="kelurahan_id" class="col-sm-3 col-form-label">Kelurahan</label>
                         <div class="col-sm-9">
-                            <select class="form-select" name="kelurahan_id" id="kelurahan_id" aria-label="Default select example">
+                            <select class="form-select select2" name="kelurahan_id" id="kelurahan_id">
                                 <option value="">Pilih</option>
                             </select>
                         </div>
@@ -107,6 +107,10 @@
             {data: 'keterangan', name: 'keterangan'},
             {data: 'action', name: 'action', className: 'text-center', orderable: false, searchable: false}
         ]
+    });
+
+    $('.select2').select2({
+        dropdownParent: $('#modalForm')
     });
 
     $('#kecamatan_id').on('change', function(){
