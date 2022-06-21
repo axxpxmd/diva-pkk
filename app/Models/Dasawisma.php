@@ -22,4 +22,11 @@ class Dasawisma extends Model
     {
         return $this->belongsTo(RTRW::class, 'rtrw_id');
     }
+
+    public static function queryTable()
+    {
+        $data = Dasawisma::select('id', 'rtrw_id', 'nama', 'ketua_id')->get();
+
+        return $data;
+    }
 }

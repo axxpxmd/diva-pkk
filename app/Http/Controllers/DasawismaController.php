@@ -41,7 +41,7 @@ class DasawismaController extends Controller
 
     public function dataTable()
     {
-        $data = Dasawisma::all();
+        $data = Dasawisma::queryTable();
 
         return DataTables::of($data)
             ->rawColumns(['id', 'nama'])

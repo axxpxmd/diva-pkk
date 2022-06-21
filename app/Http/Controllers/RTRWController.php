@@ -39,7 +39,7 @@ class RTRWController extends Controller
 
     public function dataTable()
     {
-        $data = RTRW::all();
+        $data = RTRW::queryTable();
 
         return DataTables::of($data)
             ->rawColumns(['id', 'nama'])

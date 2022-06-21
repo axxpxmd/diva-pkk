@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class RTRW extends Model
 {
@@ -19,5 +17,12 @@ class RTRW extends Model
     public function kelurahan()
     {
         return $this->belongsTo(Kelurahan::class, 'kelurahan_id');
+    }
+
+    public static function queryTable()
+    {
+        $data = RTRW::select('kecamatan_id', 'kelurahan_id', 'rt', 'rw', 'keterangan')->get();
+
+        return $data;
     }
 }
