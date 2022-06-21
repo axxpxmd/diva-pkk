@@ -41,7 +41,7 @@
                     <input type="text" class="d-none" id="id" name="id"/>
                     <div id="alert"></div>
                     <div class="row mb-2">
-                        <label for="kecamatan_id" class="col-sm-3 col-form-label">Kecamatan</label>
+                        <label for="kecamatan_id" class="col-sm-3 col-form-label">Kecamatan <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
                             <select class="form-select select2" name="kecamatan_id" id="kecamatan_id">
                                 <option value="">Pilih</option>
@@ -52,7 +52,7 @@
                         </div>
                     </div>
                     <div class="row mb-2">
-                        <label for="kelurahan_id" class="col-sm-3 col-form-label">Kelurahan</label>
+                        <label for="kelurahan_id" class="col-sm-3 col-form-label">Kelurahan <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
                             <select class="form-select select2" name="kelurahan_id" id="kelurahan_id">
                                 <option value="">Pilih</option>
@@ -60,7 +60,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <label for="rt" class="col-sm-3 col-form-label">RT / RW</label>
+                        <label for="rt" class="col-sm-3 col-form-label">RT / RW <span class="text-danger">*</span></label>
                         <div class="col-sm-4 mb-2">
                           <input type="number" name="rt" id="rt" class="form-control" placeholder="RT / 001" autocomplete="off" required>
                         </div>
@@ -69,7 +69,7 @@
                         </div>
                     </div>
                     <div class="row mb-2">
-                        <label for="keterangan" class="col-sm-3 col-form-label">Keterangan</label>
+                        <label for="keterangan" class="col-sm-3 col-form-label">Keterangan </label>
                         <div class="col-sm-9">
                           <input type="text" name="keterangan" id="keterangan" class="form-control" autocomplete="off">
                         </div>

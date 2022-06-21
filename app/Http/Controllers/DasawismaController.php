@@ -46,8 +46,16 @@ class DasawismaController extends Controller
         return DataTables::of($data)
             ->rawColumns(['id', 'nama'])
             ->addColumn('action', function ($p) {
-                return '<a href="#" onclick="edit(' . $p->id . ')" class="text-info m-r-5" title="Edit Data"><i class="bi bi-pencil-fill"></i></a>
-                        <a href="#" onclick="remove(' . $p->id . ')" class="text-danger" title="Delete Data"><i class="bi bi-trash-fill"></i></a>';
+                $check = User::where('dasawisma_id', $p->id)->count();
+
+                $edit = '<a href="#" onclick="edit(' . $p->id . ')" class="text-info m-r-5" title="Edit Data"><i class="bi bi-pencil-fill"></i></a>';
+                $delete = '<a href="#" onclick="remove(' . $p->id . ')" class="text-danger" title="Delete Data"><i class="bi bi-trash-fill"></i></a>';
+
+                if ($check) {
+                    return $edit;
+                } else {
+                    return $edit . $delete;
+                }
             })
             ->addColumn('alamat', function ($p) {
                 return $p->rtrw->kecamatan->n_kecamatan . ' - ' . $p->rtrw->kelurahan->n_kelurahan . ' - RT ' . $p->rtrw->rt . ' / RW ' . $p->rtrw->rw;

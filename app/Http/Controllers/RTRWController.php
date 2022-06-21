@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dasawisma;
 use DataTables;
 
 use Illuminate\Http\Request;
@@ -43,6 +44,17 @@ class RTRWController extends Controller
         return DataTables::of($data)
             ->rawColumns(['id', 'nama'])
             ->addColumn('action', function ($p) {
+                $check = Dasawisma::where('rtrw_id', $p->id)->count();
+
+                $edit = '<a href="#" onclick="edit(' . $p->id . ')" class="text-info m-r-5" title="Edit Data"><i class="bi bi-pencil-fill"></i></a>';
+                $delete = '<a href="#" onclick="remove(' . $p->id . ')" class="text-danger" title="Delete Data"><i class="bi bi-trash-fill"></i></a>';
+
+                if ($check) {
+                    return $edit;
+                } else {
+                    return $edit . $delete;
+                }
+
                 return '<a href="#" onclick="edit(' . $p->id . ')" class="text-info m-r-5" title="Edit Data"><i class="bi bi-pencil-fill"></i></a>
                         <a href="#" onclick="remove(' . $p->id . ')" class="text-danger" title="Delete Data"><i class="bi bi-trash-fill"></i></a>';
             })

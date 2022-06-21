@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dasawisma;
 use DataTables;
 
 use Illuminate\Http\Request;
@@ -32,7 +33,7 @@ class KaderController extends Controller
         $rtrws = RTRW::select('id', 'kecamatan_id', 'kelurahan_id', 'rt', 'rw');
         $rtrwAlls = $rtrws->get();
         $rtrwKelurahans = $rtrws->groupBy('kelurahan_id')->get();
-        $roles = Role::select('id', 'name')->get();
+        $roles = Role::select('id', 'name')->whereNotIn('id', [1])->get();
 
         return view('pages.kader.index', compact(
             'title',
@@ -52,8 +53,16 @@ class KaderController extends Controller
         return DataTables::of($data)
             ->rawColumns(['id', 'nama'])
             ->addColumn('action', function ($p) {
-                return '<a href="#" onclick="edit(' . $p->id . ')" class="text-info m-r-5" title="Edit Data"><i class="bi bi-pencil-fill"></i></a>
-                        <a href="#" onclick="remove(' . $p->id . ')" class="text-danger" title="Delete Data"><i class="bi bi-trash-fill"></i></a>';
+                $check = Dasawisma::where('ketua_id', $p->id)->count();
+
+                $edit = '<a href="#" onclick="edit(' . $p->id . ')" class="text-info m-r-5" title="Edit Data"><i class="bi bi-pencil-fill"></i></a>';
+                $delete = '<a href="#" onclick="remove(' . $p->id . ')" class="text-danger" title="Delete Data"><i class="bi bi-trash-fill"></i></a>';
+
+                if ($check) {
+                    return $edit;
+                } else {
+                    return $edit . $delete;
+                }
             })
             ->editColumn('dasawisma_id', function ($p) {
                 return $p->dasawisma->nama;
