@@ -25,8 +25,8 @@
                         </div>
                         <hr>
                         <div class="mt-2">
-                            <a href="#" class="btn btn-warning mb-5-m"><i class="bi bi-key-fill m-r-8"></i>Ubah Password</a>
-                            <a href="#" class="btn btn-primary"><i class="bi bi-camera-fill m-r-8"></i>Ubah Foto</a>
+                            <a href="#" class="btn btn-warning fs-14 mb-5-m"><i class="bi bi-key-fill m-r-8"></i>Ubah Password</a>
+                            <a href="#" class="btn btn-primary fs-14"><i class="bi bi-camera-fill m-r-8"></i>Ubah Foto</a>
                         </div>
                     </div>
                 </div>
@@ -47,12 +47,20 @@
                             <input type="text" name="nik" id="nik" value="{{ $user->nik }}" class="form-control" autocomplete="off" required/>
                         </div>
                         <div class="mt-2">
+                            <label for="no_telp" class="form-label fw-bold">No Telp</label>
+                            <input type="text" name="no_telp" id="no_telp" value="{{ $user->no_telp }}" class="form-control" autocomplete="off" required/>
+                        </div>
+                        <div class="mt-2">
+                            <label for="alamat" class="form-label fw-bold">Alamat Lengkap</label>
+                            <textarea type="text" name="alamat" id="alamat" class="form-control" autocomplete="off" required>{{ $user->alamat }}</textarea>
+                        </div>
+                        <div class="mt-2">
                             <label for="username" class="form-label fw-bold">Username</label>
                             <input type="text" name="username" id="username" value="{{ $user->username }}" readonly class="form-control" autocomplete="off" required/>
                         </div>
                         <div class="mt-2">
                             <label for="rtrw_id" class="form-label fw-bold">Alamat</label>
-                            <input type="text" name="rtrw_id" id="rtrw_id" value=" {{ $user->rtrw->kecamatan->n_kecamatan }} - {{ $user->rtrw->kelurahan->n_kelurahan }} - RT {{ $user->rtrw->rw }} / RW {{ $user->rtrw->rt }}" readonly class="form-control" autocomplete="off" required/>
+                            <input type="text" name="rtrw_id" id="rtrw_id" value="{{ $user->rtrw->kecamatan->n_kecamatan }} - {{ $user->rtrw->kelurahan->n_kelurahan }} - RT {{ $user->rtrw->rw }} / RW {{ $user->rtrw->rt }}" readonly class="form-control" autocomplete="off" required/>
                         </div>
                         <div class="mt-2">
                             <label for="s_aktif" class="form-label fw-bold">Status Akun</label>
