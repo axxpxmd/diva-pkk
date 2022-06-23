@@ -25,14 +25,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 </head>
 <body>
-    <section class="master-bg-payment" style="background: #0094BA">
+    <section class="master-bg-payment" style="background-image: url('images/logo/BG.jpg')">
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-md-12 col-lg-10">
 					<div class="wrap d-md-flex mt-5">
 						<div class="login-wrap px-5 py-4">
 							<div class="text-center">
-                                <img src="{{ asset('images/logo/tangsel.png') }}" width="120" alt="">
+                                <img src="{{ asset('images/logo/LOGO-PKK.png') }}" width="120" alt="">
 								<div class="text-center p-2">
                                     <h5 class="m-0 text-grey">Selamat Datang Di
                                         <br>
