@@ -29,8 +29,8 @@
 <div class="modal fade" id="modalForm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"><span id="txtTitle"></span> Data {{ $title }}</h5>
+            <div class="modal-header bg-info">
+                <h5 class="modal-title text-white" id="exampleModalLabel"><span id="txtTitle"></span> Data {{ $title }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -39,7 +39,7 @@
                     <input type="text" class="d-none" id="id" name="id"/>
                     <div id="alert"></div>
                     <div class="row mb-2">
-                        <label for="rtrw_id" class="col-sm-3 col-form-label">Alamat <span class="text-danger">*</span></label>
+                        <label for="rtrw_id" class="col-sm-3 col-form-label fw-bold">Alamat <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
                             <select class="form-select select2" name="rtrw_id" id="rtrw_id">
                                 <option value="">Pilih</option>
@@ -52,13 +52,13 @@
                         </div>
                     </div>
                     <div class="row mb-2">
-                        <label for="nama" class="col-sm-3 col-form-label">Nama <span class="text-danger">*</span></label>
+                        <label for="nama" class="col-sm-3 col-form-label fw-bold">Nama <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
                           <input type="text" name="nama" id="nama" class="form-control" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="row mb-2" id="ketuaDisplay" style="display: none">
-                        <label for="ketua_id" class="col-sm-3 col-form-label">Ketua</label>
+                        <label for="ketua_id" class="col-sm-3 col-form-label fw-bold">Ketua</label>
                         <div class="col-sm-9">
                             <select class="form-select select2" name="ketua_id" id="ketua_id">
                                 <option value="">Pilih</option>
@@ -71,7 +71,7 @@
                     <div class="row">
                         <div class="col-sm-3"></div>
                         <div class="col-sm-9">
-                            <button type="submit" class="btn btn-primary fs-14" id="btnSave"><i class="bi bi-save m-r-8"></i>Simpan <span id="txtSave"></span></button>
+                            <button type="submit" class="btn btn-info fs-14" id="btnSave"><i class="bi bi-save m-r-8"></i>Simpan <span id="txtSave"></span></button>
                         </div>
                     </div>
                 </form>

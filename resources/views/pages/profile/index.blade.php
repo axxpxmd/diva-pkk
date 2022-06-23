@@ -25,8 +25,8 @@
                         </div>
                         <hr>
                         <div class="mt-2">
-                            <a href="#" class="btn btn-warning fs-14 mb-5-m"><i class="bi bi-key-fill m-r-8"></i>Ubah Password</a>
-                            <a href="#" class="btn btn-primary fs-14"><i class="bi bi-camera-fill m-r-8"></i>Ubah Foto</a>
+                            <a href="#" class="btn btn-warning fs-14 mb-5-m" onclick="openModalResetPassword()"><i class="bi bi-key-fill m-r-8"></i>Ubah Password</a>
+                            <a href="#" class="btn btn-primary fs-14" onclick="openModalChangePhoto()"><i class="bi bi-camera-fill m-r-8"></i>Ubah Foto</a>
                         </div>
                     </div>
                 </div>
@@ -79,4 +79,42 @@
         </div>
     </div>
 </section>
+<div class="modal fade" id="modalForm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-info bg-info">
+                <h5 class="modal-title text-white"><span id="txtTitle"></span>Ubah Password</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div style="display: none" id="resetPassword">
+                    ini buat ubah password
+                </div>
+
+                <div style="display: none" id="changePhoto">
+                    ini buat ubah foto
+                </div>
+                {{-- <form id="form" class="fs-14">
+                    {{ method_field('POST') }}
+                </form> --}}
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
+@push('script')
+<script type="text/javascript">
+    function openModalResetPassword(){
+        $('#modalForm').modal('show');
+        $('#resetPassword').show();
+        $('#changePhoto').hide();
+    }
+
+    function openModalChangePhoto(){
+        $('#modalForm').modal('show');
+        $('#changePhoto').show();
+        $('#resetPassword').hide();
+    }
+</script>
+@endpush

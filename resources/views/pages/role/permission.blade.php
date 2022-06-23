@@ -15,7 +15,7 @@
                         {{ method_field('POST') }}
                         <input type="hidden" id="id" name="id" value="{{ $role->id }}"/>
                         <div class="row mb-2">
-                            <label for="permissions" class="col-sm-3 col-form-label">Permission :</label>
+                            <label for="permissions" class="col-sm-3 col-form-label fw-bold">Permission :</label>
                             <div class="col-sm-9">
                                 <select class="select2 form-select" name="permissions[]" id="permissions" multiple="multiple" required>
                                     @foreach($permissions as $key=>$permission)

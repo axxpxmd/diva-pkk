@@ -31,8 +31,8 @@
 <div class="modal fade" id="modalForm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"><span id="txtTitle"></span> Data {{ $title }}</h5>
+            <div class="modal-header bg-info">
+                <h5 class="modal-title text-white" id="exampleModalLabel"><span id="txtTitle"></span> Data {{ $title }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -41,7 +41,7 @@
                     <input type="text" class="d-none" id="id" name="id"/>
                     <div id="alert"></div>
                     <div class="row mb-2">
-                        <label for="kecamatan_id" class="col-sm-3 col-form-label">Kecamatan <span class="text-danger">*</span></label>
+                        <label for="kecamatan_id" class="col-sm-3 col-form-label fw-bold">Kecamatan <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
                             <select class="form-select select2" name="kecamatan_id" id="kecamatan_id">
                                 <option value="">Pilih</option>
@@ -52,7 +52,7 @@
                         </div>
                     </div>
                     <div class="row mb-2">
-                        <label for="kelurahan_id" class="col-sm-3 col-form-label">Kelurahan <span class="text-danger">*</span></label>
+                        <label for="kelurahan_id" class="col-sm-3 col-form-label fw-bold">Kelurahan <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
                             <select class="form-select select2" name="kelurahan_id" id="kelurahan_id">
                                 <option value="">Pilih</option>
@@ -60,7 +60,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <label for="rt" class="col-sm-3 col-form-label">RT / RW <span class="text-danger">*</span></label>
+                        <label for="rt" class="col-sm-3 col-form-label fw-bold">RT / RW <span class="text-danger">*</span></label>
                         <div class="col-sm-4 mb-2">
                           <input type="number" name="rt" id="rt" class="form-control" placeholder="RT / 001" autocomplete="off" required>
                         </div>
@@ -69,7 +69,7 @@
                         </div>
                     </div>
                     <div class="row mb-2">
-                        <label for="keterangan" class="col-sm-3 col-form-label">Keterangan </label>
+                        <label for="keterangan" class="col-sm-3 col-form-label fw-bold">Keterangan </label>
                         <div class="col-sm-9">
                           <input type="text" name="keterangan" id="keterangan" class="form-control" autocomplete="off">
                         </div>
@@ -77,7 +77,7 @@
                     <div class="row">
                         <div class="col-sm-3"></div>
                         <div class="col-sm-9">
-                            <button type="submit" class="btn btn-primary fs-14" id="btnSave"><i class="bi bi-save m-r-8"></i>Simpan <span id="txtSave"></span></button>
+                            <button type="submit" class="btn btn-info fs-14" id="btnSave"><i class="bi bi-save m-r-8"></i>Simpan <span id="txtSave"></span></button>
                         </div>
                     </div>
                 </form>

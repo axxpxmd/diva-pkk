@@ -31,8 +31,8 @@
 <div class="modal fade" id="modalForm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"><span id="txtTitle"></span> Data {{ $title }}</h5>
+            <div class="modal-header bg-info">
+                <h5 class="modal-title text-white" id="exampleModalLabel"><span id="txtTitle"></span> Data {{ $title }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -41,31 +41,31 @@
                     <input type="text" class="d-none" id="id" name="id"/>
                     <div id="alert"></div>
                     <div class="row mb-2">
-                        <label for="username" class="col-sm-3 col-form-label">Username <span class="text-danger">*</span></label>
+                        <label for="username" class="col-sm-3 col-form-label fw-bold">Username <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
                           <input type="text" name="username" id="username" class="form-control" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="row mb-2">
-                        <label for="nama" class="col-sm-3 col-form-label">Nama <span class="text-danger">*</span></label>
+                        <label for="nama" class="col-sm-3 col-form-label fw-bold">Nama <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
                           <input type="text" name="nama" id="nama" class="form-control" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="row mb-2">
-                        <label for="nik" class="col-sm-3 col-form-label">NIK <span class="text-danger">*</span></label>
+                        <label for="nik" class="col-sm-3 col-form-label fw-bold">NIK <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
                           <input type="number" name="nik" id="nik" class="form-control" placeholder="16 Digit" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="row mb-2">
-                        <label for="no_telp" class="col-sm-3 col-form-label">No Telp <span class="text-danger">*</span></label>
+                        <label for="no_telp" class="col-sm-3 col-form-label fw-bold">No Telp <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
                           <input type="number" name="no_telp" id="no_telp" placeholder="08xxx" class="form-control" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="row mb-2">
-                        <label for="rtrw_id" class="col-sm-3 col-form-label">Alamat Kader <span class="text-danger">*</span></label>
+                        <label for="rtrw_id" class="col-sm-3 col-form-label fw-bold">Alamat Kader <span class="text-danger">*</span></label>
                         <div class="col-sm-4">
                             <select class="form-control select2" id="rtrw_id" name="rtrw_id"">
                                 <option value="">Pilih</option>
@@ -81,7 +81,7 @@
                         </div>
                     </div>
                     <div class="row mb-2">
-                        <label for="alamat_dasawisma_id" class="col-sm-3 col-form-label">Dasawisma <span class="text-danger">*</span></label>
+                        <label for="alamat_dasawisma_id" class="col-sm-3 col-form-label fw-bold">Dasawisma <span class="text-danger">*</span></label>
                         <div class="col-sm-4">
                             <select class="form-control select2" id="alamat_dasawisma_id" name="alamat_dasawisma_id"">
                                 <option value="">Pilih</option>
@@ -99,7 +99,7 @@
                         </div>
                     </div>
                     <div class="row mb-2">
-                        <label for="role_id" class="col-sm-3 col-form-label">Role <span class="text-danger">*</span></label>
+                        <label for="role_id" class="col-sm-3 col-form-label fw-bold">Role <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
                             <select class="form-control select2" name="role_id" id="role_id">
                                 <option value="">Pilih</option>
@@ -112,7 +112,7 @@
                     <div class="row">
                         <div class="col-3"></div>
                         <div class="col-9">
-                            <button type="submit" class="btn btn-primary fs-14" id="btnSave" title="Simpan Data"><i class="bi bi-save m-r-8"></i>Simpan <span id="txtSave"></span></button>
+                            <button type="submit" class="btn btn-info fs-14" id="btnSave" title="Simpan Data"><i class="bi bi-save m-r-8"></i>Simpan <span id="txtSave"></span></button>
                             <a href="#" onclick="add()" class="m-l-5 text-danger fs-14" title="Kosongkan Form"><i class="bi bi-arrow-clockwise m-r-8"></i>Reset</a>
                         </div>
                     </div>
