@@ -45,55 +45,55 @@
                 </li>
 
                 <!-- Role -->
+                @canany(['permission','role'])
                 <li class="sidebar-title rounded p-2"><b>Setup Role</b></li>
+                @endcanany
+                @can('permission')
                 <li class="sidebar-item {{ isset($active_permission) ? 'active' : '-' }}">
                     <a href="{{ route('permission.index') }}" class='sidebar-link'>
                         <i class="bi bi-clipboard-fill text-success"></i>
                         <span>Permission</span>
                     </a>
                 </li>
+                @endcan
+                @can('role')
                 <li class="sidebar-item {{ isset($active_role) ? 'active' : '-' }}">
                     <a href="{{ route('role.index') }}" class='sidebar-link '>
                         <i class="bi bi-key-fill text-warning"></i>
                         <span>Role</span>
                     </a>
                 </li>
+                @endcan
 
                 <!-- Menu -->
+                @canany(['rt/rw','dasawisma','kader'])
                 <li class="sidebar-title rounded p-2"><b>Menu</b></li>
+                @endcanany
+                @can('rt/rw')
                 <li class="sidebar-item {{ isset($active_rtrw) ? 'active' : '-' }}">
                     <a href="{{ route('rt-rw.index') }}" class='sidebar-link'>
                         <i class="bi bi-file-text-fill text-danger"></i>
                         <span>RT/RW</span>
                     </a>
                 </li>
+                @endcan
+                @can('dasawisma')
                 <li class="sidebar-item {{ isset($active_dasawisma) ? 'active' : '-' }}">
                     <a href="{{ route('dasawisma.index') }}" class='sidebar-link'>
                         <i class="bi bi-bank text-success"></i>
                         <span>Dasawisma</span>
                     </a>
                 </li>
+                @endcan
+                @can('kader')
                 <li class="sidebar-item {{ isset($active_kader) ? 'active' : '-' }}">
                     <a href="{{ route('kader.index') }}" class='sidebar-link'>
                         <i class="bi bi-people-fill text-info"></i>
                         <span>Kader</span>
                     </a>
                 </li>
-                {{-- <li class="sidebar-itemhas-sub">
-                    <a href="#" class='sidebar-link'>
-                        <i class="bi bi-stack"></i>
-                        <span>Components</span>
-                    </a>
-                    <ul class="submenu ">
-                        <li class="submenu-item ">
-                            <a href="component-alert.html">Alert</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="component-badge.html">Badge</a>
-                        </li>
-                    </ul>
-                </li> --}}
-
+                @endcan
+              
                 <!-- Profile -->
                 <li class="sidebar-title rounded p-2"><b>Profile</b></li>
                 <li class="sidebar-item {{ isset($active_profile) ? 'active' : '-' }}">

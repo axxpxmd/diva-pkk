@@ -53,5 +53,5 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::post('/profile/update-passowrd', [ProfileController::class, 'updatePassword'])->name('profile.updatePassword');
 
     Route::get('/get-kelurahan/{id}', [UtilityController::class, 'kelurahanByKecamatan'])->name('kelurahanByKecamatan');
-    Route::Get('/get-dasawisma/{id}', [UtilityController::class, 'dasawismaByRTRW'])->name('dasawismaByRTRW');
+    Route::get('/get-dasawisma/{id}', [UtilityController::class, 'dasawismaByRTRW'])->name('dasawismaByRTRW');
 });

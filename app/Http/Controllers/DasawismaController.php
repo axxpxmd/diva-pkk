@@ -27,7 +27,7 @@ class DasawismaController extends Controller
             return $this->dataTable();
         }
 
-        $rtrws = RTRW::select('id', 'kecamatan_id', 'kelurahan_id', 'rw', 'rt')->get();
+        $rtrws = RTRW::select('id', 'kecamatan_id', 'kelurahan_id', 'rw', 'rt')->with(['kecamatan', 'kelurahan'])->get();
         $users = User::queryTable();
 
         return view('pages.dasawisma.index', compact(

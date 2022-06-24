@@ -66,7 +66,7 @@
                     </div>
                     <div class="row mb-2">
                         <label for="rtrw_id" class="col-sm-3 col-form-label fw-bold">Alamat Kader <span class="text-danger">*</span></label>
-                        <div class="col-sm-4">
+                        <div class="col-sm-9">
                             <select class="form-control select2" id="rtrw_id" name="rtrw_id"">
                                 <option value="">Pilih</option>
                                 @foreach ($rtrwAlls as $i)
@@ -76,9 +76,12 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-sm-5">
-                          <textarea type="number" name="alamat" id="alamat" cols="9" placeholder="Alamat Detail" class="form-control" autocomplete="off" required></textarea>
-                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <label for="alamat" class="col-sm-3 col-form-label fw-bold"></label>
+                        <div class="col-sm-9">
+                            <textarea type="number" name="alamat" id="alamat" cols="9" placeholder="Alamat Detail" class="form-control" autocomplete="off" required></textarea>
+                          </div>
                     </div>
                     <div class="row mb-2">
                         <label for="alamat_dasawisma_id" class="col-sm-3 col-form-label fw-bold">Dasawisma <span class="text-danger">*</span></label>
