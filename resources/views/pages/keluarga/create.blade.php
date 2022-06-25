@@ -17,18 +17,21 @@
                         <div class="row mb-2">
                             <label for="dasawisma_id" class="col-sm-4 col-form-label fw-bold text-end">Dasawisma <span class="text-danger">*</span></label>
                             <div class="col-sm-8">
-                                <select class="form-control select2" id="dasawisma_id" name="dasawisma_id" required>
+                                <select class="select2 form-select" id="dasawisma_id" name="dasawisma_id" required>
                                     <option value="">Pilih</option>
                                     @foreach ($dasawismas as $i)
                                         <option value="{{ $i->id }}">{{ $i->nama }}</option>
                                     @endforeach
                                 </select>
+                                <div class="invalid-feedback">
+                                    Silahkan pilih dasawisma.
+                                </div>
                             </div>
                         </div>
                         <div class="row mb-2">
                             <label for="rtrw_id" class="col-sm-4 col-form-label fw-bold text-end">RT/RW <span class="text-danger">*</span></label>
                             <div class="col-sm-8">
-                                <select class="form-control select2" id="rtrw_id" name="rtrw_id"">
+                                <select class="select2 form-select" id="rtrw_id" name="rtrw_id" required>
                                     <option value="">Pilih</option>
                                     @foreach ($rtrws as $i)
                                         <option value="{{ $i->id }}">
@@ -36,6 +39,9 @@
                                         </option>
                                     @endforeach
                                 </select>
+                                <div class="invalid-feedback">
+                                    Silahkan pilih RT/RW.
+                                </div>
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -115,6 +121,37 @@
                             <label for="jamban" class="col-sm-4 col-form-label text-end fw-bold">Jumlah Jamban <span class="text-danger">*</span></label>
                             <div class="col-sm-8">
                                 <input type="number" name="jamban" id="jamban" class="form-control" placeholder="Jumlah jamban keluarga" autocomplete="off" required>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <label for="mkn_pokok" class="col-sm-4 col-form-label text-end fw-bold">Sumber Air <span class="text-danger">*</span></label>
+                            <div class="col-sm-4 m-t-6">
+                                <input type="checkbox" name="pdam" id="pdam" class="form-check-input">
+                                <label class="form-check-label m-l-10" for="pdam">
+                                    PDAM
+                                </label>
+                            </div>
+                            <div class="col-sm-4 m-t-6">
+                                <input type="checkbox" name="sumur" id="sumur" class="form-check-input">
+                                <label class="form-check-label m-l-10" for="sumur">
+                                    Sumur
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <label for="mkn_pokok" class="col-sm-4 col-form-label text-end fw-bold"></label>
+                            <div class="col-sm-4 m-t-6">
+                                <input type="checkbox" name="sungai" id="sungai" class="form-check-input">
+                                <label class="form-check-label m-l-10" for="sungai">
+                                    Sungai
+                                </label>
+                            </div>
+                            <div class="col-sm-4 m-t-6">
+                                <input type="checkbox" name="lainnya" id="lainnya" value="1" class="form-check-input">
+                                <label class="form-check-label m-l-10" for="lainnya">
+                                    Lainnya
+                                </label>
+                                <input type="text" name="lainnya_value" id="lainnya_value" class="form-control mt-2" style="display: none" placeholder="Tambahkan Lainnya" autocomplete="off">
                             </div>
                         </div>
                     </div>
@@ -234,10 +271,24 @@
         val = $(this).val();
         if (val == 1) {
             $('#aktifitas_up2k_usaha_display').show();
+            $("#aktifitas_up2k_usaha_display").prop('required',true);
             $('#aktifitas_up2k_usaha_display').focus();
         } else {
             $('#aktifitas_up2k_usaha_display').hide();
+            $("#aktifitas_up2k_usaha_display").prop('required',false);
             $('#aktifitas_up2k_usaha_display').val(null);
+        }
+    });
+
+    $('#lainnya').click(function() {
+        if ($('#lainnya').is(":checked")){
+            $('#lainnya_value').show();
+            $("#lainnya_value").prop('required',true);
+            $('#lainnya_value').focus();
+        }else{
+            $('#lainnya_value').hide();
+            $("#lainnya_value").prop('required',false);
+            $('#lainnya_value').val(null);
         }
     });
 
