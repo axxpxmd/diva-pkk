@@ -10,7 +10,11 @@
     } 
 
     .mb-5-m {
-        margin-bottom: 5px;
+        margin-bottom: 8px;
+    }
+
+    .text-end{
+        text-align: left !important;
     }
 }  
 

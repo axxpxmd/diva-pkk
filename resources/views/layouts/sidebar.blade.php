@@ -93,6 +93,22 @@
                     </a>
                 </li>
                 @endcan
+                @can('kader')
+                <li class="sidebar-item {{ isset($active_kk) ? 'active' : '-' }}">
+                    <a href="{{ route('keluarga.index') }}" class='sidebar-link'>
+                        <i class="bi bi-files text-warning"></i>
+                        <span>Keluarga</span>
+                    </a>
+                </li>
+                @endcan
+                @can('kader')
+                <li class="sidebar-item {{ isset($active_anggota) ? 'active' : '-' }}">
+                    <a href="{{ route('kader.index') }}" class='sidebar-link'>
+                        <i class="bi bi-file-person-fill text-success"></i>
+                        <span>Anggota KK</span>
+                    </a>
+                </li>
+                @endcan
               
                 <!-- Profile -->
                 <li class="sidebar-title rounded p-2"><b>Profile</b></li>
