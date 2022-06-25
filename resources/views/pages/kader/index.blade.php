@@ -36,7 +36,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="form" class="fs-14 needs-validation">
+                <form id="form" class="fs-14 needs-validation" novalidate>
                     {{ method_field('POST') }}
                     <input type="text" class="d-none" id="id" name="id"/>
                     <div id="alert"></div>

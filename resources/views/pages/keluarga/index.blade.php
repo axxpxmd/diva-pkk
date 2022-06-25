@@ -17,7 +17,7 @@
                             <th>No</th>
                             <th>Kepala Keluarga</th>
                             <th>Dasawisma</th>
-                            <th>Jml Keluarga</th>
+                            <th>Jumlah Keluarga</th>
                             <th>Alamat</th>
                             <th>Kriteri</th>
                             <th>Aksi</th>

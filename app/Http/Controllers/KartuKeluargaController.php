@@ -68,6 +68,8 @@ class KartuKeluargaController extends Controller
 
     public function store(Request $request)
     {
+        dd($request->all());
+
         // $request->validate([
         //     'rtrw_id' => 'required',
         //     'dasawisma_id' => 'required',
