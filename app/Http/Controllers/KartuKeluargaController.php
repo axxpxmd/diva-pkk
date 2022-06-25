@@ -68,15 +68,22 @@ class KartuKeluargaController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
+        // $request->validate([
+        //     'rtrw_id' => 'required',
+        //     'dasawisma_id' => 'required',
+        //     'alamat_detail' => 'required',
+        //     'nm_kpl_klrg' => 'required',
+        //     'jml_laki' => 'required',
+        //     'jml_perempuan' => 'required'
+        // ], [
+        //     'rtrw_id.required' => 'RT/RW wajib diisi.',
+        //     'dasawisma_id.required' => 'Dasawisma wajib diisi.',
+        //     'alamat_detail.required' => 'Alamat wajib diisi.',
+        //     'nm_kpl_klrg.required' => 'Nama Kepala wajib diisi.',
+        //     'jml_laki.required' => 'Jumlah Laki - Laki wajib diisi.',
+        //     'jml_perempuan.required' => 'Jumlah Perempuan wajib diisi.'
+        // ]);
 
-        $request->validate([
-            'rtrw_id' => 'required',
-            'dasawisma_id' => 'required',
-            'alamat_detail' => 'required',
-            'nm_kpl_klrg' => 'required',
-            'jml_laki' => 'required',
-            'jml_perempuan' => 'required'
-        ]);
+        return response()->json(['message' => "Berhasil menyiman data."]);
     }
 }

@@ -256,15 +256,14 @@
             
             url = "{{ route('keluarga.store') }}"
             $.post(url, $(this).serialize(), function(data){
-                $('#alert').html("<div class='alert alert-success alert-dismissible' role='alert'><strong>Sukses!</strong> " + data.message + "</div>");
-                table.api().ajax.reload();
+                $('#alert').html("<div class='alert alert-success alert-dismissible fs-14' role='alert'><strong>Sukses!</strong> " + data.message + "</div>");
                 reset();
             },'json').fail(function(data){
                 err = ''; respon = data.responseJSON;
                 $.each(respon.errors, function(index, value){
                     err += "<li>" + value +"</li>";
                 });
-                $('#alert').html("<div class='alert alert-danger alert-dismissible' role='alert'>" + respon.message + "<ol class='pl-3 m-0'>" + err + "</ol></div>");
+                $('#alert').html("<div class='alert alert-danger alert-dismissible fs-14' role='alert'>" + respon.message + "<ol class='pl-3 m-0'>" + err + "</ol></div>");
             }).always(function(){
                 $('#loading').hide();
                 $('#btnSave').removeAttr('disabled');
