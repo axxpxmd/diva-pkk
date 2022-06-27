@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Dasawisma;
 use DataTables;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 // Models
-use App\Models\Keluarga;
 use App\Models\RTRW;
+use App\Models\Keluarga;
+use App\Models\Dasawisma;
 
 class KartuKeluargaController extends Controller
 {
@@ -54,6 +55,9 @@ class KartuKeluargaController extends Controller
         $desc  = 'Menu ini untuk menambah data keluarga';
         $active_kk = $this->active_kk;
 
+        $dasawisma_id = Auth::user()->dasawisma_id;
+        $rtrw_id = Auth::user()->rtrw_id;
+
         $dasawismas = Dasawisma::select('id', 'nama')->get();
         $rtrws = RTRW::select('id', 'kecamatan_id', 'kelurahan_id', 'rw', 'rt')->with(['kecamatan', 'kelurahan'])->get();
 
@@ -62,29 +66,30 @@ class KartuKeluargaController extends Controller
             'desc',
             'active_kk',
             'dasawismas',
-            'rtrws'
+            'rtrws',
+            'dasawisma_id',
+            'rtrw_id'
         ));
     }
 
     public function store(Request $request)
     {
-        dd($request->all());
-
-        // $request->validate([
-        //     'rtrw_id' => 'required',
-        //     'dasawisma_id' => 'required',
-        //     'alamat_detail' => 'required',
-        //     'nm_kpl_klrg' => 'required',
-        //     'jml_laki' => 'required',
-        //     'jml_perempuan' => 'required'
-        // ], [
-        //     'rtrw_id.required' => 'RT/RW wajib diisi.',
-        //     'dasawisma_id.required' => 'Dasawisma wajib diisi.',
-        //     'alamat_detail.required' => 'Alamat wajib diisi.',
-        //     'nm_kpl_klrg.required' => 'Nama Kepala wajib diisi.',
-        //     'jml_laki.required' => 'Jumlah Laki - Laki wajib diisi.',
-        //     'jml_perempuan.required' => 'Jumlah Perempuan wajib diisi.'
-        // ]);
+        $request->validate([
+            'rtrw_id' => 'required',
+            'dasawisma_id' => 'required',
+            'alamat_detail' => 'required',
+            'nm_kpl_klrg' => 'required',
+            'jml_laki' => 'required',
+            'jml_perempuan' => 'required',
+            'jamban' => 'required'
+        ], [
+            'rtrw_id.required' => 'RT/RW wajib diisi.',
+            'dasawisma_id.required' => 'Dasawisma wajib diisi.',
+            'alamat_detail.required' => 'Alamat wajib diisi.',
+            'nm_kpl_klrg.required' => 'Nama Kepala wajib diisi.',
+            'jml_laki.required' => 'Jumlah Laki - Laki wajib diisi.',
+            'jml_perempuan.required' => 'Jumlah Perempuan wajib diisi.',
+        ]);
 
         return response()->json(['message' => "Berhasil menyiman data."]);
     }

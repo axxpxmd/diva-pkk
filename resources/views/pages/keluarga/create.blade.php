@@ -20,7 +20,7 @@
                                 <select class="select2 form-select" id="dasawisma_id" name="dasawisma_id" required>
                                     <option value="">Pilih</option>
                                     @foreach ($dasawismas as $i)
-                                        <option value="{{ $i->id }}">{{ $i->nama }}</option>
+                                        <option value="{{ $i->id }}" {{ $i->id == $dasawisma_id ? 'selected' : '-' }}>{{ $i->nama }}</option>
                                     @endforeach
                                 </select>
                                 <div class="invalid-feedback">
@@ -34,7 +34,7 @@
                                 <select class="select2 form-select" id="rtrw_id" name="rtrw_id" required>
                                     <option value="">Pilih</option>
                                     @foreach ($rtrws as $i)
-                                        <option value="{{ $i->id }}">
+                                        <option value="{{ $i->id }}" {{ $i->id == $rtrw_id ? 'selected' : '-' }}>
                                             {{ $i->kecamatan->n_kecamatan }} - {{ $i->kelurahan->n_kelurahan }} - RT {{ $i->rw }} / RW {{ $i->rt }}
                                         </option>
                                     @endforeach
@@ -105,13 +105,13 @@
                         <div class="row mb-2">
                             <label for="mkn_pokok" class="col-sm-4 col-form-label text-end fw-bold">Makanan Pokok <span class="text-danger">*</span></label>
                             <div class="col-sm-4 m-t-6">
-                                <input type="checkbox" name="beras" id="beras" class="form-check-input">
+                                <input type="checkbox" name="beras" id="beras" value="1" class="form-check-input">
                                 <label class="form-check-label m-l-10" for="beras">
                                     Beras
                                 </label>
                             </div>
                             <div class="col-sm-4 m-t-6">
-                                <input type="checkbox" name="non_beras" id="non_beras" class="form-check-input">
+                                <input type="checkbox" name="non_beras" id="non_beras" value="2" class="form-check-input">
                                 <label class="form-check-label m-l-10" for="non_beras">
                                     Non Beras
                                 </label>
@@ -126,13 +126,13 @@
                         <div class="row mb-2">
                             <label for="mkn_pokok" class="col-sm-4 col-form-label text-end fw-bold">Sumber Air <span class="text-danger">*</span></label>
                             <div class="col-sm-4 m-t-6">
-                                <input type="checkbox" name="pdam" id="pdam" class="form-check-input">
+                                <input type="checkbox" name="pdam" id="pdam" value="PDAM" class="form-check-input">
                                 <label class="form-check-label m-l-10" for="pdam">
                                     PDAM
                                 </label>
                             </div>
                             <div class="col-sm-4 m-t-6">
-                                <input type="checkbox" name="sumur" id="sumur" class="form-check-input">
+                                <input type="checkbox" name="sumur" id="sumur" value="Sumur" class="form-check-input">
                                 <label class="form-check-label m-l-10" for="sumur">
                                     Sumur
                                 </label>
@@ -141,7 +141,7 @@
                         <div class="row mb-2">
                             <label for="mkn_pokok" class="col-sm-4 col-form-label text-end fw-bold"></label>
                             <div class="col-sm-4 m-t-6">
-                                <input type="checkbox" name="sungai" id="sungai" class="form-check-input">
+                                <input type="checkbox" name="sungai" id="sungai" value="Sungai" class="form-check-input">
                                 <label class="form-check-label m-l-10" for="sungai">
                                     Sungai
                                 </label>

@@ -66,7 +66,7 @@
                 @endcan
 
                 <!-- Menu -->
-                @canany(['rt/rw','dasawisma','kader'])
+                @canany(['rt/rw','dasawisma','kader', 'keluarga', 'anggota kk'])
                 <li class="sidebar-title rounded p-2"><b>Menu</b></li>
                 @endcanany
                 @can('rt/rw')
@@ -93,7 +93,7 @@
                     </a>
                 </li>
                 @endcan
-                @can('kader')
+                @can('keluarga')
                 <li class="sidebar-item {{ isset($active_kk) ? 'active' : '-' }}">
                     <a href="{{ route('keluarga.index') }}" class='sidebar-link'>
                         <i class="bi bi-files text-warning"></i>
@@ -101,7 +101,7 @@
                     </a>
                 </li>
                 @endcan
-                @can('kader')
+                @can('anggota kk')
                 <li class="sidebar-item {{ isset($active_anggota) ? 'active' : '-' }}">
                     <a href="{{ route('kader.index') }}" class='sidebar-link'>
                         <i class="bi bi-file-person-fill text-success"></i>
