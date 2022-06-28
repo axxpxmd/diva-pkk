@@ -108,6 +108,10 @@ return [
 
     'faker_locale' => 'en_US',
 
+    // SFTP
+    'sftp_root' => env('SFTP_ROOT'),
+    'sftp_src' => env('SFTP_SRC'),
+
     /*
     |--------------------------------------------------------------------------
     | Encryption Key

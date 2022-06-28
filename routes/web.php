@@ -51,7 +51,9 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::delete('/role/{name}/destroy-permission', [RoleController::class, 'destroyPermission'])->name('role.destroyPermission');
 
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
-    Route::post('/profile/update-passowrd', [ProfileController::class, 'updatePassword'])->name('profile.updatePassword');
+    Route::post('/profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile/update-password/{id}', [ProfileController::class, 'updatePassword'])->name('profile.updatePassword');
+    Route::post('/profile/update-photo/{id}', [ProfileController::class, 'updatePhoto'])->name('profile.updatePhoto');
 
     Route::get('/get-kelurahan/{id}', [UtilityController::class, 'kelurahanByKecamatan'])->name('kelurahanByKecamatan');
     Route::get('/get-dasawisma/{id}', [UtilityController::class, 'dasawismaByRTRW'])->name('dasawismaByRTRW');

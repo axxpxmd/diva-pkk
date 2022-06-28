@@ -4,6 +4,7 @@
     <h3>{{ $title }}</h3>
     <p class="text-subtitle text-muted">{{ $desc }}</p>
 </div>
+@include('layouts.alert')   
 <section class="section animate__animated animate__fadeInRight">
     <div class="row">
         <div class="col-sm-5">
@@ -16,7 +17,7 @@
                         </div>
                         @else
                         <div class="avatar avatar-xl">
-                            <img src="assets/images/faces/3.jpg" alt="" srcset="">
+                            <img class="img-circular" src="{{ config('app.sftp_src').'foto_profile/'.$user->foto }}" alt="" srcset="">
                         </div>  
                         @endif
                         <div class="mt-3">
@@ -25,8 +26,8 @@
                         </div>
                         <hr>
                         <div class="mt-2">
-                            <a href="#" class="btn btn-warning fs-14 mb-5-m" onclick="openModalResetPassword()"><i class="bi bi-key-fill m-r-8"></i>Ubah Password</a>
-                            <a href="#" class="btn btn-primary fs-14" onclick="openModalChangePhoto()"><i class="bi bi-camera-fill m-r-8"></i>Ubah Foto</a>
+                            <a href="#" class="btn btn-sm btn-warning fs-14" onclick="openModalResetPassword()"><i class="bi bi-key-fill m-r-8"></i>Password</a>
+                            <a href="#" class="btn btn-sm btn-primary fs-14" onclick="openModalChangePhoto()"><i class="bi bi-camera-fill m-r-8"></i>Foto</a>
                         </div>
                     </div>
                 </div>
@@ -36,8 +37,8 @@
             <div class="card">
                 <h5 class="card-header px-4 py-3 bg-info text-white">Edit Profile</h5>
                 <div class="card-body mt-4">
-                    <form id="form" class="fs-14">
-                        {{ method_field('POST') }}
+                    <form action="{{ route("profile.update", Auth::user()->id) }}" class="fs-14 needs-validation" novalidate method="post">
+                        @csrf
                         <div>
                             <label for="nama" class="form-label fw-bold">Nama Lengkap</label>
                             <input type="text" name="nama" id="nama" value="{{ $user->nama }}" class="form-control" autocomplete="off" required/>
@@ -67,7 +68,7 @@
                             <input type="text" name="role_id" id="role_id" value="{{ $user->modelHasRole->role->name }}" readonly class="form-control" autocomplete="off" required/>
                         </div>
                         <div class="mt-2">
-                            <button class="btn btn-success"><i class="bi bi-arrow-clockwise m-r-8"></i>Perbarui Akun</button>
+                            <button type="submit" class="btn btn-success btn-sm"><i class="bi bi-arrow-clockwise m-r-8"></i>Perbarui Akun</button>
                         </div>
                     </form>
                 </div>
@@ -79,21 +80,41 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-info bg-info">
-                <h5 class="modal-title text-white"><span id="txtTitle"></span>Ubah Password</h5>
+                <h5 class="modal-title text-white" id="txtTitle"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
 
                 <div style="display: none" id="resetPassword">
-                    ini buat ubah password
+                    <form action="{{ route('profile.updatePassword', Auth::user()->id) }}" class="fs-14 needs-validation" novalidate method="post">
+                        @csrf
+                        <div>
+                            <label for="password" class="form-label fw-bold">Password</label>
+                            <input type="password" name="password" id="password" class="form-control" autocomplete="off" required/>
+                        </div>
+                        <div class="mt-2">
+                            <label for="confirm_password" class="form-label fw-bold">Konfirmasi Password</label>
+                            <input type="password" name="confirm_password" id="confirm_password" class="form-control" autocomplete="off" required/>
+                        </div>
+                        <div class="mt-2">
+                            <button type="submit" class="btn btn-success btn-sm"><i class="bi bi-arrow-clockwise m-r-8"></i>Perbarui Password</button>
+                        </div>
+                    </form>
                 </div>
 
                 <div style="display: none" id="changePhoto">
-                    ini buat ubah foto
+                    <form action="{{ route('profile.updatePhoto', Auth::user()->id) }}" method="post" enctype="multipart/form-data" novalidate>
+                        @csrf
+                        <img class="rounded-circle img-circular mb-2 mx-auto d-block" @if ($user->foto != 'default.png') src="{{ config('app.sftp_src').'foto_profile/'.$user->foto }}" @endif id="preview" width="150" height="150"/>
+                        <div class="mt-3">
+                            <input type="file" name="foto" id="file" class="form-control input-file" onchange="tampilkanPreview(this,'preview')">
+                            <i class="fs-12 text-danger">Bisa berupa foto, logo, atau symbol icon. Maksimal 1 Mb.</i>
+                        </div>
+                        <div class="mt-2">
+                            <button type="submit" class="btn btn-success btn-sm"><i class="bi bi-arrow-clockwise m-r-8"></i>Perbarui Foto</button>
+                        </div>
+                    </form>
                 </div>
-                {{-- <form id="form" class="fs-14">
-                    {{ method_field('POST') }}
-                </form> --}}
             </div>
         </div>
     </div>
@@ -101,16 +122,63 @@
 @endsection
 @push('script')
 <script type="text/javascript">
+
+
     function openModalResetPassword(){
         $('#modalForm').modal('show');
         $('#resetPassword').show();
         $('#changePhoto').hide();
+        $('#txtTitle').html('Ubah Password');
     }
 
     function openModalChangePhoto(){
         $('#modalForm').modal('show');
         $('#changePhoto').show();
         $('#resetPassword').hide();
+        $('#txtTitle').html('Ubah Foto');
+    }
+
+     // file name preview
+     (function () {
+        'use strict';
+        $('.input-file').each(function () {
+            var $input = $(this),
+                $label = $input.next('.js-labelFile'),
+                labelVal = $label.html();
+
+            $input.on('change', function (element) {
+                var fileName = '';
+                if (element.target.value) fileName = element.target.value.split('\\').pop();
+                fileName ? $label.addClass('has-file').find('.js-fileName').html(fileName) : $label
+                    .removeClass('has-file').html(labelVal);
+            });
+        });
+    })();
+
+    // image preview
+    function tampilkanPreview(gambar, idpreview) {
+        var gb = gambar.files;
+        for (var i = 0; i < gb.length; i++) {
+            var gbPreview = gb[i];
+            var imageType = /image.*/;
+            var preview = document.getElementById(idpreview);
+            var reader = new FileReader();
+            if (gbPreview.type.match(imageType)) {
+                preview.file = gbPreview;
+                reader.onload = (function (element) {
+                    return function (e) {
+                        element.src = e.target.result;
+                    };
+                })(preview);
+                reader.readAsDataURL(gbPreview);
+            } else {
+                Swal.fire(
+                    'Tipe file tidak boleh',
+                    'Harus format gambar',
+                    'error'
+                )
+            }
+        }
     }
 </script>
 @endpush

@@ -56,3 +56,8 @@ table.data-table {
 #dataTable_previous, #dataTable_next{
     margin: 0 !important;
 }
+
+.img-circular {
+    object-fit: cover;
+    object-position: center
+}

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 // Models
 use App\Models\User;
@@ -41,5 +42,66 @@ class ProfileController extends Controller
             'user',
             'acronym'
         ));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'nama' => 'required',
+            'nik' => 'required|digits:16|unique:users,nik,' . $id,
+            'no_telp' => 'required',
+            'alamat' => 'required'
+        ]);
+
+        $input = $request->all();
+        $data = User::find($id);
+        $data->update($input);
+
+        return redirect()
+            ->route('profile.index')
+            ->withSuccess('Selamat! Data berhasil diperbaharui.');
+    }
+
+    public function updatePassword(Request $request, $id)
+    {
+        $request->validate([
+            'password' => 'required|min:8',
+            'confirm_password' => 'required|min:8|same:password'
+        ]);
+
+        $data = User::find($id);
+        $data->update([
+            'password' => \md5($request->password)
+        ]);
+
+        return redirect()
+            ->route('profile.index')
+            ->withSuccess('Selamat! Password berhasil diperbaharui.');
+    }
+
+    public function updatePhoto(Request $request, $id)
+    {
+        $request->validate([
+            'foto' => 'required|image|mimes:jpeg,png,jpg|max:1024',
+        ]);
+
+        $data = User::find($id);
+
+        // Saved Photo to Storage
+        $file     = $request->file('foto');
+        $fileName = time() . "." . $file->getClientOriginalName();
+        $request->file('foto')->storeAs('foto_profile/', $fileName, 'sftp', 'public');
+
+        // Delete old Photo from Storage
+        $exist = $data->foto;
+        Storage::disk('sftp')->delete('foto_profile/' . $exist);
+
+        $data->update([
+            'foto' => $fileName
+        ]);
+
+        return redirect()
+            ->route('profile.index')
+            ->withSuccess('Selamat! Foto berhasil diperbaharui.');
     }
 }
