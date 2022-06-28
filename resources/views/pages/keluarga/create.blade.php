@@ -147,7 +147,7 @@
                                 </label>
                             </div>
                             <div class="col-sm-4 m-t-6">
-                                <input type="checkbox" name="lainnya" id="lainnya" value="1" class="form-check-input">
+                                <input type="checkbox" name="lainnya" id="lainnya" value="Lainnya" class="form-check-input">
                                 <label class="form-check-label m-l-10" for="lainnya">
                                     Lainnya
                                 </label>
@@ -160,13 +160,13 @@
                             <label for="tempat_smph" class="col-sm-4 col-form-label text-end fw-bold">Pembuangan Sampah <span class="text-danger">*</span></label>
                             <div class="col-sm-4 m-t-6">
                                 <input type="radio" value="1" name="tempat_smph" id="tempat_smph" class="form-check-input" required>
-                                <label class="form-check-label m-l-10" for="beras">
+                                <label class="form-check-label m-l-10" for="tempat_smph">
                                     Tidak
                                 </label>
                             </div>
                             <div class="col-sm-4 m-t-6">
                                 <input type="radio" value="2" name="tempat_smph" id="tempat_smph" class="form-check-input" required>
-                                <label class="form-check-label m-l-10" for="non_beras">
+                                <label class="form-check-label m-l-10" for="tempat_smph">
                                     Ya
                                 </label>
                             </div>
@@ -175,13 +175,13 @@
                             <label for="saluran_pmbngn" class="col-sm-4 col-form-label text-end fw-bold">Pembuangan Limbah <span class="text-danger">*</span></label>
                             <div class="col-sm-4 m-t-6">
                                 <input type="radio" value="1" name="saluran_pmbngn" id="saluran_pmbngn" class="form-check-input" required>
-                                <label class="form-check-label m-l-10" for="beras">
+                                <label class="form-check-label m-l-10" for="saluran_pmbngn">
                                     Tidak
                                 </label>
                             </div>
                             <div class="col-sm-4 m-t-6">
                                 <input type="radio" value="2" name="saluran_pmbngn" id="saluran_pmbngn" class="form-check-input" required>
-                                <label class="form-check-label m-l-10" for="non_beras">
+                                <label class="form-check-label m-l-10" for="saluran_pmbngn">
                                     Ya
                                 </label>
                             </div>
@@ -190,13 +190,13 @@
                             <label for="stiker_p4k" class="col-sm-4 col-form-label text-end fw-bold">Stiker P4K <span class="text-danger">*</span></label>
                             <div class="col-sm-4 m-t-6">
                                 <input type="radio" value="1" name="stiker_p4k" id="stiker_p4k" class="form-check-input" required>
-                                <label class="form-check-label m-l-10" for="beras">
+                                <label class="form-check-label m-l-10" for="stiker_p4k">
                                     Tidak
                                 </label>
                             </div>
                             <div class="col-sm-4 m-t-6">
                                 <input type="radio" value="2" name="stiker_p4k" id="stiker_p4k" class="form-check-input" required>
-                                <label class="form-check-label m-l-10" for="non_beras">
+                                <label class="form-check-label m-l-10" for="stiker_p4k">
                                     Ya
                                 </label>
                             </div>
@@ -205,13 +205,13 @@
                             <label for="kriteria_rmh" class="col-sm-4 col-form-label text-end fw-bold">Kriteria Rumah <span class="text-danger">*</span></label>
                             <div class="col-sm-4 m-t-6">
                                 <input type="radio" value="1" name="kriteria_rmh" id="kriteria_rmh" class="form-check-input" required>
-                                <label class="form-check-label m-l-10" for="beras">
+                                <label class="form-check-label m-l-10" for="kriteria_rmh">
                                     Kurang Sehat
                                 </label>
                             </div>
                             <div class="col-sm-4 m-t-6">
                                 <input type="radio" value="2" name="kriteria_rmh" id="kriteria_rmh" class="form-check-input" required>
-                                <label class="form-check-label m-l-10" for="non_beras">
+                                <label class="form-check-label m-l-10" for="kriteria_rmh">
                                     Sehat
                                 </label>
                             </div>
@@ -220,14 +220,14 @@
                             <label for="aktifitas_up2k" class="col-sm-4 col-form-label text-end fw-bold">Aktifitas UP2K <span class="text-danger">*</span></label>
                             <div class="col-sm-4 m-t-6">
                                 <input type="radio" value="1" name="aktifitas_up2k" id="aktifitas_up2k" class="form-check-input" required>
-                                <label class="form-check-label m-l-10" for="beras">
+                                <label class="form-check-label m-l-10" for="aktifitas_up2k">
                                     Tidak
                                 </label>
                                 <input type="text" name="aktifitas_up2k_usaha" id="aktifitas_up2k_usaha_display" class="form-control mt-2" style="display: none" placeholder="Jenis Usaha" autocomplete="off">
                             </div>
                             <div class="col-sm-4 m-t-6">
                                 <input type="radio" value="2" name="aktifitas_up2k" id="aktifitas_up2k" class="form-check-input" required>
-                                <label class="form-check-label m-l-10" for="non_beras">
+                                <label class="form-check-label m-l-10" for="aktifitas_up2k">
                                     Ya
                                 </label>
                             </div>
@@ -236,13 +236,13 @@
                             <label for="aktifitas_lngkngn" class="col-sm-4 col-form-label text-end fw-bold">Aktif di Lingkungan <span class="text-danger">*</span></label>
                             <div class="col-sm-4 m-t-6">
                                 <input type="radio" value="1" name="aktifitas_lngkngn" id="aktifitas_lngkngn" class="form-check-input" required>
-                                <label class="form-check-label m-l-10" for="beras">
+                                <label class="form-check-label m-l-10" for="aktifitas_lngkngn">
                                     Tidak
                                 </label>
                             </div>
                             <div class="col-sm-4 m-t-6">
                                 <input type="radio" value="2" name="aktifitas_lngkngn" id="aktifitas_lngkngn" class="form-check-input" required>
-                                <label class="form-check-label m-l-10" for="non_beras">
+                                <label class="form-check-label m-l-10" for="aktifitas_lngkngn">
                                     Ya
                                 </label>
                             </div>
@@ -303,7 +303,7 @@
         }else{    
             $('#loading').show();
             $('#alert').html('');
-            $('#btnSave').attr('disabled', true);
+            // $('#btnSave').attr('disabled', true);
             
             url = "{{ route('keluarga.store') }}"
             $.post(url, $(this).serialize(), function(data){
@@ -317,7 +317,7 @@
                 $('#alert').html("<div class='alert alert-danger alert-dismissible fs-14' role='alert'>" + respon.message + "<ol class='pl-3 m-0'>" + err + "</ol></div>");
             }).always(function(){
                 $('#loading').hide();
-                $('#btnSave').removeAttr('disabled');
+                // $('#btnSave').removeAttr('disabled');
             });
             return false;
         }

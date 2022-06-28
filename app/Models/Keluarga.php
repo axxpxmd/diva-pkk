@@ -14,4 +14,9 @@ class Keluarga extends Model
     {
         return $this->belongsTo(JumlahDetail::class, 'jml_detail_id');
     }
+
+    public function dasawisma()
+    {
+        return $this->belongsTo(Dasawisma::class, 'dasawisma_id');
+    }
 }
