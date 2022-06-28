@@ -68,8 +68,7 @@ class KaderController extends Controller
                 return $p->dasawisma->nama;
             })
             ->addColumn('alamat', function ($p) {
-                return $p->rtrw->kecamatan->n_kecamatan . ' - ' . $p->rtrw->kelurahan->n_kelurahan . ' - RT ' . $p->rtrw->rt . ' / RW ' . $p->rtrw->rw .
-                    '</br>' . $p->alamat;
+                return $p->alamat;
             })
             ->rawColumns(['id', 'action', 'alamat'])
             ->addIndexColumn()
@@ -81,11 +80,9 @@ class KaderController extends Controller
         $request->validate([
             'nama' => 'required',
             'nik' => 'required|digits:16|unique:users,nik',
-            'rtrw_id' => 'required',
             'dasawisma_id' => 'required',
             'role_id' => 'required'
         ], [
-            'rtrw_id.required' => 'Alamat kader wajib diisi',
             'dasawisma_id.required' => 'Dasawisma wajib diisi',
             'role_id.required' => 'Role Wajib diisi'
         ]);
@@ -102,7 +99,6 @@ class KaderController extends Controller
             $data_user = [
                 'username' => $request->username,
                 'password' => \md5('123456789'),
-                'rtrw_id' => $request->rtrw_id,
                 'dasawisma_id' => $request->dasawisma_id,
                 'alamat' => $request->alamat,
                 'no_telp' => $request->no_telp,
@@ -146,7 +142,6 @@ class KaderController extends Controller
             'nik' => $data->nik,
             'alamat' => $data->alamat,
             'no_telp' => $data->no_telp,
-            'rtrw_id' => $data->rtrw_id,
             'dasawisma_id' => $data->dasawisma_id,
             'role_id' => $data->modelHasRole->role_id,
             'alamat_dasawisma_id' => $rtrws->id
@@ -160,11 +155,9 @@ class KaderController extends Controller
         $request->validate([
             'nama' => 'required',
             'nik' => 'required|digits:16|unique:users,nik,' . $id,
-            'rtrw_id' => 'required',
             'dasawisma_id' => 'required',
             'role_id' => 'required'
         ], [
-            'rtrw_id.required' => 'Alamat kader wajib diisi',
             'dasawisma_id.required' => 'Dasawisma wajib diisi',
             'role_id.required' => 'Role Wajib diisi'
         ]);
@@ -180,7 +173,6 @@ class KaderController extends Controller
             //* Tahap 1
             $data_user = [
                 'username' => $request->username,
-                'rtrw_id' => $request->rtrw_id,
                 'dasawisma_id' => $request->dasawisma_id,
                 'nama' => $request->nama,
                 'no_telp' => $request->no_telp,

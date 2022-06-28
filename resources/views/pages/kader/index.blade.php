@@ -65,23 +65,10 @@
                         </div>
                     </div>
                     <div class="row mb-2">
-                        <label for="rtrw_id" class="col-sm-3 col-form-label fw-bold">Alamat Kader <span class="text-danger">*</span></label>
+                        <label for="alamat" class="col-sm-3 col-form-label fw-bold">Alamat Kader <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
-                            <select class="form-control select2" id="rtrw_id" name="rtrw_id"">
-                                <option value="">Pilih</option>
-                                @foreach ($rtrwAlls as $i)
-                                    <option value="{{ $i->id }}">
-                                        {{ $i->kecamatan->n_kecamatan }} - {{ $i->kelurahan->n_kelurahan }} - RT {{ $i->rw }} / RW {{ $i->rt }}
-                                    </option>
-                                @endforeach
-                            </select>
+                            <textarea name="alamat" id="alamat" cols="9" placeholder="Alamat Detail" class="form-control" autocomplete="off" required></textarea>
                         </div>
-                    </div>
-                    <div class="row mb-2">
-                        <label for="alamat" class="col-sm-3 col-form-label fw-bold"></label>
-                        <div class="col-sm-9">
-                            <textarea type="number" name="alamat" id="alamat" cols="9" placeholder="Alamat Detail" class="form-control" autocomplete="off" required></textarea>
-                          </div>
                     </div>
                     <div class="row mb-2">
                         <label for="alamat_dasawisma_id" class="col-sm-3 col-form-label fw-bold">Dasawisma <span class="text-danger">*</span></label>
@@ -205,7 +192,6 @@
             $('#nik').val(data.nik);
             $('#no_telp').val(data.no_telp);
             $('#alamat').val(data.alamat);
-            $('#rtrw_id').val(data.rtrw_id).trigger("change.select2");
             $('#role_id').val(data.role_id).trigger("change.select2");
 
             $('#alamat_dasawisma_id').val(data.alamat_dasawisma_id).trigger("change.select2");
