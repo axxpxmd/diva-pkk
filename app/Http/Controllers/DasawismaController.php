@@ -17,6 +17,11 @@ class DasawismaController extends Controller
     protected $desc  = 'Menu ini berisikan data Dasawisma';
     protected $active_dasawisma = true;
 
+    public function __construct()
+    {
+        $this->middleware(['permission:dasawisma']);
+    }
+
     public function index(Request $request)
     {
         $title = $this->title;

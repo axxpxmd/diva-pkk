@@ -17,6 +17,11 @@ class RTRWController extends Controller
     protected $desc  = 'Menu ini berisikan data RT / RW';
     protected $active_rtrw = true;
 
+    public function __construct()
+    {
+        $this->middleware(['permission:rt/rw']);
+    }
+
     public function index(Request $request)
     {
         $title = $this->title;

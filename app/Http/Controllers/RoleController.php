@@ -17,6 +17,11 @@ class RoleController extends Controller
     protected $desc  = 'Menu ini berisikan data Role';
     protected $active_role = true;
 
+    public function __construct()
+    {
+        $this->middleware(['permission:role']);
+    }
+
     public function index(Request $request)
     {
         $title = $this->title;

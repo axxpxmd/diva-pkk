@@ -15,6 +15,11 @@ class PermissionController extends Controller
     protected $desc  = 'Menu ini berisikan data Permission';
     protected $active_permission = true;
 
+    public function __construct()
+    {
+        $this->middleware(['permission:permission']);
+    }
+
     public function index(Request $request)
     {
         $title = $this->title;
