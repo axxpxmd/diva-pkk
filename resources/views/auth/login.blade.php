@@ -23,6 +23,13 @@
 
     <!-- Animate CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        #footer {
+            bottom: 0;
+            position: fixed;
+        }
+    </style>
 </head>
 <body>
     <section class="master-bg-payment" style="background-image: url('images/logo/BG.jpg')">
@@ -32,8 +39,8 @@
                     <img src="{{ asset('images/logo/tangsel.png') }}" width="110" class="img-fluid m-r-50" alt="Logo Tangsel">
                     <img src="{{ asset('images/logo/LOGO-PKK.png') }}" width="110" class="img-fluid" alt="Logo PKK">
                     <div class="mt-4">
-                        <h4 class="font-weight-bolder">PEMBERDAYAAN DAN KESEJAHTERAAN</h4>
-                        <h4 class="font-weight-bolder">KELUARGA (PKK) KOTA TANGERANG SELATAN</h4>
+                        <h5 class="font-weight-bolder">PEMBERDAYAAN DAN KESEJAHTERAAN</h5>
+                        <h5 class="font-weight-bolder">KELUARGA (PKK) KOTA TANGERANG SELATAN</h5>
                     </div>
                 </div>
                 <div class="card bdr-r-card mt-4" style="background: #4FB2A5; border: 5px solid white">
@@ -42,9 +49,9 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-sm-6 mb-2">
-                                        <div class="card bdr-r-card p-3" style="background: #9CD5CE; border: 2px solid #779A99">
+                                        <div class="card bdr-r-card p-1" style="background: #9CD5CE; border: 2px solid #779A99">
                                             <div class="card-body">
-                                                <h5 class="font-weight-bolder fs-30 text-left">Login</h5>
+                                                <h5 class="font-weight-bolder fs-30 ">Login</h5>
                                                 <form method="POST" action="{{ route('login') }}" class="signin-form text-black">
                                                     @csrf
                                                     <div class="input-group mb-3">
@@ -93,6 +100,11 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="fixed-bottom mb-1 img-dynamic">
+                    <div class="p-2" style="background: rgba(255, 255, 255, 0.3); border-bottom: 5px #15927F solid; border-top: 3px #EFFCF5 solid">
+                        <h5 class="font-weight-bolder">CERDAS MODERN RELIGIUS</h5>
                     </div>
                 </div>
 			</div>
