@@ -89,7 +89,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6 justify-content-center  d-flex align-items-center">
+                                    <div class="col-sm-6 justify-content-center d-flex align-items-center">
                                         <div class="text-center">
                                             <h5 class="font-weight-bolder">Digitalisasi Data Warga</h5>
                                             <h5 class="font-weight-bolder">Pemberdayaan Kesejahteraan</h5>
