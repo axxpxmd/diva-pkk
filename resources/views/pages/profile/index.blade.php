@@ -84,7 +84,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-
                 <div style="display: none" id="resetPassword">
                     <form action="{{ route('profile.updatePassword', Auth::user()->id) }}" class="fs-14 needs-validation" novalidate method="post">
                         @csrf
