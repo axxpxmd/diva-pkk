@@ -27,52 +27,74 @@
 <body>
     <section class="master-bg-payment" style="background-image: url('images/logo/BG.jpg')">
 		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-md-12 col-lg-10">
-					<div class="wrap d-md-flex mt-5">
-						<div class="login-wrap px-5 py-4">
-							<div class="text-center">
-                                <img src="{{ asset('images/logo/LOGO-PKK.png') }}" width="120" alt="">
-								<div class="text-center p-2">
-                                    <h5 class="m-0 text-grey">Selamat Datang Di
-                                        <br>
-                                        <b>DIVA PKK</b>
-                                    </h5>
-                                    <span class="fs-13">Pemberdayaan Dan Kesejahteraan Keluarga (PKK) Kota Tangerang Selatan</span>
-								</div>
-							</div>
-							<form method="POST" action="{{ route('login') }}" class="signin-form mb-5">
-                                @csrf
-								<div class="form-group mb-3">
-									<input type="text" name="username" class="form-control @error('username') is-invalid @enderror" value="{{ old('username') }}" placeholder="Username" autocomplete="off" autofocus>
-                                    @error('username')
-                                        <div class="invalid-feedback" role="alert"><strong><span class="fs-12">{{ $message }}</span></strong></div>
-                                    @enderror
-								</div>
-								<div class="form-group mb-2">
-									<input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" autocomplete="off">
-                                    @error('password')
-                                    <div class="invalid-feedback" role="alert"><strong><span class="fs-12">{{ $message }}</span></strong></div>
-                                    @enderror
-								</div>
-                                <div class="form-group mb-2">
-									<div class="custom-control custom-checkbox small">
-                                        <input type="checkbox" name="remember" class="custom-control-input" id="customCheck">
-                                        <label class="custom-control-label" for="customCheck">Ingat Saya</label>
+			<div class="justify-content-center text-center mt-5">
+                <div class="img-dynamic">
+                    <img src="{{ asset('images/logo/tangsel.png') }}" width="110" class="img-fluid m-r-50" alt="Logo Tangsel">
+                    <img src="{{ asset('images/logo/LOGO-PKK.png') }}" width="110" class="img-fluid" alt="Logo PKK">
+                    <div class="mt-4">
+                        <h4 class="font-weight-bolder">PEMBERDAYAAN DAN KESEJAHTERAAN</h4>
+                        <h4 class="font-weight-bolder">KELUARGA (PKK) KOTA TANGERANG SELATAN</h4>
+                    </div>
+                </div>
+                <div class="card bdr-r-card mt-4" style="background: #4FB2A5; border: 5px solid white">
+                    <div class="card-body">
+                        <div class="card bdr-r-card" style="background: #9CD5CE">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-6 mb-2">
+                                        <div class="card bdr-r-card p-3" style="background: #9CD5CE; border: 2px solid #779A99">
+                                            <div class="card-body">
+                                                <h5 class="font-weight-bolder fs-30 text-left">Login</h5>
+                                                <form method="POST" action="{{ route('login') }}" class="signin-form text-black">
+                                                    @csrf
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text px-3 rounded-left"><i class="fa fa-user"></i></span>
+                                                        </div>
+                                                        <input type="text"name="username" class="form-control @error('username') is-invalid @enderror" value="{{ old('username') }}" placeholder="Username" autocomplete="off" autofocus>
+                                                        @error('username')
+                                                            <div class="invalid-feedback mb-0 text-left" role="alert"><strong><span class="fs-12">{{ $message }}</span></strong></div>
+                                                        @enderror
+                                                    </div>
+
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text px-3 rounded-left"><i class="fa fa-lock"></i></span>
+                                                        </div>
+                                                        <input type="text"name="password" class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}" placeholder="password" autocomplete="off">
+                                                        @error('password')
+                                                            <div class="invalid-feedback mb-0 text-left" role="alert"><strong><span class="fs-12">{{ $message }}</span></strong></div>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="form-group mb-2 text-left">
+                                                        <div class="custom-control custom-checkbox small">
+                                                            <input type="checkbox" name="remember" class="custom-control-input" id="customCheck">
+                                                            <label class="custom-control-label" for="customCheck">Ingat Saya</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <button type="submit" class="btn btn-success btn-block bdr-r-30 px-3">Masuk</button>
+                                                    </div>
+                                                    @error('user') 
+                                                        <div class="alert alert-danger mt-2 fs-14 text-center">{{ $message }}</div>
+                                                    @enderror
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
-								</div>
-								<div class="form-group">
-									<button type="submit" class="btn btn-primary btn-block bdr-r-30 px-3">Masuk</button>
-								</div>
-                                @error('user') 
-                                    <div class="alert alert-danger mt-2 mb-0 fs-14 text-center">{{ $message }}</div>
-                                @enderror
-							</form>
-						</div>
-                        <div class="img img-dynamic" style="background-image: url({{ asset('images/logo/login.jpg') }});">
+                                    <div class="col-sm-6 justify-content-center  d-flex align-items-center">
+                                        <div class="text-center">
+                                            <h5 class="font-weight-bolder">Digitalisasi Data Warga</h5>
+                                            <h5 class="font-weight-bolder">Pemberdayaan Kesejahteraan</h5>
+                                            <h5 class="font-weight-bolder">Keluarga</h5>
+                                            <h4 class="font-weight-bolder">( DIVA PKK )</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-					</div>
-				</div>
+                    </div>
+                </div>
 			</div>
 		</div>
 	</section>
