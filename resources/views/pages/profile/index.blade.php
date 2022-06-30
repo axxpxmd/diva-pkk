@@ -107,7 +107,7 @@
                         <img class="rounded-circle img-circular mb-2 mx-auto d-block" @if ($user->foto != 'default.png') src="{{ config('app.sftp_src').'foto_profile/'.$user->foto }}" @endif id="preview" width="150" height="150"/>
                         <div class="mt-3">
                             <input type="file" name="foto" id="file" class="form-control input-file" onchange="tampilkanPreview(this,'preview')">
-                            <i class="fs-12 text-danger">Bisa berupa foto, logo, atau symbol icon. Maksimal 1 Mb.</i>
+                            <i class="fs-12 text-danger">Foto dengan format (jpg, jpeg, png). Maksimal 1 Mb.</i>
                         </div>
                         <div class="mt-2">
                             <button type="submit" class="btn btn-success btn-sm"><i class="bi bi-arrow-clockwise m-r-8"></i>Perbarui Foto</button>
