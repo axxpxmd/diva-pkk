@@ -60,8 +60,8 @@
                             <input type="text" name="username" id="username" value="{{ $user->username }}" readonly class="form-control" autocomplete="off" required/>
                         </div>
                         <div class="mt-2">
-                            <label for="s_aktif" class="form-label fw-bold">Status Akun</label>
-                            <input type="text" name="s_aktif" id="s_aktif" value="{{ $user->s_aktif == 1 ? 'Aktif' : 'Tidak Aktif' }}" readonly class="form-control" autocomplete="off" required/>
+                            <label for="" class="form-label fw-bold">Status Akun</label>
+                            <input type="text" name="" id="" value="{{ $user->s_aktif == 1 ? 'Aktif' : 'Tidak Aktif' }}" readonly class="form-control" autocomplete="off" required/>
                         </div>
                         <div class="mt-2">
                             <label for="role_id" class="form-label fw-bold">Role Akun</label>
