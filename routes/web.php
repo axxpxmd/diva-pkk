@@ -12,6 +12,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\RTRWController;
+use App\Http\Controllers\RumahController;
 use App\Http\Controllers\UtilityController;
 
 /*
@@ -58,5 +59,5 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('/get-kelurahan/{id}', [UtilityController::class, 'kelurahanByKecamatan'])->name('kelurahanByKecamatan');
     Route::get('/get-dasawisma/{id}', [UtilityController::class, 'dasawismaByRTRW'])->name('dasawismaByRTRW');
 
-    Route::resource('/keluarga', KartuKeluargaController::class);
+    Route::resource('/rumah', RumahController::class);
 });

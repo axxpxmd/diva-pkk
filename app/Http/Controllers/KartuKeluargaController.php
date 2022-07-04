@@ -16,8 +16,8 @@ use App\Models\JumlahDetail;
 
 class KartuKeluargaController extends Controller
 {
-    protected $title = 'Keluarga';
-    protected $desc  = 'Menu ini berisikan data kartu keluarga';
+    protected $title = 'Rumah';
+    protected $desc  = 'Menu ini berisikan data kartu rumah';
     protected $active_kk = true;
 
     public function index(Request $request)

@@ -9,7 +9,7 @@
     <div class="card">  
         <h5 class="card-header bg-info text-white mb-2 p-3">Form Tambah Data</h5>
         <div class="card-body">
-            <a href="{{ route('keluarga.index') }}" class="fs-14 text-danger fw-bold"><i class="bi bi-arrow-left m-r-8"></i>Kembali</a>
+            <a href="{{ route('rumah.index') }}" class="fs-14 text-danger fw-bold"><i class="bi bi-arrow-left m-r-8"></i>Kembali</a>
             <form class="needs-validation fs-14" id="form" method="POST"  enctype="multipart/form-data" novalidate>
                 {{ method_field('POST') }}
                 <div class="row">
@@ -48,73 +48,12 @@
                             <label for="alamat_detail" class="col-sm-4 col-form-label text-end fw-bold">Alamat <span class="text-danger">*</span></label>
                             <div class="col-sm-8">
                                 <textarea type="text" name="alamat_detail" id="alamat_detail" placeholder="Bisa diisi Nomor Rumah / Blok / Cluster" class="form-control" autocomplete="off" required></textarea>
-                                <span class="text-warning fs-13">Gunakan alamat yg sama jika lebih dari 1 kepala keluarga</span>
                             </div>
                         </div>
                         <div class="row mb-2">
-                            <label for="nm_kpl_klrg" class="col-sm-4 col-form-label text-end fw-bold">Nama Kepala <span class="text-danger">*</span></label>
+                            <label for="kepala_rumah" class="col-sm-4 col-form-label text-end fw-bold">Kepala Rumah <span class="text-danger">*</span></label>
                             <div class="col-sm-8">
-                                <input type="text" name="nm_kpl_klrg" id="nm_kpl_klrg" class="form-control" placeholder="Nama Kepala Keluarga" autocomplete="off" required>
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <label for="jumlah" class="col-sm-4 col-form-label text-end fw-bold">Jumlah Anggota <span class="text-danger">*</span></label>
-                            <div class="col-sm-4 mb-5-m">
-                                <input type="number" name="jml_laki" id="jml_laki" class="form-control" placeholder="Laki - Laki" autocomplete="off" required>
-                            </div>
-                            <div class="col-sm-4">
-                                <input type="number" name="jml_perempuan" id="jml_perempuan" class="form-control" placeholder="Perempuan" autocomplete="off" required>
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <label for="jumlah" class="col-sm-4 col-form-label text-end fw-bold">Jumlah </label>
-                            <div class="col-sm-4 mb-5-m">
-                                <input type="number" name="balita" id="balita" class="form-control" placeholder="Balita" autocomplete="off">
-                            </div>
-                            <div class="col-sm-4">
-                                <input type="number" name="pus" id="pus" class="form-control" placeholder="PUS" autocomplete="off">
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <label for="jumlah" class="col-sm-4 col-form-label text-end fw-bold"></label>
-                            <div class="col-sm-4 mb-5-m">
-                                <input type="number" name="wus" id="wus" class="form-control" placeholder="WUS" autocomplete="off">
-                            </div>
-                            <div class="col-sm-4">
-                                <input type="number" name="buta" id="buta" class="form-control" placeholder="Buta" autocomplete="off">
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <label for="jumlah" class="col-sm-4 col-form-label text-end fw-bold"></label>
-                            <div class="col-sm-4 mb-5-m">
-                                <input type="number" name="ibu_hamil" id="ibu_hamil" class="form-control" placeholder="Ibu Hamil" autocomplete="off">
-                            </div>
-                            <div class="col-sm-4">
-                                <input type="number" name="ibu_menyusui" id="ibu_menyusui" class="form-control" placeholder="Ibu Menyusui" autocomplete="off">
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <label for="jumlah" class="col-sm-4 col-form-label text-end fw-bold"></label>
-                            <div class="col-sm-4 mb-5-m">
-                                <input type="number" name="lansia" id="lansia" class="form-control" placeholder="Lansia" autocomplete="off">
-                            </div>
-                            <div class="col-sm-4">
-                                <input type="number" name="berkebutuhan_khusus" id="berkebutuhan_khusus" class="form-control" placeholder="Berkebutuhan Khusus" autocomplete="off">
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <label for="mkn_pokok" class="col-sm-4 col-form-label text-end fw-bold">Makanan Pokok <span class="text-danger">*</span></label>
-                            <div class="col-sm-4 m-t-6">
-                                <input type="checkbox" name="beras" id="beras" value="1" class="form-check-input">
-                                <label class="form-check-label m-l-10" for="beras">
-                                    Beras
-                                </label>
-                            </div>
-                            <div class="col-sm-4 m-t-6">
-                                <input type="checkbox" name="non_beras" id="non_beras" value="2" class="form-check-input">
-                                <label class="form-check-label m-l-10" for="non_beras">
-                                    Non Beras
-                                </label>
+                                <input type="text" name="kepala_rumah" id="kepala_rumah" class="form-control" placeholder="Nama Kepala Rumah" autocomplete="off" required>
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -126,13 +65,13 @@
                         <div class="row mb-2">
                             <label for="mkn_pokok" class="col-sm-4 col-form-label text-end fw-bold">Sumber Air <span class="text-danger">*</span></label>
                             <div class="col-sm-4 m-t-6">
-                                <input type="checkbox" name="pdam" id="pdam" value="PDAM" class="form-check-input">
+                                <input type="checkbox" name="sumber_air[]" id="pdam" value="PDAM" class="form-check-input">
                                 <label class="form-check-label m-l-10" for="pdam">
                                     PDAM
                                 </label>
                             </div>
                             <div class="col-sm-4 m-t-6">
-                                <input type="checkbox" name="sumur" id="sumur" value="Sumur" class="form-check-input">
+                                <input type="checkbox" name="sumber_air[]" id="sumur" value="Sumur" class="form-check-input">
                                 <label class="form-check-label m-l-10" for="sumur">
                                     Sumur
                                 </label>
@@ -141,17 +80,17 @@
                         <div class="row mb-2">
                             <label for="mkn_pokok" class="col-sm-4 col-form-label text-end fw-bold"></label>
                             <div class="col-sm-4 m-t-6">
-                                <input type="checkbox" name="sungai" id="sungai" value="Sungai" class="form-check-input">
+                                <input type="checkbox" name="sumber_air[]" id="sungai" value="Sungai" class="form-check-input">
                                 <label class="form-check-label m-l-10" for="sungai">
                                     Sungai
                                 </label>
                             </div>
                             <div class="col-sm-4 m-t-6">
-                                <input type="checkbox" name="lainnya" id="lainnya" value="Lainnya" class="form-check-input">
+                                <input type="checkbox" name="sumber_air[]" id="lainnya" class="form-check-input">
                                 <label class="form-check-label m-l-10" for="lainnya">
                                     Lainnya
                                 </label>
-                                <input type="text" name="lainnya_value" id="lainnya_value" class="form-control mt-2" style="display: none" placeholder="Tambahkan Lainnya" autocomplete="off">
+                                <input type="text" id="lainnya_value" onkeyup="valueToLainnya()" class="form-control mt-2" style="display: none" placeholder="Tambahkan Lainnya" autocomplete="off">
                             </div>
                         </div>
                     </div>
@@ -159,13 +98,13 @@
                         <div class="row mb-2">
                             <label for="tempat_smph" class="col-sm-4 col-form-label text-end fw-bold">Pembuangan Sampah <span class="text-danger">*</span></label>
                             <div class="col-sm-4 m-t-6">
-                                <input type="radio" value="1" name="tempat_smph" id="tempat_smph" class="form-check-input" required>
+                                <input type="radio" value="0" name="tempat_smph" id="tempat_smph" class="form-check-input" required>
                                 <label class="form-check-label m-l-10" for="tempat_smph">
                                     Tidak
                                 </label>
                             </div>
                             <div class="col-sm-4 m-t-6">
-                                <input type="radio" value="2" name="tempat_smph" id="tempat_smph" class="form-check-input" required>
+                                <input type="radio" value="1" name="tempat_smph" id="tempat_smph" class="form-check-input" required>
                                 <label class="form-check-label m-l-10" for="tempat_smph">
                                     Ya
                                 </label>
@@ -174,13 +113,13 @@
                         <div class="row mb-2">
                             <label for="saluran_pmbngn" class="col-sm-4 col-form-label text-end fw-bold">Pembuangan Limbah <span class="text-danger">*</span></label>
                             <div class="col-sm-4 m-t-6">
-                                <input type="radio" value="1" name="saluran_pmbngn" id="saluran_pmbngn" class="form-check-input" required>
+                                <input type="radio" value="0" name="saluran_pmbngn" id="saluran_pmbngn" class="form-check-input" required>
                                 <label class="form-check-label m-l-10" for="saluran_pmbngn">
                                     Tidak
                                 </label>
                             </div>
                             <div class="col-sm-4 m-t-6">
-                                <input type="radio" value="2" name="saluran_pmbngn" id="saluran_pmbngn" class="form-check-input" required>
+                                <input type="radio" value="1" name="saluran_pmbngn" id="saluran_pmbngn" class="form-check-input" required>
                                 <label class="form-check-label m-l-10" for="saluran_pmbngn">
                                     Ya
                                 </label>
@@ -189,13 +128,13 @@
                         <div class="row mb-2">
                             <label for="stiker_p4k" class="col-sm-4 col-form-label text-end fw-bold">Stiker P4K <span class="text-danger">*</span></label>
                             <div class="col-sm-4 m-t-6">
-                                <input type="radio" value="1" name="stiker_p4k" id="stiker_p4k" class="form-check-input" required>
+                                <input type="radio" value="0" name="stiker_p4k" id="stiker_p4k" class="form-check-input" required>
                                 <label class="form-check-label m-l-10" for="stiker_p4k">
                                     Tidak
                                 </label>
                             </div>
                             <div class="col-sm-4 m-t-6">
-                                <input type="radio" value="2" name="stiker_p4k" id="stiker_p4k" class="form-check-input" required>
+                                <input type="radio" value="1" name="stiker_p4k" id="stiker_p4k" class="form-check-input" required>
                                 <label class="form-check-label m-l-10" for="stiker_p4k">
                                     Ya
                                 </label>
@@ -204,49 +143,34 @@
                         <div class="row mb-2">
                             <label for="kriteria_rmh" class="col-sm-4 col-form-label text-end fw-bold">Kriteria Rumah <span class="text-danger">*</span></label>
                             <div class="col-sm-4 m-t-6">
-                                <input type="radio" value="1" name="kriteria_rmh" id="kriteria_rmh" class="form-check-input" required>
+                                <input type="radio" value="0" name="kriteria_rmh" id="kriteria_rmh" class="form-check-input" required>
                                 <label class="form-check-label m-l-10" for="kriteria_rmh">
                                     Kurang Sehat
                                 </label>
                             </div>
                             <div class="col-sm-4 m-t-6">
-                                <input type="radio" value="2" name="kriteria_rmh" id="kriteria_rmh" class="form-check-input" required>
+                                <input type="radio" value="1" name="kriteria_rmh" id="kriteria_rmh" class="form-check-input" required>
                                 <label class="form-check-label m-l-10" for="kriteria_rmh">
                                     Sehat
                                 </label>
                             </div>
                         </div>
                         <div class="row mb-2">
-                            <label for="aktifitas_up2k" class="col-sm-4 col-form-label text-end fw-bold">Aktifitas UP2K <span class="text-danger">*</span></label>
+                            <label for="layak_huni" class="col-sm-4 col-form-label text-end fw-bold">Layak Huni <span class="text-danger">*</span></label>
                             <div class="col-sm-4 m-t-6">
-                                <input type="radio" value="1" name="aktifitas_up2k" id="aktifitas_up2k" class="form-check-input" required>
-                                <label class="form-check-label m-l-10" for="aktifitas_up2k">
-                                    Tidak
-                                </label>
-                                <input type="text" name="aktifitas_up2k_usaha" id="aktifitas_up2k_usaha_display" class="form-control mt-2" style="display: none" placeholder="Jenis Usaha" autocomplete="off">
-                            </div>
-                            <div class="col-sm-4 m-t-6">
-                                <input type="radio" value="2" name="aktifitas_up2k" id="aktifitas_up2k" class="form-check-input" required>
-                                <label class="form-check-label m-l-10" for="aktifitas_up2k">
-                                    Ya
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <label for="aktifitas_lngkngn" class="col-sm-4 col-form-label text-end fw-bold">Aktif di Lingkungan <span class="text-danger">*</span></label>
-                            <div class="col-sm-4 m-t-6">
-                                <input type="radio" value="1" name="aktifitas_lngkngn" id="aktifitas_lngkngn" class="form-check-input" required>
-                                <label class="form-check-label m-l-10" for="aktifitas_lngkngn">
+                                <input type="radio" value="0" name="layak_huni" id="layak_huni" class="form-check-input" required>
+                                <label class="form-check-label m-l-10" for="layak_huni">
                                     Tidak
                                 </label>
                             </div>
                             <div class="col-sm-4 m-t-6">
-                                <input type="radio" value="2" name="aktifitas_lngkngn" id="aktifitas_lngkngn" class="form-check-input" required>
-                                <label class="form-check-label m-l-10" for="aktifitas_lngkngn">
+                                <input type="radio" value="1" name="layak_huni" id="layak_huni" class="form-check-input" required>
+                                <label class="form-check-label m-l-10" for="layak_huni">
                                     Ya
                                 </label>
                             </div>
                         </div>
+                        
                         <div class="row mt-3">
                             <div class="col-sm-4"></div>
                             <div class="col-sm-8">
@@ -267,18 +191,10 @@
         $('.select2').select2();
     });
 
-    $("input[name='aktifitas_up2k']").change(function(){
-        val = $(this).val();
-        if (val == 1) {
-            $('#aktifitas_up2k_usaha_display').show();
-            $("#aktifitas_up2k_usaha_display").prop('required',true);
-            $('#aktifitas_up2k_usaha_display').focus();
-        } else {
-            $('#aktifitas_up2k_usaha_display').hide();
-            $("#aktifitas_up2k_usaha_display").prop('required',false);
-            $('#aktifitas_up2k_usaha_display').val(null);
-        }
-    });
+    function valueToLainnya(){
+        val = $('#lainnya_value').val();
+        $('#lainnya').val(val);
+    }
 
     $('#lainnya').click(function() {
         if ($('#lainnya').is(":checked")){
@@ -288,12 +204,15 @@
         }else{
             $('#lainnya_value').hide();
             $("#lainnya_value").prop('required',false);
-            $('#lainnya_value').val(null);
+            $('#lainnya').val(null);
         }
     });
 
     function reset(){
         $('#form').trigger('reset');
+        $('#lainnya_value').hide();
+        $("#lainnya_value").prop('required',false);
+        $('#lainnya').val(null);
     };
 
     $('#form').on('submit', function (event) {
@@ -303,9 +222,9 @@
         }else{    
             $('#loading').show();
             $('#alert').html('');
-            // $('#btnSave').attr('disabled', true);
+            $('#btnSave').attr('disabled', true);
             
-            url = "{{ route('keluarga.store') }}"
+            url = "{{ route('rumah.store') }}"
             $.post(url, $(this).serialize(), function(data){
                 $('#alert').html("<div class='alert alert-success alert-dismissible fs-14' role='alert'><strong>Sukses!</strong> " + data.message + "</div>");
                 reset();
@@ -317,7 +236,7 @@
                 $('#alert').html("<div class='alert alert-danger alert-dismissible fs-14' role='alert'>" + respon.message + "<ol class='pl-3 m-0'>" + err + "</ol></div>");
             }).always(function(){
                 $('#loading').hide();
-                // $('#btnSave').removeAttr('disabled');
+                $('#btnSave').removeAttr('disabled');
             });
             return false;
         }

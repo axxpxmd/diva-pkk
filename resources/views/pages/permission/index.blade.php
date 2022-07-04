@@ -34,7 +34,7 @@
                             <input type="text" name="name" id="name" class="form-control" autocomplete="off" required/>
                         </div>
                         <div class="mt-2">
-                            <button type="submit" class="btn btn-info fs-14" id="btnSave"><i class="bi bi-save m-r-8"></i>Simpan <span id="txtSave"></span></button>
+                            <button type="submit" class="btn btn-success fs-14" id="btnSave"><i class="bi bi-save m-r-8"></i>Simpan <span id="txtSave"></span></button>
                             <a href="#" onclick="add()" class="btn btn-outline-danger fs-14 m-l-5" id="batal" style="display: none"><i class="bi bi-x m-r-3"></i>Batal</a>
                         </div>  
                     </form>
