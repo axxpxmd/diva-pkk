@@ -103,7 +103,7 @@
                     </div>
                 </div>
                 <div class="img-dynamic">
-                    <img src="{{ asset('images/logo/iren.png') }}" width="80" class="img-fluid" alt="Logo Tangsel">
+                    {{-- <img src="{{ asset('images/logo/iren.png') }}" width="80" class="img-fluid" alt="Logo Tangsel"> --}}
                     <div class="fixed-bottom mb-1">
                         <div class="p-2" style="background: rgba(255, 255, 255, 0.3); border-bottom: 5px #15927F solid; border-top: 3px #EFFCF5 solid">
                             <h5 class="font-weight-bolder">CERDAS MODERN RELIGIUS</h5>
