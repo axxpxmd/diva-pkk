@@ -68,7 +68,7 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text px-3 rounded-left"><i class="fa fa-lock"></i></span>
                                                         </div>
-                                                        <input type="text"name="password" class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}" placeholder="password" autocomplete="off">
+                                                        <input type="password"name="password" class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}" placeholder="password" autocomplete="off">
                                                         @error('password')
                                                             <div class="invalid-feedback mb-0 text-left" role="alert"><strong><span class="fs-12">{{ $message }}</span></strong></div>
                                                         @enderror
@@ -80,7 +80,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <button type="submit" class="btn btn-success btn-block bdr-r-30 px-3">Masuk</button>
+                                                        <button type="submit" class="btn btn-success btn-block bdr-r-30 px-3"><i class="fa fa-sign-in m-r-8"></i>Masuk</button>
                                                     </div>
                                                     @error('user') 
                                                         <div class="alert alert-danger mt-2 fs-14 text-center">{{ $message }}</div>
@@ -102,9 +102,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="fixed-bottom mb-1 img-dynamic">
-                    <div class="p-2" style="background: rgba(255, 255, 255, 0.3); border-bottom: 5px #15927F solid; border-top: 3px #EFFCF5 solid">
-                        <h5 class="font-weight-bolder">CERDAS MODERN RELIGIUS</h5>
+                <div class="img-dynamic">
+                    <img src="{{ asset('images/logo/iren.png') }}" width="80" class="img-fluid" alt="Logo Tangsel">
+                    <div class="fixed-bottom mb-1">
+                        <div class="p-2" style="background: rgba(255, 255, 255, 0.3); border-bottom: 5px #15927F solid; border-top: 3px #EFFCF5 solid">
+                            <h5 class="font-weight-bolder">CERDAS MODERN RELIGIUS</h5>
+                        </div>
                     </div>
                 </div>
 			</div>

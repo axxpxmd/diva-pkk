@@ -122,7 +122,6 @@
 @push('script')
 <script type="text/javascript">
 
-
     function openModalResetPassword(){
         $('#modalForm').modal('show');
         $('#resetPassword').show();
