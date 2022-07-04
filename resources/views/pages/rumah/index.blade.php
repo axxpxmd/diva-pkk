@@ -378,5 +378,33 @@
         }
         $(this).addClass('was-validated');
     });
+
+    function remove(id){
+        $.confirm({
+            title: 'Konfirmasi',
+            content: 'Apakah Anda yakin ingin menghapus data ini ?',
+            icon: 'bi bi-question text-danger',
+            theme: 'modern',
+            closeIcon: true,
+            animation: 'scale',
+            type: 'red',
+            buttons: {
+                ok: {
+                    text: "ok!",
+                    btnClass: 'btn-primary',
+                    keys: ['enter'],
+                    action: function(){
+                        $.post("{{ route('rumah.destroy', ':id') }}".replace(':id', id), {'_method' : 'DELETE'}, function(data) {
+                            table.api().ajax.reload();
+                            success(data.message)
+                        }, "JSON").fail(function(){
+                            reload();
+                        });
+                    }
+                },
+                cancel: function(){}
+            }
+        });
+    }
 </script>
 @endpush

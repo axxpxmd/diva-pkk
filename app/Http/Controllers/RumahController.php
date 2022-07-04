@@ -54,8 +54,9 @@ class RumahController extends Controller
             ->addColumn('action', function ($p) {
                 $tambahKK = '<a href="#" title="Tambah KK" class="fs-16 text-success m-l-5"><i class="bi bi-file-earmark-plus-fill"></i></a>';
                 $edit = '<a href="#" onclick="edit(' . $p->id . ')" class="text-info m-r-5" title="Edit Data"><i class="bi bi-pencil-fill"></i></a>';
+                $delete = '<a href="#" onclick="remove(' . $p->id . ')" class="text-danger" title="Delete Data"><i class="bi bi-trash-fill"></i></a>';
 
-                return $edit . $tambahKK;
+                return $edit . $delete . $tambahKK;
             })
             ->editColumn('dasawisma_id', function ($p) {
                 return $p->dasawisma->nama;
@@ -154,5 +155,12 @@ class RumahController extends Controller
         $data->update($input);
 
         return response()->json(['message' => "Berhasil memperbaharui data."]);
+    }
+
+    public function destroy($id)
+    {
+        Rumah::destroy($id);
+
+        return response()->json(['message' => "Berhasil menghapus data."]);
     }
 }
