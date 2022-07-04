@@ -100,7 +100,7 @@
                         </a>
                     </li>
                 @endcan
-                @can('keluarga')
+                @can('rumah')
                     <li class="sidebar-item {{ isset($active_rumah) ? 'active' : '-' }}">
                         <a href="{{ route('rumah.index') }}" class='sidebar-link'>
                             <i class="bi bi-house-fill text-danger"></i>
