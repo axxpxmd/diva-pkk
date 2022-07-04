@@ -108,14 +108,14 @@
                         </a>
                     </li>
                 @endcan
-                @can('anggota kk')
+                {{-- @can('anggota kk')
                     <li class="sidebar-item {{ isset($active_anggota) ? 'active' : '-' }}">
                         <a href="{{ route('kader.index') }}" class='sidebar-link'>
                             <i class="bi bi-file-person-fill text-success"></i>
                             <span>Anggota KK</span>
                         </a>
                     </li>
-                @endcan
+                @endcan --}}
 
                 <!-- Profile -->
                 <li class="sidebar-title rounded p-2"><b>Profile</b></li>

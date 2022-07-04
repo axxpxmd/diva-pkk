@@ -29,7 +29,7 @@
                     </div>
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Jambah Rumah</label>
-                        <label class="col-sm-8 col-form-label">{{ $data->jamban }} Buah</label>
+                        <label class="col-sm-8 col-form-label">{{ $data->jamban == 0 ? 'Tidak Punya' : $data->jamban.' Buah' }}</label>
                     </div>
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Sumber Air</label>
@@ -55,11 +55,23 @@
                     </div>
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Kriteria Rumah</label>
-                        <label class="col-sm-8 col-form-label">{{ $data->kriteria_rmh == 1 ? 'Sehat' : 'Kurang Sehat' }}</label>
+                        <label class="col-sm-8 col-form-label">
+                            @if ($data->kriteria_rmh == 1)
+                                <span class="badge bg-success">Sehat</span>
+                            @else
+                                <span class="badge bg-danger">Tidak Sehat</span>
+                            @endif
+                        </label>
                     </div>
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Layak Huni</label>
-                        <label class="col-sm-8 col-form-label">{{ $data->layak_huni == 1 ? 'Ya' : 'Tidak' }}</label>
+                        <label class="col-sm-8 col-form-label">
+                            @if ($data->layak_huni == 1)
+                                <span class="badge bg-success">Layak</span>
+                            @else
+                                <span class="badge bg-danger">Tidak Layak</span>
+                            @endif
+                        </label>
                     </div>
                 </div>
             </div>
