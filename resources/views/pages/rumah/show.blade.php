@@ -90,6 +90,7 @@
                             <th>No</th>
                             <th>No KK</th>
                             <th>Kepala Keluarga</th>
+                            <th>Domisili</th>
                             <th>Tahun Input</th>
                             <th>Aksi</th>
                         </tr>
@@ -122,6 +123,16 @@
                         <label for="nm_kpl_klrga" class="col-sm-3 col-form-label fw-bold">Kepala Keluarga <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
                           <input type="text" name="nm_kpl_klrga" id="nm_kpl_klrga" class="form-control" placeholder="Nama Kepala Keluarga" autocomplete="off" required>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <label for="domisili" class="col-sm-3 col-form-label fw-bold">Domisili <span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <select class="form-control select2" name="domisili" id="domisili">
+                                <option value="">Pilih</option>
+                                <option value="0">Luar Tangerang Selatan</option>
+                                <option value="1">Tangerang Selatan</option>
+                            </select>
                         </div>
                     </div>
                     <div class="row mb-2">
@@ -159,6 +170,7 @@
             {data: 'DT_RowIndex', name: 'DT_RowIndex', className: 'text-center', orderable: false, searchable: false},
             {data: 'no_kk', name: 'no_kk'},
             {data: 'nm_kpl_klrga', name: 'nm_kpl_klrga'},
+            {data: 'domisili', name: 'domisili'},
             {data: 'thn_input', name: 'thn_input'},
             {data: 'action', name: 'action', className: 'text-center', orderable: false, searchable: false}
         ]
@@ -195,6 +207,7 @@
             $('#id').val(data.id);
             $('#no_kk').val(data.no_kk);
             $('#nm_kpl_klrga').val(data.nm_kpl_klrga);
+            $('#domisili').val(data.domisili).trigger("change.select2");
             $('#thn_input').val(data.thn_input);
         });
     }

@@ -145,6 +145,9 @@ class RumahController extends Controller
 
                 return $edit . $delete;
             })
+            ->editColumn('domisili', function ($p) {
+                return $p->domisili == 1 ? 'Tangerang Selatan' : 'Luar Tangerang Selatan';
+            })
             ->rawColumns(['id', 'action'])
             ->addIndexColumn()
             ->toJson();
