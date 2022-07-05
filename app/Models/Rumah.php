@@ -19,4 +19,18 @@ class Rumah extends Model
     {
         return $this->belongsTo(RTRW::class, 'rtrw_id');
     }
+
+    public function kk()
+    {
+        return $this->hasMany(KartuKeluarga::class, 'rumah_id');
+    }
+
+    public function queryTable()
+    {
+        $datas = Rumah::select('id', 'dasawisma_id', 'rtrw_id', 'kepala_rumah', 'alamat_detail', 'kriteria_rmh')
+            ->orderBy('id', 'DESC')
+            ->get();
+
+        return $datas;
+    }
 }

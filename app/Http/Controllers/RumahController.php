@@ -48,16 +48,14 @@ class RumahController extends Controller
 
     public function dataTable()
     {
-        $data = Rumah::all();
+        $data = Rumah::queryTable();
 
         return DataTables::of($data)
             ->addColumn('action', function ($p) {
-                $check = KartuKeluarga::where('rumah_id', $p->id)->count();
-
                 $edit = '<a href="#" onclick="edit(' . $p->id . ')" class="text-info m-r-10" title="Edit Data"><i class="bi bi-pencil-fill"></i></a>';
                 $delete = '<a href="#" onclick="remove(' . $p->id . ')" class="text-danger" title="Delete Data"><i class="bi bi-trash-fill"></i></a>';
 
-                if ($check == 0) {
+                if ($p->kk->count() == 0) {
                     return $edit . $delete;
                 } else {
                     return $edit;
@@ -68,6 +66,9 @@ class RumahController extends Controller
 
                 return $action;
             })
+            ->addColumn('jumlah_kk', function ($p) {
+                return $p->kk->count() . " <a href='" . route('rumah.show', $p->id) . "' class='text-success fs-16' title='Tambah KK'><i class='bi bi-file-plus-fill m-l-5'></i></a>";
+            })
             ->editColumn('dasawisma_id', function ($p) {
                 return $p->dasawisma->nama;
             })
@@ -77,7 +78,7 @@ class RumahController extends Controller
 
                 return $p->kriteria_rmh == 1 ? $sehat : $KurangSehat;
             })
-            ->rawColumns(['id', 'kriteria_rmh', 'action', 'kepala_rumah'])
+            ->rawColumns(['id', 'kriteria_rmh', 'action', 'kepala_rumah', 'jumlah_kk'])
             ->addIndexColumn()
             ->toJson();
     }

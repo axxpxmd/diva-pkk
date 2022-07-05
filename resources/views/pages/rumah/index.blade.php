@@ -19,7 +19,8 @@
                             <th>Kepala Rumah</th>
                             <th>Dasawisma</th>
                             <th>Alamat</th>
-                            <th>Kriteri</th>
+                            <th>Kriteria</th>
+                            <th>Jumlah KK</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -232,6 +233,7 @@
             {data: 'dasawisma_id', name: 'dasawisma_id'},
             {data: 'alamat_detail', name: 'alamat_detail'},
             {data: 'kriteria_rmh', name: 'kriteria_rmh',  className: 'text-center'},
+            {data: 'jumlah_kk', name: 'jumlah_kk', className: 'text-center'},
             {data: 'action', name: 'action', className: 'text-center', orderable: false, searchable: false}
         ]
     });
