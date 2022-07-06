@@ -114,7 +114,7 @@ class RumahController extends Controller
 
     public function show(Request $request, $id)
     {
-        $title = 'Kartu Keluarga';
+        $title = $this->title;
         $desc  = $this->desc;
         $active_rumah = $this->active_rumah;
         $id    = $id;

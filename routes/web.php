@@ -3,16 +3,17 @@
 use Illuminate\Support\Facades\Route;
 
 //* Controller
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\DasawismaController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\KaderController;
-use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\RTRWController;
 use App\Http\Controllers\RumahController;
+use App\Http\Controllers\KaderController;
 use App\Http\Controllers\UtilityController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DasawismaController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\AnggotaKeluargaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,4 +64,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('/rumah/edit-kk/{id}', [RumahController::class, 'editKK'])->name('rumah.editKK');
     Route::patch('/rumah/update-kk/{id}', [RumahController::class, 'updateKK'])->name('rumah.updateKK');
     Route::delete('/rumah/destroy-kk/{id}', [RumahController::class, 'destroyKK'])->name('rumah.destroyKK');
+
+    Route::resource('/anggota-keluarga', AnggotaKeluargaController::class);
+    Route::post('/anggota-keluarga/check-validation-form1', [AnggotaKeluargaController::class, 'checkValidationForm1'])->name('anggota-keluarga.checkValidationForm1');
 });

@@ -45,6 +45,26 @@ function success(message) {
     });
 }
 
+function err() {
+    $.confirm({
+        title: 'Error',
+        content: 'Harap lengkapi semua form.',
+        icon: 'bi bi-patch-exclamation-fill',
+        theme: 'modern',
+        closeIcon: true,
+        animation: 'scale',
+        autoClose: 'ok|3000',
+        type: 'red',
+        buttons: {
+            ok: {
+                text: "ok!",
+                btnClass: 'btn-primary',
+                keys: ['enter']
+            }
+        }
+    });
+}
+
 // Example starter JavaScript for disabling form submissions if there are invalid fields
 (function () {
     'use strict'
@@ -62,4 +82,6 @@ function success(message) {
                 form.classList.add('was-validated')
             }, false)
         })
-})()
+})()    
+
+

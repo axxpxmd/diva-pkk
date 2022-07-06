@@ -9,7 +9,7 @@
 
     <!-- Title --> 
     <link rel="icon" href="{{ asset('images/logo/tangsel.png') }}" type="image/x-icon">
-    <title>{{ env('APP_NAME') }} @yield('title')</title>
+    <title>{{ env('APP_NAME') }} | {{ $title }}</title>
 
     <!-- CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/main/app.css') }}">
@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
     <link rel="stylesheet" href="{{ asset('css/select2.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/stepper.css') }}">
     @stack('style')
 
     <!-- Icon -->
@@ -53,6 +54,7 @@
     <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="{{ asset('js/stepper.js') }}"></script>
     <script type="text/javascript">
         var APP_URL = {!! json_encode(url('/').'/') !!};
         $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});

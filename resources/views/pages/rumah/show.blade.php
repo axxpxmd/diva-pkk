@@ -6,8 +6,8 @@
 </div>
 <section class="section animate__animated animate__fadeInRight">
     <div class="card">  
-        <h5 class="card-header bg-info text-white mb-2 p-3">Data Rumah</h5>
-        <div class="card-body">
+        <h5 class="card-header bg-info text-white mb-2 p-3 fs-18">Data Rumah</h5>
+        <div class="card-body fs-14">
             <a href="{{ route('rumah.index') }}" class="fs-14 text-danger fw-bold"><i class="bi bi-arrow-left m-r-8"></i>Kembali</a>
             <div class="row mt-2">
                 <div class="col-sm-6">
@@ -81,7 +81,7 @@
         <a href="#" onclick="add()" class="btn btn-sm btn-success px-2"><i class="bi bi-plus font-weight-bold fs-16 m-r-5"></i>Tambah Data</a>
     </div>
     <div class="card">  
-        <h5 class="card-header bg-info text-white mb-2 p-3">Daftar Kartu Keluarga</h5>
+        <h5 class="card-header bg-info text-white mb-2 p-3 fs-18">Daftar Kartu Keluarga</h5>
         <div class="card-body">
             <div class="table-responsive">
                 <table id="dataTable" class="table data-table table-hover table-bordered" style="width:100%;">
