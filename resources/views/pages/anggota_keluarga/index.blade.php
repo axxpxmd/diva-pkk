@@ -6,8 +6,8 @@
 </div>
 <section class="section animate__animated animate__fadeInRight">
     <div class="mb-3 text-right">
-        <a href="{{ route('anggota-keluarga.create', 'status=1') }}" class="btn btn-sm btn-success px-2 mb-5-m"><i class="bi bi-plus font-weight-bold fs-16 m-r-5"></i>Tambah | Hidup</a>
-        <a href="{{ route('anggota-keluarga.create', 'status=0') }}" class="btn btn-sm btn-danger px-2"><i class="bi bi-plus font-weight-bold fs-16 m-r-5"></i>Tambah | Meninggal</a>
+        <a href="{{ route('anggota-keluarga.create', 'status=1') }}" class="btn btn-sm btn-success px-2 mb-5-m"><i class="bi bi-plus font-weight-bold fs-16 m-r-5"></i>Tambah Data | Hidup</a>
+        <a href="{{ route('anggota-keluarga.create', 'status=0') }}" class="btn btn-sm btn-danger px-2"><i class="bi bi-plus font-weight-bold fs-16 m-r-5"></i>Tambah Data | Meninggal</a>
     </div>
     <div class="card">  
         <div class="card-body">
