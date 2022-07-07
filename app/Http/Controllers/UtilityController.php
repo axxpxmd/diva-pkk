@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dasawisma;
-
+use App\Models\KartuKeluarga;
 // Models
 use App\Models\RTRW;
 use App\Models\Kelurahan;
@@ -23,6 +23,13 @@ class UtilityController extends Controller
         $rtrws = RTRW::select('id')->where('kelurahan_id', $rtrw->kelurahan_id)->get()->toArray();
 
         $data = Dasawisma::whereIn('rtrw_id', $rtrws)->get();
+
+        return $data;
+    }
+
+    public function getNoKKByKepalaKeluarga($id)
+    {
+        $data = KartuKeluarga::find($id);
 
         return $data;
     }

@@ -50,7 +50,7 @@
                         {{ method_field('POST') }}
                         <div id="test-form-1" role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepperFormTrigger1">
                             <p class="text-center fw-bold fs-16">Data 1 : Berisikan data diri anggota keluarga</p>
-                            @include('pages.anggota_keluarga.personal')
+                            @include('pages.anggota_keluarga.data1')
                         </div>
                         <div id="test-form-2" role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepperFormTrigger2">
                             <div class="row mb-2">

@@ -67,6 +67,7 @@
             <label for="no_kk" class="col-sm-4 col-form-label text-end fw-bold">No KK</label>
             <div class="col-sm-8">
                 <input type="number" name="no_kk" id="no_kk" class="form-control" placeholder="Nomor Kartu Keluarga" autocomplete="off" required>
+                <span></span>
             </div>
         </div>
         <div class="row mb-2">
@@ -304,6 +305,22 @@
                 option += "<option value='" + value.name + "'>" + value.name +"</li>";
             });
             $('#pendidikan').empty().html(option);
+        }
+    });
+
+    $('#terdaftar_dukcapil,#rumah_id').on('change', function(){
+        terdaftar_dukcapil = $('input[name="terdaftar_dukcapil"]:checked').val();
+        rumah_id = $('#rumah_id').val();
+        url = "{{ route('getNoKKByKepalaKeluarga', ':id') }}".replace(':id', rumah_id);
+
+        if (rumah_id != "") {
+            $.get(url, function(data){
+                if (terdaftar_dukcapil == 1) {
+                    $('#no_kk').val(data.no_kk)
+                }
+            }, 'JSON');    
+        } else {
+            $('#no_kk').val('')
         }
     });
 

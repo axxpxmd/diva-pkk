@@ -58,6 +58,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
     Route::get('/get-kelurahan/{id}', [UtilityController::class, 'kelurahanByKecamatan'])->name('kelurahanByKecamatan');
     Route::get('/get-dasawisma/{id}', [UtilityController::class, 'dasawismaByRTRW'])->name('dasawismaByRTRW');
+    Route::get('/get-nokk/{id}', [UtilityController::class, 'getNoKKByKepalaKeluarga'])->name('getNoKKByKepalaKeluarga');
 
     Route::resource('/rumah', RumahController::class);
     Route::post('/rumah/store-kk', [RumahController::class, 'storeKK'])->name('rumah.storeKK');
