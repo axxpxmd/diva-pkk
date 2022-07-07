@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 stepperForm.next()  
             },
             error:function(){
-                // err();
+                err();
             }
         });
     });

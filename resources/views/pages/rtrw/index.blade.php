@@ -124,6 +124,7 @@
             url = "{{ route('kelurahanByKecamatan', ':id') }}".replace(':id', val);
             $.get(url, function(data){
                 if(data){
+                    console.log(data)
                     $.each(data, function(index, value){
                         option += "<option value='" + value.id + "'>" + value.n_kelurahan +"</li>";
                     });
