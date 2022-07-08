@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="row mb-2">
-            <label for="rumah_id" class="col-sm-4 col-form-label fw-bold text-end">Kepala Rumah <span class="text-danger">*</span></label>
+            <label for="rumah_id" class="col-sm-4 col-form-label fw-bold text-end">Rumah <span class="text-danger">*</span></label>
             <div class="col-sm-8">
                 <select class="select2 form-select" id="rumah_id" name="rumah_id" required>
                     <option value="">Pilih</option>
@@ -46,16 +46,16 @@
         <div class="row mb-2">
             <label for="nik" class="col-sm-4 col-form-label text-end fw-bold">NIK</label>
             <div class="col-sm-8">
-                <input type="number" name="nik" id="nik" class="form-control" placeholder="16 Digit" autocomplete="off" required>
+                <input type="number" name="nik" id="nik" class="form-control" placeholder="16 Digit" autocomplete="off">
                 <div class="row my-2">
                     <div class="col-sm-6 m-t-6">
-                        <input type="radio" value="0" name="domisili" id="domisili" class="form-check-input" required>
+                        <input type="radio" value="0" name="domisili" id="domisili" class="form-check-input">
                         <label class="form-check-label m-l-10" for="domisili">
                             Luar Tangsel
                         </label>
                     </div>
                     <div class="col-sm-6 m-t-6">
-                        <input type="radio" value="1" name="domisili" id="domisili" class="form-check-input" required>
+                        <input type="radio" value="1" name="domisili" id="domisili" class="form-check-input">
                         <label class="form-check-label m-l-10" for="domisili">
                             Tangsel
                         </label>
@@ -66,7 +66,7 @@
         <div class="row mb-2">
             <label for="no_kk" class="col-sm-4 col-form-label text-end fw-bold">No KK</label>
             <div class="col-sm-8">
-                <input type="number" name="no_kk" id="no_kk" class="form-control" placeholder="Nomor Kartu Keluarga" autocomplete="off" required>
+                <input type="number" name="no_kk" id="no_kk" class="form-control" placeholder="Nomor Kartu Keluarga" autocomplete="off">
                 <span></span>
             </div>
         </div>
@@ -277,10 +277,10 @@
                 </label>
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-2">
             <div class="col-sm-4"></div>
             <div class="col-sm-8">
-                <button type="submit" class="btn btn-info fs-14" id="btnForm1"><i class="bi bi-arrow-right m-r-8"></i>Selanjutnya</button>
+                <button type="submit" class="btn btn-block btn-info fs-14" id="btnForm1"><i class="bi bi-arrow-right m-r-8"></i>Selanjutnya</button>
             </div>
         </div>
     </div>
@@ -291,9 +291,16 @@
         val = $(this).val();
         $('#pendidikanDisplay').show();
         option = "<option value=''>Pilih</option>";
+        status_pendidkan = $('input[name="status_pendidkan"]:checked').val();
+
+        if (status_pendidkan == 1) {
+            $('#jenjangDisplay').show();
+        } else {
+            $('#jenjangDisplay').hide();
+        }
        
-        var putusSekolah = [{"name":"SD/MI"},{"name":"SMP/Sederajat"},{"name":"SMA/Sederajat"},{"name":"Diploma"},{"name":"S1"},{"name":"S2"},{"name":"S3"}];
-        var tamatSekolah = [{"name":"SD/MI"},{"name":"SMP/Sederajat"},{"name":"SMA/Sederajat"}];
+        var tamatSekolah = [{"name":"SD/MI"},{"name":"SMP/Sederajat"},{"name":"SMA/Sederajat"},{"name":"Diploma"},{"name":"S1"},{"name":"S2"},{"name":"S3"}];
+        var putusSekolah = [{"name":"SD/MI"},{"name":"SMP/Sederajat"},{"name":"SMA/Sederajat"}];
 
         if (val == 1) {
             $.each(tamatSekolah, function(index, value){
@@ -313,6 +320,12 @@
         rumah_id = $('#rumah_id').val();
         url = "{{ route('getNoKKByKepalaKeluarga', ':id') }}".replace(':id', rumah_id);
 
+        if (terdaftar_dukcapil == 1) {
+            $("#nik,#no_kk,#domisili").prop({'disabled': false, 'required' : true});
+        } else {
+            $("#nik,#no_kk,#domisili").prop({'disabled': true, 'required' : false, 'value' : null});
+        }
+
         if (rumah_id != "") {
             $.get(url, function(data){
                 if (terdaftar_dukcapil == 1) {
@@ -321,25 +334,6 @@
             }, 'JSON');    
         } else {
             $('#no_kk').val('')
-        }
-    });
-
-    $("input[name='status_pendidkan']").change(function(){
-        status_pendidkan = $('input[name="status_pendidkan"]:checked').val();
-
-        if (status_pendidkan == 1) {
-            $('#jenjangDisplay').show();
-        } else {
-            $('#jenjangDisplay').hide();
-        }
-    });
-
-    $("input[name='terdaftar_dukcapil']").change(function(){
-        val = $(this).val();
-        if (val == 1) {
-            $("#nik,#no_kk,#domisili").prop({'disabled': false, 'required' : true});
-        } else {
-            $("#nik,#no_kk,#domisili").prop({'disabled': true, 'required' : false, 'value' : null});
         }
     });
 
