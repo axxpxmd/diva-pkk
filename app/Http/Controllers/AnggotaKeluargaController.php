@@ -87,10 +87,16 @@ class AnggotaKeluargaController extends Controller
 
     public function checkValidationForm1(Request $request)
     {
+        // dd($request->all());
+
         $request->validate([
             'dasawisma_id' => 'required',
             'rumah_id' => 'required',
-            'terdaftar_dukcapil' => 'required|in:0,1'
+            'terdaftar_dukcapil' => 'required|in:0, 1',
+            'nik' => 'required_if:terdaftar_dukcapil,1|digits:16',
+            'domisili' => 'required_if:terdaftar_dukcapil,1|in:0,1',
+            'no_kk' => 'required_if:terdaftar_dukcapil,1|digits:16',
+            'nama' => 'required|string|max:100'
         ]);
 
         return response()->json([

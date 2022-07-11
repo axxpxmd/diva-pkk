@@ -97,9 +97,11 @@ document.addEventListener('DOMContentLoaded', function () {
             event.preventDefault();
             event.stopPropagation();
         }
-        var dasawisma_id = $('#dasawisma_id').val();
-        var rumah_id = $('#rumah_id').val();
-        var terdaftar_dukcapil = $('input[name="terdaftar_dukcapil"]:checked').val();
+
+        dasawisma_id = $('#dasawisma_id').val();
+        rumah_id = $('#rumah_id').val();
+        terdaftar_dukcapil = $('input[name="terdaftar_dukcapil"]:checked').val();
+        nik = $('#nik').val();
 
         $.ajax({
             url: "{{ route('anggota-keluarga.checkValidationForm1') }}",
@@ -107,14 +109,15 @@ document.addEventListener('DOMContentLoaded', function () {
             data: {
                 dasawisma_id: dasawisma_id,
                 rumah_id: rumah_id,
-                terdaftar_dukcapil: terdaftar_dukcapil
+                terdaftar_dukcapil: terdaftar_dukcapil,
+                nik: nik
             },
             cache: false,
             success:function(response){
                 stepperForm.next()  
             },
             error:function(){
-                err();
+                // err();
             }
         });
     });
