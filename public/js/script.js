@@ -45,15 +45,15 @@ function success(message) {
     });
 }
 
-function err() {
+function err(message) {
     $.confirm({
         title: 'Error',
-        content: 'Harap lengkapi semua form.',
+        content: message,
         icon: 'bi bi-patch-exclamation-fill',
         theme: 'modern',
         closeIcon: true,
         animation: 'scale',
-        autoClose: 'ok|3000',
+        autoClose: 'ok|5000',
         type: 'red',
         buttons: {
             ok: {

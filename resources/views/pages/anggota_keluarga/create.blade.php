@@ -53,12 +53,8 @@
                             @include('pages.anggota_keluarga.data1')
                         </div>
                         <div id="test-form-2" role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepperFormTrigger2">
-                            <div class="row mb-2">
-                                <label for="test" class="col-sm-2 col-form-label text-end fw-bold">Alamat <span class="text-danger">*</span></label>
-                                <div class="col-sm-10">
-                                    <textarea type="text" name="test" id="test" placeholder="Bisa diisi Nomor Rumah / Blok / Cluster" class="form-control" autocomplete="off"></textarea>
-                                </div>
-                            </div>
+                            <p class="text-center fw-bold fs-16">Data 2 : Berisikan data diri anggota keluarga</p>
+                            @include('pages.anggota_keluarga.data2')
                             <button type="button" class="btn btn-primary" onclick="stepperForm.previous()">Previous</button>
                             <button type="button" class="btn btn-primary" onclick="stepperForm.next()">Next</button>
                         </div>
@@ -73,7 +69,6 @@
 </section>
 @endsection
 @push('script')
-<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 <script type="text/javascript">
 
 $(document).ready(function() {
@@ -90,36 +85,90 @@ document.addEventListener('DOMContentLoaded', function () {
     var btnNextList = [].slice.call(document.querySelectorAll('.btn-next-form'))
     var stepperPanList = [].slice.call(stepperFormEl.querySelectorAll('.bs-stepper-pane'))
     var form = stepperFormEl.querySelector('.bs-stepper-content form')
-    var formInput = document.querySelectorAll('#form')
 
-    $('#btnForm1').on('click', function(event) {
-        if (formInput[0].checkValidity()) {
+    // Data 1
+    $('#form').on('submit', function (event) {
+        var status_dlm_klrga = $('input[name="status_dlm_klrga[]"]:checked')
+        if (status_dlm_klrga.length == 0) {
+            $('input[name="status_dlm_klrga[]"]').prop('required', true);
+        }else{
+            $('input[name="status_dlm_klrga[]"]').prop('required', false);
+        }
+        if ($(this)[0].checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
-        }
+        }else{    
+            pus = $('#pus').val();
+            wus = $('#wus').val();
+            nik = $('#nik').val();
+            nama = $('#nama').val();
+            no_kk = $('#no_kk').val();
+            agama = $('#agama').val();
+            rumah_id = $('#rumah_id').val();
+            tgl_lahir = $('#tgl_lahir').val();
+            pekerjaan = $('#pekerjaan').val();
+            tmpt_lahir = $('#tmpt_lahir').val();
+            pendidikan = $('#pendidikan').val();
+            dasawisma_id = $('#dasawisma_id').val();
+            status_kawin = $('#status_kawin').val();
 
-        dasawisma_id = $('#dasawisma_id').val();
-        rumah_id = $('#rumah_id').val();
-        terdaftar_dukcapil = $('input[name="terdaftar_dukcapil"]:checked').val();
-        nik = $('#nik').val();
+            // Radio
+            jabatan = $('input[name="jabatan"]:checked').val();
+            kelamin = $('input[name="kelamin"]:checked').val();
+            domisili = $('input[name="domisili"]:checked').val();
+            akta_kelahiran = $('input[name="akta_kelahiran"]:checked').val();
+            status_pendidkan = $('input[name="status_pendidkan"]:checked').val();
+            terdaftar_dukcapil = $('input[name="terdaftar_dukcapil"]:checked').val();
 
-        $.ajax({
-            url: "{{ route('anggota-keluarga.checkValidationForm1') }}",
-            type: "POST",
-            data: {
-                dasawisma_id: dasawisma_id,
-                rumah_id: rumah_id,
-                terdaftar_dukcapil: terdaftar_dukcapil,
-                nik: nik
-            },
-            cache: false,
-            success:function(response){
-                stepperForm.next()  
-            },
-            error:function(){
-                // err();
+            // Checkbox 
+            var status_dlm_klrga = $('input[name="status_dlm_klrga[]"]:checked')
+            if (status_dlm_klrga.length == 0) {
+                $('input[name="status_dlm_klrga[]"]').prop('required', true);
+            }else{
+                $('input[name="status_dlm_klrga[]"]').prop('required', false);
             }
-        });
+            var status_dlm_klrga = $('input[name="status_dlm_klrga[]"]:checked').map(function() {
+                return $(this).val();   
+            }).get();
+
+            $.ajax({
+                url: "{{ route('anggota-keluarga.checkValidationForm1') }}",
+                type: "POST",
+                data: {
+                    dasawisma_id: dasawisma_id,
+                    rumah_id: rumah_id,
+                    terdaftar_dukcapil: terdaftar_dukcapil,
+                    nik: nik,
+                    domisili: domisili,
+                    no_kk: no_kk,
+                    nama: nama,
+                    kelamin: kelamin,
+                    tmpt_lahir: tmpt_lahir,
+                    tgl_lahir: tgl_lahir,
+                    akta_kelahiran: akta_kelahiran,
+                    status_kawin: status_kawin,
+                    status_dlm_klrga: status_dlm_klrga,
+                    agama: agama,
+                    status_pendidkan: status_pendidkan,
+                    pendidikan: pendidikan,
+                    pekerjaan: pekerjaan,
+                    jabatan: jabatan,
+                    pus: pus,
+                    wus: wus
+                },
+                success:function(response){
+                    stepperForm.next()  
+                },
+                error:function(response){
+                    error = ''; respon = response.responseJSON;
+                    $.each(respon.errors, function(index, value){
+                        error += "<li>" + value +"</li>";
+                    });
+                    err(error);
+                }
+            });
+            return false;
+        }
     });
 })
 </script>

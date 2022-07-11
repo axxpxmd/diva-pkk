@@ -1,7 +1,7 @@
 <div class="row mt-2">
     <div class="col-sm-6">
         <div class="row mb-2">
-            <label for="dasawisma_id" class="col-sm-4 col-form-label fw-bold text-end">Dasawisma <span class="text-danger">*</span></label>
+            <label class="col-sm-4 col-form-label fw-bold text-end">Dasawisma <span class="text-danger">*</span></label>
             <div class="col-sm-8">
                 <select class="select2 form-select" id="dasawisma_id" name="dasawisma_id" required>
                     <option value="">Pilih</option>
@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="row mb-2">
-            <label for="rumah_id" class="col-sm-4 col-form-label fw-bold text-end">Rumah <span class="text-danger">*</span></label>
+            <label class="col-sm-4 col-form-label fw-bold text-end">Rumah <span class="text-danger">*</span></label>
             <div class="col-sm-8">
                 <select class="select2 form-select" id="rumah_id" name="rumah_id" required>
                     <option value="">Pilih</option>
@@ -29,34 +29,34 @@
             </div>
         </div>
         <div class="row mb-2">
-            <label for="terdaftar_dukcapil" class="col-sm-4 col-form-label text-end fw-bold">Terdaftar Dukcapil <span class="text-danger">*</span></label>
+            <label class="col-sm-4 col-form-label text-end fw-bold">Terdaftar Dukcapil <span class="text-danger">*</span></label>
             <div class="col-sm-4 m-t-6">
                 <input type="radio" value="0" name="terdaftar_dukcapil" id="terdaftar_dukcapil" class="form-check-input" required>
-                <label class="form-check-label m-l-10" for="terdaftar_dukcapil">
+                <label class="form-check-label m-l-10">
                     Tidak
                 </label>
             </div>
             <div class="col-sm-4 m-t-6">
                 <input type="radio" value="1" name="terdaftar_dukcapil" id="terdaftar_dukcapil" class="form-check-input" required>
-                <label class="form-check-label m-l-10" for="terdaftar_dukcapil">
+                <label class="form-check-label m-l-10">
                     Ya
                 </label>
             </div>
         </div>
         <div class="row mb-2">
-            <label for="nik" class="col-sm-4 col-form-label text-end fw-bold">NIK</label>
+            <label class="col-sm-4 col-form-label text-end fw-bold">NIK</label>
             <div class="col-sm-8">
                 <input type="number" name="nik" id="nik" class="form-control" placeholder="16 Digit" autocomplete="off">
                 <div class="row my-2">
                     <div class="col-sm-6 m-t-6">
                         <input type="radio" value="0" name="domisili" id="domisili" class="form-check-input">
-                        <label class="form-check-label m-l-10" for="domisili">
+                        <label class="form-check-label m-l-10">
                             Luar Tangsel
                         </label>
                     </div>
                     <div class="col-sm-6 m-t-6">
                         <input type="radio" value="1" name="domisili" id="domisili" class="form-check-input">
-                        <label class="form-check-label m-l-10" for="domisili">
+                        <label class="form-check-label m-l-10">
                             Tangsel
                         </label>
                     </div>
@@ -64,41 +64,41 @@
             </div>
         </div>
         <div class="row mb-2">
-            <label for="no_kk" class="col-sm-4 col-form-label text-end fw-bold">No KK</label>
+            <label class="col-sm-4 col-form-label text-end fw-bold">No KK</label>
             <div class="col-sm-8">
                 <input type="number" name="no_kk" id="no_kk" class="form-control" placeholder="Nomor Kartu Keluarga" autocomplete="off">
                 <span></span>
             </div>
         </div>
         <div class="row mb-2">
-            <label for="nama" class="col-sm-4 col-form-label text-end fw-bold">Nama Lengkap <span class="text-danger">*</span></label>
+            <label class="col-sm-4 col-form-label text-end fw-bold">Nama Lengkap <span class="text-danger">*</span></label>
             <div class="col-sm-8">
                 <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama Lengkap" autocomplete="off" required>
             </div>
         </div>
         <div class="row mb-2">
-            <label for="kelamin" class="col-sm-4 col-form-label text-end fw-bold">Jenis Kelamin <span class="text-danger">*</span></label>
+            <label class="col-sm-4 col-form-label text-end fw-bold">Jenis Kelamin <span class="text-danger">*</span></label>
             <div class="col-sm-4 m-t-6">
                 <input type="radio" value="Laki - laki" name="kelamin" id="kelamin" class="form-check-input" required>
-                <label class="form-check-label m-l-10" for="kelamin">
+                <label class="form-check-label m-l-10">
                     Laki - laki
                 </label>
             </div>
             <div class="col-sm-4 m-t-6">
                 <input type="radio" value="Perempuan" name="kelamin" id="kelamin" class="form-check-input" required>
-                <label class="form-check-label m-l-10" for="kelamin">
+                <label class="form-check-label m-l-10">
                     Perempuan
                 </label>
             </div>
         </div>
         <div class="row mb-2">
-            <label for="tmpt_lahir" class="col-sm-4 col-form-label text-end fw-bold">Tempat Lahir <span class="text-danger">*</span></label>
+            <label class="col-sm-4 col-form-label text-end fw-bold">Tempat Lahir <span class="text-danger">*</span></label>
             <div class="col-sm-8">
                 <textarea type="text" name="tmpt_lahir" id="tmpt_lahir" placeholder="Tempat Lahir" class="form-control" autocomplete="off" required></textarea>
             </div>
         </div>
         <div class="row mb-2">
-            <label for="tgl_lahir" class="col-sm-4 col-form-label text-end fw-bold">Tanggal Lahir <span class="text-danger">*</span></label>
+            <label class="col-sm-4 col-form-label text-end fw-bold">Tanggal Lahir <span class="text-danger">*</span></label>
             <div class="col-sm-8">
                 <div class="row">
                     <div class="col-sm-5">
@@ -113,28 +113,28 @@
             </div>
         </div>
         <div class="row mb-2">
-            <label for="akta_kelahiran" class="col-sm-4 col-form-label text-end fw-bold">Akte Kelahiran <span class="text-danger">*</span></label>
+            <label class="col-sm-4 col-form-label text-end fw-bold">Akte Kelahiran <span class="text-danger">*</span></label>
             <div class="col-sm-2 m-t-6">
                 <input type="radio" value="Tidak" name="akta_kelahiran" id="akta_kelahiran" class="form-check-input" required>
-                <label class="form-check-label m-l-10" for="akta_kelahiran">
+                <label class="form-check-label m-l-10">
                     Tidak
                 </label>
             </div>
             <div class="col-sm-2 m-t-6">
                 <input type="radio" value="Ya" name="akta_kelahiran" id="akta_kelahiran" class="form-check-input" required>
-                <label class="form-check-label m-l-10" for="akta_kelahiran">
+                <label class="form-check-label m-l-10">
                     Ya
                 </label>
             </div>
             <div class="col-sm-3 m-t-6">
                 <input type="radio" value="Proses" name="akta_kelahiran" id="akta_kelahiran" class="form-check-input" required>
-                <label class="form-check-label m-l-10" for="akta_kelahiran">
+                <label class="form-check-label m-l-10">
                     Proses
                 </label>
             </div>
         </div>
         <div class="row">
-            <label for="status_kawin" class="col-sm-4 col-form-label fw-bold text-end">Status Perkawinan <span class="text-danger">*</span></label>
+            <label class="col-sm-4 col-form-label fw-bold text-end">Status Perkawinan <span class="text-danger">*</span></label>
             <div class="col-sm-8">
                 <select class="select2 form-select" id="status_kawin" name="status_kawin" required>
                     <option value="">Pilih</option>
@@ -160,22 +160,22 @@
     </div>
     <div class="col-sm-6">
         <div class="row">
-            <label for="status_dlm_klrga" class="col-sm-4 col-form-label text-end fw-bold">Status Keluarga <span class="text-danger">*</span></label>
+            <label class="col-sm-4 col-form-label text-end fw-bold">Status Keluarga <span class="text-danger">*</span></label>
             <div class="col-sm-3 m-t-6">
                 <input type="checkbox" name="status_dlm_klrga[]" id="status_dlm_klrga" value="Kepala Keluarga" class="form-check-input">
-                <label class="form-check-label m-l-10" for="status_dlm_klrga">
+                <label class="form-check-label m-l-10">
                     Kepala Keluarga
                 </label>
             </div>
             <div class="col-sm-3 m-t-6">
                 <input type="checkbox" name="status_dlm_klrga[]" id="status_dlm_klrga" value="Suami" class="form-check-input">
-                <label class="form-check-label m-l-10" for="status_dlm_klrga">
+                <label class="form-check-label m-l-10">
                     Suami
                 </label>
             </div>
             <div class="col-sm-2 m-t-6">
                 <input type="checkbox" name="status_dlm_klrga[]" id="status_dlm_klrga" value="Istri" class="form-check-input">
-                <label class="form-check-label m-l-10" for="status_dlm_klrga">
+                <label class="form-check-label m-l-10">
                     Istri
                 </label>
             </div>
@@ -184,25 +184,25 @@
             <div class="col-sm-4"></div>
             <div class="col-sm-3 m-t-6">
                 <input type="checkbox" name="status_dlm_klrga[]" id="status_dlm_klrga" value="Anak" class="form-check-input">
-                <label class="form-check-label m-l-10" for="status_dlm_klrga">
+                <label class="form-check-label m-l-10">
                     Anak
                 </label>
             </div>
             <div class="col-sm-3 m-t-6">
                 <input type="checkbox" name="status_dlm_klrga[]" id="status_dlm_klrga" value="Lansia" class="form-check-input">
-                <label class="form-check-label m-l-10" for="status_dlm_klrga">
+                <label class="form-check-label m-l-10">
                     Lansia
                 </label>
             </div>
             <div class="col-sm-2 m-t-6">
                 <input type="checkbox" name="status_dlm_klrga[]" id="status_dlm_klrga" value="Lainnya" class="form-check-input">
-                <label class="form-check-label m-l-10" for="status_dlm_klrga">
+                <label class="form-check-label m-l-10">
                     Lainnya
                 </label>
             </div>
         </div>
         <div class="row mb-2">
-            <label for="agama" class="col-sm-4 col-form-label fw-bold text-end">Agama <span class="text-danger">*</span></label>
+            <label class="col-sm-4 col-form-label fw-bold text-end">Agama <span class="text-danger">*</span></label>
             <div class="col-sm-8">
                 <select class="select2 form-select" id="agama" name="agama" required>
                     <option value="">Pilih</option>
@@ -220,16 +220,16 @@
             </div>
         </div>
         <div class="row mb-2">
-            <label for="status_pendidkan" class="col-sm-4 col-form-label text-end fw-bold">Pendidikan <span class="text-danger">*</span></label>
+            <label class="col-sm-4 col-form-label text-end fw-bold">Pendidikan <span class="text-danger">*</span></label>
             <div class="col-sm-4 m-t-6">
                 <input type="radio" value="0" name="status_pendidkan" id="status_pendidkan" class="form-check-input" required>
-                <label class="form-check-label m-l-10" for="status_pendidkan">
+                <label class="form-check-label m-l-10">
                     Putus Sekolah
                 </label>
             </div>
             <div class="col-sm-4 m-t-6">
                 <input type="radio" value="1" name="status_pendidkan" id="status_pendidkan" class="form-check-input" required>
-                <label class="form-check-label m-l-10" for="status_pendidkan">
+                <label class="form-check-label m-l-10">
                     Tamat Sekolah
                 </label>
             </div>
@@ -246,7 +246,7 @@
             </div>
         </div>
         <div class="row mb-2">
-            <label for="pekerjaan" class="col-sm-4 col-form-label fw-bold text-end">Pekerjaan <span class="text-danger">*</span></label>
+            <label class="col-sm-4 col-form-label fw-bold text-end">Pekerjaan <span class="text-danger">*</span></label>
             <div class="col-sm-8">
                 <select class="select2 form-select" id="pekerjaan" name="pekerjaan" required>
                     <option value="">Pilih</option>
@@ -263,16 +263,16 @@
             </div>
         </div>
         <div class="row mb-2">
-            <label for="jabatan" class="col-sm-4 col-form-label text-end fw-bold">Jabatan <span class="text-danger">*</span></label>
+            <label class="col-sm-4 col-form-label text-end fw-bold">Jabatan <span class="text-danger">*</span></label>
             <div class="col-sm-4 m-t-6">
                 <input type="radio" value="Managerial" name="jabatan" id="jabatan" class="form-check-input" required>
-                <label class="form-check-label m-l-10" for="jabatan">
+                <label class="form-check-label m-l-10">
                     Managerial
                 </label>
             </div>
             <div class="col-sm-4 m-t-6">
                 <input type="radio" value="Staff" name="jabatan" id="jabatan" class="form-check-input" required>
-                <label class="form-check-label m-l-10" for="jabatan">
+                <label class="form-check-label m-l-10">
                     Staff
                 </label>
             </div>
@@ -323,7 +323,8 @@
         if (terdaftar_dukcapil == 1) {
             $("#nik,#no_kk,#domisili").prop({'disabled': false, 'required' : true});
         } else {
-            $("#nik,#no_kk,#domisili").prop({'disabled': true, 'required' : false, 'value' : null});
+            $("#nik,#no_kk").prop({'value': null});
+            $("#nik,#no_kk,#domisili").prop({'checked': false,'disabled': true, 'required' : false});
         }
 
         if (rumah_id != "") {
