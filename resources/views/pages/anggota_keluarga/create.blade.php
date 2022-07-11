@@ -53,10 +53,8 @@
                             @include('pages.anggota_keluarga.data1')
                         </div>
                         <div id="test-form-2" role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepperFormTrigger2">
-                            <p class="text-center fw-bold fs-16">Data 2 : Berisikan data diri anggota keluarga</p>
+                            <p class="text-center fw-bold fs-16">Data 2 : Berisikan data kesehatan anggota keluarga</p>
                             @include('pages.anggota_keluarga.data2')
-                            <button type="button" class="btn btn-primary" onclick="stepperForm.previous()">Previous</button>
-                            <button type="button" class="btn btn-primary" onclick="stepperForm.next()">Next</button>
                         </div>
                         <div id="test-form-3" role="tabpanel" class="bs-stepper-pane fade text-center" aria-labelledby="stepperFormTrigger3">
                             <button type="submit" class="btn btn-primary mt-5">Submit</button>

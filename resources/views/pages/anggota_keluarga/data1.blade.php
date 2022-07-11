@@ -342,12 +342,41 @@
         val = new Date($('#tgl_lahir').val());
         kelamin =  $('input[name="kelamin"]:checked').val();
 
+        // Cek KB
+        if (kelamin === 'Perempuan') {
+            $('#kb_display').show();
+            $('input[name="kb"]').prop('required', true);
+            $('#status_ibu').prop({'disabled': false, 'required' : true});
+        } else {
+            $('#kb_display').hide()
+            $('input[name="kb"]').prop('required', false);
+            $('#jenis_kb_display').hide();
+            $('#jenis_kb').val(null).trigger("change.select2");
+            $('#posyandu_display').hide();
+            $('#posbindu_display').hide();
+            $('#frekuensi_posyandu_display').hide();
+            $("#frekuensi_posyandu").prop('required',false);
+            $('#frekuensi_posyandu').val(null);
+            $('#frekuensi_posbindu_display').hide();
+            $("#frekuensi_posbindu").prop('required',false);
+            $('#frekuensi_posbindu').val(null);
+            $('#status_ibu').prop({'disabled': true, 'required' : false});
+        }
+
         var diff_ms = Date.now() - val.getTime();
         var age_dt = new Date(diff_ms); 
         var age = Math.abs(age_dt.getUTCFullYear() - 1970);
         var ageResult = isNaN(age) === false ? age + ' Tahun' : '. . .' 
         $('#age').html(ageResult);
 
+        // Cek Status Anak
+        if (age > 5) {
+            $('[name="status_anak"],[name="stunting"]').prop({'disabled': true, 'checked': false})
+        }else{
+            $('[name="status_anak"],[name="stunting"]').prop({'disabled': false})
+        }
+
+        // Cek WUS
         if (age >= 12 && age <= 50 && kelamin === 'Perempuan') {
             $('#wusDisplay').show();
             $('#wus').val(1);
@@ -361,7 +390,6 @@
         status_kawin = $('#status_kawin').val();
         kelamin =  $('input[name="kelamin"]:checked').val();
         wus = $('#wus').val();
-        console.log(status_kawin);
 
         if (status_kawin === 'Menikah') {
             if (kelamin === 'Perempuan' && wus == 1) {

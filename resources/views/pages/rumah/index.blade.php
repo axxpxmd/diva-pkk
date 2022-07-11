@@ -255,6 +255,7 @@
             $('#lainnya_value').hide();
             $("#lainnya_value").prop('required',false);
             $('#lainnya').val(null);
+            $('#lainnya_value').val(null);
         }
     });
 
