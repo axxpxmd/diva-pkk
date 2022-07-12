@@ -22,7 +22,7 @@
                     @foreach ($rumah as $i)
                         <option value="{{ $i->id }}">{{ $i->kepala_rumah }} - {{ $i->alamat_detail }}</option>
                     @endforeach
-                </select>
+                </select>   
                 <div class="invalid-feedback">
                     Silahkan pilih kepala rumah.
                 </div>

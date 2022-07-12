@@ -119,12 +119,6 @@ document.addEventListener('DOMContentLoaded', function () {
             terdaftar_dukcapil = $('input[name="terdaftar_dukcapil"]:checked').val();
 
             // Checkbox 
-            var status_dlm_klrga = $('input[name="status_dlm_klrga[]"]:checked')
-            if (status_dlm_klrga.length == 0) {
-                $('input[name="status_dlm_klrga[]"]').prop('required', true);
-            }else{
-                $('input[name="status_dlm_klrga[]"]').prop('required', false);
-            }
             var status_dlm_klrga = $('input[name="status_dlm_klrga[]"]:checked').map(function() {
                 return $(this).val();   
             }).get();
