@@ -149,6 +149,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     wus: wus
                 },
                 success:function(response){
+                    $('.add-required').prop('required', true)
                     stepperForm.next()  
                 },
                 error:function(response){
