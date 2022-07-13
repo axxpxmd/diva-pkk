@@ -46,7 +46,7 @@
                 </div>
                 <div class="bs-stepper-content">
                     <!-- Stepper Content -->
-                    <form class="needs-validation fs-14" id="form" method="POST" enctype="multipart/form-data" novalidate>
+                    <form class="form-stepper fs-14" id="form" method="POST" enctype="multipart/form-data" novalidate>
                         {{ method_field('POST') }}
                         <div id="test-form-1" role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepperFormTrigger1">
                             <p class="text-center fw-bold fs-16">Data 1 : Berisikan data diri anggota keluarga</p>
@@ -83,19 +83,26 @@ document.addEventListener('DOMContentLoaded', function () {
     var btnNextList = [].slice.call(document.querySelectorAll('.btn-next-form'))
     var stepperPanList = [].slice.call(stepperFormEl.querySelectorAll('.bs-stepper-pane'))
     var form = stepperFormEl.querySelector('.bs-stepper-content form')
+    var formStepper = document.querySelectorAll('.form-stepper')
 
-    // Data 1
-    $('#form').on('submit', function (event) {
+    // Form 1
+    $('#btnForm1Next').click(function(event){
         var status_dlm_klrga = $('input[name="status_dlm_klrga[]"]:checked')
         if (status_dlm_klrga.length == 0) {
             $('input[name="status_dlm_klrga[]"]').prop('required', true);
         }else{
             $('input[name="status_dlm_klrga[]"]').prop('required', false);
         }
-        if ($(this)[0].checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-        }else{    
+       
+        if (formStepper[0].checkValidity()) {
+            Array.prototype.slice.call(formStepper)
+            .forEach(function (form) {
+                form.classList.add('was-validated')
+                event.preventDefault()
+                event.stopPropagation()
+            })
+        }else{
+            // Input
             pus = $('#pus').val();
             wus = $('#wus').val();
             nik = $('#nik').val();
@@ -162,7 +169,26 @@ document.addEventListener('DOMContentLoaded', function () {
             });
             return false;
         }
-    });
+    })
+
+    // Form 2
+    $('#btnForm2Next').click(function(){
+        var status_dlm_klrga = $('input[name="bpjs[]"]:checked')
+        if (status_dlm_klrga.length == 0) {
+            $('input[name="bpjs[]"]').prop('required', true);
+        }else{
+            $('input[name="bpjs[]"]').prop('required', false);
+        }
+
+        if (!formStepper[0].checkValidity()) {
+            Array.prototype.slice.call(formStepper)
+            .forEach(function (form) {
+                form.classList.add('was-validated')
+                event.preventDefault()
+                event.stopPropagation()
+            })
+        }
+    })
 })
 </script>
 @endpush

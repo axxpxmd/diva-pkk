@@ -280,7 +280,7 @@
         <div class="row mt-2">
             <div class="col-sm-4"></div>
             <div class="col-sm-8">
-                <button type="submit" class="btn btn-block btn-info fs-14" id="btnForm1"><i class="bi bi-arrow-right m-r-8"></i>Selanjutnya</button>
+                <button type="submit" class="btn btn-block btn-info fs-14" id="btnForm1Next"><i class="bi bi-arrow-right m-r-8"></i>Selanjutnya</button>
             </div>
         </div>
     </div>
@@ -345,8 +345,8 @@
         // Cek KB
         if (kelamin === 'Perempuan') {
             $('#kb_display').show();
-            $('input[name="kb"]').prop('required', true);
-            $('#status_ibu').prop({'disabled': false, 'required' : true});
+            // $('input[name="kb"]').prop('required', true);
+            $('#status_ibu').prop({'disabled': false});
         } else {
             $('#kb_display').hide()
             $('input[name="kb"]').prop('required', false);
