@@ -88,39 +88,39 @@ class AnggotaKeluargaController extends Controller
 
     public function checkValidationForm1(Request $request)
     {
-        // $request->validate([
-        //     'dasawisma_id' => 'required',
-        //     'rumah_id' => 'required',
-        //     'terdaftar_dukcapil' => 'required|in:0, 1',
-        //     'nik' => 'required_if:terdaftar_dukcapil,1',
-        //     'domisili' => 'required_if:terdaftar_dukcapil,1|in:0,1',
-        //     'no_kk' => 'required_if:terdaftar_dukcapil,1',
-        //     'nama' => 'required|string|max:100',
-        //     'kelamin' => 'required|in:Laki - laki,Perempuan',
-        //     'tmpt_lahir' => 'required|string|max:200',
-        //     'tgl_lahir' => 'required',
-        //     'akta_kelahiran' => 'required',
-        //     'status_kawin' => 'required',
-        //     'status_dlm_klrga' => 'required|array',
-        //     'agama' => 'required',
-        //     'status_pendidkan' => 'required',
-        //     'pendidikan' => 'required',
-        //     'pekerjaan' => 'required',
-        //     'jabatan' => 'required'
-        // ]);
+        $request->validate([
+            'dasawisma_id' => 'required',
+            'rumah_id' => 'required',
+            'terdaftar_dukcapil' => 'required|in:0, 1',
+            'nik' => 'required_if:terdaftar_dukcapil,1',
+            'domisili' => 'required_if:terdaftar_dukcapil,1|in:0,1',
+            'no_kk' => 'required_if:terdaftar_dukcapil,1',
+            'nama' => 'required|string|max:100',
+            'kelamin' => 'required|in:Laki - laki,Perempuan',
+            'tmpt_lahir' => 'required|string|max:200',
+            'tgl_lahir' => 'required',
+            'akta_kelahiran' => 'required',
+            'status_kawin' => 'required',
+            'status_dlm_klrga' => 'required|array',
+            'agama' => 'required',
+            'status_pendidkan' => 'required',
+            'pendidikan' => 'required',
+            'pekerjaan' => 'required',
+            'jabatan' => 'required'
+        ]);
 
-        // $nik = Str::length($request->nik);
-        // $no_kk = Str::length($request->nik);
-        // if ($nik > 0) {
-        //     $request->validate([
-        //         'nik' => 'digits:16'
-        //     ]);
-        // }
-        // if ($no_kk > 0) {
-        //     $request->validate([
-        //         'no_kk' => 'digits:16'
-        //     ]);
-        // }
+        $nik = Str::length($request->nik);
+        $no_kk = Str::length($request->nik);
+        if ($nik > 0) {
+            $request->validate([
+                'nik' => 'digits:16'
+            ]);
+        }
+        if ($no_kk > 0) {
+            $request->validate([
+                'no_kk' => 'digits:16'
+            ]);
+        }
 
         return response()->json([
             'message' => 'Success.'

@@ -56,8 +56,9 @@
                             <p class="text-center fw-bold fs-16">Data 2 : Berisikan data kesehatan anggota keluarga</p>
                             @include('pages.anggota_keluarga.data2')
                         </div>
-                        <div id="test-form-3" role="tabpanel" class="bs-stepper-pane fade text-center" aria-labelledby="stepperFormTrigger3">
-                            <button type="submit" class="btn btn-primary mt-5">Submit</button>
+                        <div id="test-form-3" role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepperFormTrigger3">
+                            <p class="text-center fw-bold fs-16">Data 3 : Berisikan data kegiatan anggota keluarga</p>
+                            @include('pages.anggota_keluarga.data3')
                         </div>
                     </form>
                 </div>
@@ -94,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
             $('input[name="status_dlm_klrga[]"]').prop('required', false);
         }
        
-        if (formStepper[0].checkValidity()) {
+        if (!formStepper[0].checkValidity()) {
             Array.prototype.slice.call(formStepper)
             .forEach(function (form) {
                 form.classList.add('was-validated')
@@ -180,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function () {
             $('input[name="bpjs[]"]').prop('required', false);
         }
 
-        if (formStepper[0].checkValidity()) {
+        if (!formStepper[0].checkValidity()) {
             Array.prototype.slice.call(formStepper)
             .forEach(function (form) {
                 form.classList.add('was-validated')
@@ -235,7 +236,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 },
                 success:function(response){
-                    // $('.add-required-form2').prop('required', true)
+                    $('.add-required-form3').prop('required', true)
                     stepperForm.next()  
                 },
                 error:function(response){
@@ -247,6 +248,24 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
             return false;
+        }
+    })
+
+    $('#btnForm3Next').click(function() {
+        var hatinya_pkk = $('input[name="hatinya_pkk[]"]:checked')
+        if (hatinya_pkk.length == 0) {
+            $('input[name="hatinya_pkk[]"]').prop('required', true);
+        }else{
+            $('input[name="hatinya_pkk[]"]').prop('required', false);
+        }
+
+        if (!formStepper[0].checkValidity()) {
+            Array.prototype.slice.call(formStepper)
+            .forEach(function (form) {
+                form.classList.add('was-validated')
+                event.preventDefault()
+                event.stopPropagation()
+            })
         }
     })
 })
