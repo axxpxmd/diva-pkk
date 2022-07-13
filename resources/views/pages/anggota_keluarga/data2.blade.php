@@ -226,6 +226,10 @@
         if (val == 1) {
             $('#jenis_buta_display').show();
             $("#jenis_buta").prop('required',true);
+            $("#jenis_buta").select2({
+                placeholder: "Pilih Jenis Penyandang Buta",
+                allowClear: true
+            });
         } else {
             $('#jenis_buta_display').hide();
             $("#jenis_buta").prop('required',false);

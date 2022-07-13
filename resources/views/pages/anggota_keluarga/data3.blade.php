@@ -105,7 +105,7 @@
                 </label>
             </div>
         </div>
-        <div class="row mb-2" style="display: none" id="jns_kgtn_pancasila_display">
+        <div class="row mb-2 mt-2" style="display: none" id="jns_kgtn_pancasila_display">
             <div class="col-sm-4"></div>
             <div class="col-sm-8">
                 <select class="select2 form-select add-required-form3" id="jns_kgtn_pancasila" name="jns_kgtn_pancasila[]" multiple="multiple">
@@ -139,7 +139,7 @@
                 </label>
             </div>
         </div>
-        <div class="row mb-2" style="display: none" id="jns_gotong_royong_display">
+        <div class="row mt-2" style="display: none" id="jns_gotong_royong_display">
             <div class="col-sm-4"></div>
             <div class="col-sm-8">
                 <select class="select2 form-select add-required-form3" id="jns_gotong_royong" name="jns_gotong_royong[]" multiple="multiple">
@@ -156,7 +156,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-2">
             <label class="col-sm-4 col-form-label text-end fw-bold">Hatinya PKK <span class="text-danger">*</span></label>
             <div class="col-sm-4 m-t-6">
                 <input type="radio" value="0" name="hatinya_pkk" id="hatinya_pkk" class="form-check-input add-required-form3">
