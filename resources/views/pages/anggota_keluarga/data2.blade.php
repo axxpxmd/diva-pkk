@@ -161,13 +161,13 @@
         <div class="row mb-2">
             <label class="col-sm-4 col-form-label text-end fw-bold">Penyandang 3 Buta <span class="text-danger">*</span></label>
             <div class="col-sm-2 m-t-6">
-                <input type="radio" value="Tidak" name="buta" id="buta" class="form-check-input add-required-form2">
+                <input type="radio" value="0" name="buta" id="buta" class="form-check-input add-required-form2">
                 <label class="form-check-label m-l-10">
                     Tidak
                 </label>
             </div>
             <div class="col-sm-2 m-t-6">
-                <input type="radio" value="Ya" name="buta" id="buta" class="form-check-input add-required-form2">
+                <input type="radio" value="1" name="buta" id="buta" class="form-check-input add-required-form2">
                 <label class="form-check-label m-l-10">
                     Ya
                 </label>
@@ -207,7 +207,7 @@
                         <button type="button" class="btn btn-block btn-warning fs-14 m-r-5" id="btnForm2Previous" onclick="stepperForm.previous()"><i class="bi bi-arrow-left m-r-8"></i>Kembali</button>
                     </div>
                     <div class="col-sm-6">
-                        <button type="submit" class="btn btn-block btn-info fs-14" id="btnForm2Next"><i class="bi bi-arrow-right m-r-8"></i>Selanjutnya</button>
+                        <button type="button" class="btn btn-block btn-info fs-14" id="btnForm2Next"><i class="bi bi-arrow-right m-r-8"></i>Selanjutnya</button>
                     </div>
                 </div>
             </div>
@@ -223,7 +223,7 @@
     // Penyandang 3 Buta
     $("input[name='buta']").on('change', function(){
         val = $(this).val();
-        if (val === 'Ya') {
+        if (val == 1) {
             $('#jenis_buta_display').show();
             $("#jenis_buta").prop('required',true);
         } else {

@@ -68,4 +68,5 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
     Route::resource('/anggota-keluarga', AnggotaKeluargaController::class);
     Route::post('/anggota-keluarga/check-validation-form1', [AnggotaKeluargaController::class, 'checkValidationForm1'])->name('anggota-keluarga.checkValidationForm1');
+    Route::post('/anggota-keluarga/check-validation-form2',  [AnggotaKeluargaController::class, 'checkValidationForm2'])->name('anggota-keluarga.checkValidationForm2');
 });
