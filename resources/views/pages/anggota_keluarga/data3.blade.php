@@ -389,6 +389,10 @@
 </div>
 @push('script')
 <script type="text/javascript">
+    $('#btnForm3Previous').click(function() {
+        $('.add-required-form3').prop('required', false)
+    })
+
     // Hatinya PKK
     $("input[name='hatinya_pkk']").on('change', function(){
         val = $('input[name="hatinya_pkk"]:checked').val();
