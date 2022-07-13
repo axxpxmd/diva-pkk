@@ -136,7 +136,7 @@ class AnggotaKeluargaController extends Controller
             'frekuensi_posyandu' => 'required_if:aktif_posyandu,Ya',
             'aktif_posbindu' => 'required_if:kb,Ya',
             'aktif_posbindu' => 'required_if:aktif_posbindu,Ya',
-            'status_ibu' => 'required_if:kelamin,Perempuan',
+            // 'status_ibu' => 'required_if:kelamin,Perempuan',
             'kbthn_khusus' => 'required',
             'jenis_kbthn_khusus' => 'required_if:kbthn_khusus,Ya',
             'buta' => 'required|in:0,1',

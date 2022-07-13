@@ -3,41 +3,41 @@
         <div class="row">
             <label class="col-sm-4 col-form-label text-end fw-bold">Peserta BPJS <span class="text-danger">*</span></label>
             <div class="col-sm-2 m-t-6">
-                <input type="checkbox" name="bpjs[]" id="bpjs" value="Tidak" class="form-check-input add-required-form2">
+                <input type="checkbox" name="bpjs[]" id="bpjs" value="Tidak" class="form-check-input">
                 <label class="form-check-label m-l-10">
                     Tidak
                 </label>
             </div>
             <div class="col-sm-2 m-t-6">
-                <input type="checkbox" name="bpjs[]" id="bpjs" value="Ya" class="form-check-input add-required-form2">
+                <input type="checkbox" name="bpjs[]" id="bpjs" value="Ya" class="form-check-input">
                 <label class="form-check-label m-l-10">
                     Ya
                 </label>
             </div>
             <div class="col-sm-4 m-t-6">
-                <input type="checkbox" name="bpjs[]" id="asuransi_lainnya" class="form-check-input add-required-form2">
+                <input type="checkbox" name="bpjs[]" id="asuransi_lainnya" class="form-check-input">
                 <label class="form-check-label m-l-10">
                     Lainnya
                 </label>
-                <input type="text" id="input_asuransi" onkeyup="valueToAsuransiLainnya()" class="form-control add-required-form2 mt-2" style="display: none" placeholder="Tambahkan Lainnya" autocomplete="off">
+                <input type="text" id="input_asuransi" onkeyup="valueToAsuransiLainnya()" class="form-control mt-2" style="display: none" placeholder="Tambahkan Lainnya" autocomplete="off">
             </div>
         </div>
         <div class="row mb-2" id="kb_display" style="display: none">
             <label class="col-sm-4 col-form-label text-end fw-bold">Akseptor KB <span class="text-danger">*</span></label>
             <div class="col-sm-2 m-t-6">
-                <input type="radio" value="Tidak" name="kb" id="kb" class="form-check-input add-required-form2">
+                <input type="radio" value="Tidak" name="kb" id="kb" class="form-check-input">
                 <label class="form-check-label m-l-10">
                     Tidak
                 </label>
             </div>
             <div class="col-sm-2 m-t-6">
-                <input type="radio" value="Ya" name="kb" id="kb" class="form-check-input add-required-form2">
+                <input type="radio" value="Ya" name="kb" id="kb" class="form-check-input">
                 <label class="form-check-label m-l-10">
                     Ya
                 </label>
             </div>
             <div class="col-sm-4 m-t-6" id="jenis_kb_display" style="display: none">
-                <select class="select2 form-select add-required-form2" id="jenis_kb" name="jenis_kb">
+                <select class="select2 form-select" id="jenis_kb" name="jenis_kb">
                     <option value="">Pilih</option>
                     <option value="PIL">PIL</option>
                     <option value="Suntik">Suntik</option>
@@ -53,43 +53,43 @@
         <div class="row mb-2" id="posyandu_display" style="display: none">
             <label class="col-sm-4 col-form-label text-end fw-bold">Aktif Posyandu <span class="text-danger">*</span></label>
             <div class="col-sm-2 m-t-6">
-                <input type="radio" value="Tidak" name="aktif_posyandu" id="aktif_posyandu" class="form-check-input add-required-form2">
+                <input type="radio" value="Tidak" name="aktif_posyandu" id="aktif_posyandu" class="form-check-input">
                 <label class="form-check-label m-l-10">
                     Tidak
                 </label>
             </div>
             <div class="col-sm-2 m-t-6">
-                <input type="radio" value="Ya" name="aktif_posyandu" id="aktif_posyandu" class="form-check-input add-required-form2">
+                <input type="radio" value="Ya" name="aktif_posyandu" id="aktif_posyandu" class="form-check-input">
                 <label class="form-check-label m-l-10">
                     Ya
                 </label>
             </div>
             <div class="col-sm-4 m-t-6" id="frekuensi_posyandu_display" style="display: none">
-                <input type="number" name="frekuensi_posyandu" id="frekuensi_posyandu" class="form-control add-required-form2" placeholder="Frekuensi / Kali" autocomplete="off">
+                <input type="number" name="frekuensi_posyandu" id="frekuensi_posyandu" class="form-control" placeholder="Frekuensi / Kali" autocomplete="off">
             </div>
         </div>
         <div class="row" id="posbindu_display" style="display: none">
             <label class="col-sm-4 col-form-label text-end fw-bold">Aktif Posbindu <span class="text-danger">*</span></label>
             <div class="col-sm-2 m-t-6">
-                <input type="radio" value="Tidak" name="aktif_posbindu" id="aktif_posbindu" class="form-check-input add-required-form2">
+                <input type="radio" value="Tidak" name="aktif_posbindu" id="aktif_posbindu" class="form-check-input">
                 <label class="form-check-label m-l-10">
                     Tidak
                 </label>
             </div>
             <div class="col-sm-2 m-t-6">
-                <input type="radio" value="Ya" name="aktif_posbindu" id="aktif_posbindu" class="form-check-input add-required-form2">
+                <input type="radio" value="Ya" name="aktif_posbindu" id="aktif_posbindu" class="form-check-input">
                 <label class="form-check-label m-l-10">
                     Ya
                 </label>
             </div>
             <div class="col-sm-4 m-t-6" id="frekuensi_posbindu_display" style="display: none">
-                <input type="number" name="frekuensi_posbindu" id="frekuensi_posbindu" class="form-control add-required-form2" placeholder="Frekuensi / Kali" autocomplete="off">
+                <input type="number" name="frekuensi_posbindu" id="frekuensi_posbindu" class="form-control" placeholder="Frekuensi / Kali" autocomplete="off">
             </div>
         </div>
         <div class="row mt-2">
-            <label class="col-sm-4 col-form-label fw-bold text-end">Status Ibu <span class="text-danger">*</span></label>
+            <label class="col-sm-4 col-form-label fw-bold text-end">Status Ibu</label>
             <div class="col-sm-8">
-                <select class="select2 form-select add-required-form2" id="status_ibu" name="status_ibu">
+                <select class="select2 form-select" id="status_ibu" name="status_ibu">
                     <option value="">Pilih</option>
                     <option value="Ibu Hamil">Ibu Hamil</option>
                     <option value="Melahirkan">Melahirkan</option>
@@ -102,30 +102,30 @@
             </div>
         </div>
         <div class="row mt-2">
-            <label class="col-sm-4 col-form-label text-end fw-bold">Status Anak <span class="text-danger">*</span></label>
+            <label class="col-sm-4 col-form-label text-end fw-bold">Status Anak</label>
             <div class="col-sm-4 m-t-6">
-                <input type="radio" value="Bayi" name="status_anak" id="status_anak" class="form-check-input add-required-form2">
+                <input type="radio" value="Bayi" name="status_anak" id="status_anak" class="form-check-input">
                 <label class="form-check-label m-l-10">
                     Bayi (0-1 Tahun)
                 </label>
             </div>
             <div class="col-sm-4 m-t-6">
-                <input type="radio" value="Balita" name="status_anak" id="status_anak" class="form-check-input add-required-form2">
+                <input type="radio" value="Balita" name="status_anak" id="status_anak" class="form-check-input">
                 <label class="form-check-label m-l-10">
                     Balita (1-5 Tahun)
                 </label>
             </div>
         </div>
         <div class="row mt-2">
-            <label class="col-sm-4 col-form-label text-end fw-bold">Stunting <span class="text-danger">*</span></label>
+            <label class="col-sm-4 col-form-label text-end fw-bold">Stunting</label>
             <div class="col-sm-4 m-t-6">
-                <input type="radio" value="0" name="stunting" id="stunting" class="form-check-input add-required-form2">
+                <input type="radio" value="0" name="stunting" id="stunting" class="form-check-input">
                 <label class="form-check-label m-l-10">
                     Tidak
                 </label>
             </div>
             <div class="col-sm-4 m-t-6">
-                <input type="radio" value="1" name="stunting" id="stunting" class="form-check-input add-required-form2">
+                <input type="radio" value="1" name="stunting" id="stunting" class="form-check-input">
                 <label class="form-check-label m-l-10">
                     Ya
                 </label>
