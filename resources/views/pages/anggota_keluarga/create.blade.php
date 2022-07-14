@@ -14,6 +14,7 @@
             @endif
         </h5>
         <div class="card-body">
+            <div id="alert"></div>
             <!-- Stepper -->
             <div id="stepperForm" class="bs-stepper mt-2">
                 <div class="bs-stepper-header mb-4 rounded-3" role="tablist" style="background: #F2F2F2">
@@ -251,7 +252,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     })
 
-    $('#btnForm3Next').click(function() {
+    $('#form').on('submit', function (event) {
         var hatinya_pkk = $('input[name="hatinya_pkk[]"]:checked')
         if (hatinya_pkk.length == 0) {
             $('input[name="hatinya_pkk[]"]').prop('required', true);
@@ -259,15 +260,29 @@ document.addEventListener('DOMContentLoaded', function () {
             $('input[name="hatinya_pkk[]"]').prop('required', false);
         }
 
-        if (!formStepper[0].checkValidity()) {
-            Array.prototype.slice.call(formStepper)
-            .forEach(function (form) {
-                form.classList.add('was-validated')
-                event.preventDefault()
-                event.stopPropagation()
-            })
+        if ($(this)[0].checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        }else{    
+            $('#loading').show();
+            $('#alert').html('');
+           
+            url = "{{ route('anggota-keluarga.store') }}";
+            $.post(url, $(this).serialize(), function(data){
+                $('#alert').html("<div class='alert alert-success alert-dismissible' role='alert'><strong>Sukses!</strong> " + data.message + "</div>");
+            },'json').fail(function(data){
+                err = ''; respon = data.responseJSON;
+                $.each(respon.errors, function(index, value){
+                    err += "<li>" + value +"</li>";
+                });
+                $('#alert').html("<div class='alert alert-danger alert-dismissible' role='alert'>" + respon.message + "<ol class='pl-3 m-0'>" + err + "</ol></div>");
+            }).always(function(){
+                $('#loading').hide();
+            });
+            return false;
         }
-    })
+        $(this).addClass('was-validated');
+    });
 })
 </script>
 @endpush

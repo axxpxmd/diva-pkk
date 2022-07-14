@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use DataTables;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 
 // Models
 use App\Models\RTRW;
@@ -88,39 +88,39 @@ class AnggotaKeluargaController extends Controller
 
     public function checkValidationForm1(Request $request)
     {
-        $request->validate([
-            'dasawisma_id' => 'required',
-            'rumah_id' => 'required',
-            'terdaftar_dukcapil' => 'required|in:0, 1',
-            'nik' => 'required_if:terdaftar_dukcapil,1',
-            'domisili' => 'required_if:terdaftar_dukcapil,1|in:0,1',
-            'no_kk' => 'required_if:terdaftar_dukcapil,1',
-            'nama' => 'required|string|max:100',
-            'kelamin' => 'required|in:Laki - laki,Perempuan',
-            'tmpt_lahir' => 'required|string|max:200',
-            'tgl_lahir' => 'required',
-            'akta_kelahiran' => 'required',
-            'status_kawin' => 'required',
-            'status_dlm_klrga' => 'required|array',
-            'agama' => 'required',
-            'status_pendidkan' => 'required',
-            'pendidikan' => 'required',
-            'pekerjaan' => 'required',
-            'jabatan' => 'required'
-        ]);
+        // $request->validate([
+        //     'dasawisma_id' => 'required',
+        //     'rumah_id' => 'required',
+        //     'terdaftar_dukcapil' => 'required|in:0, 1',
+        //     'nik' => 'required_if:terdaftar_dukcapil,1',
+        //     'domisili' => 'required_if:terdaftar_dukcapil,1|in:0,1',
+        //     'no_kk' => 'required_if:terdaftar_dukcapil,1',
+        //     'nama' => 'required|string|max:100',
+        //     'kelamin' => 'required|in:Laki - laki,Perempuan',
+        //     'tmpt_lahir' => 'required|string|max:200',
+        //     'tgl_lahir' => 'required',
+        //     'akta_kelahiran' => 'required',
+        //     'status_kawin' => 'required',
+        //     'status_dlm_klrga' => 'required|array',
+        //     'agama' => 'required',
+        //     'status_pendidkan' => 'required',
+        //     'pendidikan' => 'required',
+        //     'pekerjaan' => 'required',
+        //     'jabatan' => 'required'
+        // ]);
 
-        $nik = Str::length($request->nik);
-        $no_kk = Str::length($request->nik);
-        if ($nik > 0) {
-            $request->validate([
-                'nik' => 'digits:16'
-            ]);
-        }
-        if ($no_kk > 0) {
-            $request->validate([
-                'no_kk' => 'digits:16'
-            ]);
-        }
+        // $nik = Str::length($request->nik);
+        // $no_kk = Str::length($request->nik);
+        // if ($nik > 0) {
+        //     $request->validate([
+        //         'nik' => 'digits:16'
+        //     ]);
+        // }
+        // if ($no_kk > 0) {
+        //     $request->validate([
+        //         'no_kk' => 'digits:16'
+        //     ]);
+        // }
 
         return response()->json([
             'message' => 'Success.'
@@ -129,23 +129,28 @@ class AnggotaKeluargaController extends Controller
 
     public function checkValidationForm2(Request $request)
     {
-        $request->validate([
-            'bpjs' => 'required',
-            'kb' => 'required_if:kelamin,Perempuan',
-            'aktif_posyandu' => 'required_if:kb,Ya',
-            'frekuensi_posyandu' => 'required_if:aktif_posyandu,Ya',
-            'aktif_posbindu' => 'required_if:kb,Ya',
-            'aktif_posbindu' => 'required_if:aktif_posbindu,Ya',
-            // 'status_ibu' => 'required_if:kelamin,Perempuan',
-            'kbthn_khusus' => 'required',
-            'jenis_kbthn_khusus' => 'required_if:kbthn_khusus,Ya',
-            'buta' => 'required|in:0,1',
-            'jenis_buta' => 'required_if:buta,1',
-            'makanan_pokok' => 'required|in:0,1'
-        ]);
+        // $request->validate([
+        //     'bpjs' => 'required',
+        //     'kb' => 'required_if:kelamin,Perempuan',
+        //     'aktif_posyandu' => 'required_if:kb,Ya',
+        //     'frekuensi_posyandu' => 'required_if:aktif_posyandu,Ya',
+        //     'aktif_posbindu' => 'required_if:kb,Ya',
+        //     'aktif_posbindu' => 'required_if:aktif_posbindu,Ya',
+        //     // 'status_ibu' => 'required_if:kelamin,Perempuan',
+        //     'kbthn_khusus' => 'required',
+        //     'jenis_kbthn_khusus' => 'required_if:kbthn_khusus,Ya',
+        //     'buta' => 'required|in:0,1',
+        //     'jenis_buta' => 'required_if:buta,1',
+        //     'makanan_pokok' => 'required|in:0,1'
+        // ]);
 
         return response()->json([
             'message' => 'Success.'
         ]);
+    }
+
+    public function store(Request $request)
+    {
+        dd($request->all());
     }
 }
