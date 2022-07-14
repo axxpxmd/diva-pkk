@@ -252,6 +252,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     })
 
+    // Form 3
     $('#form').on('submit', function (event) {
         var hatinya_pkk = $('input[name="hatinya_pkk[]"]:checked')
         if (hatinya_pkk.length == 0) {
