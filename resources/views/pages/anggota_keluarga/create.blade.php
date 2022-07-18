@@ -244,7 +244,7 @@ document.addEventListener('DOMContentLoaded', function () {
 })
 
 $('#form-meninggal').on('submit', function (event) {
-    if ($(this)[0].checkValidity() === true) {
+    if ($(this)[0].checkValidity() === false) {
         event.preventDefault();
         event.stopPropagation();
     }else{    
