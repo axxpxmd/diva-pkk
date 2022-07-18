@@ -30,7 +30,7 @@
     </div>
     <div class="bs-stepper-content">
         <!-- Stepper Content -->
-        <form class="form-stepper fs-14" id="form" method="POST" enctype="multipart/form-data" novalidate>
+        <form class="form-stepper fs-14" id="form-hidup" method="POST" enctype="multipart/form-data" novalidate>
             {{ method_field('POST') }}
             <div id="test-form-1" role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepperFormTrigger1">
                 <p class="text-center fw-bold fs-16">Data 1 : Berisikan data diri anggota keluarga</p>

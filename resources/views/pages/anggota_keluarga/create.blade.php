@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function () {
     })
 
     // Form 3
-    $('#form').on('submit', function (event) {
+    $('#form-hidup').on('submit', function (event) {
         var hatinya_pkk = $('input[name="hatinya_pkk[]"]:checked')
         if (hatinya_pkk.length == 0) {
             $('input[name="hatinya_pkk[]"]').prop('required', true);
@@ -225,7 +225,7 @@ document.addEventListener('DOMContentLoaded', function () {
             $('#loading').show();
             $('#alert').html('');
            
-            url = "{{ route('anggota-keluarga.store') }}";
+            url = "{{ route('anggota-keluarga.storeHidup') }}";
             $.post(url, $(this).serialize(), function(data){
                 $('#alert').html("<div class='alert alert-success alert-dismissible' role='alert'><strong>Sukses!</strong> " + data.message + "</div>");
             },'json').fail(function(data){
@@ -244,6 +244,7 @@ document.addEventListener('DOMContentLoaded', function () {
 })
 
 $('#form-meninggal').on('submit', function (event) {
+    console.log('jalan');
     if ($(this)[0].checkValidity() === false) {
         event.preventDefault();
         event.stopPropagation();

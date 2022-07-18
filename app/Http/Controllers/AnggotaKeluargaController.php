@@ -154,7 +154,7 @@ class AnggotaKeluargaController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function storeHidup(Request $request)
     {
         dd($request->all());
     }
