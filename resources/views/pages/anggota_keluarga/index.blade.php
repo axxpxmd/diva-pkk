@@ -18,6 +18,7 @@
                             <th>No</th>
                             <th>Nama</th>
                             <th>NIK</th>
+                            <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -44,6 +45,7 @@
             {data: 'DT_RowIndex', name: 'DT_RowIndex', className: 'text-center', orderable: false, searchable: false},
             {data: 'nama', name: 'nama'},
             {data: 'nik', name: 'nik'},
+            {data: 'status', name: 'status'},
             {data: 'action', name: 'action', className: 'text-center', orderable: false, searchable: false}
         ]
     });

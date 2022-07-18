@@ -45,6 +45,29 @@ function success(message) {
     });
 }
 
+function succesStore(message) {
+    $.confirm({
+        title: 'Sukses',
+        content: message,
+        icon: 'bi bi-check',
+        theme: 'modern',
+        closeIcon: true,
+        animation: 'scale',
+        autoClose: 'ok|3000',
+        type: 'green',
+        buttons: {   
+            ok: {
+                text: "ok!",
+                btnClass: 'btn-primary',
+                keys: ['enter'],
+                action: function(){
+                    document.location.reload();
+                }
+            }
+        }
+    });
+}
+
 function err(message) {
     $.confirm({
         title: 'Error',

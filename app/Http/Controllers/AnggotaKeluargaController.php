@@ -6,6 +6,7 @@ use DataTables;
 
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 // Models
@@ -13,6 +14,7 @@ use App\Models\RTRW;
 use App\Models\Rumah;
 use App\Models\Anggota;
 use App\Models\Dasawisma;
+use App\Models\AnggotaDetail;
 
 class AnggotaKeluargaController extends Controller
 {
@@ -53,6 +55,9 @@ class AnggotaKeluargaController extends Controller
                 $delete = '<a href="#" onclick="remove(' . $p->id . ')" class="text-danger" title="Delete Data"><i class="bi bi-trash-fill"></i></a>';
 
                 return $edit . $delete;
+            })
+            ->editColumn('status', function ($p) {
+                return $p->status == 1 ? 'Hidup' : 'Meninggal';
             })
             ->rawColumns(['id', 'action'])
             ->addIndexColumn()
@@ -152,5 +157,67 @@ class AnggotaKeluargaController extends Controller
     public function store(Request $request)
     {
         dd($request->all());
+    }
+
+    public function storeMeninggal(Request $request)
+    {
+        $request->validate([
+            'dasawisma_id' => 'required',
+            'rumah_id' => 'required',
+            'terdaftar_dukcapil' => 'required|in:0, 1',
+            'nik' => 'required_if:terdaftar_dukcapil,1|unique:anggota,nik',
+            'domisili' => 'required_if:terdaftar_dukcapil,1|in:0,1',
+            'no_kk' => 'required_if:terdaftar_dukcapil,1',
+            'nama' => 'required|string|max:100',
+            'kelamin' => 'required|in:Laki - laki,Perempuan',
+            'tmpt_lahir' => 'required|string|max:200',
+            'tgl_lahir' => 'required',
+            'tgl_meninggal' => 'required',
+            'sebab_meninggal' => 'required|in:Hamil,Sakit,Lahir mati',
+            'akte_kematian' => 'required|in:0,1'
+        ]);
+
+        /*
+         * Tahapan
+         * 1. anggota
+         * 2. anggota_details
+         */
+
+        DB::beginTransaction(); //* DB Transaction Begin
+
+        try {
+            // Tahap 1
+            $inputAnggota = [
+                'rumah_id' => $request->rumah_id,
+                'nik' => $request->nik,
+                'status_hidup' => 0,
+                'no_kk' => $request->no_kk,
+                'nama' => $request->nama,
+                'kelamin' => $request->kelamin,
+                'tmpt_lahir' => $request->tmpt_lahir,
+                'tgl_lahir' => $request->tgl_lahir,
+                'created_by' => Auth::user()->nama
+            ];
+            $anggota = Anggota::create($inputAnggota);
+
+            // Tahap 2
+            $inputAnggotaDetail = [
+                'anggota_id' => $anggota->id,
+                'tgl_meninggal' => $request->tgl_meninggal,
+                'sebab_meninggal' => $request->sebab_meninggal,
+                'akte_kematian' => $request->akte_kematian,
+                'domisili' => $request->domisili,
+                'terdaftar_dukcapil' => $request->terdaftar_dukcapil,
+                'created_by' => Auth::user()->nama
+            ];
+            AnggotaDetail::create($inputAnggotaDetail);
+        } catch (\Throwable $th) {
+            DB::rollback(); //* DB Transaction Failed
+            return response()->json(['message' => "Terjadi kesalahan, silahkan hubungi administrator"], 500);
+        }
+
+        DB::commit(); //* DB Transaction Success
+
+        return response()->json(['message' => "Berhasil menyiman data."]);
     }
 }

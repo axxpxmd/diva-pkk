@@ -8,62 +8,19 @@
     <div class="card">
         <h5 class="card-header bg-info text-white mb-2 p-3 fs-18">Tambah Anggota | 
             @if ($status == 1)
-            <span class="badge bg-success">Hidup</span>     
+            <span class="badge bg-success fs-14">Hidup</span>     
             @else
-            <span class="badge bg-danger">Meninggal</span>
+            <span class="badge bg-danger fs-14">Meninggal</span>
             @endif
         </h5>
         <div class="card-body">
             <div id="alert"></div>
-            <!-- Stepper -->
-            <div id="stepperForm" class="bs-stepper mt-2">
-                <div class="bs-stepper-header mb-4 rounded-3" role="tablist" style="background: #F2F2F2">
-                    <div class="step" data-target="#test-form-1">
-                        <button type="button" class="step-trigger" role="tab" id="stepperFormTrigger1" aria-controls="test-form-1">
-                            <span class="bs-stepper-circle bg-info">
-                                <span class="bi bi-person"></span>
-                            </span>
-                            <span class="bs-stepper-label" id="data1">Data 1</span>
-                        </button>
-                    </div>
-                    <div class="bs-stepper-line"></div>
-                    <div class="step" data-target="#test-form-2">
-                        <button type="button" class="step-trigger" role="tab" id="stepperFormTrigger2" aria-controls="test-form-2">
-                            <span class="bs-stepper-circle bg-warning">
-                                <span class="bi bi-person"></span>
-                            </span>
-                            <span class="bs-stepper-label">Data 2</span>
-                        </button>
-                    </div>
-                    <div class="bs-stepper-line"></div>
-                    <div class="step" data-target="#test-form-3">
-                        <button type="button" class="step-trigger" role="tab" id="stepperFormTrigger3" aria-controls="test-form-3">
-                            <span class="bs-stepper-circle bg-success">
-                                <span class="bi bi-person"></span>
-                            </span>
-                            <span class="bs-stepper-label">Data 3</span>
-                        </button>
-                    </div>
-                </div>
-                <div class="bs-stepper-content">
-                    <!-- Stepper Content -->
-                    <form class="form-stepper fs-14" id="form" method="POST" enctype="multipart/form-data" novalidate>
-                        {{ method_field('POST') }}
-                        <div id="test-form-1" role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepperFormTrigger1">
-                            <p class="text-center fw-bold fs-16">Data 1 : Berisikan data diri anggota keluarga</p>
-                            @include('pages.anggota_keluarga.data1')
-                        </div>
-                        <div id="test-form-2" role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepperFormTrigger2">
-                            <p class="text-center fw-bold fs-16">Data 2 : Berisikan data kesehatan anggota keluarga</p>
-                            @include('pages.anggota_keluarga.data2')
-                        </div>
-                        <div id="test-form-3" role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepperFormTrigger3">
-                            <p class="text-center fw-bold fs-16">Data 3 : Berisikan data kegiatan anggota keluarga</p>
-                            @include('pages.anggota_keluarga.data3')
-                        </div>
-                    </form>
-                </div>
-            </div>
+            <a href="{{ route('anggota-keluarga.index') }}" class="text-danger fw-bold fs-14"><i class="bi bi-arrow-left m-r-8"></i>Kembali</a>
+            @if ($status == 1)
+                @include('pages.anggota_keluarga.hidup')
+            @else
+                @include('pages.anggota_keluarga.meninggal')
+            @endif
         </div>
     </div>
 </section>
@@ -285,5 +242,31 @@ document.addEventListener('DOMContentLoaded', function () {
         $(this).addClass('was-validated');
     });
 })
+
+$('#form-meninggal').on('submit', function (event) {
+    if ($(this)[0].checkValidity() === true) {
+        event.preventDefault();
+        event.stopPropagation();
+    }else{    
+        $('#loading').show();
+        $('#alert').html('');
+        
+        url = "{{ route('anggota-keluarga.storeMeninggal') }}";
+        $.post(url, $(this).serialize(), function(data){
+            succesStore(data.message);
+        },'json').fail(function(data){
+            err = ''; respon = data.responseJSON;
+            $.each(respon.errors, function(index, value){
+                err += "<li>" + value +"</li>";
+            });
+            $('#alert').html("<div class='alert alert-danger alert-dismissible fs-14' role='alert'>" + respon.message + "<ol class='pl-3 m-0'>" + err + "</ol></div>");
+        }).always(function(){
+            $('#loading').hide();
+        });
+        return false;
+    }
+    $(this).addClass('was-validated');
+});
+
 </script>
 @endpush

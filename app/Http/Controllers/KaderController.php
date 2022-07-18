@@ -107,7 +107,6 @@ class KaderController extends Controller
                 'foto' => 'default.png',
                 's_aktif' => 1
             ];
-
             $user = User::create($data_user);
 
             //* Tahap 2
