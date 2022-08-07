@@ -24,7 +24,7 @@
                 </table>
             </div>
         </div>
-    </div>
+    </div>  
 </section>
 <div class="modal fade" id="modalForm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">

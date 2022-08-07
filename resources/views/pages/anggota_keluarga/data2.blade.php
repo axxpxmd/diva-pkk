@@ -1,25 +1,34 @@
 <div class="row mt-2">
     <div class="col-sm-6">
-        <div class="row">
+        <div class="row mt-2">
             <label class="col-sm-4 col-form-label text-end fw-bold">Peserta BPJS <span class="text-danger">*</span></label>
             <div class="col-sm-2 m-t-6">
-                <input type="checkbox" name="bpjs[]" id="bpjs" value="Tidak" class="form-check-input">
+                <input type="radio" value="0" name="bpjs" id="bpjs" class="form-check-input">
                 <label class="form-check-label m-l-10">
                     Tidak
                 </label>
             </div>
             <div class="col-sm-2 m-t-6">
-                <input type="checkbox" name="bpjs[]" id="bpjs" value="Ya" class="form-check-input">
+                <input type="radio" value="1" name="bpjs" id="bpjs" class="form-check-input">
                 <label class="form-check-label m-l-10">
                     Ya
                 </label>
             </div>
-            <div class="col-sm-4 m-t-6">
-                <input type="checkbox" name="bpjs[]" id="asuransi_lainnya" class="form-check-input">
+            <div class="col-sm-2 m-t-6">
+                <input type="checkbox" value="1" name="bpjs_lainnya" id="bpjs_lainnya" class="form-check-input">
                 <label class="form-check-label m-l-10">
                     Lainnya
                 </label>
-                <input type="text" id="input_asuransi" onkeyup="valueToAsuransiLainnya()" class="form-control mt-2" style="display: none" placeholder="Tambahkan Lainnya" autocomplete="off">
+            </div>
+        </div>
+        <div class="row mb-2" style="display: none" id="asuransi_lainnya_display">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-8">
+                <select class="select2 form-select" id="asuransi_lainnya" name="asuransi_lainnya[]">
+                </select>
+                <div class="invalid-feedback">
+                    Masukan asuransi lainnya.
+                </div>
             </div>
         </div>
         <div class="row mb-2" id="kb_display" style="display: none">
@@ -207,7 +216,8 @@
                         <button type="button" class="btn btn-block btn-warning fs-14 m-r-5" id="btnForm2Previous" onclick="stepperForm.previous()"><i class="bi bi-arrow-left m-r-8"></i>Kembali</button>
                     </div>
                     <div class="col-sm-6">
-                        <button type="button" class="btn btn-block btn-info fs-14" id="btnForm2Next"><i class="bi bi-arrow-right m-r-8"></i>Selanjutnya</button>
+                        {{-- <button type="button" class="btn btn-block btn-info fs-14" id="btnForm2Next"><i class="bi bi-arrow-right m-r-8"></i>Selanjutnya</button> --}}
+                        <button type="submit" class="btn btn-block btn-info fs-14" id="btnForm2Next"><i class="bi bi-arrow-right m-r-8"></i>Simpan</button>
                     </div>
                 </div>
             </div>
@@ -219,6 +229,24 @@
     $('#btnForm2Previous').click(function() {
         $('.add-required-form2').prop('required', false)
     })
+
+    $("input[name='bpjs_lainnya']").on('change', function(){
+       
+        if ($('#bpjs_lainnya').is(":checked")) {
+            $('#asuransi_lainnya_display').show();
+            $('#asuransi_lainnya').prop("required", false);
+        } else {
+            $('#asuransi_lainnya_display').hide();
+            $('#asuransi_lainnya').val("").trigger("change.select2");
+            $('#asuransi_lainnya').prop("required", true);
+        }
+
+        $('#asuransi_lainnya').select2({
+            multiple: true,
+            tags:true,
+            placeholder: 'Masukan asuransi lainnya'
+        });
+    });
 
     // Penyandang 3 Buta
     $("input[name='buta']").on('change', function(){
@@ -292,23 +320,6 @@
             $('#frekuensi_posyandu_display').hide();
             $("#frekuensi_posyandu").prop('required',false);
             $('#frekuensi_posyandu').val(null);
-        }
-    });
-
-    // Asuransi
-    function valueToAsuransiLainnya(){
-        val = $('#input_asuransi').val();
-        $('#asuransi_lainnya').val(val);   
-    }
-    $('#asuransi_lainnya').click(function() {
-        if ($('#asuransi_lainnya').is(":checked")){
-            $('#input_asuransi').show();
-            $("#input_asuransi").prop('required',true);
-            $('#input_asuransi').focus();
-        }else{
-            $('#input_asuransi').hide();
-            $("#input_asuransi").prop('required',false);
-            $('#input_asuransi').val(null);
         }
     });
 </script>

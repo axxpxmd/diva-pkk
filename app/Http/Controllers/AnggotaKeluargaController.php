@@ -93,39 +93,39 @@ class AnggotaKeluargaController extends Controller
 
     public function checkValidationForm1(Request $request)
     {
-        $request->validate([
-            'dasawisma_id' => 'required',
-            'rumah_id' => 'required',
-            'terdaftar_dukcapil' => 'required|in:0, 1',
-            'nik' => 'required_if:terdaftar_dukcapil,1',
-            'domisili' => 'required_if:terdaftar_dukcapil,1|in:0,1',
-            'no_kk' => 'required_if:terdaftar_dukcapil,1',
-            'nama' => 'required|string|max:100',
-            'kelamin' => 'required|in:Laki - laki,Perempuan',
-            'tmpt_lahir' => 'required|string|max:200',
-            'tgl_lahir' => 'required',
-            'akta_kelahiran' => 'required',
-            'status_kawin' => 'required',
-            'status_dlm_klrga' => 'required|array',
-            'agama' => 'required',
-            'status_pendidkan' => 'required',
-            'pendidikan' => 'required',
-            'pekerjaan' => 'required',
-            'jabatan' => 'required'
-        ]);
+        // $request->validate([
+        //     'dasawisma_id' => 'required',
+        //     'rumah_id' => 'required',
+        //     'terdaftar_dukcapil' => 'required|in:0, 1',
+        //     'nik' => 'required_if:terdaftar_dukcapil,1',
+        //     'domisili' => 'required_if:terdaftar_dukcapil,1|in:0,1',
+        //     'no_kk' => 'required_if:terdaftar_dukcapil,1',
+        //     'nama' => 'required|string|max:100',
+        //     'kelamin' => 'required|in:Laki - laki,Perempuan',
+        //     'tmpt_lahir' => 'required|string|max:200',
+        //     'tgl_lahir' => 'required',
+        //     'akta_kelahiran' => 'required',
+        //     'status_kawin' => 'required',
+        //     'status_dlm_klrga' => 'required|array',
+        //     'agama' => 'required',
+        //     'status_pendidkan' => 'required',
+        //     'pendidikan' => 'required',
+        //     'pekerjaan' => 'required',
+        //     'jabatan' => 'required'
+        // ]);
 
-        $nik = Str::length($request->nik);
-        $no_kk = Str::length($request->nik);
-        if ($nik > 0) {
-            $request->validate([
-                'nik' => 'digits:16'
-            ]);
-        }
-        if ($no_kk > 0) {
-            $request->validate([
-                'no_kk' => 'digits:16'
-            ]);
-        }
+        // $nik = Str::length($request->nik);
+        // $no_kk = Str::length($request->nik);
+        // if ($nik > 0) {
+        //     $request->validate([
+        //         'nik' => 'digits:16'
+        //     ]);
+        // }
+        // if ($no_kk > 0) {
+        //     $request->validate([
+        //         'no_kk' => 'digits:16'
+        //     ]);
+        // }
 
         return response()->json([
             'message' => 'Success.'
@@ -156,7 +156,61 @@ class AnggotaKeluargaController extends Controller
 
     public function storeHidup(Request $request)
     {
+          /*
+         * Tahapan 
+         * 1. anggota
+         * 2. anggota_details
+         */
+        DB::beginTransaction(); //* DB Transaction Begin
+
         dd($request->all());
+
+        try {
+            //* BPJS
+            $bpjs = $request->bpjs;
+            dd($bpjs);
+
+            //* Tahap 1
+            $inputAnggota = [
+                'status_hidup' => 1,
+                'rumah_id' => $request->rumah_id,
+                'nik' => $request->nik,
+                'no_kk' => $request->no_kk,
+                'nama' => $request->nama,
+                'kelamin' => $request->kelamin,
+                'tmpt_lahir' => $request->tmpt_lahir,
+                'tgl_lahir' => $request->tgl_lahir,
+                'akta_kelahiran' => $request->akta_kelahiran,
+                'status_kawin' => $request->status_kawin,
+                'agama' => $request->agama,
+                'status_pendidkan' => $request->status_pendidkan,
+                'pendidikan' => $request->pendidikan,
+                'pekerjaan' => $request->pekerjaan,
+                'jabatan' => $request->jabatan,
+                'status_dlm_klrga' => json_encode($request->status_dlm_klrga),
+                'created_by' => Auth::user()->nama
+            ];
+            $anggota = Anggota::create($inputAnggota);
+
+            //* Tahap 2
+            $inputAnggotaDetail = [
+                'anggota_id' => $anggota->id,
+                'domisili' => $request->domisili,
+                'terdaftar_dukcapil' => $request->terdaftar_dukcapil,
+                'wus' => $request->wus,
+                'pus' => $request->pus,
+                'created_by' => Auth::user()->nama
+            ];
+            AnggotaDetail::create($inputAnggotaDetail);
+        } catch (\Throwable $th) {
+            DB::rollback(); //* DB Transaction Failed
+            return response()->json(['message' => "Terjadi kesalahan, silahkan hubungi administrator"], 500);
+        }
+
+        DB::commit(); //* DB Transaction Success
+        dd('berjalan');
+
+        return response()->json(['message' => "Berhasil menyiman data."]);
     }
 
     public function storeMeninggal(Request $request)
@@ -186,7 +240,7 @@ class AnggotaKeluargaController extends Controller
         DB::beginTransaction(); //* DB Transaction Begin
 
         try {
-            // Tahap 1
+            //* Tahap 1
             $inputAnggota = [
                 'rumah_id' => $request->rumah_id,
                 'nik' => $request->nik,
@@ -200,7 +254,7 @@ class AnggotaKeluargaController extends Controller
             ];
             $anggota = Anggota::create($inputAnggota);
 
-            // Tahap 2
+            //* Tahap 2
             $inputAnggotaDetail = [
                 'anggota_id' => $anggota->id,
                 'tgl_meninggal' => $request->tgl_meninggal,
