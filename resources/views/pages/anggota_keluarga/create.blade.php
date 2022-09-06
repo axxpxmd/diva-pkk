@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
             $('input[name="status_dlm_klrga[]"]').prop('required', false);
         }
        
-        if (formStepper[0].checkValidity()) {
+        if (!formStepper[0].checkValidity()) {
             Array.prototype.slice.call(formStepper)
             .forEach(function (form) {
                 form.classList.add('was-validated')
@@ -130,84 +130,84 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     })
 
-    // // Form 2
-    // $('#btnForm2Next').click(function(){
-    //     var bpjs = $('input[name="bpjs[]"]:checked')
-    //     if (bpjs.length == 0) {
-    //         $('input[name="bpjs[]"]').prop('required', true);
-    //     }else{
-    //         $('input[name="bpjs[]"]').prop('required', false);
-    //     }
+    // Form 2
+    $('#btnForm2Next').click(function(){
+        var bpjs = $('input[name="bpjs[]"]:checked')
+        if (bpjs.length == 0) {
+            $('input[name="bpjs[]"]').prop('required', true);
+        }else{
+            $('input[name="bpjs[]"]').prop('required', false);
+        }
 
-    //     if (!formStepper[0].checkValidity()) {
-    //         Array.prototype.slice.call(formStepper)
-    //         .forEach(function (form) {
-    //             form.classList.add('was-validated')
-    //             event.preventDefault()
-    //             event.stopPropagation()
-    //         })
-    //     }else{
-    //         // Input
-    //         jenis_kb = $('#jenis_kb').val();
-    //         frekuensi_posyandu = $('#frekuensi_posyandu').val();
-    //         frekuensi_posbindu = $('#frekuensi_posbindu').val();
-    //         status_ibu = $('#status_ibu').val();
-    //         jenis_kbthn_khusus = $('#jenis_kbthn_khusus').val();
-    //         jenis_buta = $('#jenis_buta').val();
+        if (!formStepper[0].checkValidity()) {
+            Array.prototype.slice.call(formStepper)
+            .forEach(function (form) {
+                form.classList.add('was-validated')
+                event.preventDefault()
+                event.stopPropagation()
+            })
+        }else{
+            // Input
+            jenis_kb = $('#jenis_kb').val();
+            frekuensi_posyandu = $('#frekuensi_posyandu').val();
+            frekuensi_posbindu = $('#frekuensi_posbindu').val();
+            status_ibu = $('#status_ibu').val();
+            jenis_kbthn_khusus = $('#jenis_kbthn_khusus').val();
+            jenis_buta = $('#jenis_buta').val();
 
-    //         // Radio
-    //         kb = $('input[name="kb"]:checked').val();
-    //         aktif_posyandu = $('input[name="aktif_posyandu"]:checked').val();
-    //         aktif_posbindu = $('input[name="aktif_posbindu"]:checked').val();
-    //         status_anak = $('input[name="status_anak"]:checked').val();
-    //         stunting = $('input[name="stunting"]:checked').val();
-    //         kbthn_khusus = $('input[name="kbthn_khusus"]:checked').val();
-    //         buta = $('input[name="buta"]:checked').val();
-    //         makanan_pokok = $('input[name="makanan_pokok"]:checked').val();
-    //         kelamin = $('input[name="kelamin"]:checked').val();
+            // Radio
+            kb = $('input[name="kb"]:checked').val();
+            aktif_posyandu = $('input[name="aktif_posyandu"]:checked').val();
+            aktif_posbindu = $('input[name="aktif_posbindu"]:checked').val();
+            status_anak = $('input[name="status_anak"]:checked').val();
+            stunting = $('input[name="stunting"]:checked').val();
+            kbthn_khusus = $('input[name="kbthn_khusus"]:checked').val();
+            buta = $('input[name="buta"]:checked').val();
+            makanan_pokok = $('input[name="makanan_pokok"]:checked').val();
+            kelamin = $('input[name="kelamin"]:checked').val();
 
-    //         // Checkbox 
-    //         var bpjs = $('input[name="bpjs[]"]:checked').map(function() {
-    //             return $(this).val();   
-    //         }).get();
+            // Checkbox 
+            var bpjs = $('input[name="bpjs[]"]:checked').map(function() {
+                return $(this).val();   
+            }).get();
 
-    //         $.ajax({
-    //             url: "{{ route('anggota-keluarga.checkValidationForm2') }}",
-    //             type: "POST",
-    //             data: {
-    //                 bpjs: bpjs,
-    //                 kb: kb,
-    //                 jenis_kb: jenis_kb,
-    //                 aktif_posyandu: aktif_posyandu,
-    //                 frekuensi_posyandu: frekuensi_posyandu,
-    //                 aktif_posbindu: aktif_posbindu,
-    //                 frekuensi_posbindu: frekuensi_posbindu,
-    //                 status_ibu: status_ibu,
-    //                 status_anak: status_anak,
-    //                 stunting: stunting,
-    //                 kbthn_khusus: kbthn_khusus,
-    //                 jenis_kbthn_khusus: jenis_kbthn_khusus,
-    //                 buta: buta,
-    //                 jenis_buta: jenis_buta,
-    //                 makanan_pokok: makanan_pokok,
-    //                 kelamin: kelamin
+            $.ajax({
+                url: "{{ route('anggota-keluarga.checkValidationForm2') }}",
+                type: "POST",
+                data: {
+                    bpjs: bpjs,
+                    kb: kb,
+                    jenis_kb: jenis_kb,
+                    aktif_posyandu: aktif_posyandu,
+                    frekuensi_posyandu: frekuensi_posyandu,
+                    aktif_posbindu: aktif_posbindu,
+                    frekuensi_posbindu: frekuensi_posbindu,
+                    status_ibu: status_ibu,
+                    status_anak: status_anak,
+                    stunting: stunting,
+                    kbthn_khusus: kbthn_khusus,
+                    jenis_kbthn_khusus: jenis_kbthn_khusus,
+                    buta: buta,
+                    jenis_buta: jenis_buta,
+                    makanan_pokok: makanan_pokok,
+                    kelamin: kelamin
 
-    //             },
-    //             success:function(response){
-    //                 $('.add-required-form3').prop('required', true)
-    //                 stepperForm.next()  
-    //             },
-    //             error:function(response){
-    //                 error = ''; respon = response.responseJSON;
-    //                 $.each(respon.errors, function(index, value){
-    //                     error += "<li>" + value +"</li>";
-    //                 });
-    //                 err(error);
-    //             }
-    //         });
-    //         return false;
-    //     }
-    // })
+                },
+                success:function(response){
+                    $('.add-required-form3').prop('required', true)
+                    stepperForm.next()  
+                },
+                error:function(response){
+                    error = ''; respon = response.responseJSON;
+                    $.each(respon.errors, function(index, value){
+                        error += "<li>" + value +"</li>";
+                    });
+                    err(error);
+                }
+            });
+            return false;
+        }
+    })
 
     // Form 3
     $('#form-hidup').on('submit', function (event) {
@@ -243,6 +243,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 })
 
+// Form Meninggal
 $('#form-meninggal').on('submit', function (event) {
     console.log('jalan');
     if ($(this)[0].checkValidity() === false) {
@@ -268,6 +269,5 @@ $('#form-meninggal').on('submit', function (event) {
     }
     $(this).addClass('was-validated');
 });
-
 </script>
 @endpush

@@ -76,7 +76,7 @@ class AnggotaKeluargaController extends Controller
 
         $dasawismas = Dasawisma::select('id', 'nama')->get();
         $rtrws = RTRW::select('id', 'kecamatan_id', 'kelurahan_id', 'rw', 'rt')->with(['kecamatan', 'kelurahan'])->get();
-        $rumah = Rumah::select('id', 'kepala_rumah', 'alamat_detail')->get();
+        $rumah = Rumah::select('id', 'kepala_rumah', 'alamat_detail')->where('dasawisma_id', $dasawisma_id)->get();
 
         return view('pages.anggota_keluarga.create', compact(
             'title',

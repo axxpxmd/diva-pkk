@@ -3,7 +3,7 @@
         <div class="row mb-2">
             <label class="col-sm-4 col-form-label fw-bold text-end">Dasawisma <span class="text-danger">*</span></label>
             <div class="col-sm-8">
-                <select class="select2 form-select" id="dasawisma_id" name="dasawisma_id" required>
+                <select class="select2 form-select" id="dasawisma_id" {{ $dasawisma_id ? 'disabled' : '' }} name="dasawisma_id" required>
                     <option value="">Pilih</option>
                     @foreach ($dasawismas as $i)
                         <option value="{{ $i->id }}" {{ $i->id == $dasawisma_id ? 'selected' : '-' }}>{{ $i->nama }}</option>
@@ -17,12 +17,12 @@
         <div class="row mb-2">
             <label class="col-sm-4 col-form-label fw-bold text-end">Rumah <span class="text-danger">*</span></label>
             <div class="col-sm-8">
-                <select class="select2 form-select" id="rumah_id" name="rumah_id" required>
+                <select class="form-control select2" name="rumah_id" id="rumah_id">
                     <option value="">Pilih</option>
                     @foreach ($rumah as $i)
-                        <option value="{{ $i->id }}">{{ $i->kepala_rumah }} - {{ $i->alamat_detail }}</option>
+                        <option value="{{ $i->id }}">{{ $i->kepala_rumah }}</option>
                     @endforeach
-                </select>   
+                </select>
                 <div class="invalid-feedback">
                     Silahkan pilih kepala rumah.
                 </div>
@@ -66,8 +66,12 @@
         <div class="row mb-2">
             <label class="col-sm-4 col-form-label text-end fw-bold">No KK</label>
             <div class="col-sm-8">
-                <input type="number" name="no_kk" id="no_kk" class="form-control" placeholder="Nomor Kartu Keluarga" autocomplete="off">
-                <span></span>
+                <select class="form-control select2" name="no_kk" id="no_kk">
+                    <option value="">Pilih</option>
+                </select>
+                <div class="invalid-feedback">
+                    Silahkan pilih No KK.
+                </div>
             </div>
         </div>
         <div class="row mb-2">
@@ -287,6 +291,29 @@
 </div>
 @push('script')
 <script type="text/javascript">
+    $('#rumah_id').on('change', function(){
+        val = $(this).val();
+        option = "<option value=''>Pilih</option>";
+        if(val == ""){
+            $('#no_kk').html(option);
+        }else{
+            $('#no_kk').html("<option value=''>Loading...</option>");
+            url = "{{ route('nokkByRumah', ':id') }}".replace(':id', val);
+            $.get(url, function(data){
+                if(data){
+                    $.each(data, function(index, value){
+                        option += "<option value='" + value.id + "'>" + value.no_kk + " &nbsp;&nbsp - " + value.nm_kpl_klrga +"</li>";
+                    });
+                    $('#no_kk').empty().html(option);
+
+                    $("#no_kk").val($("#no_kk option:first").val()).trigger("change.select2");
+                }else{
+                    $('#no_kk').html(option);
+                }
+            }, 'JSON'); 
+        }
+    });
+    
     $("input[name='status_pendidkan']").on('change', function(){
         val = $(this).val();
         $('#pendidikanDisplay').show();

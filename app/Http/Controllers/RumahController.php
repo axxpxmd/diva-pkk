@@ -119,11 +119,12 @@ class RumahController extends Controller
         $active_rumah = $this->active_rumah;
         $id    = $id;
 
-        if ($request->ajax()) {
-            return $this->dataTableKK();
-        }
-
         $data = Rumah::find($id);
+        $rumah_id = $data->id;
+
+        if ($request->ajax()) {
+            return $this->dataTableKK($rumah_id);
+        }
 
         return view('pages.rumah.show', compact(
             'title',
@@ -134,9 +135,9 @@ class RumahController extends Controller
         ));
     }
 
-    public function dataTableKK()
+    public function dataTableKK($rumah_id)
     {
-        $data = KartuKeluarga::all();
+        $data = KartuKeluarga::where('rumah_id', $rumah_id)->get();
 
         return DataTables::of($data)
             ->addColumn('action', function ($p) {
