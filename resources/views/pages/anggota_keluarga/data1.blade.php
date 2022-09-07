@@ -267,15 +267,15 @@
             </div>
         </div>
         <div class="row mb-2">
-            <label class="col-sm-4 col-form-label text-end fw-bold">Jabatan <span class="text-danger">*</span></label>
+            <label class="col-sm-4 col-form-label text-end fw-bold">Jabatan </label>
             <div class="col-sm-4 m-t-6">
-                <input type="radio" value="Managerial" name="jabatan" id="jabatan" class="form-check-input" required>
+                <input type="radio" value="Managerial" name="jabatan" id="jabatan" class="form-check-input">
                 <label class="form-check-label m-l-10">
                     Managerial
                 </label>
             </div>
             <div class="col-sm-4 m-t-6">
-                <input type="radio" value="Staff" name="jabatan" id="jabatan" class="form-check-input" required>
+                <input type="radio" value="Staff" name="jabatan" id="jabatan" class="form-check-input">
                 <label class="form-check-label m-l-10">
                     Staff
                 </label>
@@ -285,6 +285,7 @@
             <div class="col-sm-4"></div>
             <div class="col-sm-8">
                 <button type="button" class="btn btn-block btn-info fs-14" id="btnForm1Next"><i class="bi bi-arrow-right m-r-8"></i>Selanjutnya</button>
+                <button type="submit" class="btn btn-block btn-info fs-14"><i class="bi bi-save m-r-8"></i>Simpan</button>
             </div>
         </div>
     </div>
@@ -302,7 +303,7 @@
             $.get(url, function(data){
                 if(data){
                     $.each(data, function(index, value){
-                        option += "<option value='" + value.id + "'>" + value.no_kk + " &nbsp;&nbsp - " + value.nm_kpl_klrga +"</li>";
+                        option += "<option value='" + value.no_kk + "'>" + value.no_kk + " &nbsp;&nbsp - " + value.nm_kpl_klrga +"</li>";
                     });
                     $('#no_kk').empty().html(option);
 

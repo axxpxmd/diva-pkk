@@ -156,20 +156,15 @@ class AnggotaKeluargaController extends Controller
 
     public function storeHidup(Request $request)
     {
-          /*
-         * Tahapan 
-         * 1. anggota
-         * 2. anggota_details
+        /* Tahapan : 
+         * 1. Data 1
+         * 2. Data 2
+         * 3. Data 3
          */
+
         DB::beginTransaction(); //* DB Transaction Begin
 
-        dd($request->all());
-
         try {
-            //* BPJS
-            $bpjs = $request->bpjs;
-            dd($bpjs);
-
             //* Tahap 1
             $inputAnggota = [
                 'status_hidup' => 1,
@@ -192,7 +187,6 @@ class AnggotaKeluargaController extends Controller
             ];
             $anggota = Anggota::create($inputAnggota);
 
-            //* Tahap 2
             $inputAnggotaDetail = [
                 'anggota_id' => $anggota->id,
                 'domisili' => $request->domisili,
@@ -201,7 +195,9 @@ class AnggotaKeluargaController extends Controller
                 'pus' => $request->pus,
                 'created_by' => Auth::user()->nama
             ];
-            AnggotaDetail::create($inputAnggotaDetail);
+            $anggotaDetail = AnggotaDetail::create($inputAnggotaDetail);
+
+            //* Tahap 2
         } catch (\Throwable $th) {
             DB::rollback(); //* DB Transaction Failed
             return response()->json(['message' => "Terjadi kesalahan, silahkan hubungi administrator"], 500);

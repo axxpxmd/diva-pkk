@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function () {
             $('input[name="bpjs[]"]').prop('required', false);
         }
 
-        if (!formStepper[0].checkValidity()) {
+        if (formStepper[0].checkValidity()) {
             Array.prototype.slice.call(formStepper)
             .forEach(function (form) {
                 form.classList.add('was-validated')
