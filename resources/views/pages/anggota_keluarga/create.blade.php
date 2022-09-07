@@ -54,7 +54,10 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         $('#jenis_kb_display').hide();
         $('#jenis_kb').val(null).trigger("change.select2");
-        $("#jenis_kb").prop('required',false);
+        $("#jenis_kb").prop({'required': false, 'checked': false});
+        $('#frekuensi_posyandu_display,#frekuensi_posbindu_display').hide();
+        $("#frekuensi_posyandu,#frekuensi_posbindu").prop('required',false);
+        $('#frekuensi_posyandu,#frekuensi_posbindu').val(null);
        
         if (!formStepper[0].checkValidity()) {
             Array.prototype.slice.call(formStepper)
@@ -63,6 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 event.preventDefault()
                 event.stopPropagation()
             })
+            console.log('Validation Data 1')
         }else{
             // Input
             pus = $('#pus').val();
@@ -142,13 +146,14 @@ document.addEventListener('DOMContentLoaded', function () {
             $('input[name="bpjs[]"]').prop('required', false);
         }
 
-        if (formStepper[0].checkValidity()) {
+        if (!formStepper[0].checkValidity()) {
             Array.prototype.slice.call(formStepper)
             .forEach(function (form) {
                 form.classList.add('was-validated')
                 event.preventDefault()
                 event.stopPropagation()
             })
+            console.log('Validation Data 2')
         }else{
             // Input
             jenis_kb = $('#jenis_kb').val();
@@ -168,11 +173,7 @@ document.addEventListener('DOMContentLoaded', function () {
             buta = $('input[name="buta"]:checked').val();
             makanan_pokok = $('input[name="makanan_pokok"]:checked').val();
             kelamin = $('input[name="kelamin"]:checked').val();
-
-            // Checkbox 
-            var bpjs = $('input[name="bpjs[]"]:checked').map(function() {
-                return $(this).val();   
-            }).get();
+            bpjs = $('input[name="bpjs"]:checked').val();
 
             $.ajax({
                 url: "{{ route('anggota-keluarga.checkValidationForm2') }}",
@@ -224,13 +225,14 @@ document.addEventListener('DOMContentLoaded', function () {
         if ($(this)[0].checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
+            console.log('Validation Data 3')
         }else{    
             $('#loading').show();
             $('#alert').html('');
            
             url = "{{ route('anggota-keluarga.storeHidup') }}";
             $.post(url, $(this).serialize(), function(data){
-                $('#alert').html("<div class='alert alert-success alert-dismissible' role='alert'><strong>Sukses!</strong> " + data.message + "</div>");
+                succesStore(data.message);
             },'json').fail(function(data){
                 err = ''; respon = data.responseJSON;
                 $.each(respon.errors, function(index, value){

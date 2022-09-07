@@ -157,7 +157,7 @@
                 </label>
             </div>
             <div class="col-sm-4 m-t-6" id="jenis_kbthn_khusus_display" style="display: none">
-                <select class="select2 form-select add-required-form2" id="jenis_kbthn_khusus" name="jenis_kbthn_khusus">
+                <select class="select2 form-select" id="jenis_kbthn_khusus" name="jenis_kbthn_khusus">
                     <option value="">Pilih</option>
                     <option value="Fisik">Fisik</option>
                     <option value="Non-Fisik">Non-Fisik</option>
@@ -182,7 +182,7 @@
                 </label>
             </div>
             <div class="col-sm-4 m-t-6" id="jenis_buta_display" style="display: none">
-                <select class="select2 form-select add-required-form2" id="jenis_buta" name="jenis_buta[]" multiple="multiple">
+                <select class="select2 form-select" id="jenis_buta" name="jenis_buta[]" multiple="multiple">
                     <option value="">Pilih</option>
                     <option value="Baca">Buta Baca</option>
                     <option value="Tulis">Tulis</option>
@@ -216,8 +216,7 @@
                         <button type="button" class="btn btn-block btn-warning fs-14 m-r-5" id="btnForm2Previous" onclick="stepperForm.previous()"><i class="bi bi-arrow-left m-r-8"></i>Kembali</button>
                     </div>
                     <div class="col-sm-6">
-                        {{-- <button type="button" class="btn btn-block btn-info fs-14" id="btnForm2Next"><i class="bi bi-arrow-right m-r-8"></i>Selanjutnya</button> --}}
-                        <button type="submit" class="btn btn-block btn-info fs-14"><i class="bi bi-save m-r-8"></i>Simpan</button>
+                        <button type="button" class="btn btn-block btn-info fs-14" id="btnForm2Next"><i class="bi bi-arrow-right m-r-8"></i>Selanjutnya</button>
                     </div>
                 </div>
             </div>

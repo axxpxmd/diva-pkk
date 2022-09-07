@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use DataTables;
+use Validator;
 
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -15,6 +16,8 @@ use App\Models\Rumah;
 use App\Models\Anggota;
 use App\Models\Dasawisma;
 use App\Models\AnggotaDetail;
+use App\Models\Kelurahan;
+use Illuminate\Support\Carbon;
 
 class AnggotaKeluargaController extends Controller
 {
@@ -93,39 +96,38 @@ class AnggotaKeluargaController extends Controller
 
     public function checkValidationForm1(Request $request)
     {
-        // $request->validate([
-        //     'dasawisma_id' => 'required',
-        //     'rumah_id' => 'required',
-        //     'terdaftar_dukcapil' => 'required|in:0, 1',
-        //     'nik' => 'required_if:terdaftar_dukcapil,1',
-        //     'domisili' => 'required_if:terdaftar_dukcapil,1|in:0,1',
-        //     'no_kk' => 'required_if:terdaftar_dukcapil,1',
-        //     'nama' => 'required|string|max:100',
-        //     'kelamin' => 'required|in:Laki - laki,Perempuan',
-        //     'tmpt_lahir' => 'required|string|max:200',
-        //     'tgl_lahir' => 'required',
-        //     'akta_kelahiran' => 'required',
-        //     'status_kawin' => 'required',
-        //     'status_dlm_klrga' => 'required|array',
-        //     'agama' => 'required',
-        //     'status_pendidkan' => 'required',
-        //     'pendidikan' => 'required',
-        //     'pekerjaan' => 'required',
-        //     'jabatan' => 'required'
-        // ]);
+        $request->validate([
+            'dasawisma_id' => 'required',
+            'rumah_id' => 'required',
+            'terdaftar_dukcapil' => 'required|in:0, 1',
+            'nik' => 'required_if:terdaftar_dukcapil,1',
+            'domisili' => 'required_if:terdaftar_dukcapil,1|in:0,1',
+            'no_kk' => 'required_if:terdaftar_dukcapil,1',
+            'nama' => 'required|string|max:100',
+            'kelamin' => 'required|in:Laki - laki,Perempuan',
+            'tmpt_lahir' => 'required|string|max:200',
+            'tgl_lahir' => 'required',
+            'akta_kelahiran' => 'required',
+            'status_kawin' => 'required',
+            'status_dlm_klrga' => 'required|array',
+            'agama' => 'required',
+            'status_pendidkan' => 'required',
+            'pendidikan' => 'required',
+            'pekerjaan' => 'required'
+        ]);
 
-        // $nik = Str::length($request->nik);
-        // $no_kk = Str::length($request->nik);
-        // if ($nik > 0) {
-        //     $request->validate([
-        //         'nik' => 'digits:16'
-        //     ]);
-        // }
-        // if ($no_kk > 0) {
-        //     $request->validate([
-        //         'no_kk' => 'digits:16'
-        //     ]);
-        // }
+        $nik = Str::length($request->nik);
+        $no_kk = Str::length($request->nik);
+        if ($nik > 0) {
+            $request->validate([
+                'nik' => 'digits:16'
+            ]);
+        }
+        if ($no_kk > 0) {
+            $request->validate([
+                'no_kk' => 'digits:16'
+            ]);
+        }
 
         return response()->json([
             'message' => 'Success.'
@@ -141,7 +143,6 @@ class AnggotaKeluargaController extends Controller
             'frekuensi_posyandu' => 'required_if:aktif_posyandu,Ya',
             'aktif_posbindu' => 'required_if:kb,Ya',
             'aktif_posbindu' => 'required_if:aktif_posbindu,Ya',
-            // 'status_ibu' => 'required_if:kelamin,Perempuan',
             'kbthn_khusus' => 'required',
             'jenis_kbthn_khusus' => 'required_if:kbthn_khusus,Ya',
             'buta' => 'required|in:0,1',
@@ -154,19 +155,70 @@ class AnggotaKeluargaController extends Controller
         ]);
     }
 
+    public function genereateNoRegist($c_kec, $kel_id)
+    {
+        // 36.74.xxx.xxx.xxxx.xxx (tanpa titik)
+        // Prov.Tangsel.Kec.Kel.Tahun Input.Nomor urut input
+
+        $time = Carbon::now();
+        $year = $time->format('y');
+
+        $total = Anggota::join('rumah', 'rumah.id', '=', 'anggota.rumah_id')
+            ->join('rt_rw', 'rt_rw.id', '=', 'rumah.rtrw_id')
+            ->where('rt_rw.kelurahan_id', $kel_id)
+            ->where(DB::raw('YEAR(anggota.created_at)'), '=', $time->year)
+            ->orderBy('anggota.id', 'DESC')
+            ->first();
+
+        if ($total != null) {
+            $noUrut = substr($total->no_registrasi, 17) + 1;
+        } else {
+            $noUrut = '1';
+        }
+
+        //* no_skrd terdiri dari 5 digits
+        if (\strlen($noUrut) == 1) {
+            $generateNoRegistrasi = '0000' . $noUrut;
+        } elseif (\strlen($noUrut) == 2) {
+            $generateNoRegistrasi = '000' . $noUrut;
+        } elseif (\strlen($noUrut) == 3) {
+            $generateNoRegistrasi = '00' . $noUrut;
+        } elseif (\strlen($noUrut) == 4) {
+            $generateNoRegistrasi = '0' . $noUrut;
+        } elseif (\strlen($noUrut) == 5) {
+            $generateNoRegistrasi = $noUrut;
+        }
+
+        return $c_kec . '.' . $year . '.' . $generateNoRegistrasi;
+    }
+
     public function storeHidup(Request $request)
     {
         /* Tahapan : 
-         * 1. Data 1
-         * 2. Data 2
-         * 3. Data 3
+         * 1. Generate No Registrasi
+         * 2. Data 1
+         * 3. Data 2
+         * 4. Data 3
          */
 
-        DB::beginTransaction(); //* DB Transaction Begin
-        dd($request->all());
+        //* Tahap 1
+        $rumah = Rumah::find($request->rumah_id);
+        $rtrw  = $rumah->rtrw;
+        $c_kec = $rtrw->kelurahan->kode;
+        $kel_id = $rtrw->kelurahan->id;
 
+        $noRegistrasi = $this->genereateNoRegist($c_kec, $kel_id);
+
+        $checkGenerate = [
+            'noRegistrasi'  => $noRegistrasi,
+        ];
+        Validator::make($checkGenerate, [
+            'noRegistrasi'  => 'required|unique:anggota,no_registrasi',
+        ])->validate();
+
+        DB::beginTransaction(); //* DB Transaction Begin
         try {
-            //* Tahap 1
+            //* Tahap 2
             $data1Anggota = [
                 'status_hidup' => 1,
                 'rumah_id' => $request->rumah_id,
@@ -183,7 +235,8 @@ class AnggotaKeluargaController extends Controller
                 'pendidikan' => $request->pendidikan,
                 'pekerjaan' => $request->pekerjaan,
                 'jabatan' => $request->jabatan,
-                'status_dlm_klrga' =>  $request->status_dlm_klrga ? json_encode($request->status_dlm_klrga) :  null,
+                'status_dlm_klrga' =>  $request->status_dlm_klrga ? json_encode($request->status_dlm_klrga) : null,
+                'no_registrasi' => $noRegistrasi,
                 'created_by' => Auth::user()->nama
             ];
             $anggota = Anggota::create($data1Anggota);
@@ -198,10 +251,10 @@ class AnggotaKeluargaController extends Controller
             ];
             $anggotaDetail = AnggotaDetail::create($data1AnggotaDetail);
 
-            //* Tahap 2
+            //* Tahap 3
             $data2Anggota = [
                 'bpjs' => $request->bpjs,
-                'asuransi_lainnya' => $request->asuransi_lainnya ? json_encode($request->asuransi_lainnya) :  null,
+                'asuransi_lainnya' => $request->asuransi_lainnya ? json_encode($request->asuransi_lainnya) : null,
                 'kbthn_khusus' => $request->kbthn_khusus,
                 'buta' => $request->buta,
                 'makanan_pokok' => $request->makanan_pokok,
@@ -216,11 +269,30 @@ class AnggotaKeluargaController extends Controller
 
             $data2AnggotaDetail = [
                 'jenis_kbthn_khusus' => $request->jenis_kbthn_khusus,
-                'jenis_buta' => $request->jenis_buta ? json_encode($request->jenis_buta) :  null,
+                'jenis_buta' => $request->jenis_buta ? json_encode($request->jenis_buta) : null,
             ];
             $anggotaDetail->update($data2AnggotaDetail);
 
-            //* Tahap 2
+            //* Tahap 4
+            $data3AnggotaDetail = [
+                'prgrm_bina_balita' => $request->prgrm_bina_balita,
+                'tabungan' => $request->tabungan,
+                'klmpk_belajar' => $request->klmpk_belajar == 1 ? $request->jns_klmpk_belajar : 'Tidak',
+                'paud' => $request->paud,
+                'kgtn_koperasi' => $request->kgtn_koperasi,
+                'jns_kgtn_koperasi' => $request->jns_kgtn_koperasi,
+                'kgtn_pancasila' => $request->kgtn_pancasila,
+                'jns_kgtn_pancasila' => $request->jns_kgtn_pancasila ? json_encode($request->jns_kgtn_pancasila) : null,
+                'gotong_royong' => $request->gotong_royong,
+                'jns_gotong_royong' => $request->jns_gotong_royong ? json_encode($request->jns_gotong_royong) : null,
+                'hatinya_pkk' => $request->hatinya_pkk,
+                'jns_hatinya_pkk' => $request->jns_hatinya_pkk ? json_encode($request->jns_hatinya_pkk) : null,
+                'industri_rmh_up2k' => $request->industri_rmh_up2k,
+                'jns_industri_rmh_up2k' => $request->jns_industri_rmh_up2k ? json_encode($request->jns_industri_rmh_up2k) : null,
+                'kgtn_kshtn_lingkungan' => $request->kgtn_kshtn_lingkungan,
+                'jns_kgtn_keagamaan' => $request->jns_kgtn_keagamaan
+            ];
+            $anggotaDetail->update($data3AnggotaDetail);
         } catch (\Throwable $th) {
             dd($th);
             DB::rollback(); //* DB Transaction Failed
@@ -228,7 +300,6 @@ class AnggotaKeluargaController extends Controller
         }
 
         DB::commit(); //* DB Transaction Success
-        dd('berjalan');
 
         return response()->json(['message' => "Berhasil menyiman data."]);
     }

@@ -45,7 +45,7 @@
                 </label>
             </div>
             <div class="col-sm-4 m-t-6" id="jns_klmpk_belajar_display" style="display: none">
-                <select class="select2 form-select add-required-form3" id="jns_klmpk_belajar" name="jns_klmpk_belajar">
+                <select class="select2 form-select" id="jns_klmpk_belajar" name="jns_klmpk_belajar">
                     <option value="">Pilih</option>
                     <option value="Paket A">Paket A</option>
                     <option value="Paket B">Paket B</option>
@@ -87,7 +87,7 @@
                 </label>
             </div>
             <div class="col-sm-4 m-t-6" id="jns_kgtn_koperasi_display" style="display: none">
-                <input type="text" name="jns_kgtn_koperasi" id="jns_kgtn_koperasi" class="form-control add-required-form3" placeholder="Jenis Koperasi" autocomplete="off">
+                <input type="text" name="jns_kgtn_koperasi" id="jns_kgtn_koperasi" class="form-control" placeholder="Jenis Koperasi" autocomplete="off">
             </div>
         </div>
         <div class="row mt-2">
@@ -108,7 +108,7 @@
         <div class="row mb-2 mt-2" style="display: none" id="jns_kgtn_pancasila_display">
             <div class="col-sm-4"></div>
             <div class="col-sm-8">
-                <select class="select2 form-select add-required-form3" id="jns_kgtn_pancasila" name="jns_kgtn_pancasila[]" multiple="multiple">
+                <select class="select2 form-select" id="jns_kgtn_pancasila" name="jns_kgtn_pancasila[]" multiple="multiple">
                     <option value="">Pilih</option>
                     <option value="Kegiatan Keagamaan">Kegiatan Keagamaan</option>
                     <option value="PKBN">PKBN</option>
@@ -121,7 +121,7 @@
                 <div class="invalid-feedback">
                     Silahkan pilih Jenis Kegiatan Pancasila.
                 </div>
-                <input type="text" name="jns_kgtn_keagamaan" id="jns_kgtn_keagamaan" placeholder="Jenis Kegiatan Keagamaan" class="form-control add-required-form3 mt-2" style="display: none;">
+                <input type="text" name="jns_kgtn_keagamaan" id="jns_kgtn_keagamaan" placeholder="Jenis Kegiatan Keagamaan" class="form-control mt-2" style="display: none;">
             </div>
         </div>
         <div class="row mt-2">
@@ -142,7 +142,7 @@
         <div class="row mt-2" style="display: none" id="jns_gotong_royong_display">
             <div class="col-sm-4"></div>
             <div class="col-sm-8">
-                <select class="select2 form-select add-required-form3" id="jns_gotong_royong" name="jns_gotong_royong[]" multiple="multiple">
+                <select class="select2 form-select" id="jns_gotong_royong" name="jns_gotong_royong[]" multiple="multiple">
                     <option value="">Pilih</option>
                     <option value="Kerja Bakti">Kerja Bakti</option>
                     <option value="Jimpitan">Jimpitan</option>
@@ -175,91 +175,91 @@
             <div class="row">
                 <div class="col-sm-4"></div>
                 <div class="col-sm-3 m-t-6">
-                    <input type="checkbox" name="jns_hatinya_pkk[]" id="peternakan" onchange="hatinyaPKK('peternakan')" class="form-check-input add-required-form3">
+                    <input type="checkbox" name="jns_hatinya_pkk[]" id="peternakan" onchange="hatinyaPKK('peternakan')" class="form-check-input">
                     <label class="form-check-label m-l-10">
                         Peternakan
                     </label>
                 </div>
                 <div class="col-sm-3 m-t-6" id="peternakan_komoditi_display" style="display: none">
-                    <input type="text" name="peternakan_komoditi" onkeyup="valueToHatinyaPKK('peternakan')" id="peternakan_komoditi" placeholder="Komoditi" class="form-control add-required-form3" autocomplete="off">
+                    <input type="text" name="peternakan_komoditi" onkeyup="valueToHatinyaPKK('peternakan')" id="peternakan_komoditi" placeholder="Komoditi" class="form-control" autocomplete="off">
                 </div>
                 <div class="col-sm-2 m-t-6" id="peternakan_kuantitas_display" style="display: none">
-                    <input type="number" name="peternakan_kuantitas" onkeyup="valueToHatinyaPKK('peternakan')" id="peternakan_kuantitas" placeholder="Kuantitas" class="form-control add-required-form3" autocomplete="off">
+                    <input type="number" name="peternakan_kuantitas" onkeyup="valueToHatinyaPKK('peternakan')" id="peternakan_kuantitas" placeholder="Kuantitas" class="form-control" autocomplete="off">
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-4"></div>
                 <div class="col-sm-3 m-t-6">
-                    <input type="checkbox" name="jns_hatinya_pkk[]" id="perikanan" onchange="hatinyaPKK('perikanan')" class="form-check-input add-required-form3">
+                    <input type="checkbox" name="jns_hatinya_pkk[]" id="perikanan" onchange="hatinyaPKK('perikanan')" class="form-check-input">
                     <label class="form-check-label m-l-10">
                         Perikanan
                     </label>
                 </div>
                 <div class="col-sm-3 m-t-6" id="perikanan_komoditi_display" style="display: none">
-                    <input type="text" name="perikanan_komoditi" onkeyup="valueToHatinyaPKK('perikanan')" id="perikanan_komoditi" placeholder="Komoditi" class="form-control add-required-form3" autocomplete="off">
+                    <input type="text" name="perikanan_komoditi" onkeyup="valueToHatinyaPKK('perikanan')" id="perikanan_komoditi" placeholder="Komoditi" class="form-control" autocomplete="off">
                 </div>
                 <div class="col-sm-2 m-t-6" id="perikanan_kuantitas_display" style="display: none">
-                    <input type="number" name="perikanan_kuantitas" onkeyup="valueToHatinyaPKK('perikanan')" id="perikanan_kuantitas" placeholder="Kuantitas" class="form-control add-required-form3" autocomplete="off">
+                    <input type="number" name="perikanan_kuantitas" onkeyup="valueToHatinyaPKK('perikanan')" id="perikanan_kuantitas" placeholder="Kuantitas" class="form-control" autocomplete="off">
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-4"></div>
                 <div class="col-sm-3 m-t-6">
-                    <input type="checkbox" name="jns_hatinya_pkk[]" id="warung_hidup" onchange="hatinyaPKK('warung_hidup')" class="form-check-input add-required-form3">
+                    <input type="checkbox" name="jns_hatinya_pkk[]" id="warung_hidup" onchange="hatinyaPKK('warung_hidup')" class="form-check-input">
                     <label class="form-check-label m-l-10">
                         Warung Hidup
                     </label>
                 </div>
                 <div class="col-sm-3 m-t-6" id="warung_hidup_komoditi_display" style="display: none">
-                    <input type="text" name="warung_hidup_komoditi" onkeyup="valueToHatinyaPKK('warung_hidup')" id="warung_hidup_komoditi" placeholder="Komoditi" class="form-control add-required-form3" autocomplete="off">
+                    <input type="text" name="warung_hidup_komoditi" onkeyup="valueToHatinyaPKK('warung_hidup')" id="warung_hidup_komoditi" placeholder="Komoditi" class="form-control" autocomplete="off">
                 </div>
                 <div class="col-sm-2 m-t-6" id="warung_hidup_kuantitas_display" style="display: none">
-                    <input type="number" name="warung_hidup_kuantitas" onkeyup="valueToHatinyaPKK('warung_hidup')" id="warung_hidup_kuantitas" placeholder="Kuantitas" class="form-control add-required-form3" autocomplete="off">
+                    <input type="number" name="warung_hidup_kuantitas" onkeyup="valueToHatinyaPKK('warung_hidup')" id="warung_hidup_kuantitas" placeholder="Kuantitas" class="form-control" autocomplete="off">
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-4"></div>
                 <div class="col-sm-3 m-t-6">
-                    <input type="checkbox" name="jns_hatinya_pkk[]" id="toga" onchange="hatinyaPKK('toga')" class="form-check-input add-required-form3">
+                    <input type="checkbox" name="jns_hatinya_pkk[]" id="toga" onchange="hatinyaPKK('toga')" class="form-check-input">
                     <label class="form-check-label m-l-10">
                         Toga
                     </label>
                 </div>
                 <div class="col-sm-3 m-t-6" id="toga_komoditi_display" style="display: none">
-                    <input type="text" name="toga_komoditi" onkeyup="valueToHatinyaPKK('toga')" id="toga_komoditi" placeholder="Komoditi" class="form-control add-required-form3" autocomplete="off">
+                    <input type="text" name="toga_komoditi" onkeyup="valueToHatinyaPKK('toga')" id="toga_komoditi" placeholder="Komoditi" class="form-control" autocomplete="off">
                 </div>
                 <div class="col-sm-2 m-t-6" id="toga_kuantitas_display" style="display: none">
-                    <input type="number" name="toga_kuantitas" onkeyup="valueToHatinyaPKK('toga')" id="toga_kuantitas" placeholder="Kuantitas" class="form-control add-required-form3" autocomplete="off">
+                    <input type="number" name="toga_kuantitas" onkeyup="valueToHatinyaPKK('toga')" id="toga_kuantitas" placeholder="Kuantitas" class="form-control" autocomplete="off">
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-4"></div>
                 <div class="col-sm-3 m-t-6">
-                    <input type="checkbox" name="jns_hatinya_pkk[]" id="tanaman_keras" onchange="hatinyaPKK('tanaman_keras')" class="form-check-input add-required-form3">
+                    <input type="checkbox" name="jns_hatinya_pkk[]" id="tanaman_keras" onchange="hatinyaPKK('tanaman_keras')" class="form-check-input">
                     <label class="form-check-label m-l-10">
                         Tanaman Keras
                     </label>
                 </div>
                 <div class="col-sm-3 m-t-6" id="tanaman_keras_komoditi_display" style="display: none">
-                    <input type="text" name="tanaman_keras_komoditi" onkeyup="valueToHatinyaPKK('tanaman_keras')" id="tanaman_keras_komoditi" placeholder="Komoditi" class="form-control add-required-form3" autocomplete="off">
+                    <input type="text" name="tanaman_keras_komoditi" onkeyup="valueToHatinyaPKK('tanaman_keras')" id="tanaman_keras_komoditi" placeholder="Komoditi" class="form-control" autocomplete="off">
                 </div>
                 <div class="col-sm-2 m-t-6" id="tanaman_keras_kuantitas_display" style="display: none">
-                    <input type="number" name="tanaman_keras_kuantitas" onkeyup="valueToHatinyaPKK('tanaman_keras')" id="tanaman_keras_kuantitas" placeholder="Kuantitas" class="form-control add-required-form3" autocomplete="off">
+                    <input type="number" name="tanaman_keras_kuantitas" onkeyup="valueToHatinyaPKK('tanaman_keras')" id="tanaman_keras_kuantitas" placeholder="Kuantitas" class="form-control" autocomplete="off">
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-4"></div>
                 <div class="col-sm-3 m-t-6">
-                    <input type="checkbox" name="jns_hatinya_pkk[]" id="lainnya" onchange="hatinyaPKK('lainnya')" class="form-check-input add-required-form3">
+                    <input type="checkbox" name="jns_hatinya_pkk[]" id="lainnya" onchange="hatinyaPKK('lainnya')" class="form-check-input">
                     <label class="form-check-label m-l-10">
                         Lainnya
                     </label>
                 </div>
                 <div class="col-sm-3 m-t-6" id="lainnya_komoditi_display" style="display: none">
-                    <input type="text" name="lainnya_komoditi" onkeyup="valueToHatinyaPKK('lainnya')" id="lainnya_komoditi" placeholder="Komoditi" class="form-control add-required-form3" autocomplete="off">
+                    <input type="text" name="lainnya_komoditi" onkeyup="valueToHatinyaPKK('lainnya')" id="lainnya_komoditi" placeholder="Komoditi" class="form-control" autocomplete="off">
                 </div>
                 <div class="col-sm-2 m-t-6" id="lainnya_kuantitas_display" style="display: none">
-                    <input type="number" name="lainnya_kuantitas" onkeyup="valueToHatinyaPKK('lainnya')" id="lainnya_kuantitas" placeholder="Kuantitas" class="form-control add-required-form3" autocomplete="off">
+                    <input type="number" name="lainnya_kuantitas" onkeyup="valueToHatinyaPKK('lainnya')" id="lainnya_kuantitas" placeholder="Kuantitas" class="form-control" autocomplete="off">
                 </div>
             </div>
         </div>
@@ -284,76 +284,76 @@
             <div class="row">
                 <div class="col-sm-4"></div>
                 <div class="col-sm-3 m-t-6">
-                    <input type="checkbox" name="jns_industri_rmh_up2k[]" id="pangan" onchange="hatinyaPKK('pangan')" class="form-check-input add-required-form3">
+                    <input type="checkbox" name="jns_industri_rmh_up2k[]" id="pangan" onchange="hatinyaPKK('pangan')" class="form-check-input">
                     <label class="form-check-label m-l-10">
                         Pangan
                     </label>
                 </div>
                 <div class="col-sm-3 m-t-6" id="pangan_komoditi_display" style="display: none">
-                    <input type="text" name="pangan_komoditi" onkeyup="valueToHatinyaPKK('pangan')" id="pangan_komoditi" placeholder="Komoditi" class="form-control add-required-form3" autocomplete="off">
+                    <input type="text" name="pangan_komoditi" onkeyup="valueToHatinyaPKK('pangan')" id="pangan_komoditi" placeholder="Komoditi" class="form-control" autocomplete="off">
                 </div>
                 <div class="col-sm-2 m-t-6" id="pangan_kuantitas_display" style="display: none">
-                    <input type="number" name="pangan_kuantitas" onkeyup="valueToHatinyaPKK('pangan')" id="pangan_kuantitas" placeholder="Kuantitas" class="form-control add-required-form3" autocomplete="off">
+                    <input type="number" name="pangan_kuantitas" onkeyup="valueToHatinyaPKK('pangan')" id="pangan_kuantitas" placeholder="Kuantitas" class="form-control" autocomplete="off">
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-4"></div>
                 <div class="col-sm-3 m-t-6">
-                    <input type="checkbox" name="jns_industri_rmh_up2k[]" id="sandang" onchange="hatinyaPKK('sandang')" class="form-check-input add-required-form3">
+                    <input type="checkbox" name="jns_industri_rmh_up2k[]" id="sandang" onchange="hatinyaPKK('sandang')" class="form-check-input">
                     <label class="form-check-label m-l-10">
                         Sandang
                     </label>
                 </div>
                 <div class="col-sm-3 m-t-6" id="sandang_komoditi_display" style="display: none">
-                    <input type="text" name="sandang_komoditi" onkeyup="valueToHatinyaPKK('sandang')" id="sandang_komoditi" placeholder="Komoditi" class="form-control add-required-form3" autocomplete="off">
+                    <input type="text" name="sandang_komoditi" onkeyup="valueToHatinyaPKK('sandang')" id="sandang_komoditi" placeholder="Komoditi" class="form-control" autocomplete="off">
                 </div>
                 <div class="col-sm-2 m-t-6" id="sandang_kuantitas_display" style="display: none">
-                    <input type="number" name="sandang_kuantitas" onkeyup="valueToHatinyaPKK('sandang')" id="sandang_kuantitas" placeholder="Kuantitas" class="form-control add-required-form3" autocomplete="off">
+                    <input type="number" name="sandang_kuantitas" onkeyup="valueToHatinyaPKK('sandang')" id="sandang_kuantitas" placeholder="Kuantitas" class="form-control" autocomplete="off">
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-4"></div>
                 <div class="col-sm-3 m-t-6">
-                    <input type="checkbox" name="jns_industri_rmh_up2k[]" id="konveksi" onchange="hatinyaPKK('konveksi')" class="form-check-input add-required-form3">
+                    <input type="checkbox" name="jns_industri_rmh_up2k[]" id="konveksi" onchange="hatinyaPKK('konveksi')" class="form-check-input">
                     <label class="form-check-label m-l-10">
                         Konveksi
                     </label>
                 </div>
                 <div class="col-sm-3 m-t-6" id="konveksi_komoditi_display" style="display: none">
-                    <input type="text" name="konveksi_komoditi" onkeyup="valueToHatinyaPKK('konveksi')" id="konveksi_komoditi" placeholder="Komoditi" class="form-control add-required-form3" autocomplete="off">
+                    <input type="text" name="konveksi_komoditi" onkeyup="valueToHatinyaPKK('konveksi')" id="konveksi_komoditi" placeholder="Komoditi" class="form-control" autocomplete="off">
                 </div>
                 <div class="col-sm-2 m-t-6" id="konveksi_kuantitas_display" style="display: none">
-                    <input type="number" name="konveksi_kuantitas" onkeyup="valueToHatinyaPKK('konveksi')" id="konveksi_kuantitas" placeholder="Kuantitas" class="form-control add-required-form3" autocomplete="off">
+                    <input type="number" name="konveksi_kuantitas" onkeyup="valueToHatinyaPKK('konveksi')" id="konveksi_kuantitas" placeholder="Kuantitas" class="form-control" autocomplete="off">
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-4"></div>
                 <div class="col-sm-3 m-t-6">
-                    <input type="checkbox" name="jns_industri_rmh_up2k[]" id="jasa" onchange="hatinyaPKK('jasa')" class="form-check-input add-required-form3">
+                    <input type="checkbox" name="jns_industri_rmh_up2k[]" id="jasa" onchange="hatinyaPKK('jasa')" class="form-check-input">
                     <label class="form-check-label m-l-10">
                         Jasa
                     </label>
                 </div>
                 <div class="col-sm-3 m-t-6" id="jasa_komoditi_display" style="display: none">
-                    <input type="text" name="jasa_komoditi" onkeyup="valueToHatinyaPKK('jasa')" id="jasa_komoditi" placeholder="Komoditi" class="form-control add-required-form3" autocomplete="off">
+                    <input type="text" name="jasa_komoditi" onkeyup="valueToHatinyaPKK('jasa')" id="jasa_komoditi" placeholder="Komoditi" class="form-control" autocomplete="off">
                 </div>
                 <div class="col-sm-2 m-t-6" id="jasa_kuantitas_display" style="display: none">
-                    <input type="number" name="jasa_kuantitas" onkeyup="valueToHatinyaPKK('jasa')" id="jasa_kuantitas" placeholder="Kuantitas" class="form-control add-required-form3" autocomplete="off">
+                    <input type="number" name="jasa_kuantitas" onkeyup="valueToHatinyaPKK('jasa')" id="jasa_kuantitas" placeholder="Kuantitas" class="form-control" autocomplete="off">
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-4"></div>
                 <div class="col-sm-3 m-t-6">
-                    <input type="checkbox" name="jns_industri_rmh_up2k[]" id="lainnya_up2k" onchange="hatinyaPKK('lainnya_up2k')" class="form-check-input add-required-form3">
+                    <input type="checkbox" name="jns_industri_rmh_up2k[]" id="lainnya_up2k" onchange="hatinyaPKK('lainnya_up2k')" class="form-check-input">
                     <label class="form-check-label m-l-10">
                         Lainnya
                     </label>
                 </div>
                 <div class="col-sm-3 m-t-6" id="lainnya_up2k_komoditi_display" style="display: none">
-                    <input type="text" name="lainnya_up2k_komoditi" onkeyup="valueToHatinyaPKK('lainnya_up2k')" id="lainnya_up2k_komoditi" placeholder="Komoditi" class="form-control add-required-form3" autocomplete="off">
+                    <input type="text" name="lainnya_up2k_komoditi" onkeyup="valueToHatinyaPKK('lainnya_up2k')" id="lainnya_up2k_komoditi" placeholder="Komoditi" class="form-control" autocomplete="off">
                 </div>
                 <div class="col-sm-2 m-t-6" id="lainnya_up2k_kuantitas_display" style="display: none">
-                    <input type="number" name="lainnya_up2k_kuantitas" onkeyup="valueToHatinyaPKK('lainnya_up2k')" id="lainnya_up2k_kuantitas" placeholder="Kuantitas" class="form-control add-required-form3" autocomplete="off">
+                    <input type="number" name="lainnya_up2k_kuantitas" onkeyup="valueToHatinyaPKK('lainnya_up2k')" id="lainnya_up2k_kuantitas" placeholder="Kuantitas" class="form-control" autocomplete="off">
                 </div>
             </div>
         </div>
@@ -522,7 +522,7 @@
         komoditi = $(typeKomoditi).val();
         kuantitas = $(typeKuantitas).val();
 
-        value = type + ' / ' + komoditi +' / '+ kuantitas;
+        value = type + ' - ' + komoditi +' - '+ kuantitas;
         $('#'+type).val(value);
     }
 
