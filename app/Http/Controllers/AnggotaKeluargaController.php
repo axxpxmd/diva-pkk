@@ -163,10 +163,11 @@ class AnggotaKeluargaController extends Controller
          */
 
         DB::beginTransaction(); //* DB Transaction Begin
+        dd($request->all());
 
         try {
             //* Tahap 1
-            $inputAnggota = [
+            $data1Anggota = [
                 'status_hidup' => 1,
                 'rumah_id' => $request->rumah_id,
                 'nik' => $request->nik,
@@ -182,12 +183,12 @@ class AnggotaKeluargaController extends Controller
                 'pendidikan' => $request->pendidikan,
                 'pekerjaan' => $request->pekerjaan,
                 'jabatan' => $request->jabatan,
-                'status_dlm_klrga' => json_encode($request->status_dlm_klrga),
+                'status_dlm_klrga' =>  $request->status_dlm_klrga ? json_encode($request->status_dlm_klrga) :  null,
                 'created_by' => Auth::user()->nama
             ];
-            $anggota = Anggota::create($inputAnggota);
+            $anggota = Anggota::create($data1Anggota);
 
-            $inputAnggotaDetail = [
+            $data1AnggotaDetail = [
                 'anggota_id' => $anggota->id,
                 'domisili' => $request->domisili,
                 'terdaftar_dukcapil' => $request->terdaftar_dukcapil,
@@ -195,10 +196,33 @@ class AnggotaKeluargaController extends Controller
                 'pus' => $request->pus,
                 'created_by' => Auth::user()->nama
             ];
-            $anggotaDetail = AnggotaDetail::create($inputAnggotaDetail);
+            $anggotaDetail = AnggotaDetail::create($data1AnggotaDetail);
+
+            //* Tahap 2
+            $data2Anggota = [
+                'bpjs' => $request->bpjs,
+                'asuransi_lainnya' => $request->asuransi_lainnya ? json_encode($request->asuransi_lainnya) :  null,
+                'kbthn_khusus' => $request->kbthn_khusus,
+                'buta' => $request->buta,
+                'makanan_pokok' => $request->makanan_pokok,
+                'kb' => $request->kb == 'Ya' ? $request->jenis_kb : $request->kb,
+                'aktif_posyandu' => $request->aktif_posyandu == 'Ya' ? $request->frekuensi_posyandu : $request->aktif_posyandu,
+                'aktif_posbindu' => $request->aktif_posbindu == 'Ya' ? $request->frekuensi_posbindu : $request->aktif_posbindu,
+                'status_ibu' => $request->status_ibu,
+                'status_anak' => $request->status_anak,
+                'stunting' => $request->stunting
+            ];
+            $anggota->update($data2Anggota);
+
+            $data2AnggotaDetail = [
+                'jenis_kbthn_khusus' => $request->jenis_kbthn_khusus,
+                'jenis_buta' => $request->jenis_buta ? json_encode($request->jenis_buta) :  null,
+            ];
+            $anggotaDetail->update($data2AnggotaDetail);
 
             //* Tahap 2
         } catch (\Throwable $th) {
+            dd($th);
             DB::rollback(); //* DB Transaction Failed
             return response()->json(['message' => "Terjadi kesalahan, silahkan hubungi administrator"], 500);
         }

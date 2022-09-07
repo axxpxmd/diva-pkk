@@ -285,7 +285,6 @@
             <div class="col-sm-4"></div>
             <div class="col-sm-8">
                 <button type="button" class="btn btn-block btn-info fs-14" id="btnForm1Next"><i class="bi bi-arrow-right m-r-8"></i>Selanjutnya</button>
-                <button type="submit" class="btn btn-block btn-info fs-14"><i class="bi bi-save m-r-8"></i>Simpan</button>
             </div>
         </div>
     </div>

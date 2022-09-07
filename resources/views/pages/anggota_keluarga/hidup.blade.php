@@ -38,7 +38,7 @@
             </div>
             <div id="test-form-2" role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepperFormTrigger2">
                 <p class="text-center fw-bold fs-16">Data 2 : Berisikan data kesehatan anggota keluarga</p>
-                {{-- @include('pages.anggota_keluarga.data2') --}}
+                @include('pages.anggota_keluarga.data2')
             </div>
             <div id="test-form-3" role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepperFormTrigger3">
                 <p class="text-center fw-bold fs-16">Data 3 : Berisikan data kegiatan anggota keluarga</p>
