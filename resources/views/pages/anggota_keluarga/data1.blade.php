@@ -17,7 +17,7 @@
         <div class="row mb-2">
             <label class="col-sm-4 col-form-label fw-bold text-end">Rumah <span class="text-danger">*</span></label>
             <div class="col-sm-8">
-                <select class="form-control select2" name="rumah_id" id="rumah_id">
+                <select class="form-control select2" name="rumah_id" id="rumah_id" required>
                     <option value="">Pilih</option>
                     @foreach ($rumah as $i)
                         <option value="{{ $i->id }}">{{ $i->kepala_rumah }}</option>

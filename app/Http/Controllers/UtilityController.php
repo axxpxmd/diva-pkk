@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Dasawisma;
 use App\Models\KartuKeluarga;
+
 // Models
 use App\Models\RTRW;
 use App\Models\Kelurahan;
-use App\Models\Rumah;
 
 class UtilityController extends Controller
 {
@@ -20,7 +20,7 @@ class UtilityController extends Controller
 
     public function dasawismaByRTRW($id)
     {
-        $rtrw = RTRW::find($id);
+        $rtrw  = RTRW::find($id);
         $rtrws = RTRW::select('id')->where('kelurahan_id', $rtrw->kelurahan_id)->get()->toArray();
 
         $data = Dasawisma::whereIn('rtrw_id', $rtrws)->get();
