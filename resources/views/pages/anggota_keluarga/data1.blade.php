@@ -377,8 +377,6 @@
         } else {
             $('#kb_display').hide()
             $('input[name="kb"]').prop('required', false);
-            $('#jenis_kb_display').hide();
-            $('#jenis_kb').val(null).trigger("change.select2");
             $('#posyandu_display').hide();
             $('#posbindu_display').hide();
             $('#frekuensi_posyandu_display').hide();

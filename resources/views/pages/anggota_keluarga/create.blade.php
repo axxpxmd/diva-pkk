@@ -52,6 +52,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }else{
             $('input[name="status_dlm_klrga[]"]').prop('required', false);
         }
+        $('#jenis_kb_display').hide();
+        $('#jenis_kb').val(null).trigger("change.select2");
+        $("#jenis_kb").prop('required',false);
        
         if (!formStepper[0].checkValidity()) {
             Array.prototype.slice.call(formStepper)
