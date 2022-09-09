@@ -7,6 +7,7 @@ use Validator;
 
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,8 +17,6 @@ use App\Models\Rumah;
 use App\Models\Anggota;
 use App\Models\Dasawisma;
 use App\Models\AnggotaDetail;
-use App\Models\Kelurahan;
-use Illuminate\Support\Carbon;
 
 class AnggotaKeluargaController extends Controller
 {
@@ -299,7 +298,6 @@ class AnggotaKeluargaController extends Controller
             ];
             $anggotaDetail->update($data3AnggotaDetail);
         } catch (\Throwable $th) {
-            dd($th);
             DB::rollback(); //* DB Transaction Failed
             return response()->json(['message' => "Terjadi kesalahan, silahkan hubungi administrator"], 500);
         }
@@ -328,14 +326,30 @@ class AnggotaKeluargaController extends Controller
 
         /*
          * Tahapan
-         * 1. anggota
-         * 2. anggota_details
+         * 1. Generate No Registrasi
+         * 2. anggota
+         * 3. anggota_details
          */
+
+        //* Tahap 1
+        $rumah = Rumah::find($request->rumah_id);
+        $rtrw  = $rumah->rtrw;
+        $c_kec = $rtrw->kelurahan->kode;
+        $kel_id = $rtrw->kelurahan->id;
+
+        $noRegistrasi = $this->genereateNoRegist($c_kec, $kel_id);
+
+        $checkGenerate = [
+            'noRegistrasi'  => $noRegistrasi,
+        ];
+        Validator::make($checkGenerate, [
+            'noRegistrasi'  => 'required|unique:anggota,no_registrasi',
+        ])->validate();
 
         DB::beginTransaction(); //* DB Transaction Begin
 
         try {
-            //* Tahap 1
+            //* Tahap 2
             $inputAnggota = [
                 'rumah_id' => $request->rumah_id,
                 'nik' => $request->nik,
@@ -345,11 +359,12 @@ class AnggotaKeluargaController extends Controller
                 'kelamin' => $request->kelamin,
                 'tmpt_lahir' => $request->tmpt_lahir,
                 'tgl_lahir' => $request->tgl_lahir,
+                'no_registrasi' => $noRegistrasi,
                 'created_by' => Auth::user()->nama
             ];
             $anggota = Anggota::create($inputAnggota);
 
-            //* Tahap 2
+            //* Tahap 3
             $inputAnggotaDetail = [
                 'anggota_id' => $anggota->id,
                 'tgl_meninggal' => $request->tgl_meninggal,

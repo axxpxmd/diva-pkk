@@ -6,13 +6,13 @@ use DataTables;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 
 // Models
 use App\Models\RTRW;
 use App\Models\User;
 use App\Models\Dasawisma;
 use App\Models\ModelHasRole;
-use Spatie\Permission\Models\Role;
 
 class KaderController extends Controller
 {

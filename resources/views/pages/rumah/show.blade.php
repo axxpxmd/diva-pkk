@@ -206,7 +206,7 @@
         params= "&rumah_id=" + rumah_id + "&no_kk=" + no_kk
 
         urlHidup = "{{ route('anggota-keluarga.create', 'status=1') }}" + params
-        urlMeninggal = "{{ route('anggota-keluarga.create', 'status=1') }}" + params
+        urlMeninggal = "{{ route('anggota-keluarga.create', 'status=0') }}" + params
 
         $('#addHidup').attr('href', urlHidup)
         $('#addMeninggal').attr('href', urlMeninggal)

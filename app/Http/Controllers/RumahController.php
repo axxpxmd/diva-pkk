@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Anggota;
 use DataTables;
 
 use Illuminate\Http\Request;
@@ -11,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 // Models
 use App\Models\RTRW;
 use App\Models\Rumah;
+use App\Models\Anggota;
 use App\Models\Dasawisma;
 use App\Models\KartuKeluarga;
 
