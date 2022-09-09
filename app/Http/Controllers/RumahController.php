@@ -26,12 +26,12 @@ class RumahController extends Controller
         $desc  = $this->desc;
         $active_rumah = $this->active_rumah;
 
-        if ($request->ajax()) {
-            return $this->dataTable();
-        }
-
         $dasawisma_id = Auth::user()->dasawisma_id;
         $rtrw_id = Auth::user()->dasawisma->rtrw_id;
+
+        if ($request->ajax()) {
+            return $this->dataTable($dasawisma_id);
+        }
 
         $dasawismas = Dasawisma::select('id', 'nama')->get();
         $rtrws = RTRW::select('id', 'kecamatan_id', 'kelurahan_id', 'rw', 'rt')->with(['kecamatan', 'kelurahan'])->get();
@@ -47,9 +47,9 @@ class RumahController extends Controller
         ));
     }
 
-    public function dataTable()
+    public function dataTable($dasawisma_id)
     {
-        $data = Rumah::queryTable();
+        $data = Rumah::queryTable($dasawisma_id);
 
         return DataTables::of($data)
             ->addColumn('action', function ($p) {
@@ -151,10 +151,13 @@ class RumahController extends Controller
                 return $p->domisili == 1 ? 'Tangerang Selatan' : 'Luar Tangerang Selatan';
             })
             ->addColumn('total_anggota', function ($p) {
-                $totalAnggota = Anggota::where('no_kk', $p->no_kk)->count();
+                $totalAnggota = Anggota::where('no_kk', $p->no_kk);
+                $hidup        = $totalAnggota->where('status_hidup', 1)->count();
+                $meninggal    = $totalAnggota->where('status_hidup', 0)->count();
+                
                 $addAnggota = '<a href="#" onclick="sendNoKK(' . $p->no_kk . ')" data-bs-toggle="modal" data-bs-target="#modalFormAddAnggota" class="text-success m-r-10" title="Tambah Anggota"><i class="bi bi-plus font-weight-bold fs-22"></i></a>';
 
-                return $totalAnggota . ' Orang &nbsp;' . $addAnggota;
+                return $hidup . ' Hidup&nbsp; / &nbsp;'. $meninggal . ' Meninggal &nbsp;' . $addAnggota;
             })
             ->rawColumns(['id', 'action', 'total_anggota'])
             ->addIndexColumn()

@@ -25,9 +25,12 @@ class Rumah extends Model
         return $this->hasMany(KartuKeluarga::class, 'rumah_id');
     }
 
-    public function queryTable()
+    public function queryTable($dasawisma_id)
     {
         $datas = Rumah::select('id', 'dasawisma_id', 'rtrw_id', 'kepala_rumah', 'alamat_detail', 'kriteria_rmh')
+            ->when($dasawisma_id != 0, function ($q) use ($dasawisma_id) {
+                return $q->where('dasawisma_id', $dasawisma_id);
+            })
             ->orderBy('id', 'DESC')
             ->get();
 

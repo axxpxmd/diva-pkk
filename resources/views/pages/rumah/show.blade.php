@@ -186,7 +186,7 @@
             {data: 'no_kk', name: 'no_kk'},
             {data: 'nm_kpl_klrga', name: 'nm_kpl_klrga'},
             {data: 'domisili', name: 'domisili'},
-            {data: 'thn_input', name: 'thn_input'},
+            {data: 'thn_input', name: 'thn_input', className: 'text-center'},
             {data: 'total_anggota', name: 'total_anggota', className: 'text-center'},
             {data: 'action', name: 'action', className: 'text-center', orderable: false, searchable: false}
         ]
