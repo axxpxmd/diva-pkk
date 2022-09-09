@@ -72,7 +72,10 @@ class AnggotaKeluargaController extends Controller
         $title = $this->title;
         $desc  = $this->desc;
         $active_anggota = $this->active_anggota;
-        $status = $request->status;
+
+        $status   = $request->status;
+        $rumah_id = $request->rumah_id;
+        $no_kk    = $request->no_kk;
 
         $dasawisma_id = Auth::user()->dasawisma_id;
         $rtrw_id = Auth::user()->dasawisma->rtrw_id;
@@ -90,7 +93,9 @@ class AnggotaKeluargaController extends Controller
             'dasawisma_id',
             'rtrw_id',
             'rumah',
-            'status'
+            'status',
+            'rumah_id',
+            'no_kk'
         ));
     }
 
@@ -307,7 +312,6 @@ class AnggotaKeluargaController extends Controller
     public function storeMeninggal(Request $request)
     {
         $request->validate([
-            'dasawisma_id' => 'required',
             'rumah_id' => 'required',
             'terdaftar_dukcapil' => 'required|in:0, 1',
             'nik' => 'required_if:terdaftar_dukcapil,1|unique:anggota,nik',

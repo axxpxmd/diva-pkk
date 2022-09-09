@@ -92,6 +92,7 @@
                             <th>Kepala Keluarga</th>
                             <th>Domisili</th>
                             <th>Tahun Input</th>
+                            <th>Total Anggota</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -153,6 +154,20 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="modalFormAddAnggota" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title text-white" id="exampleModalLabel"><span id="txtTitle"></span> Data {{ $title }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <a target="_blank" id="addHidup" class="btn btn-sm btn-block btn-outline-success px-2 mb-2"><i class="bi bi-plus font-weight-bold fs-16 m-r-5"></i>Hidup</a>
+                <a target="_blank" id="addMeninggal" class="btn btn-sm btn-block btn-outline-danger px-2"><i class="bi bi-plus font-weight-bold fs-16 m-r-5"></i>Meninggal</a>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 @push('script')
 <script type="text/javascript">
@@ -172,6 +187,7 @@
             {data: 'nm_kpl_klrga', name: 'nm_kpl_klrga'},
             {data: 'domisili', name: 'domisili'},
             {data: 'thn_input', name: 'thn_input'},
+            {data: 'total_anggota', name: 'total_anggota', className: 'text-center'},
             {data: 'action', name: 'action', className: 'text-center', orderable: false, searchable: false}
         ]
     });
@@ -182,6 +198,18 @@
 
     function openForm(){
         $('#modalForm').modal('show');
+    }
+
+    function sendNoKK(no_kk){
+        rumah_id = "{{ $data->id }}"
+
+        params= "&rumah_id=" + rumah_id + "&no_kk=" + no_kk
+
+        urlHidup = "{{ route('anggota-keluarga.create', 'status=1') }}" + params
+        urlMeninggal = "{{ route('anggota-keluarga.create', 'status=1') }}" + params
+
+        $('#addHidup').attr('href', urlHidup)
+        $('#addMeninggal').attr('href', urlMeninggal)
     }
 
     function add(){

@@ -6,8 +6,7 @@
 </div>
 <section class="section animate__animated animate__fadeInRight">
     <div class="mb-3 text-right">
-        <a href="{{ route('anggota-keluarga.create', 'status=1') }}" class="btn btn-sm btn-success px-2 mb-5-m"><i class="bi bi-plus font-weight-bold fs-16 m-r-5"></i>Tambah Data | Hidup</a>
-        <a href="{{ route('anggota-keluarga.create', 'status=0') }}" class="btn btn-sm btn-danger px-2"><i class="bi bi-plus font-weight-bold fs-16 m-r-5"></i>Tambah Data | Meninggal</a>
+        <a href="#" data-bs-toggle="modal" data-bs-target="#modalForm" class="btn btn-sm btn-success px-2"><i class="bi bi-plus font-weight-bold fs-16 m-r-5"></i>Tambah Data</a>
     </div>
     <div class="card">  
         <div class="card-body">
@@ -27,7 +26,20 @@
         </div>
     </div>
 </section>
-
+<div class="modal fade" id="modalForm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title text-white" id="exampleModalLabel"><span id="txtTitle"></span> Data {{ $title }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <a href="{{ route('anggota-keluarga.create', 'status=1') }}" class="btn btn-sm btn-block btn-outline-success px-2 mb-2"><i class="bi bi-plus font-weight-bold fs-16 m-r-5"></i>Hidup</a>
+                <a href="{{ route('anggota-keluarga.create', 'status=0') }}" class="btn btn-sm btn-block btn-outline-danger px-2"><i class="bi bi-plus font-weight-bold fs-16 m-r-5"></i>Meninggal</a>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 @push('script')
 <script type="text/javascript">

@@ -3,7 +3,7 @@
         <div class="row mb-2">
             <label class="col-sm-4 col-form-label fw-bold text-end">Dasawisma <span class="text-danger">*</span></label>
             <div class="col-sm-8">
-                <select class="select2 form-select" id="dasawisma_id" {{ $dasawisma_id ? 'disabled' : '' }} name="dasawisma_id" required>
+                <select class="select2 form-select" id="dasawisma_id" name="dasawisma_id" required>
                     <option value="">Pilih</option>
                     @foreach ($dasawismas as $i)
                         <option value="{{ $i->id }}" {{ $i->id == $dasawisma_id ? 'selected' : '-' }}>{{ $i->nama }}</option>
@@ -20,7 +20,7 @@
                 <select class="form-control select2" name="rumah_id" id="rumah_id" required>
                     <option value="">Pilih</option>
                     @foreach ($rumah as $i)
-                        <option value="{{ $i->id }}">{{ $i->kepala_rumah }}</option>
+                        <option value="{{ $i->id }}" {{ $i->id == $rumah_id ? 'selected' : '-' }}>{{ $i->kepala_rumah }}</option>
                     @endforeach
                 </select>
                 <div class="invalid-feedback">
@@ -37,7 +37,7 @@
                 </label>
             </div>
             <div class="col-sm-4 m-t-6">
-                <input type="radio" value="1" name="terdaftar_dukcapil" id="terdaftar_dukcapil" class="form-check-input" required>
+                <input type="radio" value="1" name="terdaftar_dukcapil" id="terdaftar_dukcapil" {{ $no_kk ? 'checked' : '' }} class="form-check-input" required>
                 <label class="form-check-label m-l-10">
                     Ya
                 </label>
@@ -66,12 +66,16 @@
         <div class="row mb-2">
             <label class="col-sm-4 col-form-label text-end fw-bold">No KK</label>
             <div class="col-sm-8">
+                @if ($no_kk)
+                <input type="number" name="no_kk" id="no_kk" class="form-control" value="{{ $no_kk }}" autocomplete="off">
+                @else
                 <select class="form-control select2" name="no_kk" id="no_kk">
                     <option value="">Pilih</option>
                 </select>
                 <div class="invalid-feedback">
                     Silahkan pilih No KK.
                 </div>
+                @endif
             </div>
         </div>
         <div class="row mb-2">

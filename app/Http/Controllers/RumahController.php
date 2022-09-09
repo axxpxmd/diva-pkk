@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Anggota;
 use DataTables;
 
 use Illuminate\Http\Request;
@@ -149,7 +150,13 @@ class RumahController extends Controller
             ->editColumn('domisili', function ($p) {
                 return $p->domisili == 1 ? 'Tangerang Selatan' : 'Luar Tangerang Selatan';
             })
-            ->rawColumns(['id', 'action'])
+            ->addColumn('total_anggota', function ($p) {
+                $totalAnggota = Anggota::where('no_kk', $p->no_kk)->count();
+                $addAnggota = '<a href="#" onclick="sendNoKK(' . $p->no_kk . ')" data-bs-toggle="modal" data-bs-target="#modalFormAddAnggota" class="text-success m-r-10" title="Tambah Anggota"><i class="bi bi-plus font-weight-bold fs-22"></i></a>';
+
+                return $totalAnggota . ' Orang &nbsp;' . $addAnggota;
+            })
+            ->rawColumns(['id', 'action', 'total_anggota'])
             ->addIndexColumn()
             ->toJson();
     }
