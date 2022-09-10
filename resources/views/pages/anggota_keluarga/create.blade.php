@@ -8,9 +8,9 @@
     <div class="card">
         <h5 class="card-header bg-info text-white mb-2 p-3 fs-18">Tambah Anggota | 
             @if ($status == 1)
-            <span class="badge bg-success fs-14">Hidup</span>     
+            <span class="badge bg-light-success m-0 fs-12">Hidup</span>     
             @else
-            <span class="badge bg-danger fs-14">Meninggal</span>
+            <span class="badge bg-light-danger m-0 fs-12">Meninggal</span>
             @endif
         </h5>
         <div class="card-body">

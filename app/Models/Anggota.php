@@ -15,6 +15,16 @@ class Anggota extends Model
         return $this->belongsTo(AnggotaDetail::class, 'id', 'anggota_id');
     }
 
+    public function rumah()
+    {
+        return $this->belongsTo(Rumah::class, 'rumah_id');
+    }
+
+    public function kk()
+    {
+        return $this->belongsTo(KartuKeluarga::class, 'no_kk', 'no_kk');
+    }
+
     public function queryTable()
     {
         $data = Anggota::orderBy('id', 'DESC')->get();

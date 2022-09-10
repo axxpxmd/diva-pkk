@@ -58,10 +58,18 @@ class AnggotaKeluargaController extends Controller
 
                 return $edit . $delete;
             })
-            ->editColumn('status', function ($p) {
-                return $p->status == 1 ? 'Hidup' : 'Meninggal';
+            ->editColumn('nama', function ($p) {
+                $action = "<a href='" . route('anggota-keluarga.show', $p->id) . "' class='text-info' title='Menampilkan Data'>" . $p->nama . "</a>";
+
+                return $action;
             })
-            ->rawColumns(['id', 'action'])
+            ->editColumn('status_hidup', function ($p) {
+                $hidup = '<span class="badge bg-light-success">Hidup</span>';
+                $meninggal = '<span class="badge bg-light-danger">Meninggal</span>';
+
+                return $p->status_hidup == 1 ? $hidup : $meninggal;
+            })
+            ->rawColumns(['id', 'action', 'nama', 'status_hidup'])
             ->addIndexColumn()
             ->toJson();
     }
@@ -82,7 +90,7 @@ class AnggotaKeluargaController extends Controller
         $dasawismas = Dasawisma::select('id', 'nama')->get();
         $rtrws = RTRW::select('id', 'kecamatan_id', 'kelurahan_id', 'rw', 'rt')->with(['kecamatan', 'kelurahan'])->get();
         $rumah = Rumah::select('id', 'kepala_rumah', 'alamat_detail')
-            ->when($dasawisma_id != 0, function($q) use($dasawisma_id) {
+            ->when($dasawisma_id != 0, function ($q) use ($dasawisma_id) {
                 return $q->where('dasawisma_id', $dasawisma_id);
             })
             ->get();
@@ -387,5 +395,23 @@ class AnggotaKeluargaController extends Controller
         DB::commit(); //* DB Transaction Success
 
         return response()->json(['message' => "Berhasil menyiman data."]);
+    }
+
+    public function show($id)
+    {
+        $title = $this->title;
+        $desc  = $this->desc;
+        $active_anggota = $this->active_anggota;
+
+        $anggota = Anggota::find($id);
+        $anggota_detail = AnggotaDetail::where('anggota_id', $id)->first();
+
+        return view('pages.anggota_keluarga.show.show', compact(
+            'title',
+            'desc',
+            'active_anggota',
+            'anggota',
+            'anggota_detail'
+        ));
     }
 }

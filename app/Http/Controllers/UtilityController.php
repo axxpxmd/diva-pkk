@@ -8,6 +8,7 @@ use App\Models\KartuKeluarga;
 // Models
 use App\Models\RTRW;
 use App\Models\Kelurahan;
+use App\Models\Rumah;
 
 class UtilityController extends Controller
 {
@@ -38,6 +39,13 @@ class UtilityController extends Controller
     public function nokkByRumah($id)
     {
         $data = KartuKeluarga::where('rumah_id', $id)->get();
+
+        return $data;
+    }
+
+    public function getDetailRumah($id)
+    {
+        $data = Rumah::find($id);
 
         return $data;
     }

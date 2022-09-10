@@ -57,7 +57,7 @@
             {data: 'DT_RowIndex', name: 'DT_RowIndex', className: 'text-center', orderable: false, searchable: false},
             {data: 'nama', name: 'nama'},
             {data: 'nik', name: 'nik'},
-            {data: 'status', name: 'status'},
+            {data: 'status_hidup', name: 'status_hidup', className: 'text-center'},
             {data: 'action', name: 'action', className: 'text-center', orderable: false, searchable: false}
         ]
     });
