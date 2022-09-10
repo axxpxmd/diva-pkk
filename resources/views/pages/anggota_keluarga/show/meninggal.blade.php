@@ -49,7 +49,7 @@
         </div>
         <div class="row p-0">
             <label class="col-sm-4 col-form-label fw-bold">No KK</label>
-            <label class="col-sm-8 col-form-label">{{ $anggota->no_kk }}</label>
+            <label class="col-sm-8 col-form-label">{{ $anggota->no_kk }} ( {{ $anggota->kk ? $anggota->kk->nm_kpl_klrga : '' }} )</label>
         </div>
         <div class="row p-0">
             <label class="col-sm-4 col-form-label fw-bold">Nama Lengkap</label>
