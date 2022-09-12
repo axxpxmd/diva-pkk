@@ -2,6 +2,10 @@
     $ya = '<span class="badge bg-light-success">Ya</span>';
     $tidak = '<span class="badge bg-light-danger">Tidak</span>';
 @endphp
+<div class="my-3">
+    <a href="{{ route('rumah.index') }}" class="fs-14 text-danger fw-bold m-r-10"><i class="bi bi-arrow-left m-r-8"></i>Kembali</a>
+    <a href="{{ route('cetakAnggota', $anggota->id) }}" target="blank" class="btn btn-sm btn-outline-success">Cetak Data</a>
+</div>
 <div class="bg-light-secondary p-2 rounded mt-2">
     <h6 class="text-center text-black m-1">Data 1 : Berisikan data diri anggota keluarga</h6>
 </div>
