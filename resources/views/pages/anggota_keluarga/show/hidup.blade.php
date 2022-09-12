@@ -195,7 +195,7 @@
                 @if ($anggota->kbthn_khusus == 'Ya')
                     {!! $ya !!} / {!! $anggota_detail->jenis_kbthn_khusus !!}
                 @else
-                    {!!  $tidak !!}
+                    {!! $tidak !!}
                 @endif
             </label>
         </div>
@@ -205,7 +205,7 @@
                 @if ($anggota->buta == 1)
                     {!! $ya !!}
                 @else
-                    {!!  $tidak !!}
+                    {!! $tidak !!}
                 @endif
                 @if ($anggota_detail->jenis_buta)
                     @foreach(json_decode($anggota_detail->jenis_buta) as $value)
@@ -231,7 +231,7 @@
                 @if ($anggota_detail->prgrm_bina_balita == 1)
                     {!! $ya !!}
                 @else
-                    {!!  $tidak !!}
+                    {!! $tidak !!}
                 @endif
             </label>
         </div>
@@ -241,7 +241,7 @@
                 @if ($anggota_detail->tabungan == 1)
                     {!! $ya !!}
                 @else
-                    {!!  $tidak !!}
+                    {!! $tidak !!}
                 @endif
             </label>
         </div>
@@ -255,7 +255,7 @@
                 @if ($anggota_detail->paud == 1)
                     {!! $ya !!}
                 @else
-                    {!!  $tidak !!}
+                    {!! $tidak !!}
                 @endif
             </label>
         </div>
@@ -265,7 +265,7 @@
                 @if ($anggota_detail->kgtn_koperasi == 1)
                     {!! $ya !!} / {{ $anggota_detail->jns_kgtn_koperasi  }}
                 @else
-                    {!!  $tidak !!}
+                    {!! $tidak !!}
                 @endif
             </label>
         </div>
@@ -275,7 +275,7 @@
                 @if ($anggota_detail->kgtn_pancasila == 1)
                     {!! $ya !!}
                 @else
-                    {!!  $tidak !!}
+                    {!! $tidak !!}
                 @endif
                 @if ($anggota_detail->jns_kgtn_pancasila)
                     @foreach(json_decode($anggota_detail->jns_kgtn_pancasila) as $value)
@@ -295,7 +295,7 @@
                 @if ($anggota_detail->gotong_royong == 1)
                     {!! $ya !!}
                 @else
-                    {!!  $tidak !!}
+                    {!! $tidak !!}
                 @endif
                 @if ($anggota_detail->jns_gotong_royong)
                     @foreach(json_decode($anggota_detail->jns_gotong_royong) as $value)
@@ -312,7 +312,7 @@
                 @if ($anggota_detail->hatinya_pkk == 1)
                     {!! $ya !!}
                 @else
-                    {!!  $tidak !!}
+                    {!! $tidak !!}
                 @endif
                 @if ($anggota_detail->jns_hatinya_pkk)
                     @foreach(json_decode($anggota_detail->jns_hatinya_pkk) as $value)
@@ -327,7 +327,7 @@
                 @if ($anggota_detail->industri_rmh_up2k == 1)
                     {!! $ya !!}
                 @else
-                    {!!  $tidak !!}
+                    {!! $tidak !!}
                 @endif
                 @if ($anggota_detail->jns_hatinya_pkk)
                     @foreach(json_decode($anggota_detail->jns_industri_rmh_up2k) as $value)
@@ -342,7 +342,7 @@
                 @if ($anggota_detail->kgtn_kshtn_lingkungan == 1)
                     {!! $ya !!}
                 @else
-                    {!!  $tidak !!}
+                    {!! $tidak !!}
                 @endif
             </label>
         </div>
