@@ -221,7 +221,15 @@
         </div>
         <div class="row p-0">
             <label class="col-sm-4 col-form-label fw-bold">Makanan Pokok</label>
-            <label class="col-sm-8 col-form-label">{{ $anggota->makanan_pokok == 1 ? 'Beras' : 'Non-Beras' }}</label>
+            <label class="col-sm-8 col-form-label">
+                @if ($anggota->makanan_pokok == 0)
+                    Non-Beras
+                @elseif($anggota->makanan_pokok == 1)
+                    Beras
+                @elseif($anggota->makanan_pokok == 2)
+                    Berasn dan Non-Beras
+                @endif    
+            </label>
         </div>
     </div>
 </div>

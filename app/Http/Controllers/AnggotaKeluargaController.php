@@ -165,7 +165,7 @@ class AnggotaKeluargaController extends Controller
             'jenis_kbthn_khusus' => 'required_if:kbthn_khusus,Ya',
             'buta' => 'required|in:0,1',
             'jenis_buta' => 'required_if:buta,1',
-            'makanan_pokok' => 'required|in:0,1'
+            'makanan_pokok' => 'required|in:0,1,2'
         ]);
 
         return response()->json([

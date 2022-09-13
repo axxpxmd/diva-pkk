@@ -195,16 +195,22 @@
         </div>
         <div class="row mt-2">
             <label class="col-sm-4 col-form-label text-end fw-bold">Makanan Pokok <span class="text-danger">*</span></label>
-            <div class="col-sm-4 m-t-6">
+            <div class="col-sm-2 m-t-6">
                 <input type="radio" value="0" name="makanan_pokok" id="makanan_pokok" class="form-check-input add-required-form2">
                 <label class="form-check-label m-l-10">
                     Non-Beras
                 </label>
             </div>
-            <div class="col-sm-4 m-t-6">
+            <div class="col-sm-2 m-t-6">
                 <input type="radio" value="1" name="makanan_pokok" id="makanan_pokok" class="form-check-input add-required-form2">
                 <label class="form-check-label m-l-10">
                     Beras
+                </label>
+            </div>
+            <div class="col-sm-2 m-t-6">
+                <input type="radio" value="2" name="makanan_pokok" id="makanan_pokok" class="form-check-input add-required-form2">
+                <label class="form-check-label m-l-10">
+                    Keduanya
                 </label>
             </div>
         </div>
