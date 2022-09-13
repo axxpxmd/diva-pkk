@@ -63,7 +63,8 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('/get-kartu-keluarga/{id}', [UtilityController::class, 'nokkByRumah'])->name('nokkByRumah');
     Route::get('/get-detail-rumah/{id}', [UtilityController::class, 'getDetailRumah'])->name('getDetailRumah');
 
-    Route::get('/cetak-anggota/{id}', [CetakController::class, 'cetakAnggota'])->name('cetakAnggota');
+    Route::get('/cetak-data-warga/{id}', [CetakController::class, 'cetakAnggota'])->name('cetakAnggota');
+    Route::get('/cetak-kegiatan-warga/{id}', [CetakController::class, 'cetakKegiatanWarga'])->name('cetakKegiatanWarga');
 
     Route::resource('/rumah', RumahController::class);
     Route::post('/rumah/store-kk', [RumahController::class, 'storeKK'])->name('rumah.storeKK');

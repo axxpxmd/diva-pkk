@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="{{ public_path('css/util.css') }}">
-    {{-- <link rel="stylesheet" href="{{ public_path('css/pdf-css.css') }}"> --}}
 
     <style>
         body {
