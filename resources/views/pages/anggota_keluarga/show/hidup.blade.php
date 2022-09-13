@@ -3,8 +3,8 @@
     $tidak = '<span class="badge bg-light-danger">Tidak</span>';
 @endphp
 <div class="my-3">
-    <a href="{{ route('rumah.index') }}" class="fs-14 text-danger fw-bold m-r-10"><i class="bi bi-arrow-left m-r-8"></i>Kembali</a>
-    <a href="{{ route('cetakAnggota', $anggota->id) }}" target="blank" class="btn btn-sm btn-info m-r-5"><i class="bi bi-file-pdf-fill m-r-8"></i>Data Warga</a>
+    <a href="{{ route('anggota-keluarga.index') }}" class="fs-14 text-danger fw-bold m-r-10"><i class="bi bi-arrow-left m-r-8"></i>Kembali</a>
+    <a href="{{ route('cetakAnggota', $anggota->id) }}" target="blank" class="btn btn-sm btn-info m-r-5 mb-5-m"><i class="bi bi-file-pdf-fill m-r-8"></i>Data Warga</a>
     <a href="{{ route('cetakKegiatanWarga', $anggota->id) }}" target="blank" class="btn btn-sm btn-success"><i class="bi bi-file-pdf-fill m-r-8"></i>Kegiatan Warga</a>
 </div>
 <div class="bg-light-secondary p-2 rounded mt-2">

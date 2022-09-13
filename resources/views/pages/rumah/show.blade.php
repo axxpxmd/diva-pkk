@@ -8,7 +8,11 @@
     <div class="card">  
         <h5 class="card-header bg-info text-white mb-2 p-3 fs-18">Data Rumah</h5>
         <div class="card-body fs-14">
-            <a href="{{ route('rumah.index') }}" class="fs-14 text-danger fw-bold"><i class="bi bi-arrow-left m-r-8"></i>Kembali</a>
+            <div class="my-3">
+                <a href="{{ route('rumah.index') }}" class="fs-14 text-danger fw-bold m-r-10"><i class="bi bi-arrow-left m-r-8"></i>Kembali</a>
+                <a href="{{ route('cetakAnggota', $data->id) }}" target="blank" class="btn btn-sm btn-info m-r-5"><i class="bi bi-file-pdf-fill m-r-8"></i>Data Keluarga</a>
+            </div>
+            <hr>
             <div class="row mt-2">
                 <div class="col-sm-6">
                     <div class="row p-0">
@@ -71,9 +75,9 @@
                         <label class="col-sm-4 col-form-label fw-bold">Kriteria Rumah</label>
                         <label class="col-sm-8 col-form-label">
                             @if ($data->kriteria_rmh == 1)
-                                <span class="badge bg-success">Sehat</span>
+                                <span class="badge bg-light-success">Sehat</span>
                             @else
-                                <span class="badge bg-danger">Tidak Sehat</span>
+                                <span class="badge bg-light-danger">Tidak Sehat</span>
                             @endif
                         </label>
                     </div>
@@ -81,9 +85,9 @@
                         <label class="col-sm-4 col-form-label fw-bold">Layak Huni</label>
                         <label class="col-sm-8 col-form-label">
                             @if ($data->layak_huni == 1)
-                                <span class="badge bg-success">Layak</span>
+                                <span class="badge bg-light-success">Layak</span>
                             @else
-                                <span class="badge bg-danger">Tidak Layak</span>
+                                <span class="badge bg-light-danger">Tidak Layak</span>
                             @endif
                         </label>
                     </div>
