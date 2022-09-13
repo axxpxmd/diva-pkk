@@ -8,6 +8,56 @@
     <div class="mb-3 text-right">
         <a href="#" onclick="add()" class="btn btn-sm btn-success px-2"><i class="bi bi-plus font-weight-bold fs-16 m-r-5"></i>Tambah Data</a>
     </div>
+    <div class="card my-2">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 px-0">
+                    <div class="row mb-2">
+                        <label for="layak_huni" class="col-form-label col-md-2 text-right fw-bolder fs-14">Layak Huni </label>
+                        <div class="col-sm-8">
+                            <select class="fs-14 form-control fs-14 r-0 light" id="layak_huni" name="layak_huni">
+                                <option value="99">Semua</option>
+                                <option value="1">Ya</option>
+                                <option value="0">Tidak</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <label for="kriteria_rmh" class="col-form-label col-md-2 text-right fw-bolder fs-14">Kriteria </label>
+                        <div class="col-sm-8">
+                            <select class="fs-14 form-control fs-14 r-0 light" id="kriteria_rmh" name="kriteria_rmh">
+                                <option value="99">Semua</option>
+                                <option value="1">Sehat</option>
+                                <option value="0">Kurang Sehat</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-8">
+                            <button class="btn btn-success btn-sm mr-2" onclick="pressOnChange()"><i class="bi bi-filter m-r-8"></i>Filter</button>
+                        </div> 
+                    </div>
+                </div>
+                <div class="col-md-6 px-0">
+                    <div class="row justify-content-center">
+                        <div class="col-md-4 mb-2">
+                            <div class="p-2 bg-info text-white rounded text-center">
+                                <p class="mb-0 fw-bolder fs-16 mb-1">Layak Huni</p>
+                                <p class="mb-0 fs-14">20</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-2">
+                            <div class="p-2 bg-danger text-white rounded text-center">
+                                <p class="mb-0 fw-bolder fs-16 mb-1">Tidak Layak Huni</p>
+                                <p class="mb-0 fs-14">9</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
     <div class="card">  
         <div class="card-body">
             <div class="table-responsive">
@@ -20,6 +70,7 @@
                             <th>Alamat</th>
                             <th>Kriteria</th>
                             <th>Jumlah KK</th>
+                            <th>Anggota</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -224,7 +275,11 @@
         pageLength: 25,
         ajax: {
             url: "{{ route('rumah.index') }}",
-            method: 'GET'
+            method: 'GET',
+            data: function (data) {
+                data.layak_huni = $('#layak_huni').val();
+                data.kriteria_rmh = $('#kriteria_rmh').val();
+            }
         },
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex', className: 'text-center', orderable: false, searchable: false},
@@ -233,9 +288,15 @@
             {data: 'alamat_detail', name: 'alamat_detail'},
             {data: 'kriteria_rmh', name: 'kriteria_rmh',  className: 'text-center'},
             {data: 'jumlah_kk', name: 'jumlah_kk', className: 'text-center'},
+            {data: 'jumlah_anggota', name: 'jumlah_anggota', className: 'text-center'},
             {data: 'action', name: 'action', className: 'text-center', orderable: false, searchable: false}
         ]
     });
+
+    pressOnChange();
+    function pressOnChange(){
+        table.api().ajax.reload();
+    }
 
     $('.select2').select2({
         dropdownParent: $('#modalForm')

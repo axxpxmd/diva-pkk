@@ -16,19 +16,33 @@
                         <label class="col-sm-8 col-form-label">{{ $data->dasawisma->nama }}</label>
                     </div>
                     <div class="row p-0">
-                        <label class="col-sm-4 col-form-label fw-bold">RT / RW</label>
-                        <label class="col-sm-8 col-form-label">{{ $data->rtrw->kecamatan->n_kecamatan }} - {{ $data->rtrw->kelurahan->n_kelurahan }} - RT {{ $data->rtrw->rw }} / RW {{ $data->rtrw->rt }}</label>
-                    </div>
-                    <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Alamat Detail</label>
-                        <label class="col-sm-8 col-form-label">{{ $data->alamat_detail }}</label>
+                        <label class="col-sm-8 col-form-label">
+                            {{ $data->alamat_detail }}
+                            <div class="row p-0">
+                                <label class="col-sm-4 col-form-label fw-bold">RT</label>
+                                <label class="col-sm-8 col-form-label">{{ $data->rtrw->rt }}</label>
+                            </div> 
+                            <div class="row p-0">
+                                <label class="col-sm-4 col-form-label fw-bold">RW</label>
+                                <label class="col-sm-8 col-form-label">RW {{ $data->rtrw->rw }}</label>
+                            </div> 
+                            <div class="row p-0">
+                                <label class="col-sm-4 col-form-label fw-bold">Kelurahan</label>
+                                <label class="col-sm-8 col-form-label">{{ $data->rtrw->kelurahan->n_kelurahan }}</label>
+                            </div> 
+                            <div class="row p-0">
+                                <label class="col-sm-4 col-form-label fw-bold">Kecamatan</label>
+                                <label class="col-sm-8 col-form-label">{{ $data->rtrw->kecamatan->n_kecamatan }}</label>
+                            </div> 
+                        </label>
                     </div>
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Kepala Rumah</label>
                         <label class="col-sm-8 col-form-label">{{ $data->kepala_rumah }}</label>
                     </div>
                     <div class="row p-0">
-                        <label class="col-sm-4 col-form-label fw-bold">Jambah Rumah</label>
+                        <label class="col-sm-4 col-form-label fw-bold">Jamban Rumah</label>
                         <label class="col-sm-8 col-form-label">{{ $data->jamban == 0 ? 'Tidak Punya' : $data->jamban.' Buah' }}</label>
                     </div>
                     <div class="row p-0">
@@ -73,6 +87,63 @@
                             @endif
                         </label>
                     </div>
+                </div>
+            </div>
+            <div class="bg-light-secondary p-2 rounded mt-2">
+                <h6 class="text-center text-black m-1">Detail Jumlah Anggota Rumah</h6>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <div class="row p-0">
+                        <label class="col-sm-4 col-form-label fw-bold">Jumlah KK</label>
+                        <label class="col-sm-8 col-form-label">{{ $data->kk->count() }} Kartu Keluarga</label>
+                    </div>
+                    <div class="row p-0">
+                        <label class="col-sm-4 col-form-label fw-bold">Jumlah Anggota</label>
+                        <label class="col-sm-8 col-form-label">{{ $data->anggota->count() }} Orang</label>
+                    </div>
+                    <div class="row p-0">
+                        <label class="col-sm-4 col-form-label fw-bold">Laki - Laki</label>
+                        <label class="col-sm-8 col-form-label">{{ $data->anggota(1)->count() }} Orang</label>
+                    </div> 
+                    <div class="row p-0">
+                        <label class="col-sm-4 col-form-label fw-bold">Perempuan</label>
+                        <label class="col-sm-8 col-form-label">{{ $data->anggota(2)->count() }} Orang</label>
+                    </div> 
+                    <div class="row p-0">
+                        <label class="col-sm-4 col-form-label fw-bold">Balita</label>
+                        <label class="col-sm-8 col-form-label">{{ $data->anggota(3)->count() }} Anak</label>
+                    </div> 
+                    <div class="row p-0">
+                        <label class="col-sm-4 col-form-label fw-bold">PUS</label>
+                        <label class="col-sm-8 col-form-label">{{ $data->anggota(4)->count() }} Pasang</label>
+                    </div> 
+                </div>
+                <div class="col-md-6">
+                    <div class="row p-0">
+                        <label class="col-sm-4 col-form-label fw-bold">WUS</label>
+                        <label class="col-sm-8 col-form-label">{{ $data->anggota(5)->count() }} Orang</label>
+                    </div> 
+                    <div class="row p-0">
+                        <label class="col-sm-4 col-form-label fw-bold">3 Buta</label>
+                        <label class="col-sm-8 col-form-label">{{ $data->anggota(6)->count() }} Orang</label>
+                    </div> 
+                    <div class="row p-0">
+                        <label class="col-sm-4 col-form-label fw-bold">Ibu Hamil</label>
+                        <label class="col-sm-8 col-form-label">{{ $data->anggota(7)->count() }} Orang</label>
+                    </div>
+                    <div class="row p-0">
+                        <label class="col-sm-4 col-form-label fw-bold">Ibu Menyusui</label>
+                        <label class="col-sm-8 col-form-label">{{ $data->anggota(8)->count() }} Orang</label>
+                    </div> 
+                    <div class="row p-0">
+                        <label class="col-sm-4 col-form-label fw-bold">Berkebutuhan Khusus</label>
+                        <label class="col-sm-8 col-form-label">{{ $data->anggota(9)->count() }} Orang</label>
+                    </div> 
+                    <div class="row p-0">
+                        <label class="col-sm-4 col-form-label fw-bold">Lansia</label>
+                        <label class="col-sm-8 col-form-label">{{ $data->anggota(10)->count() }} Orang</label>
+                    </div> 
                 </div>
             </div>
         </div>
