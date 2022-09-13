@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Anggota extends Model
@@ -25,10 +24,15 @@ class Anggota extends Model
         return $this->belongsTo(KartuKeluarga::class, 'no_kk', 'no_kk');
     }
 
-    public function queryTable()
+    public function queryTable($kelamin, $status_hidup)
     {
-        $data = Anggota::orderBy('id', 'DESC')->get();
+        $data = Anggota::when($kelamin != 99, function($q) use($kelamin) {
+            return $q->where('kelamin', $kelamin);
+        })
+        ->when($status_hidup != 99, function($q) use($status_hidup) {
+            return $q->where('status_hidup', $status_hidup);
+        });
 
-        return $data;
+        return $data->orderBy('id', 'DESC')->get();
     }
 }

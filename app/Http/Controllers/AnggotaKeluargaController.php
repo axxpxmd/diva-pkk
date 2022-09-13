@@ -30,8 +30,10 @@ class AnggotaKeluargaController extends Controller
         $desc  = $this->desc;
         $active_anggota = $this->active_anggota;
 
+        $kelamin = $request->kelamin;
+        $status_hidup = $request->status_hidup;
         if ($request->ajax()) {
-            return $this->dataTable();
+            return $this->dataTable($kelamin, $status_hidup);
         }
 
         $dasawisma_id = Auth::user()->dasawisma_id;
@@ -47,16 +49,16 @@ class AnggotaKeluargaController extends Controller
         ));
     }
 
-    public function dataTable()
+    public function dataTable($kelamin, $status_hidup)
     {
-        $data = Anggota::queryTable();
+        $data = Anggota::queryTable($kelamin, $status_hidup);
 
         return DataTables::of($data)
             ->addColumn('action', function ($p) {
                 $edit = '<a href="#" onclick="edit(' . $p->id . ')" class="text-info m-r-10" title="Edit Data"><i class="bi bi-pencil-fill"></i></a>';
                 $delete = '<a href="#" onclick="remove(' . $p->id . ')" class="text-danger" title="Delete Data"><i class="bi bi-trash-fill"></i></a>';
 
-                return $edit . $delete;
+                return $delete;
             })
             ->editColumn('nama', function ($p) {
                 $action = "<a href='" . route('anggota-keluarga.show', $p->id) . "' class='text-info' title='Menampilkan Data'>" . $p->nama . "</a>";
@@ -192,7 +194,7 @@ class AnggotaKeluargaController extends Controller
             $noUrut = '1';
         }
 
-        //* no_skrd terdiri dari 5 digits
+        //* terdiri dari 5 digits
         if (\strlen($noUrut) == 1) {
             $generateNoRegistrasi = '0000' . $noUrut;
         } elseif (\strlen($noUrut) == 2) {

@@ -6,8 +6,64 @@
 </div>
 <section class="section animate__animated animate__fadeInRight">
     <div class="mb-3 text-right">
-        <a href="#" data-bs-toggle="modal" data-bs-target="#modalForm" class="btn btn-sm btn-success px-2"><i class="bi bi-plus font-weight-bold fs-16 m-r-5"></i>Tambah Data</a>
+        <a href="#" data-bs-toggle="modal" data-bs-target="#modalForm" class="btn btn-sm btn-success px-2"><i class="bi bi-plus fw-bolder fs-16 m-r-5"></i>Tambah Data</a>
     </div>
+    <div class="card my-2">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 px-0">
+                    <div class="row mb-2">
+                        <label for="status_hidup" class="col-form-label col-md-2 text-right fw-bolder fs-14">Status </label>
+                        <div class="col-sm-8">
+                            <select class="fs-14 form-control fs-14 r-0 light" id="status_hidup" name="status_hidup">
+                                <option value="99">Semua</option>
+                                <option value="1">Hidup</option>
+                                <option value="0">Meninggal</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <label for="kelamin" class="col-form-label col-md-2 text-right fw-bolder fs-14">Kelamin </label>
+                        <div class="col-sm-8">
+                            <select class="fs-14 form-control fs-14 r-0 light" id="kelamin" name="kelamin">
+                                <option value="99">Semua</option>
+                                <option value="Laki - laki">Laki - laki</option>
+                                <option value="Perempuan">Perempuan</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-8">
+                            <button class="btn btn-success btn-sm mr-2" onclick="pressOnChange()"><i class="bi bi-filter m-r-8"></i>Filter</button>
+                        </div> 
+                    </div>
+                </div>
+                <div class="col-md-6 px-0">
+                    <div class="row justify-content-center">
+                        <div class="col-md-4 mb-2">
+                            <div class="p-2 bg-info text-white rounded text-center">
+                                <p class="mb-0 fw-bolder fs-16 mb-1">Total Lansia</p>
+                                <p class="mb-0 fs-14">20</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-2">
+                            <div class="p-2 bg-success text-white rounded text-center">
+                                <p class="mb-0 fw-bolder fs-16 mb-1">Total Balita</p>
+                                <p class="mb-0 fs-14">9</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-2">
+                            <div class="p-2 bg-danger text-white rounded text-center">
+                                <p class="mb-0 fw-bolder fs-16 mb-1">Total Ibu Hamil</p>
+                                <p class="mb-0 fs-14">10</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
     <div class="card">  
         <div class="card-body">
             <div class="table-responsive">
@@ -34,8 +90,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-center">
-                <a href="{{ route('anggota-keluarga.create', 'status=1') }}" class="btn btn-sm btn-block btn-outline-success px-2 mb-2"><i class="bi bi-plus font-weight-bold fs-16 m-r-5"></i>Hidup</a>
-                <a href="{{ route('anggota-keluarga.create', 'status=0') }}" class="btn btn-sm btn-block btn-outline-danger px-2"><i class="bi bi-plus font-weight-bold fs-16 m-r-5"></i>Meninggal</a>
+                <a href="{{ route('anggota-keluarga.create', 'status=1') }}" class="btn btn-sm btn-block btn-outline-success px-2 mb-2"><i class="bi bi-plus fw-bolder fs-16 m-r-5"></i>Hidup</a>
+                <a href="{{ route('anggota-keluarga.create', 'status=0') }}" class="btn btn-sm btn-block btn-outline-danger px-2"><i class="bi bi-plus fw-bolder fs-16 m-r-5"></i>Meninggal</a>
             </div>
         </div>
     </div>
@@ -51,7 +107,11 @@
         pageLength: 25,
         ajax: {
             url: "{{ route('anggota-keluarga.index') }}",
-            method: 'GET'
+            method: 'GET',
+            data: function (data) {
+                data.kelamin = $('#kelamin').val();
+                data.status_hidup = $('#status_hidup').val();
+            }
         },
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex', className: 'text-center', orderable: false, searchable: false},
@@ -61,5 +121,10 @@
             {data: 'action', name: 'action', className: 'text-center', orderable: false, searchable: false}
         ]
     });
+
+    pressOnChange();
+    function pressOnChange(){
+        table.api().ajax.reload();
+    }
 </script>
 @endpush
