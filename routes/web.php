@@ -65,6 +65,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
     Route::get('/cetak-data-warga/{id}', [CetakController::class, 'cetakAnggota'])->name('cetakAnggota');
     Route::get('/cetak-kegiatan-warga/{id}', [CetakController::class, 'cetakKegiatanWarga'])->name('cetakKegiatanWarga');
+    Route::get('/cetak-rumah/{id}', [CetakController::class, 'cetakRumah'])->name('cetakRumah');
 
     Route::resource('/rumah', RumahController::class);
     Route::post('/rumah/store-kk', [RumahController::class, 'storeKK'])->name('rumah.storeKK');

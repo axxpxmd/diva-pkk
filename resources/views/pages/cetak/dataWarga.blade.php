@@ -21,7 +21,7 @@
 
 <body>
     <h4 class="text-center">DATA WARGA TP-PKK</h4>
-    <table style="width:100%;">
+    <table style="width:100%;" class="fs-14">
         <tr>
             <td width="30%" class="text-left fw-bold">Dasa Wisma</td>
             <td class="pd"> : {{ $anggota->rumah->dasawisma->nama }}</td>
@@ -35,7 +35,7 @@
             <td class="pd"> : {{ $anggota->no_kk }} / {{ $anggota->kk ? $anggota->kk->domisili == 1 ? 'Tangsel' : 'Non Tangsel' : '' }}</td>
         </tr>
     </table>
-    <table class="m-t-10" style="width:100%;">
+    <table class="m-t-10 fs-14" style="width:100%;">
         <tr>
             <td class="pd" width="2%">1. </td>
             <td class="pd" width="26%">No. Registrasi</td>
@@ -90,7 +90,7 @@
             <td class="pd" width="00%">&nbsp;:</td>
             <td class="pd" width="72%">
                 @foreach(json_decode($anggota->status_dlm_klrga) as $value)
-                    <p style="margin: 0px !important; margin-bottom: -15px !important; margin-left: 0px !important">- {{ $value }}</p><br>
+                    <span style="margin: 0px !important; margin-bottom: -15px !important; margin-right: 10px !important">- {{ $value }}</span>
                 @endforeach
             </td>
         </tr>
