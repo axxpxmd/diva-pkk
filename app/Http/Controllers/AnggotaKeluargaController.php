@@ -194,7 +194,7 @@ class AnggotaKeluargaController extends Controller
             $noUrut = '1';
         }
 
-        //* terdiri dari 5 digits
+        //* No Urut terdiri dari 5 digits
         if (\strlen($noUrut) == 1) {
             $generateNoRegistrasi = '0000' . $noUrut;
         } elseif (\strlen($noUrut) == 2) {
