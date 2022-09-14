@@ -44,19 +44,19 @@
                         <div class="col-md-4 mb-2">
                             <div class="p-2 bg-info text-white rounded text-center">
                                 <p class="mb-0 fw-bolder fs-16 mb-1">Total Lansia</p>
-                                <p class="mb-0 fs-14">20</p>
+                                <p class="mb-0 fs-14"></p>
                             </div>
                         </div>
                         <div class="col-md-4 mb-2">
                             <div class="p-2 bg-success text-white rounded text-center">
                                 <p class="mb-0 fw-bolder fs-16 mb-1">Total Balita</p>
-                                <p class="mb-0 fs-14">9</p>
+                                <p class="mb-0 fs-14"></p>
                             </div>
                         </div>
                         <div class="col-md-4 mb-2">
                             <div class="p-2 bg-danger text-white rounded text-center">
                                 <p class="mb-0 fw-bolder fs-16 mb-1">Total Ibu Hamil</p>
-                                <p class="mb-0 fs-14">10</p>
+                                <p class="mb-0 fs-14"></p>
                             </div>
                         </div>
                     </div>
