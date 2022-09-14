@@ -156,9 +156,10 @@ class RumahController extends Controller
                 return $p->domisili == 1 ? 'Tangerang Selatan' : 'Luar Tangerang Selatan';
             })
             ->addColumn('data_kk', function ($p) {
-                $dataRumah = '<a href="' . route('cetakKartuKeluarga', $p->id) . '" target="blank" class="btn btn-sm btn-info m-r-5"><i class="bi bi-file-pdf-fill m-r-8"></i>Data KK</a>';
+                $totalAnggota = $p->anggota->count();
+                $dataRumah    = '<a href="' . route('cetakKartuKeluarga', $p->id) . '" target="blank" class="btn btn-sm btn-info m-r-5"><i class="bi bi-file-pdf-fill m-r-8"></i>Data KK</a>';
             
-                return $dataRumah;
+                return $totalAnggota != 0 ? $dataRumah : '-';
             })
             ->addColumn('total_anggota', function ($p) {
                 $hidup        = $p->anggota(1)->count();
