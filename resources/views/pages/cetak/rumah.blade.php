@@ -158,8 +158,8 @@
                     <td class="py-1 px-2 va-m">{{ $key+1 }}</td>
                     <td class="py-1 px-2">{{ $i->no_kk }}</td>
                     <td class="py-1 px-2">{{ $i->nm_kpl_klrga }}</td>
-                    <td class="py-1 px-2">{{ $i->thn_input }}</td>
-                    <td class="py-1 px-2">{{ $i->domisili == 1 ? 'Tangsel' : 'Non-Tangsel' }}</td>
+                    <td class="py-1 px-2 va-m">{{ $i->thn_input }}</td>
+                    <td class="py-1 px-2 va-m">{{ $i->domisili == 1 ? 'Tangsel' : 'Non-Tangsel' }}</td>
                     <td class="py-1 px-2 va-m">{{ $i->anggota->count() }} Orang</td>
                 </tr>
             @endforeach
