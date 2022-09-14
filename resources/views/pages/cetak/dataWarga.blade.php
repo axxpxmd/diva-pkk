@@ -15,6 +15,9 @@
         .fw-bold{
             font-weight: bold
         }
+        .va-m {
+            vertical-align: middle !important;
+        }
     </style>
 
 </head>
@@ -85,12 +88,12 @@
             <td class="pd" width="72%">{{ $anggota->status_kawin }}</td>
         </tr>
         <tr>
-            <td class="pd" width="2%">9. </td>
-            <td class="pd" width="26%">Status Dalam Keluarga</td>
-            <td class="pd" width="00%">&nbsp;:</td>
+            <td class="pd" style="vertical-align: top !important" width="2%">9. </td>
+            <td class="pd" style="vertical-align: top !important" width="26%">Status Dalam Keluarga</td>
+            <td class="pd" style="vertical-align: top !important" width="0%">&nbsp;:</td>
             <td class="pd" width="72%">
                 @foreach(json_decode($anggota->status_dlm_klrga) as $value)
-                    <span style="margin: 0px !important; margin-bottom: -15px !important; margin-right: 10px !important">- {{ $value }}</span>
+                    <span style="margin-left: 5px !important">- {{ $value }}</span><br>
                 @endforeach
             </td>
         </tr>

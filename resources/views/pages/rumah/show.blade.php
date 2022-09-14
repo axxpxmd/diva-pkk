@@ -10,7 +10,7 @@
         <div class="card-body fs-14">
             <div class="my-3">
                 <a href="{{ route('rumah.index') }}" class="fs-14 text-danger fw-bold m-r-10"><i class="bi bi-arrow-left m-r-8"></i>Kembali</a>
-                <a href="{{ route('cetakRumah', $data->id) }}" target="blank" class="btn btn-sm btn-info m-r-5"><i class="bi bi-file-pdf-fill m-r-8"></i>Data Keluarga</a>
+                <a href="{{ route('cetakRumah', $data->id) }}" target="blank" class="btn btn-sm btn-info m-r-5"><i class="bi bi-file-pdf-fill m-r-8"></i>Data Rumah</a>
             </div>
             <hr>
             <div class="row mt-2">
@@ -168,6 +168,7 @@
                             <th>Domisili</th>
                             <th>Tahun Input</th>
                             <th>Total Anggota</th>
+                            <th>Cetak KK</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -263,6 +264,7 @@
             {data: 'domisili', name: 'domisili'},
             {data: 'thn_input', name: 'thn_input', className: 'text-center'},
             {data: 'total_anggota', name: 'total_anggota', className: 'text-center'},
+            {data: 'data_kk', name: 'data_kk', className: 'text-center'},
             {data: 'action', name: 'action', className: 'text-center', orderable: false, searchable: false}
         ]
     });

@@ -155,6 +155,11 @@ class RumahController extends Controller
             ->editColumn('domisili', function ($p) {
                 return $p->domisili == 1 ? 'Tangerang Selatan' : 'Luar Tangerang Selatan';
             })
+            ->addColumn('data_kk', function ($p) {
+                $dataRumah = '<a href="' . route('cetakKartuKeluarga', $p->id) . '" target="blank" class="btn btn-sm btn-info m-r-5"><i class="bi bi-file-pdf-fill m-r-8"></i>Data KK</a>';
+            
+                return $dataRumah;
+            })
             ->addColumn('total_anggota', function ($p) {
                 $hidup        = $p->anggota(1)->count();
                 $meninggal    = $p->anggota(2)->count();
@@ -163,7 +168,7 @@ class RumahController extends Controller
 
                 return $hidup . ' Hidup&nbsp; / &nbsp;' . $meninggal . ' Meninggal &nbsp;' . $addAnggota;
             })
-            ->rawColumns(['id', 'action', 'total_anggota'])
+            ->rawColumns(['id', 'action', 'total_anggota', 'data_kk'])
             ->addIndexColumn()
             ->toJson();
     }

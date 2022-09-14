@@ -30,7 +30,7 @@
 </head>
 
 <body>
-    <p class="text-center font-weight-bold fs-16">DATA KELUARGA</p>
+    <p class="text-center font-weight-bold fs-16">DATA RUMAH</p>
     <table style="width:100%;" class="fs-14">
         <tr>
             <td width="10%">Dasa Wisma</td>

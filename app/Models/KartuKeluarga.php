@@ -10,6 +10,11 @@ class KartuKeluarga extends Model
     protected $table = 'kk';
     protected $fillable = ['id', 'rumah_id', 'no_kk', 'nm_kpl_klrga', 'thn_input', 'domisili', 'created_by', 'update_by'];
 
+    public function rumah()
+    {
+        return $this->belongsTo(Rumah::class, 'rumah_id');
+    }
+
     public function anggota($jenis = null)
     {
         /**

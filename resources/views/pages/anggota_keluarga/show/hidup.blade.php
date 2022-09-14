@@ -174,11 +174,11 @@
         </div>
         <div class="row p-0">
             <label class="col-sm-4 col-form-label fw-bold">Aktif Posyandu</label>
-            <label class="col-sm-8 col-form-label">{{ $anggota->aktif_posyandu ? $anggota->aktif_posyandu : '-' }}</label>
+            <label class="col-sm-8 col-form-label">{{ $anggota->aktif_posyandu ? $anggota->aktif_posyandu : '-' }} / Bulan</label>
         </div>
         <div class="row p-0">
             <label class="col-sm-4 col-form-label fw-bold">Aktif Posbindu</label>
-            <label class="col-sm-8 col-form-label">{{ $anggota->aktif_posbindu ? $anggota->aktif_posbindu : '-' }}</label>
+            <label class="col-sm-8 col-form-label">{{ $anggota->aktif_posbindu ? $anggota->aktif_posbindu : '-' }} / Bulan</label>
         </div>
         <div class="row p-0">
             <label class="col-sm-4 col-form-label fw-bold">Status Ibu</label>
@@ -342,7 +342,7 @@
                 @else
                     {!! $tidak !!}
                 @endif
-                @if ($anggota_detail->jns_hatinya_pkk)
+                @if ($anggota_detail->industri_rmh_up2k)
                     @foreach(json_decode($anggota_detail->jns_industri_rmh_up2k) as $value)
                         <li class="mt-2">{{ $value }}</li>
                     @endforeach

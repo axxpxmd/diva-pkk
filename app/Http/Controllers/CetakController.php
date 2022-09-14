@@ -7,6 +7,7 @@ use Illuminate\Support\Carbon;
 // Models
 use App\Models\Anggota;
 use App\Models\AnggotaDetail;
+use App\Models\KartuKeluarga;
 use App\Models\Rumah;
 
 class CetakController extends Controller
@@ -58,5 +59,21 @@ class CetakController extends Controller
         ));
 
         return $pdf->stream($data->kepala_rumah . ".pdf");
+    }
+
+    public function cetakKartuKeluarga($id)
+    {
+        $data = KartuKeluarga::find($id);
+        $anggota = Anggota::where('no_kk', $data->no_kk)->where('status_hidup', 1)->get();
+
+        $pdf = app('dompdf.wrapper');
+        $pdf->getDomPDF()->set_option("enable_php", true);
+        $pdf->setPaper('legal', 'landscape');
+        $pdf->loadView('pages.cetak.kartuKeluarga', compact(
+            'data',
+            'anggota'
+        ));
+
+        return $pdf->stream($data->no_kk . ".pdf");
     }
 }
