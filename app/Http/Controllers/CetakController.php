@@ -50,12 +50,14 @@ class CetakController extends Controller
     public function cetakRumah($id)
     {
         $data = Rumah::find($id);
+        $kk   = KartuKeluarga::where('rumah_id', $id)->get();
 
         $pdf = app('dompdf.wrapper');
         $pdf->getDomPDF()->set_option("enable_php", true);
-        $pdf->setPaper('a4', 'landscape');
+        $pdf->setPaper('legal', 'landscape');
         $pdf->loadView('pages.cetak.rumah', compact(
-            'data'
+            'data',
+            'kk'
         ));
 
         return $pdf->stream($data->kepala_rumah . ".pdf");

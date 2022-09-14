@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <link rel="stylesheet" href="{{ public_path('css/util.css') }}">
     <link rel="stylesheet" href="{{ public_path('css/pdf-css.css') }}">
@@ -11,13 +12,16 @@
             padding-left: 30px !important;
             padding-right: 30px !important;
         }
+
         .pd {
             padding-top: 3px !important;
             padding-bottom: 3px !important;
         }
-        .fw-bold{
+
+        .fw-bold {
             font-weight: bold
         }
+
         .b-none {
             border: none !important
         }
@@ -25,6 +29,16 @@
         .bt-none {
             border-bottom: none !important
         }
+
+        table {
+            color: black !important;
+        }
+
+        .va-m {
+            vertical-align: middle !important;
+            text-align: center
+        }
+
     </style>
 
 </head>
@@ -48,10 +62,10 @@
             <td>
                 <table style="width:100%;">
                     <tr>
-                        <td width="10%">RT</td>
-                        <td width="25%"> : {{ $data->rtrw->rt }}</td>
-                        <td width="10%">RW</td>
-                        <td width="55%"> : {{ $data->rtrw->rw }}</td>
+                        <td width="8%">RT</td>
+                        <td width="20%"> : {{ $data->rtrw->rt }}</td>
+                        <td width="8%">RW</td>
+                        <td width="64%"> : {{ $data->rtrw->rw }}</td>
                     </tr>
                     <tr>
                         <td>Kelurahan</td>
@@ -62,7 +76,7 @@
                     <tr>
                         <td>Kota</td>
                         <td> : Tangerang Selatan</td>
-                        <td>Prov.</td>
+                        <td>Provinsi</td>
                         <td> : Banten</td>
                     </tr>
                 </table>
@@ -99,16 +113,16 @@
                     <tr>
                         <td></td>
                         <td>
-                            <table style="width:100%; margin-left: -88px !important">
+                            <table style="width:100%; margin-left: -108px !important">
                                 <tr>
                                     <td width="8%">Balita</td>
                                     <td width="8%"> : {{ $data->anggota(3)->count() }} Anak</td>
                                     <td width="10%">PUS</td>
                                     <td width="8%"> : {{ $data->anggota(4)->count() }} Anak</td>
-                                    <td width="13%">WUS</td>
+                                    <td width="10%">WUS</td>
                                     <td width="8%"> : {{ $data->anggota(5)->count() }} Anak</td>
                                     <td width="5%">3 Buta</td>
-                                    <td width="12%"> : {{ $data->anggota(6)->count() }} Anak</td>
+                                    <td width="15%"> : {{ $data->anggota(6)->count() }} Anak</td>
                                 </tr>
                                 <tr>
                                     <td>Ibu Hamil</td>
@@ -127,18 +141,42 @@
             </td>
         </tr>
     </table>
+    <table class="table table-bordered tablekk fs-14 text-black mt-3" style="width: 100%">
+        <thead>
+            <tr>
+                <th class="bt-none py-1 px-2 va-m">NO</th> 
+                <th class="bt-none py-1 px-2 va-m">No KK</th>
+                <th class="bt-none py-1 px-2 va-m">Nama Kepala KK</th>
+                <th class="bt-none py-1 px-2 va-m">Tahun Input</th>
+                <th class="bt-none py-1 px-2 va-m">Domisili</th>
+                <th class="bt-none py-1 px-2 va-m">Total Anggota</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($kk as $key => $i)
+                <tr>
+                    <td class="py-1 px-2 va-m">{{ $key+1 }}</td>
+                    <td class="py-1 px-2">{{ $i->no_kk }}</td>
+                    <td class="py-1 px-2">{{ $i->nm_kpl_klrga }}</td>
+                    <td class="py-1 px-2">{{ $i->thn_input }}</td>
+                    <td class="py-1 px-2">{{ $i->domisili == 1 ? 'Tangsel' : 'Non-Tangsel' }}</td>
+                    <td class="py-1 px-2 va-m">{{ $i->anggota->count() }} Orang</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
     <table style="width:100%;" class="fs-14">
         <tr>
             <td width="15%">Jamban Rumah</td>
             <td width="0%"> :&nbsp;</td>
-            <td width="85%">{{ $data->jamban == 0 ? 'Tidak Punya' : $data->jamban.' Buah' }}</td>
+            <td width="85%">{{ $data->jamban == 0 ? 'Tidak Punya' : $data->jamban . ' Buah' }}</td>
         </tr>
         <tr>
-            <td>Sumber Air</td>
-            <td width="0%"> :&nbsp;</td>
+            <td style="vertical-align: top !important">Sumber Air</td>
+            <td width="0%" style="vertical-align: top !important"></td>
             <td>
-                @foreach(json_decode($data->sumber_air) as $value)
-                    <span style="margin: 0px !important; margin-bottom: -15px !important; margin-right: 10px !important">- {{ $value }}</span>
+                @foreach (json_decode($data->sumber_air) as $value)
+                    <span>- {{ $value }}</span><br>
                 @endforeach
             </td>
         </tr>
@@ -168,7 +206,7 @@
             <td>{{ $data->layak_huni == 1 ? 'Layak' : 'Tidak Layak' }}</td>
         </tr>
     </table>
-    
+
 </body>
 
 </html>
