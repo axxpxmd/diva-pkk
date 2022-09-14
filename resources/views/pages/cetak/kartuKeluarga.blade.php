@@ -84,31 +84,31 @@
             </td>
         </tr>
     </table>
-    <table style="width:100%;" class="fs-7 mt-4 table table-bordered">
+    <table style="width:100%;" class="fs-7 mt-2 table table-bordered">
         <thead>
             <tr>
-                <th rowspan="2" class="va-m bt-none">NO</th>
-                <th rowspan="2" class="va-m bt-none">ANGGOTA</th>
-                <th rowspan="2" class="va-m bt-none">STATUS PERKAWINAN</th>
-                <th rowspan="2" class="va-m bt-none">L/P</th>
-                <th rowspan="2" class="va-m bt-none">TEMPAT LAHIR</th>
-                <th rowspan="2" class="va-m bt-none">TANGGAL LAHIR</th>
-                <th rowspan="2" class="va-m bt-none">AGAMA</th>
-                <th rowspan="2" class="va-m bt-none">PENDIDIKAN</th>
-                <th rowspan="2" class="va-m bt-none">PEKERJAAN</th>
-                <th rowspan="2" class="va-m bt-none">BERKEBUTUHAN KHUSUS</th>
-                <th class="bt-none text-center" colspan="8">KEGIATAN PKK YANG DIIKUTI</th>
-                <th rowspan="2" class="va-m bt-none">KET</th>
+                <th rowspan="2" class="va-m bt-none bg-gray-300">NO</th>
+                <th rowspan="2" class="va-m bt-none bg-gray-300">ANGGOTA</th>
+                <th rowspan="2" class="va-m bt-none bg-gray-300">STATUS PERKAWINAN</th>
+                <th rowspan="2" class="va-m bt-none bg-gray-300">L/P</th>
+                <th rowspan="2" class="va-m bt-none bg-gray-300">TEMPAT LAHIR</th>
+                <th rowspan="2" class="va-m bt-none bg-gray-300">TANGGAL LAHIR</th>
+                <th rowspan="2" class="va-m bt-none bg-gray-300">AGAMA</th>
+                <th rowspan="2" class="va-m bt-none bg-gray-300">PENDIDIKAN</th>
+                <th rowspan="2" class="va-m bt-none bg-gray-300">PEKERJAAN</th>
+                <th rowspan="2" class="va-m bt-none bg-gray-300">BERKEBUTUHAN KHUSUS</th>
+                <th class="bt-none bg-gray-300 text-center" colspan="8">KEGIATAN PKK YANG DIIKUTI</th>
+                <th rowspan="2" class="va-m bt-none bg-gray-300">KET</th>
             </tr>
             <tr>
-                <th class="bt-none va-m">PENGHAYATAN PANCASILA</th>
-                <th class="bt-none va-m">GOTONG ROYONG</th>
-                <th class="bt-none va-m">PENDIDIKAN</th>
-                <th class="bt-none va-m">KEHIDUPAN BERKOPERASI</th>
-                <th class="bt-none va-m">PANGAN</th>
-                <th class="bt-none va-m">SANDANG</th>
-                <th class="bt-none va-m">KESEHATAN</th>
-                <th class="bt-none va-m">PERENCANAAN KEHATAN</th>
+                <th class="bt-none bg-gray-300 va-m">PENGHAYATAN PANCASILA</th>
+                <th class="bt-none bg-gray-300 va-m">GOTONG ROYONG</th>
+                <th class="bt-none bg-gray-300 va-m">PENDIDIKAN</th>
+                <th class="bt-none bg-gray-300 va-m">KEHIDUPAN BERKOPERASI</th>
+                <th class="bt-none bg-gray-300 va-m">PANGAN</th>
+                <th class="bt-none bg-gray-300 va-m">SANDANG</th>
+                <th class="bt-none bg-gray-300 va-m">KESEHATAN</th>
+                <th class="bt-none bg-gray-300 va-m">PERENCANAAN KEHATAN</th>
             </tr>
         </thead>
         <tbody>

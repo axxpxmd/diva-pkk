@@ -144,12 +144,12 @@
     <table class="table table-bordered tablekk fs-14 text-black mt-3" style="width: 100%">
         <thead>
             <tr>
-                <th class="bt-none py-1 px-2 va-m">NO</th> 
-                <th class="bt-none py-1 px-2 va-m">No KK</th>
-                <th class="bt-none py-1 px-2 va-m">Nama Kepala KK</th>
-                <th class="bt-none py-1 px-2 va-m">Tahun Input</th>
-                <th class="bt-none py-1 px-2 va-m">Domisili</th>
-                <th class="bt-none py-1 px-2 va-m">Total Anggota</th>
+                <th class="bt-none bg-gray-300 py-1 px-2 va-m">NO</th> 
+                <th class="bt-none bg-gray-300 py-1 px-2 va-m">NO KK</th>
+                <th class="bt-none bg-gray-300 py-1 px-2 va-m">Nama Kepala KK</th>
+                <th class="bt-none bg-gray-300 py-1 px-2 va-m">Tahun Input</th>
+                <th class="bt-none bg-gray-300 py-1 px-2 va-m">Domisili</th>
+                <th class="bt-none bg-gray-300 py-1 px-2 va-m">Total Anggota</th>
             </tr>
         </thead>
         <tbody>
@@ -167,9 +167,9 @@
     </table>
     <table style="width:100%;" class="fs-14">
         <tr>
-            <td width="15%">Jamban Rumah</td>
+            <td width="13%">Jamban Rumah</td>
             <td width="0%"> :&nbsp;</td>
-            <td width="85%">{{ $data->jamban == 0 ? 'Tidak Punya' : $data->jamban . ' Buah' }}</td>
+            <td width="87%">{{ $data->jamban == 0 ? 'Tidak Punya' : $data->jamban . ' Buah' }}</td>
         </tr>
         <tr>
             <td style="vertical-align: top !important">Sumber Air</td>
