@@ -53,7 +53,7 @@
 </head>
 
 <body>
-    <p class="text-center font-weight-bold fs-16 mb-4">DATA KARTU KELUARGA</p>
+    <p class="text-center font-weight-bold fs-16">DATA KARTU KELUARGA</p>
     <table style="width:100%;" class="fs-12">
         <tr>
             <td width="15%">CATATAN KELUARGA DARI</td>
