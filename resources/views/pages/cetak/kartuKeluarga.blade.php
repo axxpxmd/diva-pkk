@@ -119,15 +119,11 @@
                     <td class="va-m">{{ $i->status_kawin }}</td>
                     <td class="va-m">{{ $i->kelamin == 'Laki - laki' ? 'L' : 'P' }}</td>
                     <td class="va-auto">{{ $i->tmpt_lahir }}</td>
-                    <td class="va-m">{{ Carbon\Carbon::createFromFormat('Y-m-d', $i->tgl_lahir)->format('d-m-Y') }}
-                    </td>
+                    <td class="va-m">{{ Carbon\Carbon::createFromFormat('Y-m-d', $i->tgl_lahir)->format('d-m-Y') }}</td>
                     <td class="va-m">{{ $i->agama }}</td>
-                    <td class="va-m">{{ $i->status_pendidkan == 1 ? 'Tamat Sekolah' : 'Putus Sekolah' }} /
-                        {{ $i->pendidikan }}</td>
+                    <td class="va-m">{{ $i->status_pendidkan == 1 ? 'Tamat Sekolah' : 'Putus Sekolah' }} / {{ $i->pendidikan }}</td>
                     <td class="va-m">{{ $i->pekerjaan }}</td>
-                    <td class="va-m">
-                        {{ $i->kbthn_khusus == 'Ya' ? 'Ya / ' . $i->anggotaDetail->jenis_kbthn_khusus : 'Tidak' }}
-                    </td>
+                    <td class="va-m">{{ $i->kbthn_khusus == 'Ya' ? 'Ya / ' . $i->anggotaDetail->jenis_kbthn_khusus : 'Tidak' }}</td>
                     <td class="va-auto">
                         @if ($i->anggotaDetail->jns_kgtn_pancasila)
                             @foreach(json_decode($i->anggotaDetail->jns_kgtn_pancasila) as $value)
