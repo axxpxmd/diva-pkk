@@ -72,7 +72,7 @@ class Rumah extends Model
                 $data->where('kbthn_khusus', 'Ya');
                 break;
             case '10':
-                $data->where('status_dlm_klrga', 'LIKE', '%Lansia%' );
+                $data->where('status_dlm_klrga', 'LIKE', '%Lansia%');
                 break;
             default:
                 # code...
@@ -82,7 +82,7 @@ class Rumah extends Model
         return $data;
     }
 
-    public function queryTable($layak_huni, $kriteria_rmh)
+    public function queryTable($layak_huni, $kriteria_rmh, $dasawisma_id)
     {
         $data = Rumah::select('id', 'dasawisma_id', 'rtrw_id', 'kepala_rumah', 'alamat_detail', 'kriteria_rmh')
             ->when($layak_huni != 99, function ($q) use ($layak_huni) {
@@ -90,6 +90,9 @@ class Rumah extends Model
             })
             ->when($kriteria_rmh != 99, function ($q) use ($kriteria_rmh) {
                 return $q->where('kriteria_rmh', $kriteria_rmh);
+            })
+            ->when($dasawisma_id != 0, function ($q) use ($dasawisma_id) {
+                return $q->where('dasawisma_id', $dasawisma_id);
             });
 
         return $data->orderBy('id', 'DESC')->get();

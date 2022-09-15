@@ -30,14 +30,14 @@ class AnggotaKeluargaController extends Controller
         $desc  = $this->desc;
         $active_anggota = $this->active_anggota;
 
+        $dasawisma_id = Auth::user()->dasawisma_id;
+        $rtrw_id = Auth::user()->dasawisma->rtrw_id;
+
         $kelamin = $request->kelamin;
         $status_hidup = $request->status_hidup;
         if ($request->ajax()) {
-            return $this->dataTable($kelamin, $status_hidup);
+            return $this->dataTable($kelamin, $status_hidup, $dasawisma_id);
         }
-
-        $dasawisma_id = Auth::user()->dasawisma_id;
-        $rtrw_id = Auth::user()->dasawisma->rtrw_id;
 
         $dasawismas = Dasawisma::select('id', 'nama')->get();
         $rtrws = RTRW::select('id', 'kecamatan_id', 'kelurahan_id', 'rw', 'rt')->with(['kecamatan', 'kelurahan'])->get();
@@ -49,9 +49,9 @@ class AnggotaKeluargaController extends Controller
         ));
     }
 
-    public function dataTable($kelamin, $status_hidup)
+    public function dataTable($kelamin, $status_hidup, $dasawisma_id)
     {
-        $data = Anggota::queryTable($kelamin, $status_hidup);
+        $data = Anggota::queryTable($kelamin, $status_hidup, $dasawisma_id);
 
         return DataTables::of($data)
             ->addColumn('action', function ($p) {

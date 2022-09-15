@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Auth;
 // Models
 use App\Models\RTRW;
 use App\Models\Rumah;
-use App\Models\Anggota;
 use App\Models\Dasawisma;
 use App\Models\KartuKeluarga;
 
@@ -32,7 +31,7 @@ class RumahController extends Controller
         $layak_huni = $request->layak_huni;
         $kriteria_rmh = $request->kriteria_rmh;
         if ($request->ajax()) {
-            return $this->dataTable($layak_huni, $kriteria_rmh);
+            return $this->dataTable($layak_huni, $kriteria_rmh, $dasawisma_id);
         }
 
         $dasawismas = Dasawisma::select('id', 'nama')->get();
@@ -49,9 +48,9 @@ class RumahController extends Controller
         ));
     }
 
-    public function dataTable($layak_huni, $kriteria_rmh)
+    public function dataTable($layak_huni, $kriteria_rmh, $dasawisma_id)
     {
-        $data = Rumah::queryTable($layak_huni, $kriteria_rmh);
+        $data = Rumah::queryTable($layak_huni, $kriteria_rmh, $dasawisma_id);
 
         return DataTables::of($data)
             ->addColumn('action', function ($p) {
