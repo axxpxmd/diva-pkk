@@ -22,6 +22,23 @@
         .bt-none {
             border-bottom: none !important
         }
+
+        table thead tr th {
+            padding: 5px !important
+        }
+
+        table tbody tr td {
+            padding: 5px !important
+        }
+
+        .va-m {
+            vertical-align: middle !important;
+            text-align: center
+        }
+
+        .va-auto{
+            vertical-align: middle !important
+        }
     </style>
 
 </head>
@@ -31,16 +48,18 @@
 
     <table class="table table-bordered fs-13" style="width:100%;">
         <thead>
-            <th class="text-center p-2 bg-gray-300 bt-none text-black">NO</th>
-            <th class="text-center p-2 bg-gray-300 bt-none text-black">KEGIATAN</th>
-            <th class="text-center p-2 bg-gray-300 bt-none text-black">AKTIVITAS (Y/T)</th>
-            <th class="text-center p-2 bg-gray-300 bt-none text-black">KETERANGAN</th>
+            <tr>
+                <th class="text-center bg-gray-300 bt-none text-black">NO</th>
+                <th class="text-center bg-gray-300 bt-none text-black">KEGIATAN</th>
+                <th class="text-center bg-gray-300 bt-none text-black">AKTIVITAS (Y/T)</th>
+                <th class="text-center bg-gray-300 bt-none text-black">KETERANGAN</th>
+            </tr>
         </thead>
         <tbody>
             <tr class="text-black">
-                <td width="5%">1.</td>
-                <td width="35%">Penghayatan dan Pengamalan Pancasila</td>
-                <td width="20%" class="text-center">{{ $anggota_detail->jns_kgtn_pancasila ? count(json_decode($anggota_detail->jns_kgtn_pancasila)) != 0 ? 'Ya' : 'Tidak' : 'Tidak' }}</td>
+                <td class="va-m" width="5%">1.</td>
+                <td width="35%" class="va-auto">Penghayatan dan Pengamalan Pancasila</td>
+                <td width="20%" class="va-m">{{ $anggota_detail->jns_kgtn_pancasila ? count(json_decode($anggota_detail->jns_kgtn_pancasila)) != 0 ? 'Ya' : 'Tidak' : 'Tidak' }}</td>
                 <td width="40%">
                     @if ($anggota_detail->jns_kgtn_pancasila)
                         @foreach(json_decode($anggota_detail->jns_kgtn_pancasila) as $value)
@@ -57,9 +76,9 @@
                 </td>
             </tr>
             <tr class="text-black">
-                <td width="5%">2.</td>
-                <td width="35%">Kerjabakti</td>
-                <td width="20%" class="text-center">
+                <td width="5%" class="va-m">2.</td>
+                <td width="35%" class="va-auto">Kerjabakti</td>
+                <td width="20%" class="va-m">
                     @forelse(json_decode($anggota_detail->jns_gotong_royong) as $value)
                         @if ($value == 'Kerja Bakti')
                             Ya @break
@@ -73,9 +92,9 @@
                 <td width="40%"></td>
             </tr>
             <tr class="text-black">
-                <td width="5%">3.</td>
-                <td width="35%">Rukun Kematian</td>
-                <td width="20%" class="text-center">
+                <td width="5%" class="va-m">3.</td>
+                <td width="35%" class="va-auto">Rukun Kematian</td>
+                <td width="20%" class="va-m">
                     @forelse(json_decode($anggota_detail->jns_gotong_royong) as $value)
                         @if ($value == 'Rukun Kematian')
                             Ya @break
@@ -89,9 +108,9 @@
                 <td width="40%"></td>
             </tr>
             <tr class="text-black">
-                <td width="5%">4.</td>
-                <td width="35%">Jimpitan</td>
-                <td width="20%" class="text-center">
+                <td width="5%" class="va-m">4.</td>
+                <td width="35%" class="va-auto">Jimpitan</td>
+                <td width="20%" class="va-m">
                     @forelse(json_decode($anggota_detail->jns_gotong_royong) as $value)
                         @if ($value == 'Jimpitan')
                             Ya @break
@@ -105,9 +124,9 @@
                 <td width="40%"></td>
             </tr>
             <tr class="text-black">
-                <td width="5%">5.</td>
-                <td width="35%">Arisan</td>
-                <td width="20%" class="text-center">
+                <td width="5%" class="va-m">5.</td>
+                <td width="35%" class="va-auto">Arisan</td>
+                <td width="20%" class="va-m">
                     @forelse(json_decode($anggota_detail->jns_gotong_royong) as $value)
                         @if ($value == 'Arisan')
                             Ya @break
@@ -121,9 +140,9 @@
                 <td width="40%"></td>
             </tr>
             <tr class="text-black">
-                <td width="5%">6.</td>
-                <td width="35%">Lainnya</td>
-                <td width="20%" class="text-center">
+                <td width="5%" class="va-m">6.</td>
+                <td width="35%" class="va-auto">Lainnya</td>
+                <td width="20%" class="va-m">
                     @forelse(json_decode($anggota_detail->jns_gotong_royong) as $value)
                         @if ($value == 'Lainnya')
                             Ya @break

@@ -21,7 +21,7 @@ class CetakController extends Controller
 
         $pdf = app('dompdf.wrapper');
         $pdf->getDomPDF()->set_option("enable_php", true);
-        $pdf->setPaper('portrait');
+        $pdf->setPaper('legal', 'portrait');
         $pdf->loadView('pages.cetak.dataWarga', compact(
             'anggota',
             'anggota_detail',
@@ -38,7 +38,7 @@ class CetakController extends Controller
 
         $pdf = app('dompdf.wrapper');
         $pdf->getDomPDF()->set_option("enable_php", true);
-        $pdf->setPaper('portrait');
+        $pdf->setPaper('legal', 'portrait');
         $pdf->loadView('pages.cetak.kegiatanWarga', compact(
             'anggota',
             'anggota_detail'
