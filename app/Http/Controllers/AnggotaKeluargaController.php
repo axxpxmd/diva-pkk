@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use DataTables;
 use Validator;
+use DataTables;
 
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -66,8 +66,8 @@ class AnggotaKeluargaController extends Controller
                 return $action;
             })
             ->editColumn('status_hidup', function ($p) {
-                $hidup = '<span class="badge bg-light-success">Hidup</span>';
-                $meninggal = '<span class="badge bg-light-danger">Meninggal</span>';
+                $hidup = '<span class="badge bg-success">Hidup</span>';
+                $meninggal = '<span class="badge bg-danger">Meninggal</span>';
 
                 return $p->status_hidup == 1 ? $hidup : $meninggal;
             })
