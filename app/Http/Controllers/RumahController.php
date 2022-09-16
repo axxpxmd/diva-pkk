@@ -213,6 +213,7 @@ class RumahController extends Controller
         return response()->json(['message' => "Berhasil menghapus data."]);
     }
 
+    
     public function storeKK(Request $request)
     {
         $request->validate([

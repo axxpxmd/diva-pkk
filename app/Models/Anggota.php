@@ -26,7 +26,8 @@ class Anggota extends Model
 
     public function queryTable($kelamin, $status_hidup, $dasawisma_id)
     {
-        $data = Anggota::join('rumah', 'rumah.id', '=', 'anggota.rumah_id')
+        $data = Anggota::select('anggota.id as id', 'nik', 'nama', 'status_hidup')
+            ->join('rumah', 'rumah.id', '=', 'anggota.rumah_id')
             ->when($dasawisma_id != 0, function ($q) use ($dasawisma_id) {
                 return $q->where('rumah.dasawisma_id', $dasawisma_id);
             })
