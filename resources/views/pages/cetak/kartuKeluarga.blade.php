@@ -119,7 +119,7 @@
                     <td class="va-m">{{ $i->status_kawin }}</td>
                     <td class="va-m">{{ $i->kelamin == 'Laki - laki' ? 'L' : 'P' }}</td>
                     <td class="va-auto">{{ $i->tmpt_lahir }}</td>
-                    <td class="va-m">{{ Carbon\Carbon::createFromFormat('Y-m-d', $i->tgl_lahir)->format('d-m-Y') }}</td>
+                    <td class="va-m">{{ Carbon\Carbon::createFromFormat('Y-m-d', $i->tgl_lahir)->isoFormat('D MMMM Y'); }}</td>
                     <td class="va-m">{{ $i->agama }}</td>
                     <td class="va-m">{{ $i->status_pendidkan == 1 ? 'Tamat Sekolah' : 'Putus Sekolah' }} / {{ $i->pendidikan }}</td>
                     <td class="va-m">{{ $i->pekerjaan }}</td>

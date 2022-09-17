@@ -44,7 +44,7 @@
 </head>
 
 <body>
-    <p class="text-center font-weight-bold fs-16">DATA RUMAH</p>
+    <p class="text-center font-weight-bold mb-2 fs-16">DATA RUMAH</p>
     <table style="width:100%;" class="fs-14">
         <tr>
             <td width="10%">Dasa Wisma</td>
@@ -141,7 +141,7 @@
             </td>
         </tr>
     </table>
-    <table class="table table-bordered tablekk fs-14 text-black mt-3" style="width: 100%">
+    <table class="table table-bordered tablekk fs-12 text-black mt-3" style="width: 100%">
         <thead>
             <tr>
                 <th class="bt-none bg-gray-300 py-1 px-2 va-m">NO</th> 
@@ -153,7 +153,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($kk as $key => $i)
+            @forelse ($kk as $key => $i)
                 <tr>
                     <td class="py-1 px-2 va-m">{{ $key+1 }}</td>
                     <td class="py-1 px-2">{{ $i->no_kk }}</td>
@@ -162,7 +162,11 @@
                     <td class="py-1 px-2 va-m">{{ $i->domisili == 1 ? 'Tangsel' : 'Non-Tangsel' }}</td>
                     <td class="py-1 px-2 va-m">{{ $i->anggota->count() }} Orang</td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="6" class="text-center px-2 py-1">Tidak ada data.</td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
     <table style="width:100%;" class="fs-14">
