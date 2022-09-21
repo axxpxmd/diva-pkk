@@ -52,20 +52,20 @@
                         </div>
                     </div>
                     <div class="row mb-2">
+                        <label for="kecamatan" class="col-sm-3 col-form-label fw-bold">Kecamatan <span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <select class="form-select select2" name="kecamatan" id="kecamatan">
+                                <option value="">Pilih</option>
+                                @foreach ($kecamatans as $i)
+                                    <option value="{{ $i->id }}">{{ $i->n_kecamatan }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
                         <label for="nama" class="col-sm-3 col-form-label fw-bold">Nama <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
                           <input type="text" name="nama" id="nama" class="form-control" autocomplete="off" required>
-                        </div>
-                    </div>
-                    <div class="row mb-2" id="ketuaDisplay" style="display: none">
-                        <label for="ketua_id" class="col-sm-3 col-form-label fw-bold">Ketua</label>
-                        <div class="col-sm-9">
-                            <select class="form-select select2" name="ketua_id" id="ketua_id">
-                                <option value="">Pilih</option>
-                                @foreach ($users as $i)
-                                    <option value="{{ $i->id }}">{{ $i->nama }}</option>
-                                @endforeach
-                            </select>
                         </div>
                     </div>
                     <div class="row"> 
@@ -118,7 +118,6 @@
         $('#txtTitle').html('Tambah');
         $('#txtSave').html('');
         $('#alert').html('');
-        $('#ketuaDisplay').hide();
     }
 
     function edit(id){
@@ -130,12 +129,10 @@
             $('input[name=_method]').val('PATCH');
             $('#alert').html('');
             $('#loading').hide();
-            $('#ketuaDisplay').show();
             openForm();
             $('#id').val(data.id);
             $('#rtrw_id').val(data.rtrw_id).trigger("change.select2");
             $('#nama').val(data.nama);
-            $('#ketua_id').val(data.ketua_id).trigger("change.select2");
         });
     }
     

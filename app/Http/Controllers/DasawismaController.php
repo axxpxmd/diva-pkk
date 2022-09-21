@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use App\Models\RTRW;
 use App\Models\User;
 use App\Models\Dasawisma;
+use App\Models\Kecamatan;
+use App\Models\Kelurahan;
 
 class DasawismaController extends Controller
 {
@@ -32,7 +34,10 @@ class DasawismaController extends Controller
             return $this->dataTable();
         }
 
+        $kecamatans = Kecamatan::select('id', 'n_kecamatan')->where('kabupaten_id', 40)->get();
+        $kelurahans = Kelurahan::select('id', 'n_kelurahan')->get();
         $rtrws = RTRW::select('id', 'kecamatan_id', 'kelurahan_id', 'rw', 'rt')->with(['kecamatan', 'kelurahan'])->get();
+
         $users = User::queryTable();
 
         return view('pages.dasawisma.index', compact(
@@ -40,7 +45,9 @@ class DasawismaController extends Controller
             'desc',
             'active_dasawisma',
             'rtrws',
-            'users'
+            'users',
+            'kecamatans',
+            'kelurahans'
         ));
     }
 
