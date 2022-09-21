@@ -15,10 +15,11 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Kecamatan</th>
-                            <th>Kelurahan</th>
                             <th>RT</th>
                             <th>RW</th>
+                            <th>Kecamatan</th>
+                            <th>Kelurahan</th>
+                            <th>Ketua RT</th>
                             <th>Keterangan</th>
                             <th>Aksi</th>
                         </tr>
@@ -101,10 +102,11 @@
         },
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex', className: 'text-center', orderable: false, searchable: false},
+            {data: 'rt', name: 'rt', className: 'text-center'},
+            {data: 'rw', name: 'rw', className: 'text-center'},
             {data: 'kecamatan_id', name: 'kecamatan_id'},
             {data: 'kelurahan_id', name: 'kelurahan_id'},
-            {data: 'rt', name: 'rt'},
-            {data: 'rw', name: 'rw'},
+            {data: 'ketua_rt', name: 'ketua_rt', className: 'text-center'},
             {data: 'keterangan', name: 'keterangan'},
             {data: 'action', name: 'action', className: 'text-center', orderable: false, searchable: false}
         ]

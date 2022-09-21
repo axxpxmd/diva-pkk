@@ -39,6 +39,10 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::resource('/rt-rw', RTRWController::class);
+    Route::get('/create-ketua-rt/{id}', [RTRWController::class, 'createKetuaRT'])->name('rt-rw.createKetuaRT');
+    Route::post('/store-ketua-rt', [RTRWController::class, 'storeKetuaRT'])->name('rt-rw.storeKetuaRT');
+    Route::get('/edit-ketua-rt/{id}', [RTRWController::class, 'editKetuaRT'])->name('rt-rw.editKetuaRT');
+    Route::post('/update-ketua-rt', [RTRWController::class, 'updateKetuaRT'])->name('rt-rw.updateKetuaRT');
 
     Route::resource('/dasawisma', DasawismaController::class);
 

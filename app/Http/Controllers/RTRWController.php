@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\RTRW;
 use App\Models\Dasawisma;
 use App\Models\Kecamatan;
+use App\Models\MappingRTRW;
 
 class RTRWController extends Controller
 {
@@ -49,7 +50,7 @@ class RTRWController extends Controller
         return DataTables::of($data)
             ->rawColumns(['id', 'nama'])
             ->addColumn('action', function ($p) {
-                $check = Dasawisma::where('rtrw_id', $p->id)->count();
+                $check = $p->dasawisma->count();
 
                 $edit = '<a href="#" onclick="edit(' . $p->id . ')" class="text-info m-r-5" title="Edit Data"><i class="bi bi-pencil-fill"></i></a>';
                 $delete = '<a href="#" onclick="remove(' . $p->id . ')" class="text-danger" title="Delete Data"><i class="bi bi-trash-fill"></i></a>';
@@ -60,16 +61,31 @@ class RTRWController extends Controller
                     return $edit . $delete;
                 }
 
-                return '<a href="#" onclick="edit(' . $p->id . ')" class="text-info m-r-5" title="Edit Data"><i class="bi bi-pencil-fill"></i></a>
-                        <a href="#" onclick="remove(' . $p->id . ')" class="text-danger" title="Delete Data"><i class="bi bi-trash-fill"></i></a>';
+                return '-';
+            })
+            ->editColumn('rt', function ($p) {
+                $action = "<a href='" . route('rt-rw.show', $p->id) . "' class='text-info' title='Menampilkan Data'>" . $p->rt . "</a>";
+
+                return $action;
             })
             ->editColumn('kecamatan_id', function ($p) {
-                return $p->kecamatan->n_kecamatan;
+                return $p->n_kecamatan;
+            })
+            ->editColumn('ketua_rt', function ($p) {
+                $add = "<a href='" . route('rt-rw.createKetuaRT', $p->id) . "' class='text-info' title='Tambah Ketua RT'><i class='bi bi-person-plus-fill'></i></a>";
+
+                if ($p->ketua_rt) {
+                    $mappingRtRw = MappingRTRW::where('id', $p->ketua_rt)->first();
+
+                    return $mappingRtRw->ketua . '&nbsp&nbsp&nbsp' . $add;
+                } else {
+                    return $add;
+                }
             })
             ->editColumn('kelurahan_id', function ($p) {
-                return $p->kelurahan->n_kelurahan;
+                return $p->n_kelurahan;
             })
-            ->rawColumns(['id', 'action'])
+            ->rawColumns(['id', 'action', 'rt', 'ketua_rt'])
             ->addIndexColumn()
             ->toJson();
     }
@@ -145,5 +161,112 @@ class RTRWController extends Controller
         RTRW::destroy($id);
 
         return response()->json(['message' => "Berhasil menghapus data."]);
+    }
+
+    public function createKetuaRT($id)
+    {
+        $title = $this->title;
+        $desc  = $this->desc;
+        $active_rtrw = $this->active_rtrw;
+
+        $rtrw = RTRW::find($id);
+        $mappingRtRw = MappingRTRW::where('rtrw_id', $id)->get();
+
+        return view('pages.rtrw.form_ketua_rt', compact(
+            'title',
+            'desc',
+            'active_rtrw',
+            'rtrw',
+            'mappingRtRw'
+        ));
+    }
+
+    public function storeKetuaRT(Request $request)
+    {
+        $request->validate([
+            'ketua' => 'required',
+            'no_hp' => 'required',
+            'nik' => 'required',
+            'awal_menjabat' => 'required',
+            'akhir_menjabat' => 'required',
+            'status' => 'required'
+        ]);
+
+        $status = $request->status;
+        $rtrw_id = $request->rtrw_id;
+
+        // Check aktif
+        if ($status == 1) {
+            $mappingRtRw = MappingRTRW::where('rtrw_id', $rtrw_id)->where('status', 1)->count();
+            if ($mappingRtRw != 0) {
+                return redirect()
+                    ->route('rt-rw.createKetuaRT', $rtrw_id)
+                    ->withErrors("Terdapat Ketua yang masih aktif menjabat.");
+            }
+        }
+
+        $input = $request->all();
+        $data  = MappingRTRW::create($input);
+
+        // 
+        if ($status == 1) {
+            $rtrw = RTRW::find($rtrw_id);
+            $rtrw->update([
+                'ketua_rt' => $data->id
+            ]);
+        }
+
+        return redirect()
+            ->route('rt-rw.createKetuaRT', $rtrw_id)
+            ->withSuccess("Selamat, Data berhasil tersimpan.");
+    }
+
+    public function editKetuaRT($id)
+    {
+        $data = MappingRTRW::find($id);
+
+        return $data;
+    }
+
+    public function updateKetuaRT(Request $request)
+    {
+        $request->validate([
+            'ketua' => 'required',
+            'no_hp' => 'required',
+            'nik' => 'required',
+            'awal_menjabat' => 'required',
+            'akhir_menjabat' => 'required',
+            'status' => 'required'
+        ]);
+
+        $status = $request->status;
+        $id = $request->id;
+        $rtrw_id = $request->rtrw_id;
+
+        // Check aktif
+        if ($status == 1) {
+            $mappingRtRw = MappingRTRW::where('rtrw_id', $rtrw_id)->whereNotIn('id', [$id])->where('status', 1)->count();
+            if ($mappingRtRw != 0) {
+                return redirect()
+                    ->route('rt-rw.createKetuaRT', $rtrw_id)
+                    ->withErrors("Terdapat Ketua yang masih aktif menjabat.");
+            }
+        }
+
+        $input = $request->all();
+        $data  = MappingRTRW::find($id);
+        $data->update($input);
+
+        // 
+        if ($status == 1) {
+            $rtrw = RTRW::find($rtrw_id);
+            $rtrw->update([
+                'ketua_rt' => $data->id
+            ]);
+        }
+
+        return redirect()
+            ->route('rt-rw.createKetuaRT', $rtrw_id)
+            ->withSuccess("Selamat, Data berhasil diperbarui.");
     }
 }

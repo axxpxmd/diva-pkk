@@ -11,17 +11,26 @@ class RTRW extends Model
 
     public function kecamatan()
     {
-        return $this->belongsTo(Kecamatan::class, 'kecamatan_id');
+        return $this->belongsTo(Kecamatan::class, 'kecamatan_id', 'id')->select([
+            'id', 'n_kecamatan'
+        ]);
     }
 
     public function kelurahan()
     {
-        return $this->belongsTo(Kelurahan::class, 'kelurahan_id');
+        return $this->belongsTo(Kelurahan::class, 'kelurahan_id', 'id')->select([
+            'id', 'n_kelurahan'
+        ]);
+    }
+
+    public function dasawisma()
+    {
+        return $this->hasMany(Dasawisma::class, 'rtrw_id', 'id');
     }
 
     public static function queryTable()
     {
-        $data = RTRW::select('kecamatan_id', 'kelurahan_id', 'rt', 'rw', 'keterangan')->get();
+        $data = RTRW::select('id', 'n_kecamatan', 'n_kelurahan', 'rt', 'rw', 'keterangan', 'ketua_rt')->get();
 
         return $data;
     }
