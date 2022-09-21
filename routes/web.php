@@ -62,6 +62,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::post('/profile/update-photo/{id}', [ProfileController::class, 'updatePhoto'])->name('profile.updatePhoto');
 
     Route::get('/get-kelurahan/{id}', [UtilityController::class, 'kelurahanByKecamatan'])->name('kelurahanByKecamatan');
+    Route::Get('/get-rtrw/{id}', [UtilityController::class, 'rtrwByKelurahan'])->name('rtrwByKelurahan');
     Route::get('/get-dasawisma/{id}', [UtilityController::class, 'dasawismaByRTRW'])->name('dasawismaByRTRW');
     Route::get('/get-nokk/{id}', [UtilityController::class, 'getNoKKByKepalaKeluarga'])->name('getNoKKByKepalaKeluarga');
     Route::get('/get-kartu-keluarga/{id}', [UtilityController::class, 'nokkByRumah'])->name('nokkByRumah');

@@ -86,7 +86,7 @@ class DasawismaController extends Controller
             'rtrw_id' => 'required|unique:dasawismas,rtrw_id',
             'nama' => 'required'
         ], [
-            'rtrw_id.unique' => 'Alamat ini sudah terdapat dasawisma.'
+            'rtrw_id.unique' => 'RT ini sudah terdapat dasawisma.'
         ]);
 
         $input = $request->all();

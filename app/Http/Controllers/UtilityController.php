@@ -19,6 +19,13 @@ class UtilityController extends Controller
         return $data;
     }
 
+    public function rtrwByKelurahan($id)
+    {
+        $data = RTRW::where('kelurahan_id', $id)->get();
+
+        return $data;
+    }
+
     public function dasawismaByRTRW($id)
     {
         $rtrw  = RTRW::find($id);

@@ -38,30 +38,7 @@
                     {{ method_field('POST') }}
                     <input type="text" class="d-none" id="id" name="id"/>
                     <div id="alert"></div>
-                    <div class="row mb-2">
-                        <label for="rtrw_id" class="col-sm-3 col-form-label fw-bold">Alamat <span class="text-danger">*</span></label>
-                        <div class="col-sm-9">
-                            <select class="form-select select2" name="rtrw_id" id="rtrw_id">
-                                <option value="">Pilih</option>
-                                @foreach ($rtrws as $i)
-                                    <option value="{{ $i->id }}">
-                                        {{ $i->kecamatan->n_kecamatan }} - {{ $i->kelurahan->n_kelurahan }} - RT {{ $i->rw }} / RW {{ $i->rt }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row mb-2">
-                        <label for="kecamatan" class="col-sm-3 col-form-label fw-bold">Kecamatan <span class="text-danger">*</span></label>
-                        <div class="col-sm-9">
-                            <select class="form-select select2" name="kecamatan" id="kecamatan">
-                                <option value="">Pilih</option>
-                                @foreach ($kecamatans as $i)
-                                    <option value="{{ $i->id }}">{{ $i->n_kecamatan }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
+                    @include('layouts.alamat')
                     <div class="row mb-2">
                         <label for="nama" class="col-sm-3 col-form-label fw-bold">Nama <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
