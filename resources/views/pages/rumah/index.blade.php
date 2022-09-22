@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col-md-6 px-0">
                     <div class="row mb-2">
-                        <label for="layak_huni" class="col-form-label col-md-2 text-right fw-bolder fs-14">Layak Huni </label>
+                        <label for="layak_huni" class="col-form-label col-md-2 text-end fw-bolder fs-14">Layak Huni </label>
                         <div class="col-sm-8">
                             <select class="fs-14 form-control fs-14 r-0 light" id="layak_huni" name="layak_huni">
                                 <option value="99">Semua</option>
@@ -23,7 +23,7 @@
                         </div>
                     </div>
                     <div class="row mb-2">
-                        <label for="kriteria_rmh" class="col-form-label col-md-2 text-right fw-bolder fs-14">Kriteria </label>
+                        <label for="kriteria_rmh" class="col-form-label col-md-2 text-end fw-bolder fs-14">Kriteria </label>
                         <div class="col-sm-8">
                             <select class="fs-14 form-control fs-14 r-0 light" id="kriteria_rmh" name="kriteria_rmh">
                                 <option value="99">Semua</option>

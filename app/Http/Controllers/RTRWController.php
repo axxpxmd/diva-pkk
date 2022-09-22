@@ -29,23 +29,34 @@ class RTRWController extends Controller
         $desc  = $this->desc;
         $active_rtrw = $this->active_rtrw;
 
+        $rw = $request->rw_filter;
+        $kecamatan_id = $request->kecamatan_filter;
+        $kelurahan_id = $request->kelurahan_filter;
         if ($request->ajax()) {
-            return $this->dataTable();
+            return $this->dataTable($rw, $kecamatan_id, $kelurahan_id);
         }
 
         $kecamatans = Kecamatan::select('id', 'n_kecamatan')->where('kabupaten_id', 40)->get();
+
+        // Filter
+        $rwDisplay = true;
+        $kecamatanDisplay = true;
+        $kelurahanDisplay = true;
 
         return view('pages.rtrw.index', compact(
             'title',
             'desc',
             'active_rtrw',
-            'kecamatans'
+            'kecamatans',
+            'kecamatanDisplay',
+            'kelurahanDisplay',
+            'rwDisplay'
         ));
     }
 
-    public function dataTable()
+    public function dataTable($rw, $kecamatan_id, $kelurahan_id)
     {
-        $data = RTRW::queryTable();
+        $data = RTRW::queryTable($rw, $kecamatan_id, $kelurahan_id);
 
         return DataTables::of($data)
             ->rawColumns(['id', 'nama'])
@@ -66,10 +77,13 @@ class RTRWController extends Controller
             ->editColumn('rt', function ($p) {
                 $action = "<a href='" . route('rt-rw.show', $p->id) . "' class='text-info' title='Menampilkan Data'>" . $p->rt . "</a>";
 
-                return $action;
+                return $p->rt;
             })
             ->editColumn('kecamatan_id', function ($p) {
                 return $p->n_kecamatan;
+            })
+            ->addColumn('jumlah', function ($p) {
+                return 'Rumah ' . $p->rumah->count() . ' / ' . 'Warga ';
             })
             ->editColumn('ketua_rt', function ($p) {
                 $add = "<a href='" . route('rt-rw.createKetuaRT', $p->id) . "' class='text-info' title='Tambah Ketua RT'><i class='bi bi-person-plus-fill'></i></a>";

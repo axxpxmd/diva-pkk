@@ -40,6 +40,9 @@
                     {{ method_field('POST') }}
                     <input type="text" class="d-none" id="id" name="id"/>
                     <div id="alert"></div>
+                    <div class="text-center bg-light-secondary p-2 rounded mb-3">
+                        <span class="fw-bold">Data Diri</span>
+                    </div>
                     <div class="row mb-2">
                         <label for="username" class="col-sm-3 col-form-label fw-bold">Username <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
@@ -71,24 +74,6 @@
                         </div>
                     </div>
                     <div class="row mb-2">
-                        <label for="alamat_dasawisma_id" class="col-sm-3 col-form-label fw-bold">Dasawisma <span class="text-danger">*</span></label>
-                        <div class="col-sm-4">
-                            <select class="form-control select2" id="alamat_dasawisma_id" name="alamat_dasawisma_id"">
-                                <option value="">Pilih</option>
-                                @foreach ($rtrwKelurahans as $i)
-                                    <option value="{{ $i->id }}">
-                                        {{ $i->kecamatan->n_kecamatan }} - {{ $i->kelurahan->n_kelurahan }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-sm-5">
-                            <select class="form-control select2" name="dasawisma_id" id="dasawisma_id">
-                                <option value="">Pilih</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row mb-2">
                         <label for="role_id" class="col-sm-3 col-form-label fw-bold">Role <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
                             <select class="form-control select2" name="role_id" id="role_id">
@@ -96,6 +81,19 @@
                                 @foreach ($roles as $i)
                                     <option value="{{ $i->id }}">{{ $i->name }}</option>
                                 @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="text-center bg-light-secondary p-2 rounded mb-3">
+                        <span class="fw-bold">Pilih Dasawisma</span>
+                    </div>
+                    @include('layouts.alamat')
+                    <div class="row mb-2">
+                        <label for="dasawisma_id" class="col-sm-3 col-form-label fw-bold">Dasawisma <span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <select class="form-control select2" name="dasawisma_id" id="dasawisma_id">
+                                <option value="">Pilih</option>
                             </select>
                         </div>
                     </div>
@@ -139,7 +137,7 @@
         dropdownParent: $('#modalForm')
     });
 
-    $('#alamat_dasawisma_id').on('change', function(){
+    $('#rtrw_id').on('change', function(){
         val = $(this).val();
         option = "<option value=''>Pilih</option>";
         if(val == ""){

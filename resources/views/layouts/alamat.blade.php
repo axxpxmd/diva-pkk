@@ -1,7 +1,7 @@
 <div class="row mb-2">
     <label for="kecamatan_id" class="col-sm-3 col-form-label fw-bold">Kecamatan <span class="text-danger">*</span></label>
     <div class="col-sm-9">
-        <select class="form-select select2" id="kecamatan_id">
+        <select class="form-select select2" name="kecamatan_id" id="kecamatan_id">
             <option value="">Pilih</option>
             @foreach ($kecamatans as $i)
                 <option value="{{ $i->id }}">{{ $i->n_kecamatan }}</option>
@@ -12,7 +12,7 @@
 <div class="row mb-2">
     <label for="kelurahan_id" class="col-sm-3 col-form-label fw-bold">Kelurahan <span class="text-danger">*</span></label>
     <div class="col-sm-9">
-        <select class="form-select select2" id="kelurahan_id">
+        <select class="form-select select2" name="kelurahan_id" id="kelurahan_id">
             <option value="">Pilih</option>
         </select>
     </div>

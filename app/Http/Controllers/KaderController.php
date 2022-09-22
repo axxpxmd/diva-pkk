@@ -12,6 +12,7 @@ use Spatie\Permission\Models\Role;
 use App\Models\RTRW;
 use App\Models\User;
 use App\Models\Dasawisma;
+use App\Models\Kecamatan;
 use App\Models\ModelHasRole;
 
 class KaderController extends Controller
@@ -34,6 +35,7 @@ class KaderController extends Controller
         $rtrwAlls = $rtrws->get();
         $rtrwKelurahans = $rtrws->groupBy('kelurahan_id')->get();
         $roles = Role::select('id', 'name')->whereNotIn('id', [1])->get();
+        $kecamatans = Kecamatan::select('id', 'n_kecamatan')->where('kabupaten_id', 40)->get();
 
         return view('pages.kader.index', compact(
             'title',
@@ -42,7 +44,8 @@ class KaderController extends Controller
             'rtrws',
             'roles',
             'rtrwKelurahans',
-            'rtrwAlls'
+            'rtrwAlls',
+            'kecamatans'
         ));
     }
 

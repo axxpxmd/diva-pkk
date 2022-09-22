@@ -95,10 +95,16 @@
         $('#txtTitle').html('Tambah');
         $('#txtSave').html('');
         $('#alert').html('');
+        $('#kecamatan_id').attr('disabled', false)
+        $('#kelurahan_id').attr('disabled', false)
+        $('#rtrw_id').attr('disabled', false)
     }
 
     function edit(id){
         $('#loading').show();
+        $('#kecamatan_id').attr('disabled', true)
+        $('#kelurahan_id').attr('disabled', true)
+        $('#rtrw_id').attr('disabled', true)
         $.get("{{ Route('dasawisma.edit', ':id') }}".replace(':id', id), function(data){
             save_method = 'edit';
             $('#txtTitle').html('Edit');
@@ -108,7 +114,6 @@
             $('#loading').hide();
             openForm();
             $('#id').val(data.id);
-            $('#rtrw_id').val(data.rtrw_id).trigger("change.select2");
             $('#nama').val(data.nama);
         });
     }

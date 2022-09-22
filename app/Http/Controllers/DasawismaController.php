@@ -35,19 +35,14 @@ class DasawismaController extends Controller
         }
 
         $kecamatans = Kecamatan::select('id', 'n_kecamatan')->where('kabupaten_id', 40)->get();
-        $kelurahans = Kelurahan::select('id', 'n_kelurahan')->get();
-        $rtrws = RTRW::select('id', 'kecamatan_id', 'kelurahan_id', 'rw', 'rt')->with(['kecamatan', 'kelurahan'])->get();
-
         $users = User::queryTable();
 
         return view('pages.dasawisma.index', compact(
             'title',
             'desc',
             'active_dasawisma',
-            'rtrws',
             'users',
-            'kecamatans',
-            'kelurahans'
+            'kecamatans'
         ));
     }
 
@@ -90,6 +85,7 @@ class DasawismaController extends Controller
         ]);
 
         $input = $request->all();
+        $input = $request->except(['kecamatan_id', 'kelurahan_id']);
         Dasawisma::create($input);
 
         return response()->json(['message' => "Berhasil menyiman data."]);
@@ -105,13 +101,11 @@ class DasawismaController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'rtrw_id' => 'required|unique:dasawismas,rtrw_id,' . $id,
             'nama' => 'required'
-        ], [
-            'rtrw_id.unique' => 'Alamat ini sudah terdapat dasawisma.'
         ]);
 
         $input = $request->all();
+        $input = $request->except(['kecamatan_id', 'kelurahan_id']);
         $data = Dasawisma::find($id);
         $data->update($input);
 
