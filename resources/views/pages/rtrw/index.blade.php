@@ -41,8 +41,8 @@
     </div> 
     <div class="card">
         <div class="card-body">
-            <div class="table-responsive">
-                <table id="dataTable" class="table data-table table-hover table-bordered" style="width:100%;">
+             <div class="table-responsive">
+                <table id="dataTable" class="table data-table display nowrap table-hover table-bordered" style="width:100%;">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -95,10 +95,10 @@
                     <div class="row">
                         <label for="rt" class="col-sm-3 col-form-label fw-bold">RT / RW <span class="text-danger">*</span></label>
                         <div class="col-sm-4 mb-2">
-                          <input type="number" name="rt" id="rt" class="form-control" placeholder="RT / 001" autocomplete="off" required>
+                          <input type="text" maxlength="3" minlength="3" name="rt" id="rt" class="form-control" placeholder="RT / 001" autocomplete="off" required>
                         </div>
                         <div class="col-sm-5">
-                            <input type="number" name="rw" id="rw" class="form-control" placeholder="RW / 002" autocomplete="off" required>
+                            <input type="text" maxlength="3" name="rw" id="rw" class="form-control" placeholder="RW / 001" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="row mb-2">

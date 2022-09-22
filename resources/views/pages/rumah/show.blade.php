@@ -158,8 +158,8 @@
     <div class="card">  
         <h5 class="card-header bg-info text-white mb-2 p-3 fs-18">Daftar Kartu Keluarga</h5>
         <div class="card-body">
-            <div class="table-responsive">
-                <table id="dataTable" class="table data-table table-hover table-bordered" style="width:100%;">
+             <div class="table-responsive">
+                <table id="dataTable" class="table data-table display nowrap table-hover table-bordered" style="width:100%;">
                     <thead>
                         <tr>
                             <th>No</th>

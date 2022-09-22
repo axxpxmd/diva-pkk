@@ -61,7 +61,7 @@
     <div class="card">  
         <div class="card-body">
             <div class="table-responsive">
-                <table id="dataTable" class="table data-table table-hover table-bordered" style="width:100%;">
+                <table id="dataTable" class="table data-table display nowrap table-hover table-bordered" style="width:100%;">
                     <thead>
                         <tr>
                             <th>No</th>
