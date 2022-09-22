@@ -50,7 +50,7 @@ class RTRWController extends Controller
             'kecamatans',
             'kecamatanDisplay',
             'kelurahanDisplay',
-            'rwDisplay'
+            'rwDisplay',
         ));
     }
 

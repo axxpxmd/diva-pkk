@@ -30,25 +30,36 @@ class DasawismaController extends Controller
         $desc  = $this->desc;
         $active_dasawisma = $this->active_dasawisma;
 
+        $rw = $request->rw_filter;
+        $kecamatan_id = $request->kecamatan_filter;
+        $kelurahan_id = $request->kelurahan_filter;
         if ($request->ajax()) {
-            return $this->dataTable();
+            return $this->dataTable($rw, $kecamatan_id, $kelurahan_id);
         }
 
         $kecamatans = Kecamatan::select('id', 'n_kecamatan')->where('kabupaten_id', 40)->get();
         $users = User::queryTable();
+
+        // Filter
+        $rwDisplay = true;
+        $kecamatanDisplay = true;
+        $kelurahanDisplay = true;
 
         return view('pages.dasawisma.index', compact(
             'title',
             'desc',
             'active_dasawisma',
             'users',
-            'kecamatans'
+            'kecamatans',
+            'rwDisplay',
+            'kecamatanDisplay',
+            'kelurahanDisplay'
         ));
     }
 
-    public function dataTable()
+    public function dataTable($rw, $kecamatan_id, $kelurahan_id)
     {
-        $data = Dasawisma::queryTable();
+        $data = Dasawisma::queryTable($rw, $kecamatan_id, $kelurahan_id);
 
         return DataTables::of($data)
             ->rawColumns(['id', 'nama'])
