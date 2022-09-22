@@ -207,7 +207,7 @@
             $('#alert').html('');
             $('#loading').hide();
             openForm();
-            $('#kecamatan_id').val(data.kecamatan_id);
+            $('#kecamatan_id').val(data.kecamatan_id).trigger("change.select2");
 
             val = data.kecamatan_id;
             url = "{{ route('kelurahanByKecamatan', ':id') }}".replace(':id', val);
