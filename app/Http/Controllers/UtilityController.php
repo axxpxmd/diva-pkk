@@ -9,6 +9,7 @@ use App\Models\KartuKeluarga;
 use App\Models\RTRW;
 use App\Models\Kelurahan;
 use App\Models\Rumah;
+use App\Models\User;
 
 class UtilityController extends Controller
 {
@@ -28,10 +29,7 @@ class UtilityController extends Controller
 
     public function dasawismaByRTRW($id)
     {
-        $rtrw  = RTRW::find($id);
-        $rtrws = RTRW::select('id')->where('kelurahan_id', $rtrw->kelurahan_id)->get()->toArray();
-
-        $data = Dasawisma::whereIn('rtrw_id', $rtrws)->get();
+        $data = Dasawisma::where('rtrw_id', $id)->get();
 
         return $data;
     }

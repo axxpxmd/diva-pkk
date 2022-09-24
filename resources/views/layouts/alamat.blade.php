@@ -28,6 +28,9 @@
 @push('script')
 <script type="text/javascript">
     $('#kecamatan_id').on('change', function(){
+        $('#kelurahan_id').val("").trigger("change.select2");
+        $('#rtrw_id').val("").trigger("change.select2");
+        $('#dasawisma_id').val("").trigger("change.select2");
         val = $(this).val();
         option = "<option value=''>Pilih</option>";
         if(val == ""){
@@ -51,6 +54,8 @@
     });
 
     $('#kelurahan_id').on('change', function(){
+        $('#rtrw_id').val("").trigger("change.select2");
+        $('#dasawisma_id').val("").trigger("change.select2");
         val = $(this).val();
         option = "<option value=''>Pilih</option>";
         if(val == ""){

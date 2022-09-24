@@ -104,7 +104,7 @@
             {data: 'DT_RowIndex', name: 'DT_RowIndex', className: 'text-center', orderable: false, searchable: false},
             {data: 'nama', name: 'nama'},
             {data: 'alamat', name: 'alamat'},
-            {data: 'ketua_id', name: 'ketua_id'},
+            {data: 'ketua_id', name: 'ketua_id', className: 'text-center'},
             {data: 'action', name: 'action', className: 'text-center', orderable: false, searchable: false}
         ]
     });

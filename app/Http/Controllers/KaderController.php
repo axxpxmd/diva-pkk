@@ -11,9 +11,9 @@ use Spatie\Permission\Models\Role;
 // Models
 use App\Models\RTRW;
 use App\Models\User;
-use App\Models\Dasawisma;
 use App\Models\Kecamatan;
 use App\Models\ModelHasRole;
+use App\Models\DasawismaUser;
 
 class KaderController extends Controller
 {
@@ -56,16 +56,10 @@ class KaderController extends Controller
         return DataTables::of($data)
             ->rawColumns(['id', 'nama'])
             ->addColumn('action', function ($p) {
-                $check = Dasawisma::where('ketua_id', $p->id)->count();
-
                 $edit = '<a href="#" onclick="edit(' . $p->id . ')" class="text-info m-r-5" title="Edit Data"><i class="bi bi-pencil-fill"></i></a>';
                 $delete = '<a href="#" onclick="remove(' . $p->id . ')" class="text-danger" title="Delete Data"><i class="bi bi-trash-fill"></i></a>';
 
-                if ($check) {
-                    return $edit;
-                } else {
-                    return $edit . $delete;
-                }
+                return $edit . $delete;
             })
             ->editColumn('dasawisma_id', function ($p) {
                 return $p->dasawisma->nama;
@@ -82,17 +76,19 @@ class KaderController extends Controller
     {
         $request->validate([
             'nama' => 'required',
-            'nik' => 'required|digits:16|unique:users,nik',
+            'nik' => 'required|digits:16|unique:users,nik|numeric',
             'dasawisma_id' => 'required',
-            'role_id' => 'required'
+            'role_id' => 'required',
+            'no_telp' => 'required|digits:13||unique:users,no_telp|numeric'
         ], [
             'dasawisma_id.required' => 'Dasawisma wajib diisi',
             'role_id.required' => 'Role Wajib diisi'
         ]);
 
         /* Tahapan : 
-         * 1. tmusers
-         * 2. model_has_roles
+         * 1. users
+         * 2. dasawimsa_users
+         * 3. model_has_roles
          */
 
         DB::beginTransaction(); //* DB Transaction Begin
@@ -103,6 +99,7 @@ class KaderController extends Controller
                 'username' => $request->username,
                 'password' => \md5('123456789'),
                 'dasawisma_id' => $request->dasawisma_id,
+                'rtrw_id' => $request->rtrw_id,
                 'alamat' => $request->alamat,
                 'no_telp' => $request->no_telp,
                 'nama' => $request->nama,
@@ -113,6 +110,13 @@ class KaderController extends Controller
             $user = User::create($data_user);
 
             //* Tahap 2
+            $data_dasawisma_user = [
+                'user_id' => $user->id,
+                'dasawisma_id' => $request->dasawisma_id,
+            ];
+            DasawismaUser::create($data_dasawisma_user);
+
+            //* Tahap 3
             $path = 'app\Models\User';
             $role_id = $request->role_id;
 
@@ -135,8 +139,6 @@ class KaderController extends Controller
     {
         $data = User::where('id', $id)->with(['modelHasRole', 'dasawisma'])->first();
 
-        $rtrws = RTRW::where('kelurahan_id', $data->dasawisma->rtrw->kelurahan_id)->first();
-
         $data_user = [
             'id' => $data->id,
             'username' => $data->username,
@@ -146,7 +148,9 @@ class KaderController extends Controller
             'no_telp' => $data->no_telp,
             'dasawisma_id' => $data->dasawisma_id,
             'role_id' => $data->modelHasRole->role_id,
-            'alamat_dasawisma_id' => $rtrws->id
+            'rtrw_id' => $data->dasawisma->rtrw_id,
+            'kecamatan_id' => $data->dasawisma->rtrw->kecamatan_id,
+            'kelurahan_id' => $data->dasawisma->rtrw->kelurahan_id
         ];
 
         return $data_user;
@@ -156,7 +160,8 @@ class KaderController extends Controller
     {
         $request->validate([
             'nama' => 'required',
-            'nik' => 'required|digits:16|unique:users,nik,' . $id,
+            'nik' => 'required|digits:16|numeric|unique:users,nik,' . $id,
+            'no_telp' => 'required|digits:13|numeric|unique:users,no_telp,' . $id,
             'dasawisma_id' => 'required',
             'role_id' => 'required'
         ], [
@@ -165,7 +170,8 @@ class KaderController extends Controller
         ]);
 
         /* Tahapan : 
-         * 1. tmusers
+         * 1. users
+         * 2. dasawisma_users
          * 2. model_has_roles
          */
 
@@ -182,9 +188,14 @@ class KaderController extends Controller
                 'nik' => $request->nik,
                 's_aktif' => 1
             ];
-
             $data = User::find($id);
             $data->update($data_user);
+
+            //* Tahap 2
+            $data_dasawisma_user = DasawismaUser::where('user_id', $id)->first();
+            $data_dasawisma_user->update([
+                'dasawisma_id' => $request->dasawisma_id,
+            ]);
 
             //* Tahap 2
             $model_has_role = ModelHasRole::where('model_id', $id);
@@ -204,6 +215,7 @@ class KaderController extends Controller
     public function destroy($id)
     {
         $data_user = User::find($id);
+        $data_dasawisma_user = DasawismaUser::where('user_id', $id)->first();
 
         //TODO: Process delete photo
         if ($data_user->foto != 'default.png') {
@@ -213,6 +225,7 @@ class KaderController extends Controller
         }
 
         $data_user->delete();
+        $data_dasawisma_user->delete();
 
         return response()->json(['message' => "Berhasil menghapus data."]);
     }

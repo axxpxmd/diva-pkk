@@ -58,13 +58,13 @@
                     <div class="row mb-2">
                         <label for="nik" class="col-sm-3 col-form-label fw-bold">NIK <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
-                          <input type="number" name="nik" id="nik" class="form-control" placeholder="16 Digit" autocomplete="off" required>
+                          <input type="text" maxlength="16" name="nik" id="nik" class="form-control" placeholder="16 Digit" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="row mb-2">
                         <label for="no_telp" class="col-sm-3 col-form-label fw-bold">No Telp <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
-                          <input type="number" name="no_telp" id="no_telp" placeholder="08xxx" class="form-control" autocomplete="off" required>
+                          <input type="text" maxlength="13" name="no_telp" id="no_telp" placeholder="08xxx" class="form-control" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="row mb-2">
@@ -138,6 +138,7 @@
     });
 
     $('#rtrw_id').on('change', function(){
+        $('#dasawisma_id').val("").trigger("change.select2");
         val = $(this).val();
         option = "<option value=''>Pilih</option>";
         if(val == ""){
@@ -164,6 +165,15 @@
         $('#modalForm').modal('show');
     }
 
+    function formReset(){
+        $('#role_id').val("").trigger("change.select2");
+        $('#kecamatan_id').val("").trigger("change.select2");
+        $('#kelurahan_id').val("").trigger("change.select2");
+        $('#rtrw_id').val("").trigger("change.select2");
+        $('#dasawisma_id').val("").trigger("change.select2");
+        $('#form').trigger('reset');
+    }
+
     function add(){
         openForm();
         save_method = "add";
@@ -177,6 +187,7 @@
     function edit(id){
         $('#loading').show();
         $.get("{{ Route('kader.edit', ':id') }}".replace(':id', id), function(data){
+            console.log(data);
             save_method = 'edit';
             $('#txtTitle').html('Edit');
             $('#txtSave').html("Perubahan");
@@ -192,22 +203,60 @@
             $('#alamat').val(data.alamat);
             $('#role_id').val(data.role_id).trigger("change.select2");
 
-            $('#alamat_dasawisma_id').val(data.alamat_dasawisma_id).trigger("change.select2");
+            $('#kecamatan_id').val(data.kecamatan_id).trigger("change.select2");
 
-            val = data.alamat_dasawisma_id;
-            url = "{{ route('dasawismaByRTRW', ':id') }}".replace(':id', val);
+            rtrw_id      = data.rtrw_id;
+            dasawisma_id = data.dasawisma_id;
+            kecamatan_id = data.kecamatan_id
+            kelurahan_id = data.kelurahan_id
+
+            // get kelurahan
+            url = "{{ route('kelurahanByKecamatan', ':id') }}".replace(':id', kecamatan_id);
             option = "<option value=''>&nbsp;</option>";
-            $.get(url, function(dataResult){
-                if(dataResult){
-                    $.each(dataResult, function(index, value){
+            $.get(url, function(dataKelurahan){
+                if(dataKelurahan){
+                    $.each(dataKelurahan, function(index, value){
+                        option += "<option value='" + value.id + "'>" + value.n_kelurahan +"</li>";
+                    });
+                    $('#kelurahan_id').empty().html(option);
+
+                    $("#kelurahan_id").val(data.kelurahan_id).trigger("change.select2");
+                }else{
+                    $('#kelurahan_id').html(option);
+                } 
+            }, 'JSON'); 
+
+            // get rtrw
+            url = "{{ route('rtrwByKelurahan', ':id') }}".replace(':id', kelurahan_id);
+            option = "<option value=''>&nbsp;</option>";
+            $.get(url, function(dataRTRW){
+                if(dataRTRW){
+                    $.each(dataRTRW, function(index, value){
+                        option += "<option value='" + value.id + "'>" + 'RW ' + value.rw + ' / RT ' + value.rt + "</li>";
+                    });
+                    $('#rtrw_id').empty().html(option);
+
+                    $("#rtrw_id").val(rtrw_id). trigger("change.select2");
+                }else{
+                    $('#rtrw_id').html(option);
+                } 
+            }, 'JSON'); 
+
+            // get dasawisma
+            url = "{{ route('dasawismaByRTRW', ':id') }}".replace(':id', rtrw_id);
+            option = "<option value=''>&nbsp;</option>";
+            $.get(url, function(dataDasawisma) {
+                if(dataDasawisma){
+                    console.log(dataDasawisma);
+                    $.each(dataDasawisma, function(index, value){
                         option += "<option value='" + value.id + "'>" + value.nama +"</li>";
                     });
                     $('#dasawisma_id').empty().html(option);
 
-                    $("#dasawisma_id").val(data.dasawisma_id).trigger("change.select2");
+                    $("#dasawisma_id").val(dasawisma_id).trigger("change.select2");
                 }else{
                     $('#dasawisma_id').html(option);
-                }
+                } 
             }, 'JSON'); 
         });
     }
@@ -225,7 +274,8 @@
             $.post(url, $(this).serialize(), function(data){
                 $('#alert').html("<div class='alert alert-success alert-dismissible' role='alert'><strong>Sukses!</strong> " + data.message + "</div>");
                 table.api().ajax.reload();
-                if(save_method == 'add') $('#form').trigger('reset');
+                if(save_method == 'add') formReset();
+                $('#form').removeClass('was-validated');
             },'json').fail(function(data){
                 err = ''; respon = data.responseJSON;
                 $.each(respon.errors, function(index, value){
@@ -238,7 +288,6 @@
             });
             return false;
         }
-        $(this).addClass('was-validated');
     });
 
     function remove(id){
