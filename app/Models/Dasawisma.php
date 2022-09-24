@@ -11,21 +11,19 @@ class Dasawisma extends Model
     protected $table = 'dasawismas';
     protected $guarded = [];
 
-    public function ketua()
-    {
-        return $this->belongsTo(User::class, 'ketua_id')->withDefault([
-            'nama' => '-'
-        ]);
-    }
-
     public function rtrw()
     {
         return $this->belongsTo(RTRW::class, 'rtrw_id');
     }
 
+    public function dasawismaUser()
+    {
+        return $this->hasMany(DasawismaUser::class, 'dasawisma_id');
+    }
+
     public static function queryTable($rw, $kecamatan_id, $kelurahan_id)
     {
-        $data = Dasawisma::select('dasawismas.id as id', 'rtrw_id', 'nama', 'ketua_id')
+        $data = Dasawisma::select('dasawismas.id as id', 'rtrw_id', 'nama')
             ->join('rt_rw', 'rt_rw.id', '=', 'dasawismas.rtrw_id')
             ->when($kecamatan_id, function ($q) use ($kecamatan_id) {
                 return $q->where('kecamatan_id', $kecamatan_id);

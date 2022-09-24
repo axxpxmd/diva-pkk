@@ -45,6 +45,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::post('/update-ketua-rt', [RTRWController::class, 'updateKetuaRT'])->name('rt-rw.updateKetuaRT');
 
     Route::resource('/dasawisma', DasawismaController::class);
+    Route::get('/show-ketua/{id}', [DasawismaController::class, 'showKetua'])->name('dasawisma.showKetua');
 
     Route::resource('/kader', KaderController::class);
 

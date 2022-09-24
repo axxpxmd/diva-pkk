@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\RTRW;
 use App\Models\User;
 use App\Models\Dasawisma;
+use App\Models\DasawismaUser;
 use App\Models\Kecamatan;
 use App\Models\Kelurahan;
 
@@ -64,7 +65,7 @@ class DasawismaController extends Controller
         return DataTables::of($data)
             ->rawColumns(['id', 'nama'])
             ->addColumn('action', function ($p) {
-                $check = User::where('dasawisma_id', $p->id)->count();
+                $check = $p->dasawismaUser->count();
 
                 $edit = '<a href="#" onclick="edit(' . $p->id . ')" class="text-info m-r-5" title="Edit Data"><i class="bi bi-pencil-fill"></i></a>';
                 $delete = '<a href="#" onclick="remove(' . $p->id . ')" class="text-danger" title="Delete Data"><i class="bi bi-trash-fill"></i></a>';
@@ -79,11 +80,34 @@ class DasawismaController extends Controller
                 return $p->rtrw->kecamatan->n_kecamatan . ' - ' . $p->rtrw->kelurahan->n_kelurahan . ' - RT ' . $p->rtrw->rt . ' / RW ' . $p->rtrw->rw;
             })
             ->editColumn('ketua_id', function ($p) {
-                return $p->ketua->nama;
+                $totalKetua =  $p->dasawismaUser->count();
+                $show = '<a href="#" onclick="showKetua(' . $p->id . ')" class="text-info m-l-10" title="Tampilkan Daftar Ketua"><i class="bi bi-eye-fill"></i></a>';
+
+                if ($totalKetua == 0) {
+                    return $totalKetua;
+                } else {
+                    return $totalKetua . $show;
+                }
             })
-            ->rawColumns(['id', 'action'])
+            ->rawColumns(['id', 'action', 'ketua_id'])
             ->addIndexColumn()
             ->toJson();
+    }
+
+    public function showKetua($id)
+    {
+        $data = DasawismaUser::where('dasawisma_id', $id)->get();
+
+        $dataUser = [];
+        foreach ($data as $key => $i) {
+            $dataUser[$key] = [
+                'ketua' => $i->user->nama,
+                'dasawisma' => $i->dasawisma->nama,
+                'no_telp' => $i->user->no_telp
+            ];
+        }
+
+        return $dataUser;
     }
 
     public function store(Request $request)

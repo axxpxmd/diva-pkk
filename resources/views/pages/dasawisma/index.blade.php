@@ -42,7 +42,7 @@
                             <th>No</th>
                             <th>Nama</th>
                             <th>Alamat</th>
-                            <th>Ketua</th>
+                            <th>Jumlah Ketua</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -78,6 +78,28 @@
                         </div>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalShowKetua" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title text-white" id="exampleModalLabel">List Ketua Dasawisma <span id="dasawismaKetua"></span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table data-table display nowrap table-hover table-bordered" style="width:100%;">
+                    <thead>
+                        <tr>
+                            <th class="text-center">No</th>
+                            <th>Nama</th>
+                            <th>No Telp</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableKetua"></tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -120,6 +142,24 @@
 
     function openForm(){
         $('#modalForm').modal('show');
+    }
+
+    function showKetua(id){
+        $('#loading').show();
+        $('#modalShowKetua').modal('show');
+        $('#tableKetua').html('')
+        $.get("{{ Route('dasawisma.showKetua', ':id') }}".replace(':id', id), function(data){
+            $('#loading').hide();
+            $('#dasawismaKetua').html(data[0].dasawisma);
+            $.each(data, function(index, value){
+                $('#tableKetua').append("<tr>\
+                                            <td class='text-center'>"+(index+1)+"</td>\
+                                            <td>"+value.ketua+"</td>\
+                                            <td>"+value.no_telp+"</td>\
+										</tr>"
+                );
+            });
+        });
     }
 
     function add(){
