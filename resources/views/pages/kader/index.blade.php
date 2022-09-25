@@ -42,8 +42,8 @@
                             <th>No</th>
                             <th>Nama</th>
                             <th>Nik</th>
-                            <th>Dasawisma</th>
                             <th>No Telp</th>
+                            <th>Dasawisma</th>
                             <th>Alamat</th>
                             <th>Aksi</th>
                         </tr>
@@ -149,15 +149,15 @@
             data: function (data) {
                 data.kecamatan_filter = $('#kecamatan_filter').val();
                 data.kelurahan_filter = $('#kelurahan_filter').val();
-                data.rw_filter = $('#rw_filter').val();
+                data.rtrw_filter = $('#rtrw_filter').val();
             }
         },
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex', className: 'text-center', orderable: false, searchable: false},
             {data: 'nama', name: 'nama'},
             {data: 'nik', name: 'nik'},
-            {data: 'dasawisma_id', name: 'dasawisma_id'},
             {data: 'no_telp', name: 'no_telp'},
+            {data: 'dasawisma_id', name: 'dasawisma_id'},
             {data: 'alamat', name: 'alamat'},
             {data: 'action', name: 'action', className: 'text-center', orderable: false, searchable: false}
         ]

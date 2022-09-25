@@ -34,6 +34,13 @@ class UtilityController extends Controller
         return $data;
     }
 
+    public function rwByKelurahan($id)
+    {
+        $data = RTRW::select('rw', 'kelurahan_id')->where('kelurahan_id', $id)->groupBy('rw')->get();
+
+        return $data;
+    }
+
     public function getNoKKByKepalaKeluarga($id)
     {
         $data = KartuKeluarga::find($id);

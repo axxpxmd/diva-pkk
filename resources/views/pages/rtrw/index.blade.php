@@ -48,8 +48,8 @@
                             <th>No</th>
                             <th>RT</th>
                             <th>RW</th>
-                            <th>Kecamatan</th>
                             <th>Kelurahan</th>
+                            <th>Kecamatan</th>
                             <th>Ketua RT</th>
                             <th>Jumlah</th>
                             <th>Keterangan</th>
@@ -144,8 +144,8 @@
             {data: 'DT_RowIndex', name: 'DT_RowIndex', className: 'text-center', orderable: false, searchable: false},
             {data: 'rt', name: 'rt', className: 'text-center'},
             {data: 'rw', name: 'rw', className: 'text-center'},
-            {data: 'kecamatan_id', name: 'kecamatan_id'},
             {data: 'kelurahan_id', name: 'kelurahan_id'},
+            {data: 'kecamatan_id', name: 'kecamatan_id'},
             {data: 'ketua_rt', name: 'ketua_rt', className: 'text-center'},
             {data: 'jumlah', name: 'jumlah', className: 'text-center'},
             {data: 'keterangan', name: 'keterangan'},

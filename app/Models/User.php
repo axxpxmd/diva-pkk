@@ -31,7 +31,7 @@ class User extends Authenticatable
         return $this->belongsTo(ModelHasRole::class, 'id', 'model_id');
     }
 
-    public static function queryTable($rw, $kecamatan_id, $kelurahan_id)
+    public static function queryTable($rtrw_id, $kecamatan_id, $kelurahan_id)
     {
         $data =  User::select('users.id as id', 'dasawisma_id', 'rtrw_id', 'username', 'no_telp', 'nik', 'alamat', 'nama')
             ->join('model_has_roles', 'model_has_roles.model_id', '=', 'users.id')
@@ -42,6 +42,9 @@ class User extends Authenticatable
             })
             ->when($kelurahan_id, function ($q) use ($kelurahan_id) {
                 return $q->where('kelurahan_id', $kelurahan_id);
+            })
+            ->when($rtrw_id, function ($q) use ($rtrw_id) {
+                return $q->where('rt_rw.id', $rtrw_id);
             });
 
         return $data->OrderBy('users.id', 'DESC')->get();
