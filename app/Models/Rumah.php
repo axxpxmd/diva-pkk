@@ -82,7 +82,7 @@ class Rumah extends Model
         return $data;
     }
 
-    public function queryTable($rw, $kecamatan_id, $kelurahan_id, $layak_huni, $kriteria_rmh, $dasawisma_id)
+    public function queryTable($rtrw_id, $kecamatan_id, $kelurahan_id, $layak_huni, $kriteria_rmh, $dasawisma_id)
     {
         $data = Rumah::select('rumah.id as id', 'dasawisma_id', 'rtrw_id', 'kepala_rumah', 'alamat_detail', 'kriteria_rmh', 'layak_huni')
             ->join('rt_rw', 'rt_rw.id', '=', 'rumah.rtrw_id')
@@ -91,6 +91,9 @@ class Rumah extends Model
             })
             ->when($kelurahan_id, function ($q) use ($kelurahan_id) {
                 return $q->where('kelurahan_id', $kelurahan_id);
+            })
+            ->when($rtrw_id, function ($q) use ($rtrw_id) {
+                return $q->where('rtrw_id', $rtrw_id);
             })
             ->when($layak_huni != 99, function ($q) use ($layak_huni) {
                 return $q->where('layak_huni', $layak_huni);

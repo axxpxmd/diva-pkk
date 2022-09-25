@@ -29,13 +29,13 @@ class RumahController extends Controller
         $dasawisma_id = Auth::user()->dasawisma_id;
         $rtrw_id = Auth::user()->dasawisma->rtrw_id;
 
-        $layak_huni = $request->layak_huni;
+        $rtrw_id      = $request->rtrw_filter;
+        $layak_huni   = $request->layak_huni;
         $kriteria_rmh = $request->kriteria_rmh;
-        $rw = $request->rw_filter;
         $kecamatan_id = $request->kecamatan_filter;
         $kelurahan_id = $request->kelurahan_filter;
         if ($request->ajax()) {
-            return $this->dataTable($rw, $kecamatan_id, $kelurahan_id, $layak_huni, $kriteria_rmh, $dasawisma_id);
+            return $this->dataTable($rtrw_id, $kecamatan_id, $kelurahan_id, $layak_huni, $kriteria_rmh, $dasawisma_id);
         }
 
         $dasawismas = Dasawisma::select('id', 'nama')->get();
@@ -43,7 +43,7 @@ class RumahController extends Controller
         $kecamatans = Kecamatan::select('id', 'n_kecamatan')->where('kabupaten_id', 40)->get();
 
         // Filter
-        $rwDisplay = true;
+        $rtrwDisplay = true;
         $kecamatanDisplay = true;
         $kelurahanDisplay = true;
 
@@ -55,16 +55,16 @@ class RumahController extends Controller
             'rtrws',
             'dasawisma_id',
             'rtrw_id',
-            'rwDisplay',
+            'rtrwDisplay',
             'kecamatanDisplay',
             'kelurahanDisplay',
             'kecamatans'
         ));
     }
 
-    public function dataTable($rw, $kecamatan_id, $kelurahan_id, $layak_huni, $kriteria_rmh, $dasawisma_id)
+    public function dataTable($rtrw_id, $kecamatan_id, $kelurahan_id, $layak_huni, $kriteria_rmh, $dasawisma_id)
     {
-        $data = Rumah::queryTable($rw, $kecamatan_id, $kelurahan_id, $layak_huni, $kriteria_rmh, $dasawisma_id);
+        $data = Rumah::queryTable($rtrw_id, $kecamatan_id, $kelurahan_id, $layak_huni, $kriteria_rmh, $dasawisma_id);
 
         return DataTables::of($data)
             ->addColumn('action', function ($p) {
