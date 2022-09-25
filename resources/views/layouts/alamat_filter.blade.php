@@ -1,6 +1,6 @@
 @if (isset($kecamatanDisplay))
 <div class="row mb-2">
-    <label for="kecamatan_filter" class="col-form-label col-md-2 text-end fw-bolder fs-14">Kecamatan </label>
+    <label for="kecamatan_filter" class="col-form-label col-md-3 text-end fw-bolder fs-14">Kecamatan </label>
     <div class="col-sm-8">
         <select class="form-select select2" id="kecamatan_filter" name="kecamatan_filter">
             @foreach ($kecamatans as $i)
@@ -12,7 +12,7 @@
 @endif
 @if (isset($kelurahanDisplay))
 <div class="row mb-2">
-    <label for="kelurahan_filter" class="col-form-label col-md-2 text-end fw-bolder fs-14">Kelurahan </label>
+    <label for="kelurahan_filter" class="col-form-label col-md-3 text-end fw-bolder fs-14">Kelurahan </label>
     <div class="col-sm-8">
         <select class="form-select select2" name="kelurahan_filter" id="kelurahan_filter">
             <option value="">Pilih</option>
@@ -22,7 +22,7 @@
 @endif
 @if (isset($rwDisplay))
 <div class="row mb-2">
-    <label for="RW" class="col-form-label col-md-2 text-end fw-bolder fs-14">RW </label>
+    <label for="RW" class="col-form-label col-md-3 text-end fw-bolder fs-14">RW </label>
     <div class="col-sm-8">
         <input type="number" name="rw_filter" id="rw_filter" class="form-control" placeholder="Masukan No RW / 3 digit" autocomplete="off">
     </div>
@@ -30,8 +30,8 @@
 @endif
 @if (isset($rtrwDisplay))
 <div class="row mb-2">
-    <label for="rtrw_filter" class="col-form-label col-md-2 text-end fw-bolder fs-14">RT / RW <span class="text-danger">*</span></label>
-    <div class="col-sm-9">
+    <label for="rtrw_filter" class="col-form-label col-md-3 text-end fw-bolder fs-14">RT / RW <span class="text-danger">*</span></label>
+    <div class="col-sm-8">
         <select class="form-select select2" name="rtrw_filter" id="rtrw_filter">
             <option value="">Pilih</option>
         </select>

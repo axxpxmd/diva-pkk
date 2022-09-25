@@ -14,7 +14,7 @@
                 <div class="col-md-6 px-0">
                     @include('layouts.alamat_filter')
                     <div class="row mb-4">
-                        <div class="col-sm-2"></div>
+                        <div class="col-sm-3"></div>
                         <div class="col-sm-8">
                             <button class="btn btn-success btn-sm mr-2" onclick="pressOnChange()"><i class="bi bi-filter m-r-8"></i>Filter</button>
                         </div> 

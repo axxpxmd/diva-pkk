@@ -14,7 +14,7 @@
                 <div class="col-md-6 px-0">
                     @include('layouts.alamat_filter')
                     <div class="row mb-4">
-                        <div class="col-sm-2"></div>
+                        <div class="col-sm-3"></div>
                         <div class="col-sm-8">
                             <button class="btn btn-success btn-sm mr-2" onclick="pressOnChange()"><i class="bi bi-filter m-r-8"></i>Filter</button>
                         </div> 
@@ -23,9 +23,9 @@
                 <div class="col-md-6 px-0">
                     <div class="row justify-content-center">
                         <div class="row mb-2">
-                            <label for="layak_huni" class="col-form-label col-md-2 text-end fw-bolder fs-14">Layak Huni </label>
+                            <label for="layak_huni" class="col-form-label col-md-3 text-end fw-bolder fs-14">Layak Huni </label>
                             <div class="col-sm-8">
-                                <select class="form-select select2Filter" id="layak_huni" name="layak_huni">
+                                <select class="form-select select2" id="layak_huni" name="layak_huni">
                                     <option value="99">Semua</option>
                                     <option value="1">Ya</option>
                                     <option value="0">Tidak</option>
@@ -33,9 +33,9 @@
                             </div>
                         </div>
                         <div class="row mb-2">
-                            <label for="kriteria_rmh" class="col-form-label col-md-2 text-end fw-bolder fs-14">Kriteria </label>
+                            <label for="kriteria_rmh" class="col-form-label col-md-3 text-end fw-bolder fs-14">Kriteria </label>
                             <div class="col-sm-8">
-                                <select class="form-select select2Filter" id="kriteria_rmh" name="kriteria_rmh">
+                                <select class="form-select select2" id="kriteria_rmh" name="kriteria_rmh">
                                     <option value="99">Semua</option>
                                     <option value="1">Sehat</option>
                                     <option value="0">Kurang Sehat</option>
@@ -83,22 +83,22 @@
                     <div id="alert"></div>
                     <div class="row">
                         <div class="col-sm-6">
+                            <div class="bg-light-secondary p-2 rounded mb-3">
+                                <span class="fw-bold">Dasawisma</span>
+                            </div>
+                            @include('layouts.alamat2')
                             <div class="row mb-2">
                                 <label for="dasawisma_id" class="col-sm-4 col-form-label fw-bold text-end">Dasawisma <span class="text-danger">*</span></label>
                                 <div class="col-sm-8">
-                                    <select class="select2 form-select" id="dasawisma_id" name="dasawisma_id" required>
+                                    <select class="form-control select2" name="dasawisma_id" id="dasawisma_id">
                                         <option value="">Pilih</option>
-                                        @foreach ($dasawismas as $i)
-                                            <option value="{{ $i->id }}" {{ $i->id == $dasawisma_id ? 'selected' : '-' }}>{{ $i->nama }}</option>
-                                        @endforeach
                                     </select>
                                     <div class="invalid-feedback">
                                         Silahkan pilih dasawisma.
                                     </div>
                                 </div>
                             </div>
-                            @include('layouts.alamat2')
-                            <div class="row mb-2">
+                            {{-- <div class="row mb-2">
                                 <label for="rtrw_id" class="col-sm-4 col-form-label fw-bold text-end">RT/RW <span class="text-danger">*</span></label>
                                 <div class="col-sm-8">
                                     <select class="select2 form-select" id="rtrw_id" name="rtrw_id" required>
@@ -113,9 +113,12 @@
                                         Silahkan pilih RT/RW.
                                     </div>
                                 </div>
+                            </div> --}}
+                            <div class="bg-light-secondary p-2 rounded mb-3">
+                                <span class="fw-bold">Detail Rumah</span>
                             </div>
                             <div class="row mb-2">
-                                <label for="alamat_detail" class="col-sm-4 col-form-label text-end fw-bold">Alamat <span class="text-danger">*</span></label>
+                                <label for="alamat_detail" class="col-sm-4 col-form-label text-end fw-bold">Alamat Rumah <span class="text-danger">*</span></label>
                                 <div class="col-sm-8">
                                     <textarea type="text" name="alamat_detail" id="alamat_detail" placeholder="Bisa diisi Nomor Rumah / Blok / Cluster" class="form-control" autocomplete="off" required></textarea>
                                 </div>
@@ -293,8 +296,39 @@
         table.api().ajax.reload();
     }
 
-    $('.select2').select2({
-        dropdownParent: $('#modalForm')
+    $('#rtrw_id').on('change', function(){
+        $('#dasawisma_id').val("").trigger("change.select2");
+        val = $(this).val();
+        option = "<option value=''>Pilih</option>";
+        if(val == ""){
+            $('#dasawisma_id').html(option);
+        }else{
+            $('#dasawisma_id').html("<option value=''>Loading...</option>");
+            url = "{{ route('dasawismaByRTRW', ':id') }}".replace(':id', val);
+            $.get(url, function(data){
+                if(data){
+                    $.each(data, function(index, value){
+                        option += "<option value='" + value.id + "'>" + value.nama +"</li>";
+                    });
+                    $('#dasawisma_id').empty().html(option);
+
+                    $("#dasawisma_id").val($("#dasawisma_id option:first").val()).trigger("change.select2");
+                }else{
+                    $('#dasawisma_id').html(option);
+                }
+            }, 'JSON'); 
+        }
+    });
+
+    function openForm(){
+        $('.select2').select2({
+            dropdownParent: $('#modalForm')
+        });
+        $('#modalForm').modal('show');
+    }
+
+    $('#modalForm').on('hidden.bs.modal', function () {
+        $('.select2').select2();
     });
 
     function valueToLainnya(){
@@ -321,10 +355,6 @@
         $("#lainnya_value").prop('required',false);
         $('#lainnya').val(null);
     };
-
-    function openForm(){
-        $('#modalForm').modal('show');
-    }
 
     function add(){
         openForm();

@@ -14,7 +14,7 @@
                 <div class="col-md-6 px-0">
                     @include('layouts.alamat_filter')
                     <div class="row mb-4">
-                        <div class="col-sm-2"></div>
+                        <div class="col-sm-3"></div>
                         <div class="col-sm-8">
                             <button class="btn btn-success btn-sm mr-2" onclick="pressOnChange()"><i class="bi bi-filter m-r-8"></i>Filter</button>
                         </div> 
@@ -82,6 +82,9 @@
                                     <option value="{{ $i->id }}">{{ $i->n_kecamatan }}</option>
                                 @endforeach
                             </select>
+                            <div class="invalid-feedback">
+                                Silahkan pilih Kecamatan.
+                            </div>
                         </div>
                     </div>
                     <div class="row mb-2">
@@ -104,7 +107,7 @@
                     <div class="row mb-2">
                         <label for="keterangan" class="col-sm-3 col-form-label fw-bold">Keterangan </label>
                         <div class="col-sm-9">
-                          <input type="text" name="keterangan" id="keterangan" class="form-control" autocomplete="off">
+                            <textarea name="keterangan" id="keterangan" rows="2" class="form-control" placeholder="Nama Kampung / Cluster / Kawasan" autocomplete="off"></textarea>
                         </div>
                     </div>
                     <div class="row">
