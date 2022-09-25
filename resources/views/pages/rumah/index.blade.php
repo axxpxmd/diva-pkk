@@ -98,29 +98,14 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- <div class="row mb-2">
-                                <label for="rtrw_id" class="col-sm-4 col-form-label fw-bold text-end">RT/RW <span class="text-danger">*</span></label>
-                                <div class="col-sm-8">
-                                    <select class="select2 form-select" id="rtrw_id" name="rtrw_id" required>
-                                        <option value="">Pilih</option>
-                                        @foreach ($rtrws as $i)
-                                            <option value="{{ $i->id }}" {{ $i->id == $rtrw_id ? 'selected' : '-' }}>
-                                                {{ $i->kecamatan->n_kecamatan }} - {{ $i->kelurahan->n_kelurahan }} - RT {{ $i->rw }} / RW {{ $i->rt }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Silahkan pilih RT/RW.
-                                    </div>
-                                </div>
-                            </div> --}}
+                            <hr>
                             <div class="bg-light-secondary p-2 rounded mb-3">
                                 <span class="fw-bold">Detail Rumah</span>
                             </div>
                             <div class="row mb-2">
                                 <label for="alamat_detail" class="col-sm-4 col-form-label text-end fw-bold">Alamat Rumah <span class="text-danger">*</span></label>
                                 <div class="col-sm-8">
-                                    <textarea type="text" name="alamat_detail" id="alamat_detail" placeholder="Bisa diisi Nomor Rumah / Blok / Cluster" class="form-control" autocomplete="off" required></textarea>
+                                    <textarea type="text" name="alamat_detail" id="alamat_detail" placeholder="Diisi Nomor Rumah / Blok" class="form-control" autocomplete="off" required></textarea>
                                 </div>
                             </div>
                             <div class="row mb-2">
@@ -349,6 +334,14 @@
         }
     });
 
+    function formReset(){
+        $('#kecamatan_id').val("").trigger("change.select2");
+        $('#kelurahan_id').val("").trigger("change.select2");
+        $('#rtrw_id').val("").trigger("change.select2");
+        $('#dasawisma_id').val("").trigger("change.select2");
+        $('#form').trigger('reset');
+    }
+
     function reset(){
         $('#form').trigger('reset');
         $('#lainnya_value').hide();
@@ -377,11 +370,64 @@
             $('#loading').hide();
             openForm();
             $('#id').val(data.id);
-            $('#dasawisma_id').val(data.dasawisma_id).trigger("change.select2");
-            $('#rtrw_id').val(data.rtrw_id).trigger("change.select2");
+            $('#kecamatan_id').val(data.kecamatan_id).trigger("change.select2");
             $('#alamat_detail').val(data.alamat_detail);
             $('#kepala_rumah').val(data.kepala_rumah);
             $('#jamban').val(data.jamban);
+
+            rtrw_id      = data.rtrw_id;
+            dasawisma_id = data.dasawisma_id;
+            kecamatan_id = data.kecamatan_id
+            kelurahan_id = data.kelurahan_id
+
+            // get kelurahan
+            url = "{{ route('kelurahanByKecamatan', ':id') }}".replace(':id', kecamatan_id);
+            optionKelurahan = "<option value=''>&nbsp;</option>";
+            $.get(url, function(dataKelurahan){
+                if(dataKelurahan){
+                    $.each(dataKelurahan, function(index, value){
+                        optionKelurahan += "<option value='" + value.id + "'>" + value.n_kelurahan +"</li>";
+                    });
+                    $('#kelurahan_id').empty().html(optionKelurahan);
+
+                    $("#kelurahan_id").val(data.kelurahan_id).trigger("change.select2");
+                }else{
+                    $('#kelurahan_id').html(optionKelurahan);
+                } 
+            }, 'JSON'); 
+
+            // get rtrw
+            url = "{{ route('rtrwByKelurahan', ':id') }}".replace(':id', kelurahan_id);
+            optionRTRW = "<option value=''>&nbsp;</option>";
+            $.get(url, function(dataRTRW){
+                if(dataRTRW){
+                    $.each(dataRTRW, function(index, value){
+                        optionRTRW += "<option value='" + value.id + "'>" + 'RW ' + value.rw + ' / RT ' + value.rt + "</li>";
+                    });
+                    $('#rtrw_id').empty().html(optionRTRW);
+
+                    $("#rtrw_id").val(rtrw_id). trigger("change.select2");
+                }else{
+                    $('#rtrw_id').html(optionRTRW);
+                } 
+            }, 'JSON'); 
+
+            // get dasawisma
+            url = "{{ route('dasawismaByRTRW', ':id') }}".replace(':id', rtrw_id);
+            optionDaswisma = "<option value=''>&nbsp;</option>";
+            $.get(url, function(dataDasawisma) {
+                if(dataDasawisma){
+                    console.log(dataDasawisma);
+                    $.each(dataDasawisma, function(index, value){
+                        optionDaswisma += "<option value='" + value.id + "'>" + value.nama +"</li>";
+                    });
+                    $('#dasawisma_id').empty().html(optionDaswisma);
+
+                    $("#dasawisma_id").val(dasawisma_id).trigger("change.select2");
+                }else{
+                    $('#dasawisma_id').html(optionDaswisma);
+                } 
+            }, 'JSON'); 
           
             // CheckBox
             if (data.sumber_air.includes("PDAM")) {
@@ -434,6 +480,12 @@
     }
 
     $('#form').on('submit', function (event) {
+        var sumber_air = $('input[name="sumber_air[]"]:checked')
+        if (sumber_air.length == 0) {
+            $('input[name="sumber_air[]"]').prop('required', true);
+        }else{
+            $('input[name="sumber_air[]"]').prop('required', false);
+        }
         if ($(this)[0].checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
@@ -445,8 +497,9 @@
             url = (save_method == 'add') ? "{{ route('rumah.store') }}" : "{{ route('rumah.update', ':id') }}".replace(':id', $('#id').val());
             $.post(url, $(this).serialize(), function(data){
                 $('#alert').html("<div class='alert alert-success alert-dismissible' role='alert'><strong>Sukses!</strong> " + data.message + "</div>");
+                $('#form').removeClass('was-validated');
                 table.api().ajax.reload();
-                if(save_method == 'add') reset();
+                if(save_method == 'add') formReset();
                 if(save_method == 'edit'){
                     setTimeout(function(){
                         $('#modalForm').modal('toggle')
@@ -464,7 +517,6 @@
             });
             return false;
         }
-        $(this).addClass('was-validated');
     });
 
     function remove(id){

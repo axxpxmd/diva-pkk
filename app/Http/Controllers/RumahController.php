@@ -195,9 +195,26 @@ class RumahController extends Controller
 
     public function edit($id)
     {
-        $data = Rumah::find($id);
+        $data = Rumah::where('id', $id)->with(['rtrw'])->first();
 
-        return $data;
+        $dataRumah = [
+            'id' => $data->id,
+            'dasawisma_id' => $data->dasawisma_id,
+            'rtrw_id' => $data->rtrw_id,
+            'kepala_rumah' => $data->kepala_rumah,
+            'alamat_detail' => $data->alamat_detail,
+            'jamban' => $data->jamban,
+            'sumber_air' => $data->sumber_air,
+            'tempat_smph' => $data->tempat_smph,
+            'saluran_pmbngn' => $data->saluran_pmbngn,
+            'stiker_p4k' => $data->stiker_p4k,
+            'kriteria_rmh' => $data->kriteria_rmh,
+            'layak_huni' => $data->layak_huni,
+            'kelurahan_id' => $data->rtrw->kelurahan_id,
+            'kecamatan_id' => $data->rtrw->kecamatan_id
+        ];
+
+        return $dataRumah;
     }
 
     public function update(Request $request, $id)

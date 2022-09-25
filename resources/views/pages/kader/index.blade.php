@@ -250,50 +250,50 @@
 
             // get kelurahan
             url = "{{ route('kelurahanByKecamatan', ':id') }}".replace(':id', kecamatan_id);
-            option = "<option value=''>&nbsp;</option>";
+            optionKelurahan = "<option value=''>&nbsp;</option>";
             $.get(url, function(dataKelurahan){
                 if(dataKelurahan){
                     $.each(dataKelurahan, function(index, value){
-                        option += "<option value='" + value.id + "'>" + value.n_kelurahan +"</li>";
+                        optionKelurahan += "<option value='" + value.id + "'>" + value.n_kelurahan +"</li>";
                     });
-                    $('#kelurahan_id').empty().html(option);
+                    $('#kelurahan_id').empty().html(optionKelurahan);
 
                     $("#kelurahan_id").val(data.kelurahan_id).trigger("change.select2");
                 }else{
-                    $('#kelurahan_id').html(option);
+                    $('#kelurahan_id').html(optionKelurahan);
                 } 
             }, 'JSON'); 
 
             // get rtrw
             url = "{{ route('rtrwByKelurahan', ':id') }}".replace(':id', kelurahan_id);
-            option = "<option value=''>&nbsp;</option>";
+            optionRTRW = "<option value=''>&nbsp;</option>";
             $.get(url, function(dataRTRW){
                 if(dataRTRW){
                     $.each(dataRTRW, function(index, value){
-                        option += "<option value='" + value.id + "'>" + 'RW ' + value.rw + ' / RT ' + value.rt + "</li>";
+                        optionRTRW += "<option value='" + value.id + "'>" + 'RW ' + value.rw + ' / RT ' + value.rt + "</li>";
                     });
-                    $('#rtrw_id').empty().html(option);
+                    $('#rtrw_id').empty().html(optionRTRW);
 
                     $("#rtrw_id").val(rtrw_id). trigger("change.select2");
                 }else{
-                    $('#rtrw_id').html(option);
+                    $('#rtrw_id').html(optionRTRW);
                 } 
             }, 'JSON'); 
 
             // get dasawisma
             url = "{{ route('dasawismaByRTRW', ':id') }}".replace(':id', rtrw_id);
-            option = "<option value=''>&nbsp;</option>";
+            optionDaswisma = "<option value=''>&nbsp;</option>";
             $.get(url, function(dataDasawisma) {
                 if(dataDasawisma){
                     console.log(dataDasawisma);
                     $.each(dataDasawisma, function(index, value){
-                        option += "<option value='" + value.id + "'>" + value.nama +"</li>";
+                        optionDaswisma += "<option value='" + value.id + "'>" + value.nama +"</li>";
                     });
-                    $('#dasawisma_id').empty().html(option);
+                    $('#dasawisma_id').empty().html(optionDaswisma);
 
                     $("#dasawisma_id").val(dasawisma_id).trigger("change.select2");
                 }else{
-                    $('#dasawisma_id').html(option);
+                    $('#dasawisma_id').html(optionDaswisma);
                 } 
             }, 'JSON'); 
         });
