@@ -155,10 +155,6 @@
         table.api().ajax.reload();
     }
 
-    $('.select2').select2({
-        dropdownParent: $('#modalForm')
-    });
-
     $('#kecamatan_id').on('change', function(){
         val = $(this).val();
         option = "<option value=''>Pilih</option>";
@@ -184,8 +180,15 @@
     });
 
     function openForm(){
+        $('.select2').select2({
+            dropdownParent: $('#modalForm')
+        });
         $('#modalForm').modal('show');
     }
+
+    $('#modalForm').on('hidden.bs.modal', function () {
+        $('.select2').select2();
+    });
 
     function add(){
         openForm();

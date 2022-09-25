@@ -12,26 +12,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6 px-0">
-                    <div class="row mb-2">
-                        <label for="layak_huni" class="col-form-label col-md-2 text-end fw-bolder fs-14">Layak Huni </label>
-                        <div class="col-sm-8">
-                            <select class="fs-14 form-control fs-14 r-0 light" id="layak_huni" name="layak_huni">
-                                <option value="99">Semua</option>
-                                <option value="1">Ya</option>
-                                <option value="0">Tidak</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row mb-2">
-                        <label for="kriteria_rmh" class="col-form-label col-md-2 text-end fw-bolder fs-14">Kriteria </label>
-                        <div class="col-sm-8">
-                            <select class="fs-14 form-control fs-14 r-0 light" id="kriteria_rmh" name="kriteria_rmh">
-                                <option value="99">Semua</option>
-                                <option value="1">Sehat</option>
-                                <option value="0">Kurang Sehat</option>
-                            </select>
-                        </div>
-                    </div>
+                    @include('layouts.alamat_filter')
                     <div class="row mb-4">
                         <div class="col-sm-2"></div>
                         <div class="col-sm-8">
@@ -41,16 +22,24 @@
                 </div>
                 <div class="col-md-6 px-0">
                     <div class="row justify-content-center">
-                        <div class="col-md-4 mb-2">
-                            <div class="p-2 bg-info text-white rounded text-center">
-                                <p class="mb-0 fw-bolder fs-16 mb-1">Layak Huni</p>
-                                <p class="mb-0 fs-14"></p>
+                        <div class="row mb-2">
+                            <label for="layak_huni" class="col-form-label col-md-2 text-end fw-bolder fs-14">Layak Huni </label>
+                            <div class="col-sm-8">
+                                <select class="form-select select2Filter" id="layak_huni" name="layak_huni">
+                                    <option value="99">Semua</option>
+                                    <option value="1">Ya</option>
+                                    <option value="0">Tidak</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="col-md-4 mb-2">
-                            <div class="p-2 bg-danger text-white rounded text-center">
-                                <p class="mb-0 fw-bolder fs-16 mb-1">Tidak Layak Huni</p>
-                                <p class="mb-0 fs-14"></p>
+                        <div class="row mb-2">
+                            <label for="kriteria_rmh" class="col-form-label col-md-2 text-end fw-bolder fs-14">Kriteria </label>
+                            <div class="col-sm-8">
+                                <select class="form-select select2Filter" id="kriteria_rmh" name="kriteria_rmh">
+                                    <option value="99">Semua</option>
+                                    <option value="1">Sehat</option>
+                                    <option value="0">Kurang Sehat</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -69,6 +58,7 @@
                             <th>Dasawisma</th>
                             <th>Alamat</th>
                             <th>Kriteria</th>
+                            <th>Layak Huni</th>
                             <th>Jumlah KK</th>
                             <th>Anggota</th>
                             <th>Aksi</th>
@@ -107,6 +97,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @include('layouts.alamat2')
                             <div class="row mb-2">
                                 <label for="rtrw_id" class="col-sm-4 col-form-label fw-bold text-end">RT/RW <span class="text-danger">*</span></label>
                                 <div class="col-sm-8">
@@ -279,6 +270,9 @@
             data: function (data) {
                 data.layak_huni = $('#layak_huni').val();
                 data.kriteria_rmh = $('#kriteria_rmh').val();
+                data.kecamatan_filter = $('#kecamatan_filter').val();
+                data.kelurahan_filter = $('#kelurahan_filter').val();
+                data.rw_filter = $('#rw_filter').val();
             }
         },
         columns: [
@@ -287,6 +281,7 @@
             {data: 'dasawisma_id', name: 'dasawisma_id'},
             {data: 'alamat_detail', name: 'alamat_detail'},
             {data: 'kriteria_rmh', name: 'kriteria_rmh',  className: 'text-center'},
+            {data: 'layak_huni', name: 'layak_huni',  className: 'text-center'},
             {data: 'jumlah_kk', name: 'jumlah_kk', className: 'text-center'},
             {data: 'jumlah_anggota', name: 'jumlah_anggota', className: 'text-center'},
             {data: 'action', name: 'action', className: 'text-center', orderable: false, searchable: false}

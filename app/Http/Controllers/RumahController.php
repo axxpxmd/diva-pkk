@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 // Models
 use App\Models\RTRW;
 use App\Models\Rumah;
+use App\Models\Kecamatan;
 use App\Models\Dasawisma;
 use App\Models\KartuKeluarga;
 
@@ -30,12 +31,21 @@ class RumahController extends Controller
 
         $layak_huni = $request->layak_huni;
         $kriteria_rmh = $request->kriteria_rmh;
+        $rw = $request->rw_filter;
+        $kecamatan_id = $request->kecamatan_filter;
+        $kelurahan_id = $request->kelurahan_filter;
         if ($request->ajax()) {
-            return $this->dataTable($layak_huni, $kriteria_rmh, $dasawisma_id);
+            return $this->dataTable($rw, $kecamatan_id, $kelurahan_id, $layak_huni, $kriteria_rmh, $dasawisma_id);
         }
 
         $dasawismas = Dasawisma::select('id', 'nama')->get();
         $rtrws = RTRW::select('id', 'kecamatan_id', 'kelurahan_id', 'rw', 'rt')->with(['kecamatan', 'kelurahan'])->get();
+        $kecamatans = Kecamatan::select('id', 'n_kecamatan')->where('kabupaten_id', 40)->get();
+
+        // Filter
+        $rwDisplay = true;
+        $kecamatanDisplay = true;
+        $kelurahanDisplay = true;
 
         return view('pages.rumah.index', compact(
             'title',
@@ -44,13 +54,17 @@ class RumahController extends Controller
             'dasawismas',
             'rtrws',
             'dasawisma_id',
-            'rtrw_id'
+            'rtrw_id',
+            'rwDisplay',
+            'kecamatanDisplay',
+            'kelurahanDisplay',
+            'kecamatans'
         ));
     }
 
-    public function dataTable($layak_huni, $kriteria_rmh, $dasawisma_id)
+    public function dataTable($rw, $kecamatan_id, $kelurahan_id, $layak_huni, $kriteria_rmh, $dasawisma_id)
     {
-        $data = Rumah::queryTable($layak_huni, $kriteria_rmh, $dasawisma_id);
+        $data = Rumah::queryTable($rw, $kecamatan_id, $kelurahan_id, $layak_huni, $kriteria_rmh, $dasawisma_id);
 
         return DataTables::of($data)
             ->addColumn('action', function ($p) {
@@ -80,10 +94,16 @@ class RumahController extends Controller
 
                 return $p->kriteria_rmh == 1 ? $sehat : $KurangSehat;
             })
+            ->editColumn('layak_huni', function($p) {
+                $ya = '<span class="badge bg-success">Ya</span>';
+                $tidak = '<span class="badge bg-danger">Tidak</span>';
+
+                return $p->layak_huni == 1 ? $ya : $tidak;
+            })
             ->addColumn('jumlah_anggota', function ($p) {
                 return $p->anggota->count() . ' Orang';
             })
-            ->rawColumns(['id', 'kriteria_rmh', 'action', 'kepala_rumah', 'jumlah_kk'])
+            ->rawColumns(['id', 'kriteria_rmh', 'action', 'kepala_rumah', 'jumlah_kk', 'layak_huni'])
             ->addIndexColumn()
             ->toJson();
     }
@@ -157,7 +177,7 @@ class RumahController extends Controller
             ->addColumn('data_kk', function ($p) {
                 $totalAnggota = $p->anggota->count();
                 $dataRumah    = '<a href="' . route('cetakKartuKeluarga', $p->id) . '" target="blank" class="btn btn-sm btn-info m-r-5"><i class="bi bi-file-pdf-fill m-r-8"></i>Data KK</a>';
-            
+
                 return $totalAnggota != 0 ? $dataRumah : '-';
             })
             ->addColumn('total_anggota', function ($p) {
@@ -213,7 +233,7 @@ class RumahController extends Controller
         return response()->json(['message' => "Berhasil menghapus data."]);
     }
 
-    
+
     public function storeKK(Request $request)
     {
         $request->validate([
