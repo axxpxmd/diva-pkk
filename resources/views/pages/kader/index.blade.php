@@ -168,10 +168,6 @@
         table.api().ajax.reload();
     }
 
-    $('.select2').select2({
-        dropdownParent: $('#modalForm')
-    });
-
     $('#rtrw_id').on('change', function(){
         $('#dasawisma_id').val("").trigger("change.select2");
         val = $(this).val();
@@ -197,8 +193,15 @@
     });
 
     function openForm(){
+        $('.select2').select2({
+            dropdownParent: $('#modalForm')
+        });
         $('#modalForm').modal('show');
     }
+
+    $('#modalForm').on('hidden.bs.modal', function () {
+        $('.select2').select2();
+    });
 
     function formReset(){
         $('#role_id').val("").trigger("change.select2");
