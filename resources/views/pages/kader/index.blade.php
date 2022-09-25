@@ -8,6 +8,31 @@
     <div class="mb-3 text-right">
         <a href="#" onclick="add()" class="btn btn-sm btn-success px-2"><i class="bi bi-plus font-weight-bold fs-16 m-r-5"></i>Tambah Data</a>
     </div>
+    <div class="card my-2">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 px-0">
+                    @include('layouts.alamat_filter')
+                    <div class="row mb-4">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-8">
+                            <button class="btn btn-success btn-sm mr-2" onclick="pressOnChange()"><i class="bi bi-filter m-r-8"></i>Filter</button>
+                        </div> 
+                    </div>
+                </div>
+                <div class="col-md-6 px-0">
+                    <div class="row justify-content-center">
+                        <div class="col-md-4 mb-2">
+                            <div class="p-2 bg-info text-white rounded text-center">
+                                <p class="mb-0 fw-bolder fs-16 mb-1">Jumlah Kader</p>
+                                <p class="mb-0 fs-14"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
     <div class="card">  
         <div class="card-body">
              <div class="table-responsive">
@@ -120,7 +145,12 @@
         pageLength: 25,
         ajax: {
             url: "{{ route('kader.index') }}",
-            method: 'GET'
+            method: 'GET',
+            data: function (data) {
+                data.kecamatan_filter = $('#kecamatan_filter').val();
+                data.kelurahan_filter = $('#kelurahan_filter').val();
+                data.rw_filter = $('#rw_filter').val();
+            }
         },
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex', className: 'text-center', orderable: false, searchable: false},
@@ -132,6 +162,11 @@
             {data: 'action', name: 'action', className: 'text-center', orderable: false, searchable: false}
         ]
     });
+
+    pressOnChange();
+    function pressOnChange(){
+        table.api().ajax.reload();
+    }
 
     $('.select2').select2({
         dropdownParent: $('#modalForm')

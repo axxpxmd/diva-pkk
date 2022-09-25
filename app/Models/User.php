@@ -31,12 +31,19 @@ class User extends Authenticatable
         return $this->belongsTo(ModelHasRole::class, 'id', 'model_id');
     }
 
-    public static function queryTable()
+    public static function queryTable($rw, $kecamatan_id, $kelurahan_id)
     {
-        $data =  User::join('model_has_roles', 'model_has_roles.model_id', '=', 'users.id')
+        $data =  User::select('users.id as id', 'dasawisma_id', 'rtrw_id', 'username', 'no_telp', 'nik', 'alamat', 'nama')
+            ->join('model_has_roles', 'model_has_roles.model_id', '=', 'users.id')
+            ->join('rt_rw', 'rt_rw.id', '=', 'users.rtrw_id')
             ->whereNotIn('model_has_roles.role_id', [1])
-            ->get();
+            ->when($kecamatan_id, function ($q) use ($kecamatan_id) {
+                return $q->where('kecamatan_id', $kecamatan_id);
+            })
+            ->when($kelurahan_id, function ($q) use ($kelurahan_id) {
+                return $q->where('kelurahan_id', $kelurahan_id);
+            });
 
-        return $data;
+        return $data->OrderBy('users.id', 'DESC')->get();
     }
 }

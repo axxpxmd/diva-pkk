@@ -39,7 +39,6 @@ class DasawismaController extends Controller
         }
 
         $kecamatans = Kecamatan::select('id', 'n_kecamatan')->where('kabupaten_id', 40)->get();
-        $users = User::queryTable();
 
         // Filter
         $rwDisplay = true;
@@ -50,7 +49,6 @@ class DasawismaController extends Controller
             'title',
             'desc',
             'active_dasawisma',
-            'users',
             'kecamatans',
             'rwDisplay',
             'kecamatanDisplay',

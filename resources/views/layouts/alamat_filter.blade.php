@@ -24,7 +24,7 @@
 <div class="row mb-2">
     <label for="RW" class="col-form-label col-md-2 text-end fw-bolder fs-14">RW </label>
     <div class="col-sm-8">
-        <input type="number" name="rw_filter" id="rw_filter" class="form-control" placeholder="Masukan No RW" autocomplete="off">
+        <input type="number" name="rw_filter" id="rw_filter" class="form-control" placeholder="Masukan No RW / 3 digit" autocomplete="off">
     </div>
 </div>
 @endif

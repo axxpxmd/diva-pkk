@@ -27,8 +27,11 @@ class KaderController extends Controller
         $desc  = $this->desc;
         $active_kader = $this->active_kader;
 
+        $rw = $request->rw_filter;
+        $kecamatan_id = $request->kecamatan_filter;
+        $kelurahan_id = $request->kelurahan_filter;
         if ($request->ajax()) {
-            return $this->dataTable();
+            return $this->dataTable($rw, $kecamatan_id, $kelurahan_id);
         }
 
         $rtrws = RTRW::select('id', 'kecamatan_id', 'kelurahan_id', 'rt', 'rw');
@@ -36,6 +39,11 @@ class KaderController extends Controller
         $rtrwKelurahans = $rtrws->groupBy('kelurahan_id')->get();
         $roles = Role::select('id', 'name')->whereNotIn('id', [1])->get();
         $kecamatans = Kecamatan::select('id', 'n_kecamatan')->where('kabupaten_id', 40)->get();
+
+        // Filter
+        $rwDisplay = true;
+        $kecamatanDisplay = true;
+        $kelurahanDisplay = true;
 
         return view('pages.kader.index', compact(
             'title',
@@ -45,13 +53,16 @@ class KaderController extends Controller
             'roles',
             'rtrwKelurahans',
             'rtrwAlls',
-            'kecamatans'
+            'kecamatans',
+            'rwDisplay',
+            'kecamatanDisplay',
+            'kelurahanDisplay'
         ));
     }
 
-    public function dataTable()
+    public function dataTable($rw, $kecamatan_id, $kelurahan_id)
     {
-        $data = User::queryTable();
+        $data = User::queryTable($rw, $kecamatan_id, $kelurahan_id);
 
         return DataTables::of($data)
             ->rawColumns(['id', 'nama'])
