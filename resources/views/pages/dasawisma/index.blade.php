@@ -136,13 +136,16 @@
         table.api().ajax.reload();
     }
 
-    $('.select2').select2({
-        dropdownParent: $('#modalForm')
-    });
-
     function openForm(){
+        $('.select2').select2({
+            dropdownParent: $('#modalForm')
+        });
         $('#modalForm').modal('show');
     }
+
+    $('#modalForm').on('hidden.bs.modal', function () {
+        $('.select2').select2();
+    });
 
     function showKetua(id){
         $('#loading').show();
