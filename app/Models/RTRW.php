@@ -33,6 +33,11 @@ class RTRW extends Model
         return $this->hasMany(Rumah::class, 'rtrw_id');
     }
 
+    public function kk()
+    {
+        return $this->hasMany(KartuKeluarga::class, 'rtrw_id');
+    }
+
     public static function queryTable($rw, $kecamatan_id, $kelurahan_id)
     {
         $data = RTRW::select('id', 'kecamatan_id', 'kelurahan_id', 'n_kecamatan', 'n_kelurahan', 'rt', 'rw', 'keterangan', 'ketua_rt')

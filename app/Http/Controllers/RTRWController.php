@@ -83,7 +83,7 @@ class RTRWController extends Controller
                 return $p->n_kecamatan;
             })
             ->addColumn('jumlah', function ($p) {
-                return 'Rumah ' . $p->rumah->count() . ' / ' . 'Warga 0';
+                return 'Rumah ' . $p->rumah->count() . ' / ' . 'KK ' . $p->kk->count() . ' / ' . 'Warga 0';
             })
             ->editColumn('ketua_rt', function ($p) {
                 $add = "<a href='" . route('rt-rw.createKetuaRT', $p->id) . "' class='text-info' title='Tambah Ketua RT'><i class='bi bi-person-plus-fill'></i></a>";

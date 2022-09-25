@@ -189,17 +189,18 @@
                     {{ method_field('POST') }}
                     <input type="text" class="d-none" id="id" name="id"/>
                     <input type="text" class="d-none" id="rumah_id" name="rumah_id" value="{{ $id }}">
+                    <input type="text" class="d-none" id="rtrw_id" name="rtrw_id" value="{{ $data->rtrw_id }}">
                     <div id="alert"></div>
-                    <div class="row mb-2">
-                        <label for="no_kk" class="col-sm-3 col-form-label fw-bold">No KK <span class="text-danger">*</span></label>
-                        <div class="col-sm-9">
-                          <input type="number" name="no_kk" id="no_kk" class="form-control" placeholder="Nomor Kartu Keluarga" autocomplete="off" required>
-                        </div>
-                    </div>
                     <div class="row mb-2">
                         <label for="nm_kpl_klrga" class="col-sm-3 col-form-label fw-bold">Kepala Keluarga <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
                           <input type="text" name="nm_kpl_klrga" id="nm_kpl_klrga" class="form-control" placeholder="Nama Kepala Keluarga" autocomplete="off" required>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <label for="no_kk" class="col-sm-3 col-form-label fw-bold">No KK <span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                          <input type="text" maxlength="16" name="no_kk" id="no_kk" class="form-control" placeholder="Nomor Kartu Keluarga" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="row mb-2">
@@ -234,7 +235,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-info">
-                <h5 class="modal-title text-white" id="exampleModalLabel"><span id="txtTitle"></span> Data {{ $title }}</h5>
+                <h5 class="modal-title text-white" id="exampleModalLabel"><span id="txtTitle"></span> Tambah Anggota KK</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-center">
@@ -330,6 +331,8 @@
             $.post(url, $(this).serialize(), function(data){
                 $('#alert').html("<div class='alert alert-success alert-dismissible' role='alert'><strong>Sukses!</strong> " + data.message + "</div>");
                 table.api().ajax.reload();
+                $('#form').removeClass('was-validated');
+                $('#domisili').val("").trigger("change.select2");
                 if(save_method == 'add') $('#form').trigger('reset');
             },'json').fail(function(data){
                 err = ''; respon = data.responseJSON;
@@ -343,7 +346,6 @@
             });
             return false;
         }
-        $(this).addClass('was-validated');
     });
 
     function remove(id){

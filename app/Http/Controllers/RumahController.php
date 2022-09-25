@@ -83,7 +83,7 @@ class RumahController extends Controller
                 return $action;
             })
             ->addColumn('jumlah_kk', function ($p) {
-                return $p->kk->count() . " <a href='" . route('rumah.show', $p->id) . "' class='text-success fs-16' title='Tambah KK'><i class='bi bi-file-plus-fill m-l-5'></i></a>";
+                return $p->kk->count() . " <a href='" . route('rumah.show', $p->id) . "' class='text-info fs-16' title='Tambah KK'><i class='bi bi-file-plus-fill m-l-5'></i></a>";
             })
             ->editColumn('dasawisma_id', function ($p) {
                 return $p->dasawisma->nama;
@@ -145,10 +145,9 @@ class RumahController extends Controller
         $id    = $id;
 
         $data = Rumah::find($id);
-        $rumah_id = $data->id;
 
         if ($request->ajax()) {
-            return $this->dataTableKK($rumah_id);
+            return $this->dataTableKK($id);
         }
 
         return view('pages.rumah.show', compact(
@@ -255,7 +254,7 @@ class RumahController extends Controller
     {
         $request->validate([
             'rumah_id' => 'required',
-            'no_kk' => 'required|unique:kk,no_kk|max:16',
+            'no_kk' => 'required|unique:kk,no_kk|digits:16|numeric',
             'nm_kpl_klrga' => 'required|max:100',
             'thn_input' => 'required|max:4'
         ]);
@@ -278,7 +277,7 @@ class RumahController extends Controller
     {
         $request->validate([
             'rumah_id' => 'required',
-            'no_kk' => 'required|max:16|unique:kk,no_kk,' . $id,
+            'no_kk' => 'required|digits:16|numeric|unique:kk,no_kk,' . $id,
             'nm_kpl_klrga' => 'required|max:100',
             'thn_input' => 'required|max:4'
         ]);
