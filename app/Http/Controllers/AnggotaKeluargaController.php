@@ -87,31 +87,29 @@ class AnggotaKeluargaController extends Controller
         $rumah_id = $request->rumah_id;
         $no_kk    = $request->no_kk;
 
-        $dasawisma_id = Auth::user()->dasawisma_id;
-        $rtrw_id = Auth::user()->dasawisma->rtrw_id;
+        $dasawisma_id =  $request->dasawisma_id ? $request->dasawisma_id : Auth::user()->dasawisma->dasawisma_id;
+        $rtrw_id = $request->rtrw_id ? $request->rtrw_id : Auth::user()->dasawisma->rtrw_id;
 
         $dasawismas = Dasawisma::select('id', 'nama')->get();
-        $rtrws = RTRW::select('id', 'kecamatan_id', 'kelurahan_id', 'rw', 'rt')->with(['kecamatan', 'kelurahan'])->get();
+        $rtrw = RTRW::select('id', 'kecamatan_id', 'kelurahan_id', 'rw', 'rt')->where('id', $rtrw_id)->first();
         $kecamatans = Kecamatan::select('id', 'n_kecamatan')->where('kabupaten_id', 40)->get();
-        $rumah = Rumah::select('id', 'kepala_rumah', 'alamat_detail')
-            ->when($dasawisma_id != 0, function ($q) use ($dasawisma_id) {
-                return $q->where('dasawisma_id', $dasawisma_id);
-            })
-            ->get();
+
+        $kelurahan_id = $rtrw ? $rtrw->kelurahan_id : 0;
+        $kecamatan_id = $rtrw ? $rtrw->kecamatan_id : 0;
 
         return view('pages.anggota_keluarga.create', compact(
             'title',
             'desc',
             'active_anggota',
             'dasawismas',
-            'rtrws',
             'dasawisma_id',
             'rtrw_id',
-            'rumah',
             'status',
             'rumah_id',
             'no_kk',
-            'kecamatans'
+            'kecamatans',
+            'kecamatan_id',
+            'kelurahan_id'
         ));
     }
 
@@ -267,6 +265,7 @@ class AnggotaKeluargaController extends Controller
             $data1AnggotaDetail = [
                 'anggota_id' => $anggota->id,
                 'domisili' => $request->domisili,
+                'almt_luar_tangsel' => $request->almt_luar_tangsel,
                 'terdaftar_dukcapil' => $request->terdaftar_dukcapil,
                 'wus' => $request->wus,
                 'pus' => $request->pus,

@@ -4,7 +4,7 @@
         <select class="form-select select2" name="kecamatan_id" id="kecamatan_id">
             <option value="">Pilih</option>
             @foreach ($kecamatans as $i)
-                <option value="{{ $i->id }}">{{ $i->n_kecamatan }}</option>
+                <option value="{{ $i->id }}" {{ isset($kecamatan_id) ? $i->id == $kecamatan_id ? 'selected' : '-' : '' }}>{{ $i->n_kecamatan }}</option>
             @endforeach
         </select>
     </div>
@@ -27,6 +27,12 @@
 </div>
 @push('script')
 <script type="text/javascript">
+    kelurahan_id = "{{ isset($kelurahan_id) ? $kelurahan_id : 0 }}"
+    rtrw_id = "{{ isset($rtrw_id) ? $rtrw_id : 0 }}"
+
+    $(document).ready(function(){
+        $("#kecamatan_id").trigger('change');
+    })
     $('#kecamatan_id').on('change', function(){
         $('#kelurahan_id').val("").trigger("change.select2");
         $('#rtrw_id').val("").trigger("change.select2");
@@ -45,7 +51,13 @@
                     });
                     $('#kelurahan_id').empty().html(option);
 
-                    $("#kelurahan_id").val($("#kelurahan_id option:first").val());
+                    if (kelurahan_id) {
+                        $("#kelurahan_id").val(kelurahan_id);
+                        $("#kelurahan_id").trigger('change');
+                    } else {
+                        $("#kelurahan_id").val($("#kelurahan_id option:first").val());
+                    }
+                   
                 }else{
                     $('#kelurahan_id').html(option);
                 }
@@ -70,7 +82,12 @@
                     });
                     $('#rtrw_id').empty().html(option);
 
-                    $("#rtrw_id").val($("#rtrw_id option:first").val());
+                    if (rtrw_id) {
+                        $("#rtrw_id").val(rtrw_id);   
+                        $("#rtrw_id").trigger('change');
+                    } else {
+                        $("#rtrw_id").val($("#rtrw_id option:first").val());
+                    }
                 }else{
                     $('#rtrw_id').html(option);
                 }

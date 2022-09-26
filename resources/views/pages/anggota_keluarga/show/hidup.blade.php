@@ -59,6 +59,12 @@
             <label class="col-sm-4 col-form-label fw-bold">NIK</label>
             <label class="col-sm-8 col-form-label">{{ $anggota->nik }} / {{ $anggota_detail->domisili == 1 ? 'Tangerang Selatan' : 'Luar Tangsel' }}</label>
         </div>
+        @if ($anggota_detail->domisili == 0)
+        <div class="row p-0">
+            <label class="col-sm-4 col-form-label fw-bold">Alamat Luar Tangsel</label>
+            <label class="col-sm-8 col-form-label">{{ $anggota_detail->almt_luar_tangsel }}</label>
+        </div>
+        @endif
         <div class="row p-0">
             <label class="col-sm-4 col-form-label fw-bold">No KK</label>
             <label class="col-sm-8 col-form-label">{{ $anggota->no_kk }} ( {{ $anggota->kk ? $anggota->kk->nm_kpl_klrga : '' }} )</label>

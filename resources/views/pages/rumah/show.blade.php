@@ -280,8 +280,10 @@
 
     function sendNoKK(no_kk){
         rumah_id = "{{ $data->id }}"
+        rtrw_id  = "{{ $data->rtrw_id }}"
+        dasawisma_id = "{{ $data->dasawisma_id }}"
 
-        params= "&rumah_id=" + rumah_id + "&no_kk=" + no_kk
+        params= "&rumah_id=" + rumah_id + "&no_kk=" + no_kk + "&rtrw_id=" + rtrw_id + "&dasawisma_id=" + dasawisma_id
 
         urlHidup = "{{ route('anggota-keluarga.create', 'status=1') }}" + params
         urlMeninggal = "{{ route('anggota-keluarga.create', 'status=0') }}" + params

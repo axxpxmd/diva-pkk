@@ -83,6 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
             dasawisma_id = $('#dasawisma_id').val();
             status_kawin = $('#status_kawin').val();
             rtrw_id = $('#rtrw_id').val();
+            almt_luar_tangsel = $('#almt_luar_tangsel').val();
 
             // Radio
             jabatan = $('input[name="jabatan"]:checked').val();
@@ -121,7 +122,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     jabatan: jabatan,
                     pus: pus,
                     wus: wus,
-                    rtrw_id: rtrw_id
+                    rtrw_id: rtrw_id,
+                    almt_luar_tangsel: almt_luar_tangsel
                 },
                 success:function(response){
                     $('.add-required-form2').prop('required', true)

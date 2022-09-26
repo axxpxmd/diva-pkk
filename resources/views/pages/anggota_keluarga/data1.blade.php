@@ -68,8 +68,11 @@
             </div>
         </div>
         <div id="alamatLuarTangsel">
-            <div class="bg-light-secondary p-2 rounded mb-3">
-                <span class="fw-bold">Alamat Luar Tangsel</span>
+            <div class="row mb-2">
+                <label class="col-sm-4 col-form-label text-end fw-bold"></label>
+                <div class="col-sm-8">
+                    <textarea type="text" name="almt_luar_tangsel" id="almt_luar_tangsel" placeholder="Alamat Luar Tangsel" class="form-control" autocomplete="off"></textarea>
+                </div>
             </div>
         </div>
         <div class="row mb-2">
@@ -304,7 +307,10 @@
 </div>
 @push('script')
 <script type="text/javascript">
-     $('#rtrw_id').on('change', function(){
+    dasawisma_id = "{{ $dasawisma_id }}"
+    rumah_id = "{{ $rumah_id }}"
+
+    $('#rtrw_id').on('change', function(){
         $('#dasawisma_id').val("").trigger("change.select2");
         val = $(this).val();
         optionDasawisma = "<option value=''>Pilih</option>";
@@ -320,7 +326,12 @@
                     });
                     $('#dasawisma_id').empty().html(optionDasawisma);
 
-                    $("#dasawisma_id").val($("#dasawisma_id option:first").val()).trigger("change.select2");
+                    if (dasawisma_id) {
+                        $("#dasawisma_id").val(dasawisma_id); 
+                        $("#dasawisma_id").trigger('change'); 
+                    } else {
+                        $("#dasawisma_id").val($("#dasawisma_id option:first").val());
+                    }
                 }else{
                     $('#dasawisma_id').html(optionDasawisma);
                 }
@@ -344,7 +355,11 @@
                     });
                     $('#rumah_id').empty().html(optionRumah);
 
-                    $("#rumah_id").val($("#rumah_id option:first").val()).trigger("change.select2");
+                    if (rumah_id) {
+                        $("#rumah_id").val(rumah_id);   
+                    } else {
+                        $("#rumah_id").val($("#rumah_id option:first").val());
+                    }
                 }else{
                     $('#rumah_id').html(optionRumah);
                 }
@@ -415,7 +430,9 @@
             $('#alamatLuarTangsel').hide();
             if (domisili == 0) {
                 $('#alamatLuarTangsel').show();
+                $('#almt_luar_tangsel').prop({'required' : true})
             } else {
+                $('#almt_luar_tangsel').prop({'required' : false})
                 $('#alamatLuarTangsel').hide();
             }
         } else {
