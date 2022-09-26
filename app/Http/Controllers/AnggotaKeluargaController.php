@@ -17,6 +17,7 @@ use App\Models\Rumah;
 use App\Models\Anggota;
 use App\Models\Dasawisma;
 use App\Models\AnggotaDetail;
+use App\Models\Kecamatan;
 
 class AnggotaKeluargaController extends Controller
 {
@@ -91,6 +92,7 @@ class AnggotaKeluargaController extends Controller
 
         $dasawismas = Dasawisma::select('id', 'nama')->get();
         $rtrws = RTRW::select('id', 'kecamatan_id', 'kelurahan_id', 'rw', 'rt')->with(['kecamatan', 'kelurahan'])->get();
+        $kecamatans = Kecamatan::select('id', 'n_kecamatan')->where('kabupaten_id', 40)->get();
         $rumah = Rumah::select('id', 'kepala_rumah', 'alamat_detail')
             ->when($dasawisma_id != 0, function ($q) use ($dasawisma_id) {
                 return $q->where('dasawisma_id', $dasawisma_id);
@@ -108,7 +110,8 @@ class AnggotaKeluargaController extends Controller
             'rumah',
             'status',
             'rumah_id',
-            'no_kk'
+            'no_kk',
+            'kecamatans'
         ));
     }
 
@@ -117,8 +120,9 @@ class AnggotaKeluargaController extends Controller
         $request->validate([
             'dasawisma_id' => 'required',
             'rumah_id' => 'required',
+            'rtrw_id' => 'required',
             'terdaftar_dukcapil' => 'required|in:0, 1',
-            'nik' => 'required_if:terdaftar_dukcapil,1',
+            'nik' => 'required_if:terdaftar_dukcapil,1|digits:16|numeric',
             'domisili' => 'required_if:terdaftar_dukcapil,1|in:0,1',
             'no_kk' => 'required_if:terdaftar_dukcapil,1',
             'nama' => 'required|string|max:100',
@@ -240,6 +244,7 @@ class AnggotaKeluargaController extends Controller
             $data1Anggota = [
                 'status_hidup' => 1,
                 'rumah_id' => $request->rumah_id,
+                'rtrw_id' => $request->rtrw_id,
                 'nik' => $request->nik,
                 'no_kk' => $request->no_kk,
                 'nama' => $request->nama,

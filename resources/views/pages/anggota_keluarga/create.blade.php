@@ -82,6 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
             pendidikan = $('#pendidikan').val();
             dasawisma_id = $('#dasawisma_id').val();
             status_kawin = $('#status_kawin').val();
+            rtrw_id = $('#rtrw_id').val();
 
             // Radio
             jabatan = $('input[name="jabatan"]:checked').val();
@@ -119,7 +120,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     pekerjaan: pekerjaan,
                     jabatan: jabatan,
                     pus: pus,
-                    wus: wus
+                    wus: wus,
+                    rtrw_id: rtrw_id
                 },
                 success:function(response){
                     $('.add-required-form2').prop('required', true)

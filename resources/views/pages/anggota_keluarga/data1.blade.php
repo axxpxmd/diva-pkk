@@ -1,13 +1,14 @@
 <div class="row mt-2">
     <div class="col-sm-6">
+        <div class="bg-light-secondary p-2 rounded mb-3">
+            <span class="fw-bold">Dasawisma</span>
+        </div>
+        @include('layouts.alamat2')
         <div class="row mb-2">
-            <label class="col-sm-4 col-form-label fw-bold text-end">Dasawisma <span class="text-danger">*</span></label>
+            <label for="dasawisma_id" class="col-sm-4 col-form-label fw-bold text-end">Dasawisma <span class="text-danger">*</span></label>
             <div class="col-sm-8">
-                <select class="select2 form-select" id="dasawisma_id" name="dasawisma_id" required>
+                <select class="form-control select2" name="dasawisma_id" id="dasawisma_id">
                     <option value="">Pilih</option>
-                    @foreach ($dasawismas as $i)
-                        <option value="{{ $i->id }}" {{ $i->id == $dasawisma_id ? 'selected' : '-' }}>{{ $i->nama }}</option>
-                    @endforeach
                 </select>
                 <div class="invalid-feedback">
                     Silahkan pilih dasawisma.
@@ -17,17 +18,15 @@
         <div class="row mb-2">
             <label class="col-sm-4 col-form-label fw-bold text-end">Rumah <span class="text-danger">*</span></label>
             <div class="col-sm-8">
-                <select class="form-control select2" name="rumah_id" id="rumah_id" required>
+                <select class="form-control select2" name="rumah_id" id="rumah_id">
                     <option value="">Pilih</option>
-                    @foreach ($rumah as $i)
-                        <option value="{{ $i->id }}" {{ $i->id == $rumah_id ? 'selected' : '-' }}>{{ $i->kepala_rumah }}</option>
-                    @endforeach
                 </select>
                 <div class="invalid-feedback">
-                    Silahkan pilih kepala rumah.
+                    Silahkan pilih Rumah.
                 </div>
             </div>
         </div>
+        <hr>
         <div class="row mb-2">
             <label class="col-sm-4 col-form-label text-end fw-bold">Terdaftar Dukcapil <span class="text-danger">*</span></label>
             <div class="col-sm-4 m-t-6">
@@ -46,8 +45,13 @@
         <div class="row mb-2">
             <label class="col-sm-4 col-form-label text-end fw-bold">NIK</label>
             <div class="col-sm-8">
-                <input type="number" name="nik" id="nik" class="form-control" placeholder="16 Digit" autocomplete="off">
-                <div class="row my-2">
+                <input type="text" maxlength="16" name="nik" id="nik" class="form-control" placeholder="16 Digit" autocomplete="off">
+            </div>
+        </div>
+        <div class="row mb-2">
+            <label class="col-sm-4 col-form-label text-end fw-bold">Domisili</label>
+            <div class="col-sm-8">
+                <div class="row">
                     <div class="col-sm-6 m-t-6">
                         <input type="radio" value="0" name="domisili" id="domisili" class="form-check-input">
                         <label class="form-check-label m-l-10">
@@ -61,6 +65,11 @@
                         </label>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div id="alamatLuarTangsel">
+            <div class="bg-light-secondary p-2 rounded mb-3">
+                <span class="fw-bold">Alamat Luar Tangsel</span>
             </div>
         </div>
         <div class="row mb-2">
@@ -295,6 +304,54 @@
 </div>
 @push('script')
 <script type="text/javascript">
+     $('#rtrw_id').on('change', function(){
+        $('#dasawisma_id').val("").trigger("change.select2");
+        val = $(this).val();
+        optionDasawisma = "<option value=''>Pilih</option>";
+        if(val == ""){
+            $('#dasawisma_id').html(optionDasawisma);
+        }else{
+            $('#dasawisma_id').html("<option value=''>Loading...</option>");
+            url = "{{ route('dasawismaByRTRW', ':id') }}".replace(':id', val);
+            $.get(url, function(data){
+                if(data){
+                    $.each(data, function(index, value){
+                        optionDasawisma += "<option value='" + value.id + "'>" + value.nama +"</li>";
+                    });
+                    $('#dasawisma_id').empty().html(optionDasawisma);
+
+                    $("#dasawisma_id").val($("#dasawisma_id option:first").val()).trigger("change.select2");
+                }else{
+                    $('#dasawisma_id').html(optionDasawisma);
+                }
+            }, 'JSON'); 
+        }
+    });
+
+    $('#dasawisma_id').on('change', function(){
+        $('#rumah_id').val("").trigger("change.select2");
+        val = $(this).val();
+        optionRumah = "<option value=''>Pilih</option>";
+        if(val == ""){
+            $('#rumah_id').html(optionRumah);
+        }else{
+            $('#rumah_id').html("<option value=''>Loading...</option>");
+            url = "{{ route('rumahByDasawisma', ':id') }}".replace(':id', val);
+            $.get(url, function(data){
+                if(data){
+                    $.each(data, function(index, value){
+                        optionRumah += "<option value='" + value.id + "'>" + value.kepala_rumah +"</li>";
+                    });
+                    $('#rumah_id').empty().html(optionRumah);
+
+                    $("#rumah_id").val($("#rumah_id option:first").val()).trigger("change.select2");
+                }else{
+                    $('#rumah_id').html(optionRumah);
+                }
+            }, 'JSON'); 
+        }
+    });
+
     $('#rumah_id').on('change', function(){
         val = $(this).val();
         option = "<option value=''>Pilih</option>";
@@ -346,16 +403,26 @@
         }
     });
 
-    $('#terdaftar_dukcapil,#rumah_id').on('change', function(){
+    $('#alamatLuarTangsel').hide();
+    $('#terdaftar_dukcapil,#rumah_id,#domisili').on('change', function(){
         terdaftar_dukcapil = $('input[name="terdaftar_dukcapil"]:checked').val();
         rumah_id = $('#rumah_id').val();
         url = "{{ route('getNoKKByKepalaKeluarga', ':id') }}".replace(':id', rumah_id);
+        domisili = $('input[name="domisili"]:checked').val();
 
         if (terdaftar_dukcapil == 1) {
             $("#nik,#no_kk,#domisili").prop({'disabled': false, 'required' : true});
+            $('#alamatLuarTangsel').hide();
+            if (domisili == 0) {
+                $('#alamatLuarTangsel').show();
+            } else {
+                $('#alamatLuarTangsel').hide();
+            }
         } else {
             $("#nik,#no_kk").prop({'value': null});
             $("#nik,#no_kk,#domisili").prop({'checked': false,'disabled': true, 'required' : false});
+            $('#alamatLuarTangsel').hide();
+            $('#no_kk').val("").trigger("change.select2");
         }
 
         if (rumah_id != "") {

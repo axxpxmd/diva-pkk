@@ -48,6 +48,13 @@ class UtilityController extends Controller
         return $data;
     }
 
+    public function rumahByDasawisma($id)
+    {
+        $data = Rumah::where('dasawisma_id', $id)->get();
+
+        return $data;
+    }
+
     public function nokkByRumah($id)
     {
         $data = KartuKeluarga::where('rumah_id', $id)->get();
