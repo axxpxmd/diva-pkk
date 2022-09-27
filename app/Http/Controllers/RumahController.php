@@ -27,13 +27,15 @@ class RumahController extends Controller
         $active_rumah = $this->active_rumah;
 
         $dasawisma_id = Auth::user()->dasawisma_id;
-        $rtrw_id = Auth::user()->dasawisma->rtrw_id;
+        $rtrw_id = Auth::user()->rtrw_id;
 
-        $rtrw_id      = $request->rtrw_filter;
+        $check_rtrw = Auth::user()->rtrw;
+
+        $rtrw_id      = $check_rtrw ? $rtrw_id : $request->rtrw_filter;
         $layak_huni   = $request->layak_huni;
         $kriteria_rmh = $request->kriteria_rmh;
-        $kecamatan_id = $request->kecamatan_filter;
-        $kelurahan_id = $request->kelurahan_filter;
+        $kecamatan_id = $check_rtrw ? $check_rtrw->kecamatan_id : $request->kecamatan_filter;
+        $kelurahan_id = $check_rtrw ? $check_rtrw->kelurahan_id : $request->kelurahan_filter;
         if ($request->ajax()) {
             return $this->dataTable($rtrw_id, $kecamatan_id, $kelurahan_id, $layak_huni, $kriteria_rmh, $dasawisma_id);
         }
@@ -58,7 +60,9 @@ class RumahController extends Controller
             'rtrwDisplay',
             'kecamatanDisplay',
             'kelurahanDisplay',
-            'kecamatans'
+            'kecamatans',
+            'kecamatan_id',
+            'kelurahan_id'
         ));
     }
 

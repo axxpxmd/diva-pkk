@@ -2,9 +2,9 @@
 <div class="row mb-2">
     <label for="kecamatan_filter" class="col-form-label col-md-3 text-end fw-bolder fs-14">Kecamatan </label>
     <div class="col-sm-8">
-        <select class="form-select select2" id="kecamatan_filter" name="kecamatan_filter">
+        <select class="form-select select2" id="kecamatan_filter" name="kecamatan_filter" {{ isset($kecamatan_id) ? 'disabled' : '-' }}>
             @foreach ($kecamatans as $i)
-                <option value="{{ $i->id }}">{{ $i->n_kecamatan }}</option>
+                <option value="{{ $i->id }}" {{ isset($kecamatan_id) ? $kecamatan_id == $i->id ? 'selected' : '-' : '-' }}>{{ $i->n_kecamatan }}</option>
             @endforeach
         </select>
     </div>
@@ -14,7 +14,7 @@
 <div class="row mb-2">
     <label for="kelurahan_filter" class="col-form-label col-md-3 text-end fw-bolder fs-14">Kelurahan </label>
     <div class="col-sm-8">
-        <select class="form-select select2" name="kelurahan_filter" id="kelurahan_filter">
+        <select class="form-select select2" name="kelurahan_filter" id="kelurahan_filter" {{ isset($kelurahan_id) ? 'disabled' : '-' }}>
             <option value="">Pilih</option>
         </select>
     </div>
@@ -34,7 +34,7 @@
 <div class="row mb-2">
     <label for="RW" class="col-form-label col-md-3 text-end fw-bolder fs-14">RT / RW </label>
     <div class="col-sm-8">
-        <select class="form-select select2" name="rtrw_filter" id="rtrw_filter">
+        <select class="form-select select2" name="rtrw_filter" id="rtrw_filter" {{ isset($rtrw_id) ? 'disabled' : '-' }}>
             <option value="">Pilih</option>
         </select>
     </div>
@@ -42,6 +42,9 @@
 @endif
 @push('script')
 <script type="text/javascript">
+    kelurahan_id = "{{ isset($kelurahan_id) ? $kelurahan_id : 0 }}"
+    rtrw_id = "{{ isset($rtrw_id) ? $rtrw_id : 0 }}"
+
     $(document).ready(function() {
         $('.select2').select2();
     });
@@ -65,7 +68,13 @@
                     });
                     $('#kelurahan_filter').empty().html(optionKelurahan);
 
-                    $("#kelurahan_filter").val($("#kelurahan_filter option:first").val());
+                    if (kelurahan_id) {
+                        $("#kelurahan_filter").val(kelurahan_id);
+                        $("#kelurahan_filter").trigger('change');
+                    } else {
+                        $("#kelurahan_filter").val($("#kelurahan_filter option:first").val());
+                    }
+
                 }else{
                     $('#kelurahan_filter').html(optionKelurahan);
                 }
@@ -112,7 +121,13 @@
                     });
                     $('#rtrw_filter').empty().html(optionRTRW);
 
-                    $("#rtrw_filter").val($("#rtrw_filter option:first").val());
+                    if (rtrw_id) {
+                        $("#rtrw_filter").val(rtrw_id);   
+                        $("#rtrw_filter").trigger('change');
+                    } else {
+                        $("#rtrw_filter").val($("#rtrw_filter option:first").val());
+                    }
+
                 }else{
                     $('#rtrw_filter').html(optionRTRW);
                 }

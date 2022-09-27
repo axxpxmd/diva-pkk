@@ -87,6 +87,7 @@ class KaderController extends Controller
     {
         $request->validate([
             'nama' => 'required',
+            'username' => 'required|unique:users,username',
             'nik' => 'required|digits:16|unique:users,nik|numeric',
             'dasawisma_id' => 'required',
             'role_id' => 'required',
@@ -171,6 +172,7 @@ class KaderController extends Controller
     {
         $request->validate([
             'nama' => 'required',
+            'username' => 'required|unique:users,username,' . $id,
             'nik' => 'required|digits:16|numeric|unique:users,nik,' . $id,
             'no_telp' => 'required|digits:13|numeric|unique:users,no_telp,' . $id,
             'dasawisma_id' => 'required',

@@ -66,6 +66,19 @@
                     <input type="text" class="d-none" id="id" name="id"/>
                     <div id="alert"></div>
                     <div class="text-center bg-light-secondary p-2 rounded mb-3">
+                        <span class="fw-bold">Pilih Dasawisma</span>
+                    </div>
+                    @include('layouts.alamat')
+                    <div class="row mb-2">
+                        <label for="dasawisma_id" class="col-sm-3 col-form-label fw-bold">Dasawisma <span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <select class="form-control select2" name="dasawisma_id" id="dasawisma_id">
+                                <option value="">Pilih</option>
+                            </select>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="text-center bg-light-secondary p-2 rounded mb-3">
                         <span class="fw-bold">Data Diri</span>
                     </div>
                     <div class="row mb-2">
@@ -106,19 +119,6 @@
                                 @foreach ($roles as $i)
                                     <option value="{{ $i->id }}">{{ $i->name }}</option>
                                 @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="text-center bg-light-secondary p-2 rounded mb-3">
-                        <span class="fw-bold">Pilih Dasawisma</span>
-                    </div>
-                    @include('layouts.alamat')
-                    <div class="row mb-2">
-                        <label for="dasawisma_id" class="col-sm-3 col-form-label fw-bold">Dasawisma <span class="text-danger">*</span></label>
-                        <div class="col-sm-9">
-                            <select class="form-control select2" name="dasawisma_id" id="dasawisma_id">
-                                <option value="">Pilih</option>
                             </select>
                         </div>
                     </div>
