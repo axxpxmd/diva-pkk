@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Anggota;
 use DataTables;
 
 use Illuminate\Http\Request;
@@ -98,7 +99,7 @@ class RumahController extends Controller
 
                 return $p->kriteria_rmh == 1 ? $sehat : $KurangSehat;
             })
-            ->editColumn('layak_huni', function($p) {
+            ->editColumn('layak_huni', function ($p) {
                 $ya = '<span class="badge bg-success">Ya</span>';
                 $tidak = '<span class="badge bg-danger">Tidak</span>';
 
@@ -169,10 +170,12 @@ class RumahController extends Controller
 
         return DataTables::of($data)
             ->addColumn('action', function ($p) {
+                $check = $p->anggota()->count();
+
                 $edit = '<a href="#" onclick="edit(' . $p->id . ')" class="text-info m-r-10" title="Edit Data"><i class="bi bi-pencil-fill"></i></a>';
                 $delete = '<a href="#" onclick="remove(' . $p->id . ')" class="text-danger" title="Delete Data"><i class="bi bi-trash-fill"></i></a>';
 
-                return $edit . $delete;
+                return $check != 0 ? $edit : $edit . $delete;
             })
             ->editColumn('domisili', function ($p) {
                 return $p->domisili == 1 ? 'Tangerang Selatan' : 'Luar Tangerang Selatan';
@@ -290,6 +293,16 @@ class RumahController extends Controller
         $input['updated_by'] = Auth::user()->nama;
 
         $data = KartuKeluarga::find($id);
+
+        // Update no_kk anggota
+        $anggotas = Anggota::where('no_kk', $data->no_kk)->get();
+        foreach ($anggotas as $i) {
+            $anggota = Anggota::find($i->id);
+            $anggota->update([
+                'no_kk' => $request->no_kk
+            ]);
+        }
+
         $data->update($input);
 
         return response()->json(['message' => "Berhasil memperbaharui data."]);
