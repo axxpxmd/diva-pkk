@@ -34,25 +34,38 @@ class AnggotaKeluargaController extends Controller
         $dasawisma_id = Auth::user()->dasawisma_id;
         $rtrw_id = Auth::user()->dasawisma->rtrw_id;
 
+        $rtrw_id = $request->rtrw_filter;
         $kelamin = $request->kelamin;
         $status_hidup = $request->status_hidup;
+        $kecamatan_id = $request->kecamatan_filter;
+        $kelurahan_id = $request->kelurahan_filter;
         if ($request->ajax()) {
-            return $this->dataTable($kelamin, $status_hidup, $dasawisma_id);
+            return $this->dataTable($rtrw_id, $kecamatan_id, $kelurahan_id, $kelamin, $status_hidup, $dasawisma_id);
         }
 
         $dasawismas = Dasawisma::select('id', 'nama')->get();
         $rtrws = RTRW::select('id', 'kecamatan_id', 'kelurahan_id', 'rw', 'rt')->with(['kecamatan', 'kelurahan'])->get();
+        $kecamatans = Kecamatan::select('id', 'n_kecamatan')->where('kabupaten_id', 40)->get();
+
+        // Filter
+        $rtrwDisplay = true;
+        $kecamatanDisplay = true;
+        $kelurahanDisplay = true;
 
         return view('pages.anggota_keluarga.index', compact(
             'title',
             'desc',
-            'active_anggota'
+            'active_anggota',
+            'rtrwDisplay',
+            'kecamatanDisplay',
+            'kelurahanDisplay',
+            'kecamatans'
         ));
     }
 
-    public function dataTable($kelamin, $status_hidup, $dasawisma_id)
+    public function dataTable($rtrw_id, $kecamatan_id, $kelurahan_id, $kelamin, $status_hidup, $dasawisma_id)
     {
-        $data = Anggota::queryTable($kelamin, $status_hidup, $dasawisma_id);
+        $data = Anggota::queryTable($rtrw_id, $kecamatan_id, $kelurahan_id, $kelamin, $status_hidup, $dasawisma_id);
 
         return DataTables::of($data)
             ->addColumn('action', function ($p) {

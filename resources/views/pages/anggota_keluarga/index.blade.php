@@ -12,10 +12,19 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6 px-0">
-                    <div class="row mb-2">
-                        <label for="status_hidup" class="col-form-label col-md-2 text-right fw-bolder fs-14">Status </label>
+                    @include('layouts.alamat_filter')
+                    <div class="row mb-4">
+                        <div class="col-sm-3"></div>
                         <div class="col-sm-8">
-                            <select class="fs-14 form-control fs-14 r-0 light" id="status_hidup" name="status_hidup">
+                            <button class="btn btn-success btn-sm mr-2" onclick="pressOnChange()"><i class="bi bi-filter m-r-8"></i>Filter</button>
+                        </div> 
+                    </div>
+                </div>
+                <div class="col-md-6 px-0">
+                    <div class="row mb-2">
+                        <label for="status_hidup" class="col-form-label col-md-3 text-right fw-bolder fs-14">Status </label>
+                        <div class="col-sm-8">
+                            <select class="form-select select2" id="status_hidup" name="status_hidup">
                                 <option value="99">Semua</option>
                                 <option value="1">Hidup</option>
                                 <option value="0">Meninggal</option>
@@ -23,41 +32,13 @@
                         </div>
                     </div>
                     <div class="row mb-2">
-                        <label for="kelamin" class="col-form-label col-md-2 text-right fw-bolder fs-14">Kelamin </label>
+                        <label for="kelamin" class="col-form-label col-md-3 text-right fw-bolder fs-14">Kelamin </label>
                         <div class="col-sm-8">
-                            <select class="fs-14 form-control fs-14 r-0 light" id="kelamin" name="kelamin">
+                            <select class="form-select select2" id="kelamin" name="kelamin">
                                 <option value="99">Semua</option>
                                 <option value="Laki - laki">Laki - laki</option>
                                 <option value="Perempuan">Perempuan</option>
                             </select>
-                        </div>
-                    </div>
-                    <div class="row mb-4">
-                        <div class="col-sm-2"></div>
-                        <div class="col-sm-8">
-                            <button class="btn btn-success btn-sm mr-2" onclick="pressOnChange()"><i class="bi bi-filter m-r-8"></i>Filter</button>
-                        </div> 
-                    </div>
-                </div>
-                <div class="col-md-6 px-0">
-                    <div class="row justify-content-center">
-                        <div class="col-md-4 mb-2">
-                            <div class="p-2 bg-info text-white rounded text-center">
-                                <p class="mb-0 fw-bolder fs-16 mb-1">Total Lansia</p>
-                                <p class="mb-0 fs-14"></p>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-2">
-                            <div class="p-2 bg-success text-white rounded text-center">
-                                <p class="mb-0 fw-bolder fs-16 mb-1">Total Balita</p>
-                                <p class="mb-0 fs-14"></p>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-2">
-                            <div class="p-2 bg-danger text-white rounded text-center">
-                                <p class="mb-0 fw-bolder fs-16 mb-1">Total Ibu Hamil</p>
-                                <p class="mb-0 fs-14"></p>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -111,6 +92,9 @@
             data: function (data) {
                 data.kelamin = $('#kelamin').val();
                 data.status_hidup = $('#status_hidup').val();
+                data.kecamatan_filter = $('#kecamatan_filter').val();
+                data.kelurahan_filter = $('#kelurahan_filter').val();
+                data.rtrw_filter = $('#rtrw_filter').val();
             }
         },
         columns: [
