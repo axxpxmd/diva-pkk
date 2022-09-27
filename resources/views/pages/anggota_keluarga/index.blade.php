@@ -13,6 +13,17 @@
             <div class="row">
                 <div class="col-md-6 px-0">
                     @include('layouts.alamat_filter')
+                    <div class="row mb-2">
+                        <label class="col-form-label col-md-3 text-end fw-bolder fs-14">Rumah</label>
+                        <div class="col-sm-8">
+                            <select class="form-control select2" name="rumah_filter" id="rumah_filter">
+                                <option value="">Pilih</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Silahkan pilih Rumah.
+                            </div>
+                        </div>
+                    </div>
                     <div class="row mb-4">
                         <div class="col-sm-3"></div>
                         <div class="col-sm-8">
@@ -100,6 +111,7 @@
                 data.kecamatan_filter = $('#kecamatan_filter').val();
                 data.kelurahan_filter = $('#kelurahan_filter').val();
                 data.rtrw_filter = $('#rtrw_filter').val();
+                data.rumah_filter = $('#rumah_filter').val();
             }
         },
         columns: [
@@ -114,6 +126,31 @@
             {data: 'status_hidup', name: 'status_hidup', className: 'text-center'},
             {data: 'action', name: 'action', className: 'text-center', orderable: false, searchable: false}
         ]
+    });
+
+    $('#rtrw_filter').on('change', function(){
+        $('#rumah_filter').val("").trigger("change.select2");
+        val = $(this).val();
+        optionRumah = "<option value=''>Pilih</option>";
+        if(val == ""){
+            $('#rumah_filter').html(optionRumah);
+        }else{
+            $('#rumah_filter').html("<option value=''>Loading...</option>");
+            url = "{{ route('rumahByRTRW', ':id') }}".replace(':id', val);
+            $.get(url, function(data){
+                console.log(data);
+                if(data){
+                    $.each(data, function(index, value){
+                        optionRumah += "<option value='" + value.id + "'>" + value.kepala_rumah +"</li>";
+                    });
+                    $('#rumah_filter').empty().html(optionRumah);
+
+                    $("#rumah_filter").val($("#rumah_filter option:first").val());
+                }else{
+                    $('#rumah_filter').html(optionRumah);
+                }
+            }, 'JSON'); 
+        }
     });
 
     pressOnChange();

@@ -70,6 +70,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('/get-detail-rumah/{id}', [UtilityController::class, 'getDetailRumah'])->name('getDetailRumah');
     Route::get('/get-rw/{id}', [UtilityController::class, 'rwByKelurahan'])->name('rwByKelurahan');
     Route::get('/get-rumah/{id}', [UtilityController::class, 'rumahByDasawisma'])->name('rumahByDasawisma');
+    Route::get('/get-rumah-by-rtrw/{id}', [UtilityController::class, 'rumahByRTRW'])->name('rumahByRTRW');
 
     Route::get('/cetak-data-warga/{id}', [CetakController::class, 'cetakAnggota'])->name('cetakAnggota');
     Route::get('/cetak-kegiatan-warga/{id}', [CetakController::class, 'cetakKegiatanWarga'])->name('cetakKegiatanWarga');

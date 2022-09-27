@@ -37,11 +37,12 @@ class AnggotaKeluargaController extends Controller
 
         $kelamin      = $request->kelamin;
         $status_hidup = $request->status_hidup;
+        $rumah_id     = $request->rumah_filter;
         $rtrw_id      = $check_rtrw ? $rtrw_id : $request->rtrw_filter;
         $kecamatan_id = $check_rtrw ? $check_rtrw->kecamatan_id : $request->kecamatan_filter;
         $kelurahan_id = $check_rtrw ? $check_rtrw->kelurahan_id : $request->kelurahan_filter;
         if ($request->ajax()) {
-            return $this->dataTable($rtrw_id, $kecamatan_id, $kelurahan_id, $kelamin, $status_hidup, $dasawisma_id);
+            return $this->dataTable($rtrw_id, $kecamatan_id, $kelurahan_id, $kelamin, $status_hidup, $dasawisma_id, $rumah_id);
         }
 
         $dasawismas = Dasawisma::select('id', 'nama')->get();
@@ -67,9 +68,9 @@ class AnggotaKeluargaController extends Controller
         ));
     }
 
-    public function dataTable($rtrw_id, $kecamatan_id, $kelurahan_id, $kelamin, $status_hidup, $dasawisma_id)
+    public function dataTable($rtrw_id, $kecamatan_id, $kelurahan_id, $kelamin, $status_hidup, $dasawisma_id, $rumah_id)
     {
-        $data = Anggota::queryTable($rtrw_id, $kecamatan_id, $kelurahan_id, $kelamin, $status_hidup, $dasawisma_id);
+        $data = Anggota::queryTable($rtrw_id, $kecamatan_id, $kelurahan_id, $kelamin, $status_hidup, $dasawisma_id, $rumah_id);
 
         return DataTables::of($data)
             ->addColumn('action', function ($p) {
