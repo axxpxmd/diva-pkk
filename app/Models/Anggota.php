@@ -26,7 +26,7 @@ class Anggota extends Model
 
     public function queryTable($rtrw_id, $kecamatan_id, $kelurahan_id, $kelamin, $status_hidup, $dasawisma_id)
     {
-        $data = Anggota::select('anggota.id as id', 'nik', 'nama', 'status_hidup', 'rumah_id', 'anggota.rtrw_id as rtrw_id')
+        $data = Anggota::select('anggota.id as id', 'nik', 'nama', 'status_hidup', 'rumah_id', 'anggota.rtrw_id as rtrw_id', 'kelamin', 'status_kawin', 'agama', 'no_registrasi')
             ->join('rt_rw', 'rt_rw.id', '=', 'anggota.rtrw_id')
             ->join('rumah', 'rumah.id', '=', 'anggota.rumah_id')
             ->when($kecamatan_id, function ($q) use ($kecamatan_id) {

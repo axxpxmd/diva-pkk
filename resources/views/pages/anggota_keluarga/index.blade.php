@@ -54,6 +54,11 @@
                             <th>No</th>
                             <th>Nama</th>
                             <th>NIK</th>
+                            <th>Kelamin</th>
+                            <th>Agama</th>
+                            <th>Domisili</th>
+                            <th>Status Kawin</th>
+                            <th>No Registrasi</th>
                             <th>Status</th>
                             <th>Aksi</th>
                         </tr>
@@ -101,6 +106,11 @@
             {data: 'DT_RowIndex', name: 'DT_RowIndex', className: 'text-center', orderable: false, searchable: false},
             {data: 'nama', name: 'nama'},
             {data: 'nik', name: 'nik'},
+            {data: 'kelamin', name: 'kelamin'},
+            {data: 'agama', name: 'agama'},
+            {data: 'domisili', name: 'domisili'},
+            {data: 'status_kawin', name: 'status_kawin'},
+            {data: 'no_registrasi', name: 'no_registrasi'},
             {data: 'status_hidup', name: 'status_hidup', className: 'text-center'},
             {data: 'action', name: 'action', className: 'text-center', orderable: false, searchable: false}
         ]

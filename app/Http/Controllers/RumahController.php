@@ -31,9 +31,9 @@ class RumahController extends Controller
 
         $check_rtrw = Auth::user()->rtrw;
 
-        $rtrw_id      = $check_rtrw ? $rtrw_id : $request->rtrw_filter;
         $layak_huni   = $request->layak_huni;
         $kriteria_rmh = $request->kriteria_rmh;
+        $rtrw_id      = $check_rtrw ? $rtrw_id : $request->rtrw_filter;
         $kecamatan_id = $check_rtrw ? $check_rtrw->kecamatan_id : $request->kecamatan_filter;
         $kelurahan_id = $check_rtrw ? $check_rtrw->kelurahan_id : $request->kelurahan_filter;
         if ($request->ajax()) {

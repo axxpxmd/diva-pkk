@@ -31,14 +31,15 @@ class AnggotaKeluargaController extends Controller
         $desc  = $this->desc;
         $active_anggota = $this->active_anggota;
 
+        $rtrw_id      = Auth::user()->rtrw_id;
+        $check_rtrw   = Auth::user()->rtrw;
         $dasawisma_id = Auth::user()->dasawisma_id;
-        $rtrw_id = Auth::user()->dasawisma->rtrw_id;
 
-        $rtrw_id = $request->rtrw_filter;
-        $kelamin = $request->kelamin;
+        $kelamin      = $request->kelamin;
         $status_hidup = $request->status_hidup;
-        $kecamatan_id = $request->kecamatan_filter;
-        $kelurahan_id = $request->kelurahan_filter;
+        $rtrw_id      = $check_rtrw ? $rtrw_id : $request->rtrw_filter;
+        $kecamatan_id = $check_rtrw ? $check_rtrw->kecamatan_id : $request->kecamatan_filter;
+        $kelurahan_id = $check_rtrw ? $check_rtrw->kelurahan_id : $request->kelurahan_filter;
         if ($request->ajax()) {
             return $this->dataTable($rtrw_id, $kecamatan_id, $kelurahan_id, $kelamin, $status_hidup, $dasawisma_id);
         }
@@ -59,7 +60,10 @@ class AnggotaKeluargaController extends Controller
             'rtrwDisplay',
             'kecamatanDisplay',
             'kelurahanDisplay',
-            'kecamatans'
+            'kecamatans',
+            'kecamatan_id',
+            'kelurahan_id',
+            'rtrw_id'
         ));
     }
 
@@ -84,6 +88,9 @@ class AnggotaKeluargaController extends Controller
                 $meninggal = '<span class="badge bg-danger">Meninggal</span>';
 
                 return $p->status_hidup == 1 ? $hidup : $meninggal;
+            })
+            ->editColumn('domisili', function($p) {
+                return $p->anggotaDetail->domisili == 1 ? 'Tangsel' : 'Luar Tangsel';
             })
             ->rawColumns(['id', 'action', 'nama', 'status_hidup'])
             ->addIndexColumn()
@@ -133,7 +140,7 @@ class AnggotaKeluargaController extends Controller
             'rumah_id' => 'required',
             'rtrw_id' => 'required',
             'terdaftar_dukcapil' => 'required|in:0, 1',
-            'nik' => 'required_if:terdaftar_dukcapil,1|digits:16|numeric',
+            'nik' => 'required_if:terdaftar_dukcapil,1',
             'domisili' => 'required_if:terdaftar_dukcapil,1|in:0,1',
             'no_kk' => 'required_if:terdaftar_dukcapil,1',
             'nama' => 'required|string|max:100',
@@ -188,7 +195,7 @@ class AnggotaKeluargaController extends Controller
         ]);
     }
 
-    public function genereateNoRegist($c_kec, $kel_id)
+    public function genereateNoRegist($c_kel, $kel_id)
     {
         // 36.74.xxx.xxx.xxxx.xxx (tanpa titik)
         // Prov.Tangsel.Kec.Kel.Tahun Input.Nomor urut input
@@ -222,7 +229,7 @@ class AnggotaKeluargaController extends Controller
             $generateNoRegistrasi = $noUrut;
         }
 
-        return $c_kec . '.' . $year . '.' . $generateNoRegistrasi;
+        return $c_kel . '.' . $year . '.' . $generateNoRegistrasi;
     }
 
     public function storeHidup(Request $request)
@@ -235,12 +242,11 @@ class AnggotaKeluargaController extends Controller
          */
 
         //* Tahap 1
-        $rumah = Rumah::find($request->rumah_id);
-        $rtrw  = $rumah->rtrw;
-        $c_kec = $rtrw->kelurahan->kode;
+        $rtrw  = RTRW::find($request->rtrw_id);
+        $c_kel = $rtrw->kelurahan->kode;
         $kel_id = $rtrw->kelurahan->id;
 
-        $noRegistrasi = $this->genereateNoRegist($c_kec, $kel_id);
+        $noRegistrasi = $this->genereateNoRegist($c_kel, $kel_id);
 
         $checkGenerate = [
             'noRegistrasi'  => $noRegistrasi,
@@ -365,10 +371,10 @@ class AnggotaKeluargaController extends Controller
         //* Tahap 1
         $rumah = Rumah::find($request->rumah_id);
         $rtrw  = $rumah->rtrw;
-        $c_kec = $rtrw->kelurahan->kode;
+        $c_kel = $rtrw->kelurahan->kode;
         $kel_id = $rtrw->kelurahan->id;
 
-        $noRegistrasi = $this->genereateNoRegist($c_kec, $kel_id);
+        $noRegistrasi = $this->genereateNoRegist($c_kel, $kel_id);
 
         $checkGenerate = [
             'noRegistrasi'  => $noRegistrasi,

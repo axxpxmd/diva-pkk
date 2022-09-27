@@ -90,7 +90,7 @@
                             <div class="row mb-2">
                                 <label for="dasawisma_id" class="col-sm-4 col-form-label fw-bold text-end">Dasawisma <span class="text-danger">*</span></label>
                                 <div class="col-sm-8">
-                                    <select class="form-control select2" name="dasawisma_id" id="dasawisma_id" {{ $dasawisma_id != 0 ? 'disabled' : '-' }}>
+                                    <select class="form-control select2" name="dasawisma_id" id="dasawisma_id">
                                         <option value="">Pilih</option>
                                     </select>
                                     <div class="invalid-feedback">
