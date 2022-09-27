@@ -199,8 +199,8 @@ class RTRWController extends Controller
     {
         $request->validate([
             'ketua' => 'required',
-            'no_hp' => 'required',
-            'nik' => 'required',
+            'no_hp' => 'required|numeric',
+            'nik' => 'required|numeric|digits:16',
             'awal_menjabat' => 'required',
             'akhir_menjabat' => 'required',
             'status' => 'required'
@@ -246,8 +246,8 @@ class RTRWController extends Controller
     {
         $request->validate([
             'ketua' => 'required',
-            'no_hp' => 'required',
-            'nik' => 'required',
+            'no_hp' => 'required|numeric',
+            'nik' => 'required|numeric|digits:16',
             'awal_menjabat' => 'required',
             'akhir_menjabat' => 'required',
             'status' => 'required'

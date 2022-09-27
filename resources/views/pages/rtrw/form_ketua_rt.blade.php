@@ -6,6 +6,9 @@
 </div>
 <section class="section animate__animated animate__fadeInRight">
     @include('layouts.alert')
+    <div class="my-3">
+        <a href="{{ route('rt-rw.index') }}" class="fs-14 text-danger fw-bold m-r-10"><i class="bi bi-arrow-left m-r-8"></i>Kembali</a>
+    </div>
     <div class="card">
         <h5 class="card-header bg-info text-white mb-2 p-3 fs-18">Daftar Ketua / RT : {{ $rtrw->rt }} - RW : {{ $rtrw->rw }}</h5>
         <div class="card-body">
@@ -70,7 +73,7 @@
                     <div class="row mb-2">
                         <label for="no_hp" class="col-sm-3 col-form-label fw-bold">No HP <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
-                          <input type="text" name="no_hp" id="no_hp" maxlength="15" class="form-control" placeholder="Contoh : 08xxxxxxxxxx" autocomplete="off" required>
+                          <input type="text" name="no_hp" id="no_hp" maxlength="13" class="form-control" placeholder="Contoh : 08xxxxxxxxxx" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="row mb-2">
