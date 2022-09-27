@@ -36,29 +36,29 @@
 		<div class="container">
 			<div class="justify-content-center text-center mt-5">
                 <div class="img-dynamic">
-                    <img src="{{ asset('images/logo/tangsel.png') }}" width="110" class="img-fluid m-r-50" alt="Logo Tangsel">
-                    <img src="{{ asset('images/logo/LOGO-PKK.png') }}" width="110" class="img-fluid" alt="Logo PKK">
+                    <img src="{{ asset('images/logo/tangsel.png') }}" width="90" class="img-fluid m-r-50" alt="Logo Tangsel">
+                    <img src="{{ asset('images/logo/LOGO-PKK.png') }}" width="90" class="img-fluid" alt="Logo PKK">
                     <div class="mt-4">
-                        <h5 class="font-weight-bolder">PEMBERDAYAAN DAN KESEJAHTERAAN</h5>
-                        <h5 class="font-weight-bolder">KELUARGA (PKK) KOTA TANGERANG SELATAN</h5>
+                        <h6 class="font-weight-bolder text-black">PEMBERDAYAAN DAN KESEJAHTERAAN</h6>
+                        <h6 class="font-weight-bolder text-black">KELUARGA (PKK) KOTA TANGERANG SELATAN</h6>
                     </div>
                 </div>
-                <div class="card bdr-r-card mt-4" style="background: #4FB2A5; border: 5px solid white">
-                    <div class="card-body">
+                <div class="card bdr-r-card mt-4" style="background: #4FB2A5; border: 5px solid white;">
+                    <div class="card-body p-3">
                         <div class="card bdr-r-card" style="background: #9CD5CE">
-                            <div class="card-body">
+                            <div class="card-body p-3">
                                 <div class="row">
                                     <div class="col-sm-6 mb-2">
-                                        <div class="card bdr-r-card p-1" style="background: #9CD5CE; border: 2px solid #779A99">
+                                        <div class="card bdr-r-card" style="background: #9CD5CE; border: 2px solid #779A99">
                                             <div class="card-body">
-                                                <h5 class="font-weight-bolder fs-30 ">Login</h5>
+                                                <h5 class="font-weight-bolder fs-25 ">Login</h5>
                                                 <form method="POST" action="{{ route('login') }}" class="signin-form text-black">
                                                     @csrf
                                                     <div class="input-group mb-3">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text px-3 rounded-left"><i class="fa fa-user"></i></span>
                                                         </div>
-                                                        <input type="text"name="username" class="form-control @error('username') is-invalid @enderror" value="{{ old('username') }}" placeholder="Username" autocomplete="off" autofocus>
+                                                        <input type="text"name="username" class="form-control fs-12 @error('username') is-invalid @enderror" value="{{ old('username') }}" placeholder="Username" autocomplete="off" autofocus>
                                                         @error('username')
                                                             <div class="invalid-feedback mb-0 text-left" role="alert"><strong><span class="fs-12">{{ $message }}</span></strong></div>
                                                         @enderror
@@ -68,7 +68,7 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text px-3 rounded-left"><i class="fa fa-lock"></i></span>
                                                         </div>
-                                                        <input type="password"name="password" class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}" placeholder="password" autocomplete="off">
+                                                        <input type="password"name="password" class="form-control fs-12 @error('password') is-invalid @enderror" value="{{ old('password') }}" placeholder="password" autocomplete="off">
                                                         @error('password')
                                                             <div class="invalid-feedback mb-0 text-left" role="alert"><strong><span class="fs-12">{{ $message }}</span></strong></div>
                                                         @enderror
@@ -91,10 +91,10 @@
                                     </div>
                                     <div class="col-sm-6 justify-content-center d-flex align-items-center">
                                         <div class="text-center">
-                                            <h5 class="font-weight-bolder">Digitalisasi Data Warga</h5>
-                                            <h5 class="font-weight-bolder">Pemberdayaan Kesejahteraan</h5>
-                                            <h5 class="font-weight-bolder">Keluarga</h5>
-                                            <h4 class="font-weight-bolder">( DIVA PKK )</h4>
+                                            <h6 class="font-weight-bolder text-black">Digitalisasi Data Warga</h6>
+                                            <h6 class="font-weight-bolder text-black">Pemberdayaan Kesejahteraan</h6>
+                                            <h6 class="font-weight-bolder text-black">Keluarga</h6>
+                                            <h5 class="font-weight-bolder">( DIVA PKK )</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -106,7 +106,7 @@
                     <img src="{{ asset('images/logo/iren.png') }}" width="80" class="img-fluid" alt="Logo Tangsel">
                     <div class="fixed-bottom mb-1">
                         <div class="p-2" style="background: rgba(255, 255, 255, 0.3); border-bottom: 5px #15927F solid; border-top: 3px #EFFCF5 solid">
-                            <h5 class="font-weight-bolder">CERDAS MODERN RELIGIUS</h5>
+                            <h6 class="font-weight-bolder text-black">CERDAS MODERN RELIGIUS</h6>
                         </div>
                     </div>
                 </div>
