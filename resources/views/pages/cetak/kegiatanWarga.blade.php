@@ -79,15 +79,17 @@
                 <td width="5%" class="va-m">2.</td>
                 <td width="35%" class="va-auto">Kerjabakti</td>
                 <td width="20%" class="va-m">
-                    @forelse(json_decode($anggota_detail->jns_gotong_royong) as $value)
+                    @if ($anggota_detail->jns_gotong_royong != 0)
+                        @forelse(json_decode($anggota_detail->jns_gotong_royong) as $value)
                         @if ($value == 'Kerja Bakti')
                             Ya @break
                         @else
                             Tidak @break
                         @endif
-                    @empty
-                        Tidak
-                    @endforelse
+                        @empty
+                            Tidak
+                        @endforelse
+                    @endif
                 </td>
                 <td width="40%"></td>
             </tr>
@@ -95,15 +97,17 @@
                 <td width="5%" class="va-m">3.</td>
                 <td width="35%" class="va-auto">Rukun Kematian</td>
                 <td width="20%" class="va-m">
-                    @forelse(json_decode($anggota_detail->jns_gotong_royong) as $value)
+                    @if ($anggota_detail->jns_gotong_royong != 0)
+                        @forelse(json_decode($anggota_detail->jns_gotong_royong) as $value)
                         @if ($value == 'Rukun Kematian')
                             Ya @break
                         @else
                             Tidak @break
                         @endif
-                    @empty
-                        Tidak
-                    @endforelse
+                        @empty
+                            Tidak
+                        @endforelse
+                    @endif
                 </td>
                 <td width="40%"></td>
             </tr>
@@ -111,15 +115,17 @@
                 <td width="5%" class="va-m">4.</td>
                 <td width="35%" class="va-auto">Jimpitan</td>
                 <td width="20%" class="va-m">
-                    @forelse(json_decode($anggota_detail->jns_gotong_royong) as $value)
-                        @if ($value == 'Jimpitan')
-                            Ya @break
-                        @else
-                            Tidak @break
-                        @endif
-                    @empty
-                        Tidak
-                    @endforelse
+                    @if ($anggota_detail->jns_gotong_royong != 0)
+                        @forelse(json_decode($anggota_detail->jns_gotong_royong) as $value)
+                            @if ($value == 'Jimpitan')
+                                Ya @break
+                            @else
+                                Tidak @break
+                            @endif
+                        @empty
+                            Tidak
+                        @endforelse
+                    @endif
                 </td>
                 <td width="40%"></td>
             </tr>
@@ -127,15 +133,17 @@
                 <td width="5%" class="va-m">5.</td>
                 <td width="35%" class="va-auto">Arisan</td>
                 <td width="20%" class="va-m">
-                    @forelse(json_decode($anggota_detail->jns_gotong_royong) as $value)
-                        @if ($value == 'Arisan')
-                            Ya @break
-                        @else
-                            Tidak @break
-                        @endif
-                    @empty
-                        Tidak
-                    @endforelse
+                    @if ($anggota_detail->jns_gotong_royong != 0)
+                        @forelse(json_decode($anggota_detail->jns_gotong_royong) as $value)
+                            @if ($value == 'Arisan')
+                                Ya @break
+                            @else
+                                Tidak @break
+                            @endif
+                        @empty
+                            Tidak
+                        @endforelse
+                    @endif
                 </td>
                 <td width="40%"></td>
             </tr>
@@ -143,15 +151,17 @@
                 <td width="5%" class="va-m">6.</td>
                 <td width="35%" class="va-auto">Lainnya</td>
                 <td width="20%" class="va-m">
-                    @forelse(json_decode($anggota_detail->jns_gotong_royong) as $value)
-                        @if ($value == 'Lainnya')
-                            Ya @break
-                        @else
-                            Tidak @break
-                        @endif
-                    @empty
-                        Tidak
-                    @endforelse
+                    @if ($anggota_detail->jns_gotong_royong != 0)
+                        @forelse(json_decode($anggota_detail->jns_gotong_royong) as $value)
+                            @if ($value == 'Lainnya')
+                                Ya @break
+                            @else
+                                Tidak @break
+                            @endif
+                        @empty
+                            Tidak
+                        @endforelse
+                    @endif
                 </td>
                 <td width="40%"></td>
             </tr>
