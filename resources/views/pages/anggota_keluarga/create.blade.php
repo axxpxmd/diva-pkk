@@ -5,6 +5,9 @@
     <p class="text-subtitle text-muted">{{ $desc }}</p>
 </div>
 <section class="section animate__animated animate__fadeInRight">
+    <div class="my-3">
+        <a href="{{ route('anggota-keluarga.index') }}" class="text-danger fw-bold fs-14"><i class="bi bi-arrow-left m-r-8"></i>Kembali</a>
+    </div>
     <div class="card">
         <h5 class="card-header bg-info text-white mb-2 p-3 fs-18">Tambah Anggota | 
             @if ($status == 1)
@@ -15,7 +18,6 @@
         </h5>
         <div class="card-body">
             <div id="alert"></div>
-            <a href="{{ route('anggota-keluarga.index') }}" class="text-danger fw-bold fs-14"><i class="bi bi-arrow-left m-r-8"></i>Kembali</a>
             @if ($status == 1)
                 @include('pages.anggota_keluarga.hidup')
             @else
