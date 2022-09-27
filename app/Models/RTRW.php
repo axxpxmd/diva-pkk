@@ -19,7 +19,7 @@ class RTRW extends Model
     public function kelurahan()
     {
         return $this->belongsTo(Kelurahan::class, 'kelurahan_id', 'id')->select([
-            'id', 'n_kelurahan'
+            'id', 'n_kelurahan', 'kode'
         ]);
     }
 

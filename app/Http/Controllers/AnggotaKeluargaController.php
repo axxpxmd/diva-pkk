@@ -107,7 +107,7 @@ class AnggotaKeluargaController extends Controller
         $rumah_id = $request->rumah_id;
         $no_kk    = $request->no_kk;
 
-        $dasawisma_id =  $request->dasawisma_id ? $request->dasawisma_id : Auth::user()->dasawisma->dasawisma_id;
+        $dasawisma_id =  $request->dasawisma_id ? $request->dasawisma_id : Auth::user()->dasawisma_id;
         $rtrw_id = $request->rtrw_id ? $request->rtrw_id : Auth::user()->dasawisma->rtrw_id;
 
         $dasawismas = Dasawisma::select('id', 'nama')->get();
