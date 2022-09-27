@@ -90,7 +90,7 @@
                             <div class="row mb-2">
                                 <label for="dasawisma_id" class="col-sm-4 col-form-label fw-bold text-end">Dasawisma <span class="text-danger">*</span></label>
                                 <div class="col-sm-8">
-                                    <select class="form-control select2" name="dasawisma_id" id="dasawisma_id">
+                                    <select class="form-control select2" name="dasawisma_id" id="dasawisma_id" {{ $dasawisma_id != 0 ? 'disabled' : '-' }}>
                                         <option value="">Pilih</option>
                                     </select>
                                     <div class="invalid-feedback">
@@ -281,31 +281,40 @@
         table.api().ajax.reload();
     }
 
+    dasawisma_id = "{{ isset($dasawisma_id) ? $dasawisma_id : 0 }}"
+
     $('#rtrw_id').on('change', function(){
         $('#dasawisma_id').val("").trigger("change.select2");
         val = $(this).val();
-        option = "<option value=''>Pilih</option>";
+        optionDasawisma = "<option value=''>Pilih</option>";
         if(val == ""){
-            $('#dasawisma_id').html(option);
+            $('#dasawisma_id').html(optionDasawisma);
         }else{
             $('#dasawisma_id').html("<option value=''>Loading...</option>");
             url = "{{ route('dasawismaByRTRW', ':id') }}".replace(':id', val);
             $.get(url, function(data){
                 if(data){
                     $.each(data, function(index, value){
-                        option += "<option value='" + value.id + "'>" + value.nama +"</li>";
+                        optionDasawisma += "<option value='" + value.id + "'>" + value.nama +"</li>";
                     });
-                    $('#dasawisma_id').empty().html(option);
+                    $('#dasawisma_id').empty().html(optionDasawisma);
 
-                    $("#dasawisma_id").val($("#dasawisma_id option:first").val()).trigger("change.select2");
+                    if (dasawisma_id) {
+                        $("#dasawisma_id").val(dasawisma_id);
+                        $("#dasawisma_id").trigger('change');
+                    } else {
+                        $("#dasawisma_id").val($("#dasawisma_id option:first").val());
+                    }
+
                 }else{
-                    $('#dasawisma_id').html(option);
+                    $('#dasawisma_id').html(optionDasawisma);
                 }
             }, 'JSON'); 
         }
     });
 
     function openForm(){
+        $("#kecamatan_id").trigger('change');
         $('.select2').select2({
             dropdownParent: $('#modalForm')
         });

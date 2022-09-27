@@ -1,7 +1,7 @@
 <div class="row mb-2">
     <label for="kecamatan_id" class="col-sm-4 col-form-label fw-bold text-end">Kecamatan <span class="text-danger">*</span></label>
     <div class="col-sm-8">
-        <select class="form-select select2" name="kecamatan_id" id="kecamatan_id">
+        <select class="form-select select2" name="kecamatan_id" id="kecamatan_id" {{ isset($kecamatan_id) ? 'disabled' : '-' }}>
             <option value="">Pilih</option>
             @foreach ($kecamatans as $i)
                 <option value="{{ $i->id }}" {{ isset($kecamatan_id) ? $i->id == $kecamatan_id ? 'selected' : '-' : '' }}>{{ $i->n_kecamatan }}</option>
@@ -12,7 +12,7 @@
 <div class="row mb-2">
     <label for="kelurahan_id" class="col-sm-4 col-form-label fw-bold text-end">Kelurahan <span class="text-danger">*</span></label>
     <div class="col-sm-8">
-        <select class="form-select select2" name="kelurahan_id" id="kelurahan_id">
+        <select class="form-select select2" name="kelurahan_id" id="kelurahan_id" {{ isset($kelurahan_id) ? 'disabled' : '-' }}>
             <option value="">Pilih</option>
         </select>
     </div>
@@ -20,7 +20,7 @@
 <div class="row mb-2">
     <label for="rtrw_id" class="col-sm-4 col-form-label fw-bold text-end">RT / RW <span class="text-danger">*</span></label>
     <div class="col-sm-8">
-        <select class="form-select select2" name="rtrw_id" id="rtrw_id">
+        <select class="form-select select2" name="rtrw_id" id="rtrw_id" {{ isset($rtrw_id) ? 'disabled' : '-' }}>
             <option value="">Pilih</option>
         </select>
     </div>
@@ -38,18 +38,18 @@
         $('#rtrw_id').val("").trigger("change.select2");
         $('#dasawisma_id').val("").trigger("change.select2");
         val = $(this).val();
-        option = "<option value=''>Pilih</option>";
+        optionKelurahan = "<option value=''>Pilih</option>";
         if(val == ""){
-            $('#kelurahan_id').html(option);
+            $('#kelurahan_id').html(optionKelurahan);
         }else{
             $('#kelurahan_id').html("<option value=''>Loading...</option>");
             url = "{{ route('kelurahanByKecamatan', ':id') }}".replace(':id', val);
             $.get(url, function(data){
                 if(data){
                     $.each(data, function(index, value){
-                        option += "<option value='" + value.id + "'>" + value.n_kelurahan +"</li>";
+                        optionKelurahan += "<option value='" + value.id + "'>" + value.n_kelurahan +"</li>";
                     });
-                    $('#kelurahan_id').empty().html(option);
+                    $('#kelurahan_id').empty().html(optionKelurahan);
 
                     if (kelurahan_id) {
                         $("#kelurahan_id").val(kelurahan_id);
@@ -59,7 +59,7 @@
                     }
                    
                 }else{
-                    $('#kelurahan_id').html(option);
+                    $('#kelurahan_id').html(optionKelurahan);
                 }
             }, 'JSON'); 
         }
@@ -69,18 +69,18 @@
         $('#rtrw_id').val("").trigger("change.select2");
         $('#dasawisma_id').val("").trigger("change.select2");
         val = $(this).val();
-        option = "<option value=''>Pilih</option>";
+        optionRTRW = "<option value=''>Pilih</option>";
         if(val == ""){
-            $('#rtrw_id').html(option);
+            $('#rtrw_id').html(optionRTRW);
         }else{
             $('#rtrw_id').html("<option value=''>Loading...</option>");
             url = "{{ route('rtrwByKelurahan', ':id') }}".replace(':id', val);
             $.get(url, function(data){
                 if(data){
                     $.each(data, function(index, value){
-                        option += "<option value='" + value.id + "'>" + 'RW ' + value.rw + ' / RT ' + value.rt + "</li>";
+                        optionRTRW += "<option value='" + value.id + "'>" + 'RW ' + value.rw + ' / RT ' + value.rt + "</li>";
                     });
-                    $('#rtrw_id').empty().html(option);
+                    $('#rtrw_id').empty().html(optionRTRW);
 
                     if (rtrw_id) {
                         $("#rtrw_id").val(rtrw_id);   
@@ -89,7 +89,7 @@
                         $("#rtrw_id").val($("#rtrw_id option:first").val());
                     }
                 }else{
-                    $('#rtrw_id').html(option);
+                    $('#rtrw_id').html(optionRTRW);
                 }
             }, 'JSON'); 
         }
