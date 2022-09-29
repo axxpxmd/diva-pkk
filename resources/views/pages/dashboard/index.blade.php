@@ -43,7 +43,7 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="fw-bold fs-14 text-warning mb-1">Jumlah RW</div>
-                                    <div class="fw-bold fs-18 text-black">50</div>
+                                    <div class="fw-bold fs-18 text-black">50 <span class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</span></div>
                                 </div>
                                 <div class="col-auto fs-20">
                                     <i class="bi bi-clipboard-fill text-gray-400"></i>
@@ -58,7 +58,7 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="fw-bold fs-14 text-success mb-1">Jumlah RT</div>
-                                    <div class="fw-bold fs-18 text-black">120</div>
+                                    <div class="fw-bold fs-18 text-black">120 <span class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</span></div>
                                 </div>
                                 <div class="col-auto fs-20">
                                     <i class="bi bi-clipboard-fill text-gray-400"></i>
@@ -73,7 +73,7 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="fw-bold fs-14 text-danger mb-1">Jumlah Rumah</div>
-                                    <div class="fw-bold fs-18 text-black">304</div>
+                                    <div class="fw-bold fs-18 text-black">304 <span class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</span></div>
                                 </div>
                                 <div class="col-auto fs-20">
                                     <i class="bi bi-house-fill text-gray-400"></i>
@@ -88,7 +88,7 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="fw-bold fs-14 text-info mb-1">Jumlah KK</div>
-                                    <div class="fw-bold fs-18 text-black">505</div>
+                                    <div class="fw-bold fs-18 text-black">505 <span class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</span></div>
                                 </div>
                                 <div class="col-auto fs-20">
                                     <i class="bi bi-file-earmark-text-fill text-gray-400"></i>
@@ -103,7 +103,7 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="fw-bold fs-14 text-primary mb-1">Jumlah Warga</div>
-                                    <div class="fw-bold fs-18 text-black">932</div>
+                                    <div class="fw-bold fs-18 text-black">932 <span class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</span></div>
                                 </div>
                                 <div class="col-auto fs-20">
                                     <i class="bi bi-people-fill text-gray-400"></i>
@@ -129,16 +129,18 @@
                                 <div class="row">
                                     <div class="col-sm-6 p-5">
                                         <p class="text-center fw-bold fs-16 text-black">Jenis Kelamin</p>
-                                        <table class="text-black">
+                                        <table class="text-black fs-14">
                                             <tr>
                                                 <th class="text-primary">Perempuan</th>
                                                 <td> &nbsp; : &nbsp; </td>
                                                 <td>200</td>
+                                                <td>&nbsp;&nbsp;&nbsp; <i class="bi bi-arrow-down text-danger"></i> 4%</td>
                                             </tr>
                                             <tr>
                                                 <th class="text-warning">Laki - Laki</th>
                                                 <td> &nbsp; : &nbsp; </td>
                                                 <td>429</td>
+                                                <td>&nbsp;&nbsp;&nbsp; <i class="bi bi-arrow-up text-success"></i> 10%</td>
                                             </tr>
                                         </table>
                                     </div>
@@ -198,16 +200,19 @@
         },
         plotOptions: {
             pie: {
-                size: 300,
                 allowPointSelect: true,
+                size: '100%',
                 cursor: 'pointer',
                 dataLabels: {
+                    crop: false,
+                    distance: 25,
+                    overflow: "none",
+                    format: '{point.percentage:.1f} %',
                     style: {
-                        fontSize: 25 
-                    },
-                    enabled: true,
-                    format: '{point.percentage:.1f} %'
-                }
+                        fontSize: 25
+                    }
+                },
+                center: ["50%", "50%"]
             }
         },
         series: [{
@@ -220,7 +225,7 @@
             }, {
                 name: 'Perempuan',
                 y: 200,
-                color: '#4385F4',
+                color: '#4e73df',
                 sliced: true
             }]
         }]
