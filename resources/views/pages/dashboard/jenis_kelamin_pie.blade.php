@@ -1,3 +1,12 @@
+<style>
+    .highcharts-root{
+        height: 200px !important;
+    }
+
+    .highcharts-container {
+        height: 200px !important;
+    }
+</style>
 <div class="row">
     <div class="col-sm-6 p-5">
         <p class="text-center fw-bold fs-16 text-black">Jenis Kelamin</p>
@@ -18,7 +27,7 @@
     </div>
     <div class="col-sm-6">
         <figure class="highcharts-figure">
-            <div id="pieChart"></div>
+            <div id="pieChartJenisKelamin"></div>
         </figure>
     </div>
 </div>
@@ -32,10 +41,7 @@
         dropdownParent: $('#modalFilter')
     });
 
-    var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
-    console.log(window.innerWidth)
-
-    Highcharts.chart('pieChart', {
+    Highcharts.chart('pieChartJenisKelamin', {
         chart: {
             plotBackgroundColor: null,
             plotBorderWidth: null,

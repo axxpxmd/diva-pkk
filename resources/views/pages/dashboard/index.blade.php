@@ -1,19 +1,10 @@
 @extends('layouts.app')
 @section('content')
-<style>
-    .highcharts-root{
-        height: 200px !important;
-    }
-
-    .highcharts-container {
-        height: 200px !important;
-    }
-</style>
 <div class="page-heading">
     <h3>{{ $title }}</h3>
 </div>
 <section class="section animate__animated animate__fadeInRight">
-    <div class="col-12">
+<div class="col-12">
         <div style="margin-bottom: -15px !important">
             <div class="card">
                 <div class="card-body p-3">
@@ -117,9 +108,46 @@
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="warga" role="tabpanel" aria-labelledby="warga-tab">
                 <div class="row">
-                    <div class="col-sm-7">
+                    <div class="col-sm-4">
                         <div class="card">
+                            <div class="card-header bg-info text-white fw-bold fs-16 px-3 py-2">Data Lainnya</div>
                             <div class="card-body">
+                                <div class="table-responsive mt-3">
+                                    <table class="table table-bordered fs-14 text-black">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">No</th>
+                                                <th>Data</th>
+                                                <th>Jumlah</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-center">1</td>
+                                                <td>PUS</td>
+                                                <td class="text-center">500</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center">2</td>
+                                                <td>WUS</td>
+                                                <td class="text-center">500</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center">3</td>
+                                                <td>Stunting</td>
+                                                <td class="text-center">500</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="card">
+                            <div class="card-header bg-info text-white fw-bold fs-16 px-3 py-2">Status Perkawinan</div>
+                            <div class="card-body p-2">
+                                @include('pages.dashboard.test')
                             </div>
                         </div>
                     </div>
