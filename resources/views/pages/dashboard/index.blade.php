@@ -113,7 +113,7 @@
                             <div class="card-header bg-info text-white fw-bold fs-16 px-3 py-2">Data Lainnya</div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table mt-3 fs-14 display nowrap table-bordered" style="width:100%;">
+                                    <table class="table table-bordered mt-3 fs-14">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">No</th>
@@ -139,7 +139,7 @@
                                                 <td>WUS</td>
                                                 <td class="text-center">
                                                     500
-                                                    <sup class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</sup>
+                                                    <sup class="text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</sup>
                                                 </td>
                                                  <td class="text-center">
                                                     40%
@@ -150,7 +150,7 @@
                                                 <td>Stunting</td>
                                                 <td class="text-center">
                                                     500
-                                                    <sup class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</sup>
+                                                    <sup class="text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</sup>
                                                 </td>
                                                  <td class="text-center">
                                                     2%
