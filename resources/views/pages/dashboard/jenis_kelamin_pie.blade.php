@@ -5,13 +5,13 @@
             <tr>
                 <th class="text-primary">Perempuan</th>
                 <td> &nbsp; : &nbsp; </td>
-                <td>200</td>
+                <td class="text-black fw-bold">200</td>
                 <td>&nbsp;&nbsp;&nbsp; <i class="bi bi-arrow-down text-danger"></i> 4%</td>
             </tr>
             <tr>
                 <th class="text-warning">Laki - Laki</th>
                 <td> &nbsp; : &nbsp; </td>
-                <td>429</td>
+                <td class="text-black fw-bold">429</td>
                 <td>&nbsp;&nbsp;&nbsp; <i class="bi bi-arrow-up text-success"></i> 10%</td>
             </tr>
         </table>
