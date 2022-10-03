@@ -112,8 +112,8 @@
                         <div class="card">
                             <div class="card-header bg-info text-white fw-bold fs-16 px-3 py-2">Data Lainnya</div>
                             <div class="card-body">
-                                <div class="table-responsive mt-3">
-                                    <table class="table table-bordered fs-14 text-black">
+                                <div class="table-responsive">
+                                    <table class="table data-table display nowrap" style="width:100%;">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">No</th>
