@@ -10,7 +10,7 @@
         <a href="{{ route('rt-rw.index') }}" class="fs-14 text-danger fw-bold m-r-10"><i class="bi bi-arrow-left m-r-8"></i>Kembali</a>
     </div>
     <div class="card">
-        <h5 class="card-header bg-info text-white mb-2 p-3 fs-18">Daftar Ketua RT</h5>
+        <h5 class="card-header bg-info text-white mb-2 p-3 fs-18">Daftar Ketua {{ $kategori == 'rt' ? 'RT' : 'RW' }}</h5>
         <div class="card-body fs-14">
             <div class="row mt-2">
                 <div class="col-sm-6">
@@ -26,10 +26,12 @@
                         <label class="col-sm-2 col-form-label fw-bold">RW</label>
                         <label class="col-sm-8 col-form-label">{{ $rtrw->rw}}</label>
                     </div>
+                    @if ($kategori == 'rt')
                     <div class="row p-0">
                         <label class="col-sm-2 col-form-label fw-bold">RT</label>
                         <label class="col-sm-8 col-form-label">{{ $rtrw->rt}}</label>
                     </div>
+                    @endif
                 </div>
             </div>
             <hr>
@@ -38,7 +40,7 @@
                     <thead>
                         <tr>
                             <th class="text-center">NO</th>
-                            <th>Nama Ketua</th>
+                            <th>Nama Ketua {{ $kategori == 'rt' ? 'RT' : 'RW' }}</th>
                             <th>NO HP</th>
                             <th>NIK</th>
                             <th class="text-center">Awal Menjabat</th>
@@ -49,7 +51,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($mappingRtRw as $key => $i)
+                        @forelse ($datas as $key => $i)
                             <tr>
                                 <td class="text-center">{{ $key+1 }}</td>
                                 <td>{{ $i->ketua }}</td>
@@ -82,17 +84,17 @@
         </div>
     </div>
     <div class="card">
-        <h5 class="card-header bg-info text-white mb-2 p-3 fs-18"><span id="textTitle">Tambah</span> Ketua RT</h5>
+        <h5 class="card-header bg-info text-white mb-2 p-3 fs-18"><span id="textTitle">Tambah</span> Ketua {{ $kategori == 'rt' ? 'RT' : 'RW' }}</h5>
         <div class="card-body">
             <div class="col-md-6 container">
-                <form id="form" class="fs-14 needs-validation" method="POST" action="{{ route('rt-rw.storeKetuaRT') }}" novalidate>
+                <form id="form" class="fs-14 needs-validation" method="POST" action="{{ route('rt-rw.storeKetuaRT', ['kategori'=>$kategori]) }}" novalidate>
                     @csrf
                     <input type="text" class="d-none" id="rtrw_id" name="rtrw_id" value="{{ $rtrw->id }}"/>
                     <input type="text" class="d-none" id="id" name="id">
                     <div class="row mb-2">
                         <label for="ketua" class="col-sm-3 col-form-label fw-bold">Nama Ketua <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
-                          <input type="text" name="ketua" id="ketua" class="form-control" placeholder="Masukan Nama Ketua RT" autocomplete="off" required>
+                          <input type="text" name="ketua" id="ketua" class="form-control" placeholder="Masukan Nama Ketua {{ $kategori == 'rt' ? 'RT' : 'RW' }}" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="row mb-2">
@@ -154,10 +156,10 @@
         $('#loading').show();
         $('#textTitle').html('Edit');
         $('#id').val(id);
-        $.get("{{ Route('rt-rw.editKetuaRT', ':id') }}".replace(':id', id), function(data){
+        $.get("{{ Route('rt-rw.editKetuaRT', [':id', 'kategori'=>$kategori]) }}".replace(':id', id), function(data){
             $('#loading').hide();
             $('#txtSave').html('Simpan Perubahan');
-            $('#form').attr('action', "{{ route('rt-rw.updateKetuaRT') }}")
+            $('#form').attr('action', "{{ route('rt-rw.updateKetuaRT', ['kategori'=>$kategori]) }}")
 
             $('#ketua').val(data.ketua);
             $('#no_hp').val(data.no_hp);

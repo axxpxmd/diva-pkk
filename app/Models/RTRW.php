@@ -23,6 +23,11 @@ class RTRW extends Model
         ]);
     }
 
+    public function ketuaRT()
+    {
+        return $this->hasMany(MappingRT::class, 'rtrw_id', 'id');
+    }
+
     public function dasawisma()
     {
         return $this->hasMany(Dasawisma::class, 'rtrw_id', 'id');
@@ -45,7 +50,7 @@ class RTRW extends Model
 
     public static function queryTable($rw, $kecamatan_id, $kelurahan_id)
     {
-        $data = RTRW::select('id', 'kecamatan_id', 'kelurahan_id', 'n_kecamatan', 'n_kelurahan', 'rt', 'rw', 'keterangan', 'ketua_rt')
+        $data = RTRW::select('id', 'kecamatan_id', 'kelurahan_id', 'n_kecamatan', 'n_kelurahan', 'rt', 'rw', 'keterangan', 'ketua_rt', 'ketua_rw')
             ->when($kecamatan_id, function ($q) use ($kecamatan_id) {
                 return $q->where('kecamatan_id', $kecamatan_id);
             })
