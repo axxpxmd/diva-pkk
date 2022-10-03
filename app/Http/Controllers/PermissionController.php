@@ -61,7 +61,7 @@ class PermissionController extends Controller
         $input = $request->all();
         Permission::create($input);
 
-        return response()->json(['message' => "Berhasil menyiman data."]);
+        return response()->json(['message' => "Berhasil Menyimpan data."]);
     }
 
     public function edit($id)

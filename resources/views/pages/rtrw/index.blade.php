@@ -248,6 +248,7 @@
                 $('#alert').html("<div class='alert alert-success alert-dismissible' role='alert'><strong>Sukses!</strong> " + data.message + "</div>");
                 table.api().ajax.reload();
                 if(save_method == 'add') $('#form').trigger('reset');
+                $('#form').removeClass('was-validated');
             },'json').fail(function(data){
                 err = ''; respon = data.responseJSON;
                 $.each(respon.errors, function(index, value){
@@ -260,7 +261,6 @@
             });
             return false;
         }
-        $(this).addClass('was-validated');
     });
 
     function remove(id){

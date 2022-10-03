@@ -66,7 +66,7 @@ class RoleController extends Controller
         $input = $request->all();
         Role::create($input);
 
-        return response()->json(['message' => "Berhasil menyiman data."]);
+        return response()->json(['message' => "Berhasil Menyimpan data."]);
     }
 
     public function edit($id)

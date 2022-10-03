@@ -76,6 +76,14 @@
                 @canany(['rt/rw', 'dasawisma', 'kader', 'rumah', 'anggota kk'])
                     <li class="sidebar-title rounded p-2"><b>Menu</b></li>
                 @endcanany
+                @can('kelurahan')
+                    <li class="sidebar-item {{ isset($active_kelurahan) ? 'active' : '-' }}">
+                        <a href="{{ route('kelurahan.index') }}" class='sidebar-link'>
+                            <i class="bi bi-file-text-fill text-warning"></i>
+                            <span>Kelurahan</span>
+                        </a>
+                    </li>
+                @endcan
                 @can('rt/rw')
                     <li class="sidebar-item {{ isset($active_rtrw) ? 'active' : '-' }}">
                         <a href="{{ route('rt-rw.index') }}" class='sidebar-link'>

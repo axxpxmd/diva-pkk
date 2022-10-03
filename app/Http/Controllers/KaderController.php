@@ -91,7 +91,7 @@ class KaderController extends Controller
             'nik' => 'required|digits:16|unique:users,nik|numeric',
             'dasawisma_id' => 'required',
             'role_id' => 'required',
-            'no_telp' => 'required|digits:13||unique:users,no_telp|numeric'
+            'no_telp' => 'required||unique:users,no_telp|numeric'
         ], [
             'dasawisma_id.required' => 'Dasawisma wajib diisi',
             'role_id.required' => 'Role Wajib diisi'
@@ -144,7 +144,7 @@ class KaderController extends Controller
 
         DB::commit(); //* DB Transaction Success
 
-        return response()->json(['message' => "Berhasil menyiman data."]);
+        return response()->json(['message' => "Berhasil Menyimpan data."]);
     }
 
     public function edit($id)
@@ -174,7 +174,7 @@ class KaderController extends Controller
             'nama' => 'required',
             'username' => 'required|unique:users,username,' . $id,
             'nik' => 'required|digits:16|numeric|unique:users,nik,' . $id,
-            'no_telp' => 'required|digits:13|numeric|unique:users,no_telp,' . $id,
+            'no_telp' => 'required|numeric|unique:users,no_telp,' . $id,
             'dasawisma_id' => 'required',
             'role_id' => 'required'
         ], [

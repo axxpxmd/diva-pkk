@@ -342,7 +342,7 @@ class AnggotaKeluargaController extends Controller
 
         DB::commit(); //* DB Transaction Success
 
-        return response()->json(['message' => "Berhasil menyiman data."]);
+        return response()->json(['message' => "Berhasil Menyimpan data."]);
     }
 
     public function storeMeninggal(Request $request)
@@ -420,7 +420,7 @@ class AnggotaKeluargaController extends Controller
 
         DB::commit(); //* DB Transaction Success
 
-        return response()->json(['message' => "Berhasil menyiman data."]);
+        return response()->json(['message' => "Berhasil Menyimpan data."]);
     }
 
     public function show($id)

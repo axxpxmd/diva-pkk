@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 // Models
 use App\Models\RTRW;
-use App\Models\Dasawisma;
 use App\Models\Kecamatan;
 use App\Models\MappingRTRW;
 
@@ -59,7 +58,6 @@ class RTRWController extends Controller
         $data = RTRW::queryTable($rw, $kecamatan_id, $kelurahan_id);
 
         return DataTables::of($data)
-            ->rawColumns(['id', 'nama'])
             ->addColumn('action', function ($p) {
                 $check = $p->dasawisma->count();
 
@@ -83,7 +81,7 @@ class RTRWController extends Controller
                 return $p->n_kecamatan;
             })
             ->addColumn('jumlah', function ($p) {
-                return 'Rumah ' . $p->rumah->count() . ' / ' . 'KK ' . $p->kk->count() . ' / ' . 'Warga 0';
+                return 'Rumah ' . $p->rumah->count() . ' / ' . 'KK ' . $p->kk->count() . ' / ' . 'Warga ' . $p->warga->count();
             })
             ->editColumn('ketua_rt', function ($p) {
                 $add = "<a href='" . route('rt-rw.createKetuaRT', $p->id) . "' class='text-info' title='Tambah Ketua RT'><i class='bi bi-person-plus-fill'></i></a>";
@@ -130,7 +128,7 @@ class RTRWController extends Controller
         $input = $request->all();
         RTRW::create($input);
 
-        return response()->json(['message' => "Berhasil menyiman data."]);
+        return response()->json(['message' => "Berhasil Menyimpan data."]);
     }
 
     public function edit($id)

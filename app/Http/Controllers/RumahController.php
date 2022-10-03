@@ -139,7 +139,7 @@ class RumahController extends Controller
         $input['created_by'] = Auth::user()->nama;
         Rumah::create($input);
 
-        return response()->json(['message' => "Berhasil menyiman data."]);
+        return response()->json(['message' => "Berhasil Menyimpan data."]);
     }
 
     public function show(Request $request, $id)
@@ -270,7 +270,7 @@ class RumahController extends Controller
         $input['created_by'] = Auth::user()->nama;
         KartuKeluarga::create($input);
 
-        return response()->json(['message' => "Berhasil menyiman data."]);
+        return response()->json(['message' => "Berhasil Menyimpan data."]);
     }
 
     public function editKK($id)

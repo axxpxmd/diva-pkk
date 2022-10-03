@@ -121,7 +121,7 @@ class DasawismaController extends Controller
         $input = $request->except(['kecamatan_id', 'kelurahan_id']);
         Dasawisma::create($input);
 
-        return response()->json(['message' => "Berhasil menyiman data."]);
+        return response()->json(['message' => "Berhasil Menyimpan data."]);
     }
 
     public function edit($id)
