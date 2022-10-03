@@ -10,8 +10,29 @@
         <a href="{{ route('rt-rw.index') }}" class="fs-14 text-danger fw-bold m-r-10"><i class="bi bi-arrow-left m-r-8"></i>Kembali</a>
     </div>
     <div class="card">
-        <h5 class="card-header bg-info text-white mb-2 p-3 fs-18">Daftar Ketua / RT : {{ $rtrw->rt }} - RW : {{ $rtrw->rw }}</h5>
-        <div class="card-body">
+        <h5 class="card-header bg-info text-white mb-2 p-3 fs-18">Daftar Ketua RT</h5>
+        <div class="card-body fs-14">
+            <div class="row mt-2">
+                <div class="col-sm-6">
+                    <div class="row p-0">
+                        <label class="col-sm-2 col-form-label fw-bold">Kecamatan</label>
+                        <label class="col-sm-8 col-form-label">{{ $rtrw->kecamatan->n_kecamatan }}</label>
+                    </div>
+                    <div class="row p-0">
+                        <label class="col-sm-2 col-form-label fw-bold">Kelurahan</label>
+                        <label class="col-sm-8 col-form-label">{{ $rtrw->kelurahan->n_kelurahan}}</label>
+                    </div>
+                    <div class="row p-0">
+                        <label class="col-sm-2 col-form-label fw-bold">RW</label>
+                        <label class="col-sm-8 col-form-label">{{ $rtrw->rw}}</label>
+                    </div>
+                    <div class="row p-0">
+                        <label class="col-sm-2 col-form-label fw-bold">RT</label>
+                        <label class="col-sm-8 col-form-label">{{ $rtrw->rt}}</label>
+                    </div>
+                </div>
+            </div>
+            <hr>
             <div class="table-responsive">
                 <table class="table data-table table-hover table-bordered" style="width:100%;">
                     <thead>

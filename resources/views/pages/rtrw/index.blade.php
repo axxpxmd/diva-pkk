@@ -51,6 +51,7 @@
                             <th>Kelurahan</th>
                             <th>Kecamatan</th>
                             <th>Ketua RT</th>
+                            <th>Ketua RW</th>
                             <th>Jumlah</th>
                             <th>Keterangan</th>
                             <th>Aksi</th>
@@ -147,6 +148,7 @@
             {data: 'kelurahan_id', name: 'kelurahan_id'},
             {data: 'kecamatan_id', name: 'kecamatan_id'},
             {data: 'ketua_rt', name: 'ketua_rt', className: 'text-center'},
+            {data: 'ketua_rw', name: 'ketua_rw', className: 'text-center'},
             {data: 'jumlah', name: 'jumlah', className: 'text-center'},
             {data: 'keterangan', name: 'keterangan'},
             {data: 'action', name: 'action', className: 'text-center', orderable: false, searchable: false}

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class MappingRTRW extends Model
 {
-    protected $table = 'rtrw_mappings';
+    protected $table = 'rt_mappings';
     protected $guarded = [];
 
     public function rtrw()

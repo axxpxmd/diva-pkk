@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\RTRW;
 use App\Models\Kecamatan;
 use App\Models\MappingRTRW;
+use App\Models\MappingRW;
 
 class RTRWController extends Controller
 {
@@ -94,10 +95,32 @@ class RTRWController extends Controller
                     return $add;
                 }
             })
+            ->editColumn('ketua_rt', function ($p) {
+                $add = "<a href='" . route('rt-rw.createKetuaRT', $p->id) . "' class='text-info' title='Tambah Ketua RT'><i class='bi bi-person-plus-fill'></i></a>";
+
+                if ($p->ketua_rt) {
+                    $mappingRtRw = MappingRTRW::where('id', $p->ketua_rt)->first();
+
+                    return $mappingRtRw->ketua . '&nbsp&nbsp&nbsp' . $add;
+                } else {
+                    return $add;
+                }
+            })
+            ->editColumn('ketua_rw', function ($p) {
+                $add = "<a href='" . route('rt-rw.createKetuaRT', $p->id) . "' class='text-info' title='Tambah Ketua RT'><i class='bi bi-person-plus-fill'></i></a>";
+
+                if ($p->ketua_rw) {
+                    $mappingRW = MappingRW::where('id', $p->ketua_rw)->first();
+
+                    return $mappingRW->ketua . '&nbsp&nbsp&nbsp' . $add;
+                } else {
+                    return $add;
+                }
+            })
             ->editColumn('kelurahan_id', function ($p) {
                 return $p->n_kelurahan;
             })
-            ->rawColumns(['id', 'action', 'rt', 'ketua_rt'])
+            ->rawColumns(['id', 'action', 'rt', 'ketua_rt', 'ketua_rw'])
             ->addIndexColumn()
             ->toJson();
     }
