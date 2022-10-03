@@ -22,7 +22,7 @@
 @endif
 @if (isset($rwDisplay))
 <div class="row mb-2">
-    <label for="RW" class="col-form-label col-md-3 text-end fw-bolder fs-14">RW </label>
+    <label for="rw_filter" class="col-form-label col-md-3 text-end fw-bolder fs-14">RW </label>
     <div class="col-sm-8">
         <select class="form-select select2" name="rw_filter" id="rw_filter">
             <option value="">Pilih</option>
@@ -32,7 +32,7 @@
 @endif
 @if (isset($rtrwDisplay))
 <div class="row mb-2">
-    <label for="RW" class="col-form-label col-md-3 text-end fw-bolder fs-14">RT / RW </label>
+    <label for="rtrw_filter" class="col-form-label col-md-3 text-end fw-bolder fs-14">RT / RW </label>
     <div class="col-sm-8">
         <select class="form-select select2" name="rtrw_filter" id="rtrw_filter" {{ isset($rtrw_id) ? 'disabled' : '-' }}>
             <option value="">Pilih</option>

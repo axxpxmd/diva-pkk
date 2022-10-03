@@ -44,8 +44,21 @@
 </head>
 
 <body>
-    <p class="text-center text-black font-weight-bolder">DATA KEGIATAN WARGA</p>
-
+    <p class="text-center text-black font-weight-bolder mb-4">DATA KEGIATAN WARGA</p>
+    <table class="fs-14 mb-3">
+        <tr>
+            <td class="b-none text-black">Nama</td>
+            <td class="b-none text-black"> : {{ $anggota->nama }}</td>
+        </tr>
+        <tr>
+            <td class="b-none text-black">No. Registrasi</td>
+            <td class="b-none text-black"> : {{ $anggota->no_registrasi }}</td>
+        </tr>
+        <tr>
+            <td class="b-none text-black">No. KTP/NIK</td>
+            <td class="b-none text-black"> : {{ $anggota->nik }}</td>
+        </tr>
+    </table>
     <table class="table table-bordered fs-13" style="width:100%;">
         <thead>
             <tr>

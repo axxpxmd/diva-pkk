@@ -19,7 +19,7 @@
                 <div class="card-body p-3">
                     <div class="row">
                         <div class="col-auto">
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#modalFilter" class="btn btn-sm btn-outline-success fs-14">Pilih Filter<i class="bi bi-filter m-l-8"></i></a>
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#modalFilter" class="btn btn-sm btn-success fs-14">Pilih Filter<i class="bi bi-filter m-l-8"></i></a>
                         </div>
                         <div class="col-auto">
                             {{-- <ul class="nav m-0 nav-tabs fs-14" id="myTab" role="tablist">
@@ -58,7 +58,7 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="fw-bold fs-14 text-success mb-1">Jumlah RT</div>
-                                    <div class="fw-bold fs-18 text-black">120 <span class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</span></div>
+                                    <div class="fw-bold fs-18 text-black">120 <span class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-down text-danger"></i> 5%</span></div>
                                 </div>
                                 <div class="col-auto fs-20">
                                     <i class="bi bi-clipboard-fill text-gray-400"></i>
@@ -88,7 +88,7 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="fw-bold fs-14 text-info mb-1">Jumlah KK</div>
-                                    <div class="fw-bold fs-18 text-black">505 <span class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</span></div>
+                                    <div class="fw-bold fs-18 text-black">505 <span class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-down text-danger"></i> 14%</span></div>
                                 </div>
                                 <div class="col-auto fs-20">
                                     <i class="bi bi-file-earmark-text-fill text-gray-400"></i>
@@ -129,7 +129,7 @@
                                 <div class="row">
                                     <div class="col-sm-6 p-5">
                                         <p class="text-center fw-bold fs-16 text-black">Jenis Kelamin</p>
-                                        <table class="text-black fs-14">
+                                        <table class="display nowraptext-black fs-14" style="width:100%;">
                                             <tr>
                                                 <th class="text-primary">Perempuan</th>
                                                 <td> &nbsp; : &nbsp; </td>
@@ -230,7 +230,5 @@
             }]
         }]
     });
-
-
 </script>
 @endpush

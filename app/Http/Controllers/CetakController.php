@@ -28,7 +28,7 @@ class CetakController extends Controller
             'umur'
         ));
 
-        return $pdf->stream($anggota->nama . ' ( Data )' . ".pdf");
+        return $pdf->stream($anggota->nama . ' ( Data Warga )' . ".pdf");
     }
 
     public function cetakKegiatanWarga($id)
@@ -44,7 +44,7 @@ class CetakController extends Controller
             'anggota_detail'
         ));
 
-        return $pdf->stream($anggota->nama . ' ( Kegiatan )' . ".pdf");
+        return $pdf->stream($anggota->nama . ' ( Kegiatan Warga )' . ".pdf");
     }
 
     public function cetakRumah($id)
