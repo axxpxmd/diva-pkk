@@ -10,12 +10,12 @@ use App\Http\Controllers\KaderController;
 use App\Http\Controllers\CetakController;
 use App\Http\Controllers\UtilityController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\KelurahanController;
 use App\Http\Controllers\DasawismaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\AnggotaKeluargaController;
-use App\Http\Controllers\KelurahanController;
 
 /*
 |--------------------------------------------------------------------------
