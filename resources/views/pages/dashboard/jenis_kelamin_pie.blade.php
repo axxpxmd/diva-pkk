@@ -32,6 +32,9 @@
         dropdownParent: $('#modalFilter')
     });
 
+    var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+    console.log(window.innerWidth)
+
     Highcharts.chart('pieChart', {
         chart: {
             plotBackgroundColor: null,
@@ -51,9 +54,9 @@
         },
         tooltip: {
             style: {
-                fontSize: 20
+                fontSize: screen.width > 768 ? '180%' : '100%'
             },
-            pointFormat: '<b>{series.name}</b>: <b>{point.y}</b>'
+            pointFormat: '<b>{point.name}</b>: <b>{point.y}</b>'
         },
         plotOptions: {
             pie: {
@@ -66,14 +69,13 @@
                     overflow: "none",
                     format: '{point.percentage:.1f} %',
                     style: {
-                        fontSize: 25
+                        fontSize: screen.width > 768 ? '180%' : '100%'
                     }
                 },
                 center: ["50%", "50%"]
             }
         },
         series: [{
-            name: 'Jumlah',
             colorByPoint: true,
             data: [{
                 name: 'Laki - Laki',
