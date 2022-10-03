@@ -14,14 +14,18 @@
             <tr>
                 <th class="text-primary">Perempuan</th>
                 <td> &nbsp; : &nbsp; </td>
-                <td class="text-black fw-bold">200</td>
-                <td>&nbsp;&nbsp;&nbsp; <i class="bi bi-arrow-down text-danger"></i> 4%</td>
+                <td>
+                    <span class="text-black fw-bold">200</span> 
+                    <sup class="fs-12 text-black-50"><i class="bi bi-arrow-down text-danger"></i> 4%</sup>
+                </td>
             </tr>
             <tr>
                 <th class="text-warning">Laki - Laki</th>
                 <td> &nbsp; : &nbsp; </td>
-                <td class="text-black fw-bold">429</td>
-                <td>&nbsp;&nbsp;&nbsp; <i class="bi bi-arrow-up text-success"></i> 10%</td>
+                <td>
+                    <span class="text-black fw-bold">429</span>
+                    <sup class="fs-12 text-black-50"><i class="bi bi-arrow-up text-success"></i> 4%</sup>
+                </td>
             </tr>
         </table>
     </div>

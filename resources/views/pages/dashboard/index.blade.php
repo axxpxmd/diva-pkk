@@ -34,7 +34,7 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="fw-bold fs-14 text-warning mb-1">Jumlah RW</div>
-                                    <div class="fw-bold fs-18 text-black">50 <span class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</span></div>
+                                    <div class="fw-bold fs-18 text-black">50 <sup class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</sup></div>
                                 </div>
                                 <div class="col-auto fs-20">
                                     <i class="bi bi-clipboard-fill text-gray-400"></i>
@@ -49,7 +49,7 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="fw-bold fs-14 text-success mb-1">Jumlah RT</div>
-                                    <div class="fw-bold fs-18 text-black">120 <span class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-down text-danger"></i> 5%</span></div>
+                                    <div class="fw-bold fs-18 text-black">120 <sup class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-down text-danger"></i> 5%</sup></div>
                                 </div>
                                 <div class="col-auto fs-20">
                                     <i class="bi bi-clipboard-fill text-gray-400"></i>
@@ -64,7 +64,7 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="fw-bold fs-14 text-danger mb-1">Jumlah Rumah</div>
-                                    <div class="fw-bold fs-18 text-black">304 <span class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</span></div>
+                                    <div class="fw-bold fs-18 text-black">304 <sup class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</sup></div>
                                 </div>
                                 <div class="col-auto fs-20">
                                     <i class="bi bi-house-fill text-gray-400"></i>
@@ -79,7 +79,7 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="fw-bold fs-14 text-info mb-1">Jumlah KK</div>
-                                    <div class="fw-bold fs-18 text-black">505 <span class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-down text-danger"></i> 14%</span></div>
+                                    <div class="fw-bold fs-18 text-black">505 <sup class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-down text-danger"></i> 14%</sup></div>
                                 </div>
                                 <div class="col-auto fs-20">
                                     <i class="bi bi-file-earmark-text-fill text-gray-400"></i>
@@ -94,7 +94,7 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="fw-bold fs-14 text-primary mb-1">Jumlah Warga</div>
-                                    <div class="fw-bold fs-18 text-black">932 <span class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</span></div>
+                                    <div class="fw-bold fs-18 text-black">932 <sup class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</sup></div>
                                 </div>
                                 <div class="col-auto fs-20">
                                     <i class="bi bi-people-fill text-gray-400"></i>
@@ -119,23 +119,42 @@
                                                 <th class="text-center">No</th>
                                                 <th>Data</th>
                                                 <th>Jumlah</th>
+                                                <th>Persen (%)</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <td class="text-center">1</td>
                                                 <td>PUS</td>
-                                                <td class="text-center">500</td>
+                                                <td class="text-center">
+                                                    500 
+                                                    <sup class="text-black-50"><i class="fw-bold bi bi-arrow-down text-danger"></i> 10%</sup>
+                                                </td>
+                                                <td class="text-center">
+                                                    10%
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-center">2</td>
                                                 <td>WUS</td>
-                                                <td class="text-center">500</td>
+                                                <td class="text-center">
+                                                    500
+                                                    <sup class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</sup>
+                                                </td>
+                                                 <td class="text-center">
+                                                    40%
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-center">3</td>
                                                 <td>Stunting</td>
-                                                <td class="text-center">500</td>
+                                                <td class="text-center">
+                                                    500
+                                                    <sup class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</sup>
+                                                </td>
+                                                 <td class="text-center">
+                                                    2%
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -157,7 +176,7 @@
                                 <div class="card">
                                     <div class="card-body px-2 py-3 text-center">
                                         <div class="fw-bold fs-14 text-danger mb-3">Tangsel</div>
-                                        <div class="fw-bold fs-18 text-black">400 <span class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</span></div>
+                                        <div class="fw-bold fs-18 text-black">400 <sup class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</sup></div>
                                     </div>
                                 </div>
                             </div>
@@ -165,7 +184,7 @@
                                 <div class="card">
                                     <div class="card-body px-2 py-3 text-center">
                                         <div class="fw-bold fs-14 text-success mb-3">Luar Tangsel</div>
-                                        <div class="fw-bold fs-18 text-black">890 <span class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-down text-danger"></i> 10%</span></div>
+                                        <div class="fw-bold fs-18 text-black">890 <sup class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-down text-danger"></i> 10%</sup></div>
                                     </div>
                                 </div>
                             </div>
@@ -175,7 +194,7 @@
                                 <div class="card" style="border-bottom: 0.35rem solid #FC4B6C !important">
                                     <div class="card-body px-2 py-3 text-center">
                                         <div class="fw-bold fs-14 text-danger mb-3">Lajang</div>
-                                        <div class="fw-bold fs-18 text-black">400 <span class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</span></div>
+                                        <div class="fw-bold fs-18 text-black">400 <sup class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</sup></div>
                                     </div>
                                 </div>
                             </div>
@@ -183,7 +202,7 @@
                                 <div class="card" style="border-bottom: 0.35rem solid #39CB7F !important">
                                     <div class="card-body px-2 py-3 text-center">
                                         <div class="fw-bold fs-14 text-success mb-3">Menikah</div>
-                                        <div class="fw-bold fs-18 text-black">890 <span class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-down text-danger"></i> 10%</span></div>
+                                        <div class="fw-bold fs-18 text-black">890 <sup class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-down text-danger"></i> 10%</sup></div>
                                     </div>
                                 </div>
                             </div>
@@ -191,7 +210,7 @@
                                 <div class="card" style="border-bottom: 0.35rem solid #4e73df  !important">
                                     <div class="card-body px-2 py-3 text-center">
                                         <div class="fw-bold fs-14 text-primary mb-3">Janda</div>
-                                        <div class="fw-bold fs-18 text-black">300 <span class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</span></div>
+                                        <div class="fw-bold fs-18 text-black">300 <sup class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</sup></div>
                                     </div>
                                 </div>
                             </div>
@@ -199,7 +218,7 @@
                                 <div class="card" style="border-bottom: 0.35rem solid #FDC90F !important">
                                     <div class="card-body px-2 py-3 text-center">
                                         <div class="fw-bold fs-14 text-warning mb-3">Duda</div>
-                                        <div class="fw-bold fs-18 text-black">200 <span class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</span></div>
+                                        <div class="fw-bold fs-18 text-black">200 <sup class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</sup></div>
                                     </div>
                                 </div>
                             </div>
