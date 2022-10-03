@@ -51,7 +51,7 @@
                 <div class="row">
                     <div class="col-sm-3"></div>
                     <div class="col-sm-9">
-                        <button type="submit" class="btn btn-success fs-14"><i class="bi bi-filter m-r-8"></i>Filter</button>
+                        <a href="#" id="filterData" class="btn btn-success fs-14"><i class="bi bi-filter m-r-8"></i>Filter</a>
                     </div>
                 </div>
             </div>
@@ -60,8 +60,13 @@
 </div>
 @push('script')
 <script type="text/javascript">
+    $('#tahun').on('change', function(){
+        getParamFilter()
+    });
+
     // Kelurahan
     $('#kecamatan_id').on('change', function(){
+        getParamFilter()
         val = $(this).val();
         optionKelurahan = "<option value=''>Pilih</option>";
         if(val == ""){
@@ -90,7 +95,9 @@
         }
     });
 
+    // RTRW
     $('#kelurahan_id').on('change', function(){
+        getParamFilter()
         val = $(this).val();
         optionRTRW = "<option value=''>Pilih</option>";
         if(val == ""){
@@ -112,6 +119,23 @@
             }, 'JSON'); 
         }
     });
+
+    $('#rtrw_id').on('change', function(){
+        getParamFilter()
+    });
+
+
+    function getParamFilter()
+    {
+        tahun =  $("#tahun").val(); 
+        kecamatan_id = $("#kecamatan_id").val();
+        kelurahan_id = $("#kelurahan_id").val();
+        rtrw_id = $("#rtrw_id").val();
+
+        url = "{{ route('dashboard') }}?tahun=" + tahun + "&kecamatan_id=" + kecamatan_id + "&kelurahan_id=" + kelurahan_id + "&rtrw_id=" + rtrw_id;;
+
+        $('#filterData').attr('href', url)
+    }
 
 </script>
 @endpush

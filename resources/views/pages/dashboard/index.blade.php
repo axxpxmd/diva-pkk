@@ -125,6 +125,24 @@
                     </div>
                     <div class="col-sm-5">
                         <div class="row">
+                            <div class="col-sm-6" style="margin-bottom: -15px !important">
+                                <div class="card">
+                                    <div class="card-body px-2 py-3 text-center">
+                                        <div class="fw-bold fs-14 text-danger mb-3">Tangsel</div>
+                                        <div class="fw-bold fs-18 text-black">400 <span class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6" style="margin-bottom: -15px !important">
+                                <div class="card">
+                                    <div class="card-body px-2 py-3 text-center">
+                                        <div class="fw-bold fs-14 text-success mb-3">Luar Tangsel</div>
+                                        <div class="fw-bold fs-18 text-black">890 <span class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-down text-danger"></i> 10%</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-sm-3" style="margin-bottom: -15px !important">
                                 <div class="card" style="border-bottom: 0.35rem solid #FC4B6C !important">
                                     <div class="card-body px-2 py-3 text-center">
@@ -154,24 +172,6 @@
                                     <div class="card-body px-2 py-3 text-center">
                                         <div class="fw-bold fs-14 text-warning mb-3">Duda</div>
                                         <div class="fw-bold fs-18 text-black">200 <span class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6" style="margin-bottom: -15px !important">
-                                <div class="card">
-                                    <div class="card-body px-2 py-3 text-center">
-                                        <div class="fw-bold fs-14 text-danger mb-3">Tangsel</div>
-                                        <div class="fw-bold fs-18 text-black">400 <span class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6" style="margin-bottom: -15px !important">
-                                <div class="card">
-                                    <div class="card-body px-2 py-3 text-center">
-                                        <div class="fw-bold fs-14 text-success mb-3">Luar Tangsel</div>
-                                        <div class="fw-bold fs-18 text-black">890 <span class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-down text-danger"></i> 10%</span></div>
                                     </div>
                                 </div>
                             </div>
