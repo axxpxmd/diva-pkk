@@ -11,10 +11,10 @@
                     <div class="col-sm-9">
                         <select class="form-select select2" name="tahun" id="tahun">
                             <option value="">Pilih</option>
-                            <option value="2021">2021</option>
-                            <option value="2022">2022</option>
-                            <option value="2023">2023</option>
-                            <option value="2024">2024</option>
+                            <option value="2021" {{ $tahun == 2021 ? 'selected' : '' }}>2021</option>
+                            <option value="2022" {{ $tahun == 2022 ? 'selected' : '' }}>2022</option>
+                            <option value="2023" {{ $tahun == 2023 ? 'selected' : '' }}>2023</option>
+                            <option value="2024" {{ $tahun == 2024 ? 'selected' : '' }}>2024</option>
                         </select>
                         <div class="invalid-feedback">
                             Silahkan pilih Kecamatan.
@@ -27,7 +27,7 @@
                         <select class="form-select select2" name="kecamatan_id" id="kecamatan_id">
                             <option value="">Pilih</option>
                             @foreach ($kecamatans as $i)
-                            <option value="{{ $i->id }}">{{ $i->n_kecamatan }}</option>
+                            <option value="{{ $i->id }}" {{ $kecamatan_id == $i->id ? 'selected' : '' }}>{{ $i->n_kecamatan }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -60,17 +60,29 @@
 </div>
 @push('script')
 <script type="text/javascript">
+    // Tahun
     $('#tahun').on('change', function(){
         getParamFilter()
     });
 
-    // Kelurahan
-    $('#kecamatan_id').on('change', function(){
+    // RTRW
+    $('#rtrw_id').on('change', function(){
         getParamFilter()
+    });
+
+    kelurahan_id = "{{ isset($kelurahan_id) ? $kelurahan_id : 0 }}"
+    rtrw_id = "{{ isset($rtrw_id) ? $rtrw_id : 0 }}"
+
+    $(document).ready(function(){
+        $("#kecamatan_id").trigger('change');
+    })
+    $('#kecamatan_id').on('change', function(){
+        $('#kelurahan_id').val("").trigger("change.select2");
+        $('#rtrw_id').val("").trigger("change.select2");
         val = $(this).val();
         optionKelurahan = "<option value=''>Pilih</option>";
         if(val == ""){
-            $('#kelurahan_id').html(option);
+            $('#kelurahan_id').html(optionKelurahan);
         }else{
             $('#kelurahan_id').html("<option value=''>Loading...</option>");
             url = "{{ route('kelurahanByKecamatan', ':id') }}".replace(':id', val);
@@ -87,7 +99,7 @@
                     } else {
                         $("#kelurahan_id").val($("#kelurahan_id option:first").val());
                     }
-
+                   
                 }else{
                     $('#kelurahan_id').html(optionKelurahan);
                 }
@@ -95,13 +107,12 @@
         }
     });
 
-    // RTRW
     $('#kelurahan_id').on('change', function(){
-        getParamFilter()
+        $('#rtrw_id').val("").trigger("change.select2");
         val = $(this).val();
         optionRTRW = "<option value=''>Pilih</option>";
         if(val == ""){
-            $('#rtrw_id').html(option);
+            $('#rtrw_id').html(optionRTRW);
         }else{
             $('#rtrw_id').html("<option value=''>Loading...</option>");
             url = "{{ route('rtrwByKelurahan', ':id') }}".replace(':id', val);
@@ -112,16 +123,17 @@
                     });
                     $('#rtrw_id').empty().html(optionRTRW);
 
-                    $("#rtrw_id").val($("#rtrw_id option:first").val());                    
+                    if (rtrw_id) {
+                        $("#rtrw_id").val(rtrw_id);   
+                        $("#rtrw_id").trigger('change');
+                    } else {
+                        $("#rtrw_id").val($("#rtrw_id option:first").val());
+                    }
                 }else{
                     $('#rtrw_id').html(optionRTRW);
                 }
             }, 'JSON'); 
         }
-    });
-
-    $('#rtrw_id').on('change', function(){
-        getParamFilter()
     });
 
 

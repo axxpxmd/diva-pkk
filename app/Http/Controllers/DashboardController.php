@@ -17,14 +17,21 @@ class DashboardController extends Controller
         $title = $this->title;
         $active_dashboard = $this->active_dashboard;
 
+        $tahun = $request->tahun;
         $kecamatan_id = $request->kecamatan_id;
+        $kelurahan_id = $request->kelurahan_id;
+        $rtrw_id = $request->rtrw_id;
 
         $kecamatans = Kecamatan::select('id', 'n_kecamatan')->where('kabupaten_id', 40)->get();
 
         return view('pages.dashboard.index', compact(
             'title',
             'active_dashboard',
-            'kecamatans'
+            'kecamatans',
+            'tahun', 
+            'kecamatan_id',
+            'kelurahan_id',
+            'rtrw_id'
         ));
     }
 }
