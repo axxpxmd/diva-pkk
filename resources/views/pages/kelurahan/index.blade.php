@@ -18,14 +18,6 @@
                     </div>
                 </div>
                 <div class="col-md-6 px-0">
-                    <div class="row justify-content-center">
-                        <div class="col-md-4 mb-2">
-                            <div class="p-2 bg-info text-white rounded text-center">
-                                <p class="mb-0 fw-bolder fs-16 mb-1">Jumlah Kelurahan</p>
-                                <p class="mb-0 fs-14"></p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

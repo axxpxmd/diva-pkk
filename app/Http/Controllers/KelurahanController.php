@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use DataTables;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 // Models
+use App\Models\User;
 use App\Models\Kecamatan;
 use App\Models\Kelurahan;
 use App\Models\MappingKelurahan;
@@ -67,7 +69,7 @@ class KelurahanController extends Controller
                 }
             })
             ->addColumn('jumlah', function ($p) {
-                return 'RT ' . $p->rt->count() . ' / ' . 'RW ' . $p->rw->count() . ' / ' . 'Rumah ' . $p->rumah->count() . ' / ' . 'KK ' . $p->kk->count(). ' / ' . 'Warga ' . $p->warga->count();
+                return 'RT ' . $p->rt->count() . ' / ' . 'RW ' . $p->rw->count() . ' / ' . 'Rumah ' . $p->rumah->count() . ' / ' . 'KK ' . $p->kk->count() . ' / ' . 'Warga ' . $p->warga->count();
             })
             ->rawColumns(['id', 'ketua_kelurahan'])
             ->addIndexColumn()
@@ -106,26 +108,64 @@ class KelurahanController extends Controller
         $status = $request->status;
         $kelurahan_id = $request->kelurahan_id;
 
-        // Check aktif
-        if ($status == 1) {
-            $mappingKelurahan = MappingKelurahan::where('kelurahan_id', $kelurahan_id)->where('status', 1)->count();
-            if ($mappingKelurahan != 0) {
-                return redirect()
-                    ->route('kelurahan.createKetuaKelurahan', $kelurahan_id)
-                    ->withErrors("Terdapat Ketua yang masih aktif menjabat.");
+        /**
+         * Tahapan 
+         * 1. Check status aktif ketua kelurahan
+         * 2. kelurahan_mappings (create)
+         * 3. kelurahan (create)
+         * 4. users (create)
+         */
+
+        DB::beginTransaction(); //* DB Transaction Begin
+        try {
+            //* Tahap 1
+            if ($status == 1) {
+                $mappingKelurahan = MappingKelurahan::where('kelurahan_id', $kelurahan_id)->where('status', 1)->count();
+                if ($mappingKelurahan != 0) {
+                    return redirect()
+                        ->route('kelurahan.createKetuaKelurahan', $kelurahan_id)
+                        ->withErrors("Terdapat Ketua yang masih aktif menjabat.");
+                }
             }
-        }
 
-        $input = $request->all();
-        $data  = MappingKelurahan::create($input);
+            //* Tahap 2
+            $input = $request->all();
+            $input = $request->except(['kecamatan_id']);
+            $data  = MappingKelurahan::create($input);
 
-        // update table kelurahan
-        if ($status == 1) {
-            $kelurahan = Kelurahan::find($kelurahan_id);
-            $kelurahan->update([
-                'ketua_kelurahan' => $data->id
-            ]);
+            //* Tahap 3
+            if ($status == 1) {
+                $kelurahan = Kelurahan::find($kelurahan_id);
+                $kelurahan->update([
+                    'ketua_kelurahan' => $data->id
+                ]);
+            }
+
+            //* Tahap 4
+            $checkUser = User::where('nik', $request->nik)->count();
+            if (!$checkUser) {
+                $data_user = [
+                    'dasawisma_id' => 0,
+                    'rtrw_id' => 0,
+                    'kelurahan_id' => $request->kelurahan_id,
+                    'kecamatan_id' => $request->kecamatan_id,
+                    'username' => $request->nik,
+                    'password' => \md5('123456789'),
+                    'no_telp' => $request->no_hp,
+                    's_aktif' => $status == 1 ? 1 : 0,
+                    'nama' => $request->ketua,
+                    'nik' => $request->nik,
+                    'foto' => 'default.png'
+                ];
+                User::create($data_user);
+            }
+        } catch (\Throwable $th) {
+            DB::rollback(); //* DB Transaction Failed
+            return redirect()
+                ->route('kelurahan.createKetuaKelurahan', $kelurahan_id)
+                ->withErrors("Terjadi kesalahan, silahkan hubungi administrator");
         }
+        DB::commit(); //* DB Transaction Success
 
         return redirect()
             ->route('kelurahan.createKetuaKelurahan', $kelurahan_id)
@@ -154,27 +194,55 @@ class KelurahanController extends Controller
         $id = $request->id;
         $kelurahan_id = $request->kelurahan_id;
 
-        // Check aktif
-        if ($status == 1) {
-            $mappingKelurahan = MappingKelurahan::where('kelurahan_id', $kelurahan_id)->whereNotIn('id', [$id])->where('status', 1)->count();
-            if ($mappingKelurahan != 0) {
-                return redirect()
-                    ->route('kelurahan.createKetuaKelurahan', $kelurahan_id)
-                    ->withErrors("Terdapat Ketua yang masih aktif menjabat.");
+        /**
+         * Tahapan
+         * 1. Check status aktif ketua kelurahan
+         * 2. kelurahan_mappings (update)
+         * 3. kelurahan (update)
+         * 4. users (update)
+         */
+
+        try {
+            //* Tahap 1
+            if ($status == 1) {
+                $mappingKelurahan = MappingKelurahan::where('kelurahan_id', $kelurahan_id)->whereNotIn('id', [$id])->where('status', 1)->count();
+                if ($mappingKelurahan != 0) {
+                    return redirect()
+                        ->route('kelurahan.createKetuaKelurahan', $kelurahan_id)
+                        ->withErrors("Terdapat Ketua yang masih aktif menjabat.");
+                }
             }
-        }
 
-        $input = $request->all();
-        $data  = MappingKelurahan::find($id);
-        $data->update($input);
+            //* Tahap 2
+            $input = $request->all();
+            $input = $request->except(['kecamatan_id']);
+            $data  = MappingKelurahan::find($id);
+            $data->update($input);
 
-        // update table kelurahan
-        if ($status == 1) {
+            //* Tahap 3
             $kelurahan = Kelurahan::find($kelurahan_id);
-            $kelurahan->update([
-                'ketua_kelurahan' => $data->id
+            if ($status == 1) {
+                $kelurahan->update([
+                    'ketua_kelurahan' => $data->id
+                ]);
+            } else {
+                $kelurahan->update([
+                    'ketua_kelurahan' => null
+                ]);
+            }
+
+            //* Tahap 4
+            $user = User::where('nik', $request->nik)->first();
+            $user->update([
+                's_aktif' => $status == 1 ? 1 : 0
             ]);
+        } catch (\Throwable $th) {
+            DB::rollback(); //* DB Transaction Failed
+            return redirect()
+                ->route('kelurahan.createKetuaKelurahan', $kelurahan_id)
+                ->withErrors("Terjadi kesalahan, silahkan hubungi administrator");
         }
+        DB::commit(); //* DB Transaction Success
 
         return redirect()
             ->route('kelurahan.createKetuaKelurahan', $kelurahan_id)

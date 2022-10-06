@@ -79,6 +79,7 @@
             <div class="col-md-6 container">
                 <form id="form" class="fs-14 needs-validation" method="POST" action="{{ route('kelurahan.storeKetuaKelurahan') }}" novalidate>
                     @csrf
+                    <input type="text" class="d-none" id="kecamatan_id" name="kecamatan_id" value="{{ $kelurahan->kecamatan_id }}">
                     <input type="text" class="d-none" id="kelurahan_id" name="kelurahan_id" value="{{ $kelurahan->id }}"/>
                     <input type="text" class="d-none" id="id" name="id">
                     <div class="row mb-2">
