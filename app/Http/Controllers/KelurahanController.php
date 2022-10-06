@@ -213,10 +213,19 @@ class KelurahanController extends Controller
                 }
             }
 
+            //* Tahap 4
+            $data  = MappingKelurahan::find($id);
+            $user = User::where('nik', $data->nik)->first();
+            $user->update([
+                's_aktif' => $status == 1 ? 1 : 0,
+                'nik' => $request->nik,
+                'no_telp' => $request->no_telp,
+                'nama' => $request->ketua
+            ]);
+
             //* Tahap 2
             $input = $request->all();
             $input = $request->except(['kecamatan_id']);
-            $data  = MappingKelurahan::find($id);
             $data->update($input);
 
             //* Tahap 3
@@ -230,12 +239,6 @@ class KelurahanController extends Controller
                     'ketua_kelurahan' => null
                 ]);
             }
-
-            //* Tahap 4
-            $user = User::where('nik', $request->nik)->first();
-            $user->update([
-                's_aktif' => $status == 1 ? 1 : 0
-            ]);
         } catch (\Throwable $th) {
             DB::rollback(); //* DB Transaction Failed
             return redirect()
