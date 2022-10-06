@@ -25,7 +25,7 @@
                         <div class="col-md-4 mb-2">
                             <div class="p-2 bg-info text-white rounded text-center">
                                 <p class="mb-0 fw-bolder fs-16 mb-1">Jumlah Kader</p>
-                                <p class="mb-0 fs-14"></p>
+                                <p class="mb-0 fs-14">{{ $jumlahKader }}</p>
                             </div>
                         </div>
                     </div>

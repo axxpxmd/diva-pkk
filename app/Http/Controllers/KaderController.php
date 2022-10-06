@@ -17,8 +17,8 @@ use App\Models\DasawismaUser;
 
 class KaderController extends Controller
 {
-    protected $title = 'Kader';
-    protected $desc  = 'Menu ini berisikan data Kader';
+    protected $title = 'User';
+    protected $desc  = 'Menu ini berisikan data User';
     protected $active_kader = true;
 
     public function index(Request $request)
@@ -37,13 +37,16 @@ class KaderController extends Controller
         $rtrws = RTRW::select('id', 'kecamatan_id', 'kelurahan_id', 'rt', 'rw');
         $rtrwAlls = $rtrws->get();
         $rtrwKelurahans = $rtrws->groupBy('kelurahan_id')->get();
-        $roles = Role::select('id', 'name')->whereNotIn('id', [1])->get();
+        $roles = Role::select('id', 'name')->whereIn('id', [2])->get();
         $kecamatans = Kecamatan::select('id', 'n_kecamatan')->where('kabupaten_id', 40)->get();
 
         // Filter
         $rtrwDisplay = true;
         $kecamatanDisplay = true;
         $kelurahanDisplay = true;
+
+        // 
+        $jumlahKader = User::join('model_has_roles', 'model_has_roles.model_id', '=', 'users.id')->where('model_has_roles.role_id', 2)->count();
 
         return view('pages.kader.index', compact(
             'title',
@@ -56,7 +59,8 @@ class KaderController extends Controller
             'kecamatans',
             'rtrwDisplay',
             'kecamatanDisplay',
-            'kelurahanDisplay'
+            'kelurahanDisplay',
+            'jumlahKader'
         ));
     }
 
@@ -104,7 +108,6 @@ class KaderController extends Controller
          */
 
         DB::beginTransaction(); //* DB Transaction Begin
-
         try {
             //* Tahap 1
             $data_user = [
@@ -122,11 +125,13 @@ class KaderController extends Controller
             $user = User::create($data_user);
 
             //* Tahap 2
-            $data_dasawisma_user = [
-                'user_id' => $user->id,
-                'dasawisma_id' => $request->dasawisma_id,
-            ];
-            DasawismaUser::create($data_dasawisma_user);
+            if ($request->role_id == 2) {
+                $data_dasawisma_user = [
+                    'user_id' => $user->id,
+                    'dasawisma_id' => $request->dasawisma_id,
+                ];
+                DasawismaUser::create($data_dasawisma_user);
+            }
 
             //* Tahap 3
             $path = 'app\Models\User';

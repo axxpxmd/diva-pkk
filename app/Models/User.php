@@ -11,7 +11,7 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasRoles;
 
-    protected $fillable = ['id', 'rtrw_id', 'dasawisma_id', 'username', 'password', 'no_telp', 's_aktif', 'alamat', 'nama', 'nik', 'foto'];
+    protected $guarded = [];
 
     public function rtrw()
     {
@@ -37,10 +37,10 @@ class User extends Authenticatable
             ->join('rt_rw', 'rt_rw.id', '=', 'users.rtrw_id')
             ->whereNotIn('model_has_roles.role_id', [1])
             ->when($kecamatan_id, function ($q) use ($kecamatan_id) {
-                return $q->where('kecamatan_id', $kecamatan_id);
+                return $q->where('rt_rw.kecamatan_id', $kecamatan_id);
             })
             ->when($kelurahan_id, function ($q) use ($kelurahan_id) {
-                return $q->where('kelurahan_id', $kelurahan_id);
+                return $q->where('rt_rw.kelurahan_id', $kelurahan_id);
             })
             ->when($rtrw_id, function ($q) use ($rtrw_id) {
                 return $q->where('rt_rw.id', $rtrw_id);
