@@ -5,12 +5,16 @@ namespace App\Http\Controllers;
 use DataTables;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 // Models
 use App\Models\RTRW;
+use App\Models\User;
 use App\Models\Kecamatan;
+use App\Models\Kelurahan;
 use App\Models\MappingRT;
 use App\Models\MappingRW;
+use App\Models\ModelHasRole;
 
 class RTRWController extends Controller
 {
@@ -133,6 +137,10 @@ class RTRWController extends Controller
         $rt = $request->rt;
         $rw = $request->rw;
 
+        $kelurahan = Kelurahan::find($kelurahan_id);
+        $n_kelurahan = $kelurahan->n_kelurahan;
+        $n_kecamatan = $kelurahan->kecamatan->n_kecamatan;
+
         //* Check existing data
         $check = RTRW::where('kecamatan_id', $kecamatan_id)->where('kelurahan_id', $kelurahan_id)->where('rt', $rt)->where('rw', $rw)->first();
         if ($check) {
@@ -140,7 +148,7 @@ class RTRWController extends Controller
         }
 
         $input = $request->all();
-        RTRW::create($input);
+        RTRW::create(array_merge($input, ['n_kecamatan' => $n_kecamatan, 'n_kelurahan' => $n_kelurahan]));
 
         return response()->json(['message' => "Berhasil Menyimpan data."]);
     }
@@ -169,6 +177,10 @@ class RTRWController extends Controller
         $rt = $request->rt;
         $rw = $request->rw;
 
+        $kelurahan = Kelurahan::find($kelurahan_id);
+        $n_kelurahan = $kelurahan->n_kelurahan;
+        $n_kecamatan = $kelurahan->kecamatan->n_kecamatan;
+
         //* Check existing data
         $check = RTRW::where('kecamatan_id', $kecamatan_id)->where('kelurahan_id', $kelurahan_id)->where('rt', $rt)->where('rw', $rw)->count();
         if ($check == 2) {
@@ -177,7 +189,7 @@ class RTRWController extends Controller
 
         $input = $request->all();
         $data  = RTRW::find($id);
-        $data->update($input);
+        $data->update(array_merge($input, ['n_kecamatan' => $n_kecamatan, 'n_kelurahan' => $n_kelurahan]));
 
         return response()->json(['message' => "Berhasil memperbaharui data."]);
     }
@@ -237,66 +249,151 @@ class RTRWController extends Controller
         $kelurahan_id = $rtrw->kelurahan_id;
         $rw = $rtrw->rw;
 
+        /**
+         * Tahapan
+         * 1. Store Ketua RT
+         *    1.1 Check status aktif ketua RT
+         *    1.2 rt_mappings (create)
+         *    1.3 rt_rw (update)
+         *    1.4 users (create)
+         *    1.5 model_has_roles (create)
+         * 2. Store Ketua RW
+         *    2.1 Check status aktif ketua RW
+         *    2.2 rw_mappings (create)
+         *    2.3 rt_rw (update)
+         *    2.4 user (create)
+         *    2.5 model_has_roles (create)
+         */
+
+        //* Tahap 1
         if ($kategori == 'rt') {
-            // Check aktif ketua RT
-            if ($status == 1) {
-                $mappingRtRw = MappingRT::where('rtrw_id', $rtrw_id)->where('status', 1)->count();
-                if ($mappingRtRw != 0) {
-                    return redirect()
-                        ->route('rt-rw.createKetuaRT', [$rtrw_id, 'kategori=' . $kategori])
-                        ->withErrors("Terdapat Ketua yang masih aktif menjabat.");
+            DB::beginTransaction(); //* DB Transaction Begin
+            try {
+                //* Tahap 1.1
+                if ($status == 1) {
+                    $mappingRtRw = MappingRT::where('rtrw_id', $rtrw_id)->where('status', 1)->count();
+                    if ($mappingRtRw != 0) {
+                        return redirect()
+                            ->route('rt-rw.createKetuaRT', [$rtrw_id, 'kategori=' . $kategori])
+                            ->withErrors("Terdapat Ketua yang masih aktif menjabat.");
+                    }
                 }
-            }
 
-            $input = $request->all();
-            $data  = MappingRT::create($input);
+                //* Tahap 1.2
+                $input = $request->all();
+                $input = $request->except(['kategori']);
+                $data  = MappingRT::create($input);
 
-            // Update table rt_rw
-            if ($status == 1) {
-                $rtrw = RTRW::find($rtrw_id);
-                $rtrw->update([
-                    'ketua_rt' => $data->id
-                ]);
-            }
-        } else {
-            // Check aktif ketua RW
-            if ($status == 1) {
-                $mappingRW = MappingRW::where('kecamatan_id', $kecamatan_id)
-                    ->where('kelurahan_id', $kelurahan_id)
-                    ->where('rw', $rw)
-                    ->where('status', 1)->first();
-                if ($mappingRW != 0) {
-                    return redirect()
-                        ->route('rt-rw.createKetuaRT', [$rtrw_id, 'kategori=' . $kategori])
-                        ->withErrors("Terdapat Ketua yang masih aktif menjabat.");
-                }
-            }
-
-            $input = [
-                'ketua' => $request->ketua,
-                'no_hp' => $request->no_hp,
-                'nik' => $request->nik,
-                'awal_menjabat' => $request->awal_menjabat,
-                'akhir_menjabat' => $request->akhir_menjabat,
-                'status' => $request->status,
-                'kecamatan_id' => $kecamatan_id,
-                'kelurahan_id' => $kelurahan_id,
-                'rw' => $rw
-            ];
-            $data = MappingRW::create($input);
-
-            // Update table rt_rw
-            if ($status == 1) {
-                $rtrws = RTRW::where('kecamatan_id', $kecamatan_id)
-                    ->where('kelurahan_id', $kelurahan_id)
-                    ->where('rw', $rw)
-                    ->get();
-                foreach ($rtrws as $i) {
-                    $i->update([
-                        'ketua_rw' => $data->id
+                //* Tahap 1.3
+                if ($status == 1) {
+                    $rtrw = RTRW::find($rtrw_id);
+                    $rtrw->update([
+                        'ketua_rt' => $data->id
                     ]);
                 }
+
+                $checkUser = User::where('nik', $request->nik)->count();
+                if (!$checkUser) {
+                    //* Tahap 1.4
+                    $data_user = [
+                        'dasawisma_id' => 0,
+                        'rtrw_id' => 0,
+                        'username' => $request->nik,
+                        'password' => \md5('123456789'),
+                        'no_telp' => $request->no_hp,
+                        's_aktif' => 1,
+                        'nama' => $request->ketua,
+                        'nik' => $request->nik,
+                        'foto' => 'default.png'
+                    ];
+                    $userRT = User::create($data_user);
+
+                    //* Tahap 1.5
+                    $model_has_role = new ModelHasRole();
+                    $model_has_role->role_id    = 3;
+                    $model_has_role->model_type = 'app\Models\User';
+                    $model_has_role->model_id   = $userRT->id;
+                    $model_has_role->save();
+                }
+            } catch (\Throwable $th) {
+                DB::rollback(); //* DB Transaction Failed
+                return response()->json(['message' => "Terjadi kesalahan, silahkan hubungi administrator"], 500);
             }
+            DB::commit(); //* DB Transaction Success
+        }
+
+        //* Tahap 2
+        if ($kategori == 'rw') {
+            DB::beginTransaction(); //* DB Transaction Begin
+            try {
+                //* Tahap 1.1
+                if ($status == 1) {
+                    $mappingRW = MappingRW::where('kecamatan_id', $kecamatan_id)
+                        ->where('kelurahan_id', $kelurahan_id)
+                        ->where('rw', $rw)
+                        ->where('status', 1)->first();
+                    if ($mappingRW != 0) {
+                        return redirect()
+                            ->route('rt-rw.createKetuaRT', [$rtrw_id, 'kategori=' . $kategori])
+                            ->withErrors("Terdapat Ketua yang masih aktif menjabat.");
+                    }
+                }
+
+                //* Tahap 2.2
+                $input = [
+                    'ketua' => $request->ketua,
+                    'no_hp' => $request->no_hp,
+                    'nik' => $request->nik,
+                    'awal_menjabat' => $request->awal_menjabat,
+                    'akhir_menjabat' => $request->akhir_menjabat,
+                    'status' => $request->status,
+                    'kecamatan_id' => $kecamatan_id,
+                    'kelurahan_id' => $kelurahan_id,
+                    'rw' => $rw
+                ];
+                $data = MappingRW::create($input);
+
+                //* Tahap 2.3
+                if ($status == 1) {
+                    $rtrws = RTRW::where('kecamatan_id', $kecamatan_id)
+                        ->where('kelurahan_id', $kelurahan_id)
+                        ->where('rw', $rw)
+                        ->get();
+                    foreach ($rtrws as $i) {
+                        $i->update([
+                            'ketua_rw' => $data->id
+                        ]);
+                    }
+                }
+
+                $checkUser = User::where('nik', $request->nik)->count();
+                if (!$checkUser) {
+                    //* Tahap 2.4
+                    $data_user = [
+                        'dasawisma_id' => 0,
+                        'rtrw_id' => 0,
+                        'username' => $request->nik,
+                        'password' => \md5('123456789'),
+                        'no_telp' => $request->no_hp,
+                        's_aktif' => 1,
+                        'nama' => $request->ketua,
+                        'nik' => $request->nik,
+                        'foto' => 'default.png'
+                    ];
+                    $userRW = User::create($data_user);
+
+                    //* Tahap 1.5
+                    $model_has_role = new ModelHasRole();
+                    $model_has_role->role_id    = 4;
+                    $model_has_role->model_type = 'app\Models\User';
+                    $model_has_role->model_id   = $userRW->id;
+                    $model_has_role->save();
+                }
+            } catch (\Throwable $th) {
+                DB::rollback(); //* DB Transaction Failed
+                return response()->json(['message' => "Terjadi kesalahan, silahkan hubungi administrator"], 500);
+            }
+            DB::commit(); //* DB Transaction Success
         }
 
         return redirect()
@@ -310,7 +407,9 @@ class RTRWController extends Controller
 
         if ($kategori == 'rt') {
             $data = MappingRT::find($id);
-        } else {
+        }
+
+        if ($kategori == 'rw') {
             $data = MappingRW::find($id);
         }
 
@@ -328,6 +427,18 @@ class RTRWController extends Controller
             'status' => 'required'
         ]);
 
+        /**
+         * Tahapan
+         * 1. Update Ketua RT
+         *    1.1 Check status aktif ketua RT
+         *    1.2 rt_mappings (update)
+         *    1.3 rt_rw (update)
+         * 2. Update Ketua RW
+         *    2.1 Check status aktif ketua RW
+         *    2.2 rw_mappings (update)
+         *    2.3 rt_rw (update)
+         */
+
         $kategori = $request->kategori;
         $status = $request->status;
         $id = $request->id;
@@ -338,78 +449,98 @@ class RTRWController extends Controller
         $kelurahan_id = $rtrw->kelurahan_id;
         $rw = $rtrw->rw;
 
+        //* Tahap 1
         if ($kategori == 'rt') {
-            // Check aktif
-            if ($status == 1) {
-                $mappingRtRw = MappingRT::where('rtrw_id', $rtrw_id)->whereNotIn('id', [$id])->where('status', 1)->count();
-                if ($mappingRtRw != 0) {
-                    return redirect()
-                        ->route('rt-rw.createKetuaRT', [$rtrw_id, 'kategori=' . $kategori])
-                        ->withErrors("Terdapat Ketua yang masih aktif menjabat.");
+            DB::beginTransaction(); //* DB Transaction Begin
+            try {
+                //* Tahap 1.1
+                if ($status == 1) {
+                    $mappingRtRw = MappingRT::where('rtrw_id', $rtrw_id)->whereNotIn('id', [$id])->where('status', 1)->count();
+                    if ($mappingRtRw != 0) {
+                        return redirect()
+                            ->route('rt-rw.createKetuaRT', [$rtrw_id, 'kategori=' . $kategori])
+                            ->withErrors("Terdapat Ketua yang masih aktif menjabat.");
+                    }
                 }
-            }
 
-            $input = $request->all();
-            $input = $request->except(['kategori']);
-            $data  = MappingRT::find($id);
-            $data->update($input);
+                //* Tahap 1.2
+                $input = $request->all();
+                $input = $request->except(['kategori']);
+                $data  = MappingRT::find($id);
+                $data->update($input);
 
-            // update table rt_rw
-            $rtrw = RTRW::find($rtrw_id);
-            if ($status == 1) {
-                $rtrw->update([
-                    'ketua_rt' => $data->id
-                ]);
-            } else {
-                $rtrw->update([
-                    'ketua_rt' => null
-                ]);
+                //* Tahap 1.3
+                $rtrw = RTRW::find($rtrw_id);
+                if ($status == 1) {
+                    $rtrw->update([
+                        'ketua_rt' => $data->id
+                    ]);
+                } else {
+                    $rtrw->update([
+                        'ketua_rt' => null
+                    ]);
+                }
+            } catch (\Throwable $th) {
+                DB::rollback(); //* DB Transaction Failed
+                return response()->json(['message' => "Terjadi kesalahan, silahkan hubungi administrator"], 500);
             }
-        } else {
-            // Check aktif
-            if ($status == 1) {
-                $mappingRW = MappingRW::where('kecamatan_id', $kecamatan_id)
+            DB::commit(); //* DB Transaction Success
+        }
+
+        //* Tahap 2
+        if ($kategori == 'rw') {
+            DB::beginTransaction(); //* DB Transaction Begin
+            try {
+                //* Tahap 1.1
+                if ($status == 1) {
+                    $mappingRW = MappingRW::where('kecamatan_id', $kecamatan_id)
+                        ->where('kelurahan_id', $kelurahan_id)
+                        ->where('rw', $rw)
+                        ->whereNotIn('id', [$id])
+                        ->where('status', 1)
+                        ->count();
+                    if ($mappingRW != 0) {
+                        return redirect()
+                            ->route('rt-rw.createKetuaRT', [$rtrw_id, 'kategori=' . $kategori])
+                            ->withErrors("Terdapat Ketua yang masih aktif menjabat.");
+                    }
+                }
+
+                //* Tahap 1.2
+                $input = [
+                    'ketua' => $request->ketua,
+                    'no_hp' => $request->no_hp,
+                    'nik' => $request->nik,
+                    'awal_menjabat' => $request->awal_menjabat,
+                    'akhir_menjabat' => $request->akhir_menjabat,
+                    'status' => $request->status
+                ];
+                $data = MappingRW::find($id);
+                $data->update($input);
+
+                //* Tahap 1.3
+                $rtrws = RTRW::where('kecamatan_id', $kecamatan_id)
                     ->where('kelurahan_id', $kelurahan_id)
                     ->where('rw', $rw)
-                    ->whereNotIn('id', [$id])
-                    ->where('status', 1)
-                    ->count();
-                if ($mappingRW != 0) {
-                    return redirect()
-                        ->route('rt-rw.createKetuaRT', [$rtrw_id, 'kategori=' . $kategori])
-                        ->withErrors("Terdapat Ketua yang masih aktif menjabat.");
+                    ->get();
+                if ($status == 1) {
+                    foreach ($rtrws as $i) {
+                        $i->update([
+                            'ketua_rw' => $data->id
+                        ]);
+                    }
+                } else {
+                    foreach ($rtrws as $i) {
+                        $i->update([
+                            'ketua_rw' => null
+                        ]);
+                    }
                 }
+            } catch (\Throwable $th) {
+                DB::rollback(); //* DB Transaction Failed
+                return response()->json(['message' => "Terjadi kesalahan, silahkan hubungi administrator"], 500);
             }
-
-            $input = [
-                'ketua' => $request->ketua,
-                'no_hp' => $request->no_hp,
-                'nik' => $request->nik,
-                'awal_menjabat' => $request->awal_menjabat,
-                'akhir_menjabat' => $request->akhir_menjabat,
-                'status' => $request->status
-            ];
-            $data = MappingRW::find($id);
-            $data->update($input);
-
-            // Update table rt_rw
-            $rtrws = RTRW::where('kecamatan_id', $kecamatan_id)
-                ->where('kelurahan_id', $kelurahan_id)
-                ->where('rw', $rw)
-                ->get();
-            if ($status == 1) {
-                foreach ($rtrws as $i) {
-                    $i->update([
-                        'ketua_rw' => $data->id
-                    ]);
-                }
-            } else { 
-                foreach ($rtrws as $i) {
-                    $i->update([
-                        'ketua_rw' => null
-                    ]);
-                }
-            }
+            DB::commit(); //* DB Transaction Success
         }
 
         return redirect()

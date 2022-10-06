@@ -46,6 +46,7 @@
                             <th class="text-center">Awal Menjabat</th>
                             <th class="text-center">Akhir Menjabat</th>
                             <th class="text-center">Lama Menjabat</th>
+                            <th class="text-center">Status Login</th>
                             <th class="text-center">Status</th>
                             <th></th>
                         </tr>
@@ -61,6 +62,9 @@
                                 <td class="text-center">{{ Carbon\Carbon::createFromFormat('Y-m-d', $i->akhir_menjabat)->isoFormat('D MMMM Y'); }}</td>
                                 <td class="text-center">
                                     {{ date_diff(new \DateTime($i->awal_menjabat), new \DateTime($i->akhir_menjabat))->format("%y Tahun, %m Bulan, %d Hari"); }}
+                                </td>
+                                <td class="text-center">
+                                    {{ $i->user ? 'Ada' : 'Tidak Ada' }}
                                 </td>
                                 <td class="text-center">
                                     @if ($i->status == 1)

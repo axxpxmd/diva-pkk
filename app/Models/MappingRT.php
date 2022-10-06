@@ -14,4 +14,9 @@ class MappingRT extends Model
     {
         return $this->belongsTo(RTRW::class, 'rtrw_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'nik', 'nik');
+    }
 }
