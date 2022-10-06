@@ -351,7 +351,7 @@
             $.get(url, function(data){
                 if(data){
                     $.each(data, function(index, value){
-                        optionRumah += "<option value='" + value.id + "'>" + value.kepala_rumah +"</li>";
+                        optionRumah += "<option value='" + value.id + "'>" + value.kepala_rumah + ' / ' + value.alamat_detail +"</li>";
                     });
                     $('#rumah_id').empty().html(optionRumah);
 
