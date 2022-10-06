@@ -96,7 +96,7 @@
                     <li class="sidebar-item {{ isset($active_kader) ? 'active' : '-' }}">
                         <a href="{{ route('kader.index') }}" class='sidebar-link'>
                             <i class="bi bi-people-fill text-info"></i>
-                            <span>Kader</span>
+                            <span>User</span>
                         </a>
                     </li>
                 @endcan
