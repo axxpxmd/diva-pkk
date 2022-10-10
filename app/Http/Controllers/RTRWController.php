@@ -6,6 +6,7 @@ use DataTables;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 // Models
 use App\Models\RTRW;
@@ -62,6 +63,8 @@ class RTRWController extends Controller
     {
         $data = RTRW::queryTable($rw, $kecamatan_id, $kelurahan_id);
 
+        $role_id = Auth::user()->modelHasRole->role_id;
+
         return DataTables::of($data)
             ->addColumn('action', function ($p) {
                 $checkDasawisma = $p->dasawisma->count();
@@ -90,26 +93,26 @@ class RTRWController extends Controller
             ->addColumn('jumlah', function ($p) {
                 return 'Rumah ' . $p->rumah->count() . ' / ' . 'KK ' . $p->kk->count() . ' / ' . 'Warga ' . $p->warga->count();
             })
-            ->editColumn('ketua_rt', function ($p) {
+            ->editColumn('ketua_rt', function ($p) use($role_id) {
                 $add = "<a href='" . route('rt-rw.createKetuaRT', [$p->id, 'kategori=rt']) . "' class='text-info' title='Tambah Ketua RT'><i class='bi bi-person-plus-fill'></i></a>";
 
                 if ($p->ketua_rt) {
                     $mappingRtRw = MappingRT::where('id', $p->ketua_rt)->first();
 
-                    return $mappingRtRw->ketua . '&nbsp&nbsp&nbsp' . $add;
+                    return $mappingRtRw->ketua . '&nbsp&nbsp&nbsp' . $role_id == 10 ? $add : '-';
                 } else {
-                    return $add;
+                    return $role_id == 10 ? $add : '-';
                 }
             })
-            ->editColumn('ketua_rw', function ($p) {
+            ->editColumn('ketua_rw', function ($p) use($role_id) {
                 $add = "<a href='" . route('rt-rw.createKetuaRT', [$p->id, 'kategori=rw']) . "' class='text-info' title='Tambah Ketua RT'><i class='bi bi-person-plus-fill'></i></a>";
 
                 if ($p->ketua_rw) {
                     $mappingRW = MappingRW::where('id', $p->ketua_rw)->first();
 
-                    return $mappingRW->ketua . '&nbsp&nbsp&nbsp' . $add;
+                    return $mappingRW->ketua . '&nbsp&nbsp&nbsp' . $role_id == 10 ? $add : '-';
                 } else {
-                    return $add;
+                    return $role_id == 10 ? $add : '-';
                 }
             })
             ->editColumn('kelurahan_id', function ($p) {
