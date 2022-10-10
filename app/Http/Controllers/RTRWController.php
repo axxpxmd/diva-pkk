@@ -320,7 +320,9 @@ class RTRWController extends Controller
                 }
             } catch (\Throwable $th) {
                 DB::rollback(); //* DB Transaction Failed
-                return response()->json(['message' => "Terjadi kesalahan, silahkan hubungi administrator"], 500);
+                return redirect()
+                    ->route('rt-rw.createKetuaRT', [$rtrw_id, 'kategori=' . $kategori])
+                    ->withErrors("Terjadi kesalahan, silahkan hubungi administrator");
             }
             DB::commit(); //* DB Transaction Success
         }
@@ -387,7 +389,7 @@ class RTRWController extends Controller
                         'nik' => $request->nik,
                         'foto' => 'default.png'
                     ];
-                    $userRW = User::create($data_user); 
+                    $userRW = User::create($data_user);
 
                     //* Tahap 1.5
                     $model_has_role = new ModelHasRole();
@@ -398,7 +400,9 @@ class RTRWController extends Controller
                 }
             } catch (\Throwable $th) {
                 DB::rollback(); //* DB Transaction Failed
-                return response()->json(['message' => "Terjadi kesalahan, silahkan hubungi administrator"], 500);
+                return redirect()
+                    ->route('rt-rw.createKetuaRT', [$rtrw_id, 'kategori=' . $kategori])
+                    ->withErrors("Terjadi kesalahan, silahkan hubungi administrator");
             }
             DB::commit(); //* DB Transaction Success
         }
