@@ -389,6 +389,7 @@ class AnggotaKeluargaController extends Controller
         try {
             //* Tahap 2
             $inputAnggota = [
+                'rtrw_id' => $request->rtrw_id,
                 'rumah_id' => $request->rumah_id,
                 'nik' => $request->nik,
                 'status_hidup' => 0,
