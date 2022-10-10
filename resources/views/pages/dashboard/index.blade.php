@@ -1,7 +1,14 @@
 @extends('layouts.app')
 @section('content')
 <div class="page-heading">
-    <h3>{{ $title }}</h3>
+    <div class="row">
+        <div class="col-sm-6">
+            <h3>{{ $title }}</h3>
+        </div>
+        <div class="col-sm-6 text-end">
+            <h3><span class="fs-16 text-black-50">{{ Auth::user()->nama }}</span></h3>
+        </div>
+    </div>
 </div>
 <section class="section animate__animated animate__fadeInRight">
 <div class="col-12">
