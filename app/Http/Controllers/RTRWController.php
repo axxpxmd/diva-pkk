@@ -286,7 +286,6 @@ class RTRWController extends Controller
 
                 //* Tahap 1.3
                 if ($status == 1) {
-                    $rtrw = RTRW::find($rtrw_id);
                     $rtrw->update([
                         'ketua_rt' => $data->id
                     ]);
@@ -297,11 +296,15 @@ class RTRWController extends Controller
                     //* Tahap 1.4
                     $data_user = [
                         'dasawisma_id' => 0,
-                        'rtrw_id' => 0,
+                        'rtrw_id' => $rtrw_id,
+                        'kecamatan_id' => $rtrw->kecamatan_id,
+                        'kelurahan_id' => $rtrw->kelurahan_id,
+                        'rw' => $rtrw->rw,
+                        'rt' => $rtrw->rt,
                         'username' => $request->nik,
                         'password' => \md5('123456789'),
                         'no_telp' => $request->no_hp,
-                        's_aktif' => 1,
+                        's_aktif' => $status == 1 ? 1 : 0,
                         'nama' => $request->ketua,
                         'nik' => $request->nik,
                         'foto' => 'default.png'
@@ -372,6 +375,10 @@ class RTRWController extends Controller
                     $data_user = [
                         'dasawisma_id' => 0,
                         'rtrw_id' => 0,
+                        'rtrw_id' => $rtrw_id,
+                        'kecamatan_id' => $rtrw->kecamatan_id,
+                        'kelurahan_id' => $rtrw->kelurahan_id,
+                        'rw' => $rtrw->rw,
                         'username' => $request->nik,
                         'password' => \md5('123456789'),
                         'no_telp' => $request->no_hp,
@@ -380,7 +387,7 @@ class RTRWController extends Controller
                         'nik' => $request->nik,
                         'foto' => 'default.png'
                     ];
-                    $userRW = User::create($data_user);
+                    $userRW = User::create($data_user); 
 
                     //* Tahap 1.5
                     $model_has_role = new ModelHasRole();
@@ -433,10 +440,12 @@ class RTRWController extends Controller
          *    1.1 Check status aktif ketua RT
          *    1.2 rt_mappings (update)
          *    1.3 rt_rw (update)
+         *    1.4 users (update)
          * 2. Update Ketua RW
          *    2.1 Check status aktif ketua RW
          *    2.2 rw_mappings (update)
          *    2.3 rt_rw (update)
+         *    2.4 users (update)
          */
 
         $kategori = $request->kategori;
@@ -462,6 +471,16 @@ class RTRWController extends Controller
                             ->withErrors("Terdapat Ketua yang masih aktif menjabat.");
                     }
                 }
+
+                //* Tahap 1.4
+                $data  = MappingRT::find($id);
+                $user = User::where('nik', $data->nik)->first();
+                $user->update([
+                    's_aktif' => $status == 1 ? 1 : 0,
+                    'nik' => $request->nik,
+                    'no_telp' => $request->no_telp,
+                    'nama' => $request->ketua
+                ]);
 
                 //* Tahap 1.2
                 $input = $request->all();
@@ -505,6 +524,16 @@ class RTRWController extends Controller
                             ->withErrors("Terdapat Ketua yang masih aktif menjabat.");
                     }
                 }
+
+                //* Tahap 1.4
+                $data = MappingRW::find($id);
+                $user = User::where('nik', $data->nik)->first();
+                $user->update([
+                    's_aktif' => $status == 1 ? 1 : 0,
+                    'nik' => $request->nik,
+                    'no_telp' => $request->no_telp,
+                    'nama' => $request->ketua
+                ]);
 
                 //* Tahap 1.2
                 $input = [
