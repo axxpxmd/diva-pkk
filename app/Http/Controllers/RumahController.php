@@ -112,7 +112,7 @@ class RumahController extends Controller
             })
             ->editColumn('status_isi', function($p) {
                 $lengkap = '<span class="badge bg-success">Lengkap</span>';
-                $tidakLengkap = '<span class="badge bg-danger">Belum</span>';
+                $tidakLengkap = '<span class="badge bg-danger">Blm Lengkap</span>';
 
                 return $p->status_isi == 1 ? $lengkap : $tidakLengkap;
             })
