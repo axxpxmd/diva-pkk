@@ -71,7 +71,7 @@
     </div>
 </section>
 <div class="modal fade" id="modalForm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-dialog modal-dialog-centered {{ $role_id == 3 ? 'modal-lg' : 'modal-xl' }}">
         <div class="modal-content">
             <div class="modal-header bg-info">
                 <h5 class="modal-title text-white" id="exampleModalLabel"><span id="txtTitle"></span> Data {{ $title }}</h5>
@@ -83,12 +83,38 @@
                     <input type="text" class="d-none" id="id" name="id"/>
                     <div id="alert"></div>
                     <div class="row">
-                        <div class="col-sm-6">
+                        @if ($role_id == 3)
+                        <div class="col-sm-12">
                             <div class="bg-light-secondary p-2 rounded mb-3">
                                 <span class="fw-bold">Dasawisma</span>
                             </div>
                             @include('layouts.alamat2')
-                            @if ($role_id == 2)
+                            <div class="bg-light-secondary p-2 rounded mb-3">
+                                <span class="fw-bold">Detail Rumah</span>
+                            </div>
+                            <div class="row mb-2">
+                                <label for="alamat_detail" class="col-sm-4 col-form-label text-end fw-bold">Alamat Rumah <span class="text-danger">*</span></label>
+                                <div class="col-sm-8">
+                                    <textarea type="text" name="alamat_detail" id="alamat_detail" placeholder="Diisi Nomor Rumah / Blok" class="form-control" autocomplete="off" required></textarea>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <label for="kepala_rumah" class="col-sm-4 col-form-label text-end fw-bold">Kepala Rumah <span class="text-danger">*</span></label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="kepala_rumah" id="kepala_rumah" class="form-control" placeholder="Nama Kepala Rumah" autocomplete="off" required>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-sm-4"></div>
+                                <div class="col-sm-8">
+                                    <button type="submit" class="btn btn-success fs-14" id="btnSave" title="Simpan Data"><i class="bi bi-save m-r-8"></i>Simpan <span id="txtSave"></span></button>
+                                    <a href="#" onclick="add()" class="m-l-5 text-danger fw-bold  fs-14" title="Kosongkan Form"><i class="bi bi-arrow-clockwise m-r-8"></i>Reset</a>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+                        @if ($role_id == 2 || $role_id == 9)
+                        <div class="col-sm-6">
                             <div class="row mb-2">
                                 <label for="dasawisma_id" class="col-sm-4 col-form-label fw-bold text-end">Dasawisma <span class="text-danger">*</span></label>
                                 <div class="col-sm-8">
@@ -100,7 +126,6 @@
                                     </div>
                                 </div>
                             </div>
-                            @endif
                             <hr>
                             <div class="bg-light-secondary p-2 rounded mb-3">
                                 <span class="fw-bold">Detail Rumah</span>
@@ -117,7 +142,6 @@
                                     <input type="text" name="kepala_rumah" id="kepala_rumah" class="form-control" placeholder="Nama Kepala Rumah" autocomplete="off" required>
                                 </div>
                             </div>
-                            @if ($role_id == 2)
                             <div class="row mb-2">
                                 <label for="jamban" class="col-sm-4 col-form-label text-end fw-bold">Jumlah Jamban <span class="text-danger">*</span></label>
                                 <div class="col-sm-8">
@@ -155,19 +179,8 @@
                                     <input type="text" id="lainnya_value" onkeyup="valueToLainnya()" class="form-control mt-2" style="display: none" placeholder="Tambahkan Lainnya" autocomplete="off">
                                 </div>
                             </div>
-                            @endif
-                            @if ($role_id != 2)
-                            <div class="row mt-3">
-                                <div class="col-sm-4"></div>
-                                <div class="col-sm-8">
-                                    <button type="submit" class="btn btn-success fs-14" id="btnSave" title="Simpan Data"><i class="bi bi-save m-r-8"></i>Simpan <span id="txtSave"></span></button>
-                                    <a href="#" onclick="add()" class="m-l-5 text-danger fw-bold  fs-14" title="Kosongkan Form"><i class="bi bi-arrow-clockwise m-r-8"></i>Reset</a>
-                                </div>
-                            </div>
-                            @endif
                         </div>
                         <div class="col-sm-6">
-                            @if ($role_id == 2)
                             <div class="row mb-2">
                                 <label for="tempat_smph" class="col-sm-4 col-form-label text-end fw-bold">Pembuangan Sampah <span class="text-danger">*</span></label>
                                 <div class="col-sm-4 m-t-6">
@@ -243,9 +256,6 @@
                                     </label>
                                 </div>
                             </div>
-                            @endif
-                            
-                            @if ($role_id == 2)
                             <div class="row mt-3">
                                 <div class="col-sm-4"></div>
                                 <div class="col-sm-8">
