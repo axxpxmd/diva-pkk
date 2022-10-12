@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 // Models
 use App\Models\Kecamatan;
+use App\Models\Kelurahan;
+use App\Models\RTRW;
 
 class DashboardController extends Controller
 {
@@ -17,12 +19,17 @@ class DashboardController extends Controller
         $title = $this->title;
         $active_dashboard = $this->active_dashboard;
 
-        $tahun = $request->tahun;
+        $kecamatans = Kecamatan::select('id', 'n_kecamatan')->where('kabupaten_id', 40)->get();
+
+        //* Filter
+        $tahun   = $request->tahun;
+        $rtrw_id = $request->rtrw_id;
         $kecamatan_id = $request->kecamatan_id;
         $kelurahan_id = $request->kelurahan_id;
-        $rtrw_id = $request->rtrw_id;
 
-        $kecamatans = Kecamatan::select('id', 'n_kecamatan')->where('kabupaten_id', 40)->get();
+        $rtrw = RTRW::find($rtrw_id);
+        $kecamatan = Kecamatan::find($kecamatan_id);
+        $kelurahan = Kelurahan::find($kelurahan_id);
 
         return view('pages.dashboard.index', compact(
             'title',
@@ -31,7 +38,10 @@ class DashboardController extends Controller
             'tahun', 
             'kecamatan_id',
             'kelurahan_id',
-            'rtrw_id'
+            'rtrw_id',
+            'kecamatan', 
+            'kelurahan',
+            'rtrw'
         ));
     }
 }

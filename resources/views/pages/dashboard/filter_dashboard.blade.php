@@ -99,6 +99,7 @@
                     } else {
                         $("#kelurahan_id").val($("#kelurahan_id option:first").val());
                     }
+                    getParamFilter()
                    
                 }else{
                     $('#kelurahan_id').html(optionKelurahan);
@@ -134,6 +135,7 @@
                 }
             }, 'JSON'); 
         }
+        getParamFilter()
     });
 
 
@@ -144,9 +146,9 @@
         kelurahan_id = $("#kelurahan_id").val();
         rtrw_id = $("#rtrw_id").val();
 
-        url = "{{ route('dashboard') }}?tahun=" + tahun + "&kecamatan_id=" + kecamatan_id + "&kelurahan_id=" + kelurahan_id + "&rtrw_id=" + rtrw_id;;
+        url = "{{ route('dashboard') }}?tahun=" + tahun + "&kecamatan_id=" + kecamatan_id + "&kelurahan_id=" + kelurahan_id + "&rtrw_id=" + rtrw_id;
 
-        $('#filterData').attr('href', url)
+        $('#filterData').attr('href', url);
     }
 
 </script>
