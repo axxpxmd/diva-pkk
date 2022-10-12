@@ -93,24 +93,24 @@ class RTRWController extends Controller
             ->addColumn('jumlah', function ($p) {
                 return 'Rumah ' . $p->rumah->count() . ' / ' . 'KK ' . $p->kk->count() . ' / ' . 'Warga ' . $p->warga->count();
             })
-            ->editColumn('ketua_rt', function ($p) use($role_id) {
+            ->editColumn('ketua_rt', function ($p) use ($role_id) {
                 $add = "<a href='" . route('rt-rw.createKetuaRT', [$p->id, 'kategori=rt']) . "' class='text-info' title='Tambah Ketua RT'><i class='bi bi-person-plus-fill'></i></a>";
 
                 if ($p->ketua_rt) {
                     $mappingRtRw = MappingRT::where('id', $p->ketua_rt)->first();
 
-                    return $mappingRtRw->ketua . '&nbsp&nbsp&nbsp' . $role_id == 10 ? $add : '-';
+                    return $mappingRtRw->ketua . '&nbsp&nbsp&nbsp' . $add;
                 } else {
                     return $role_id == 10 ? $add : '-';
                 }
             })
-            ->editColumn('ketua_rw', function ($p) use($role_id) {
+            ->editColumn('ketua_rw', function ($p) use ($role_id) {
                 $add = "<a href='" . route('rt-rw.createKetuaRT', [$p->id, 'kategori=rw']) . "' class='text-info' title='Tambah Ketua RT'><i class='bi bi-person-plus-fill'></i></a>";
 
                 if ($p->ketua_rw) {
                     $mappingRW = MappingRW::where('id', $p->ketua_rw)->first();
 
-                    return $mappingRW->ketua . '&nbsp&nbsp&nbsp' . $role_id == 10 ? $add : '-';
+                    return $mappingRW->ketua . '&nbsp&nbsp&nbsp' . $add;
                 } else {
                     return $role_id == 10 ? $add : '-';
                 }
