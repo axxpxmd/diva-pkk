@@ -17,7 +17,7 @@
                 <div class="col-sm-6">
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Dasawisma</label>
-                        <label class="col-sm-8 col-form-label">{{ $data->dasawisma->nama }}</label>
+                        <label class="col-sm-8 col-form-label">{{ $data->dasawisma ? $data->dasawisma->nama : '-' }}</label>
                     </div>
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Alamat Detail</label>
@@ -52,9 +52,11 @@
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Sumber Air</label>
                         <label class="col-sm-8 col-form-label">
-                            @foreach(json_decode($data->sumber_air) as $value)
-                                <li>{{ $value }}</li>
-                            @endforeach
+                            @if ($data->sumber_air )
+                                @foreach(json_decode($data->sumber_air) as $value)
+                                    <li>{{ $value }}</li>
+                                @endforeach
+                            @endif
                         </label>
                     </div>
                 </div>
@@ -90,6 +92,10 @@
                                 <span class="badge bg-light-danger">Tidak Layak</span>
                             @endif
                         </label>
+                    </div>
+                    <div class="row p-0">
+                        <label class="col-sm-4 col-form-label fw-bold">Status Pengisian</label>
+                        <label class="col-sm-8 col-form-label">{{ $data->status_is == 1 ? 'Sudah Lengkap' : 'Belum Lengkap' }}</label>
                     </div>
                 </div>
             </div>
