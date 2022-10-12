@@ -83,9 +83,14 @@ class RTRWController extends Controller
                 return '-';
             })
             ->editColumn('rt', function ($p) {
-                $action = "<a href='" . route('rt-rw.show', $p->id) . "' class='text-info' title='Menampilkan Data'>" . $p->rt . "</a>";
+                $action = "<a href='" . route('rt-rw.show', [$p->id, 'kategori=rt']) . "' class='text-info' title='Menampilkan Data'>" . $p->rt . "</a>";
 
-                return $p->rt;
+                return $action;
+            })
+            ->editColumn('rw', function ($p) {
+                $action = "<a href='" . route('rt-rw.show', [$p->id, 'kategori=rw']) . "' class='text-info' title='Menampilkan Data'>" . $p->rw . "</a>";
+
+                return $action;
             })
             ->editColumn('kecamatan_id', function ($p) {
                 return $p->n_kecamatan;
@@ -98,8 +103,11 @@ class RTRWController extends Controller
 
                 if ($p->ketua_rt) {
                     $mappingRtRw = MappingRT::where('id', $p->ketua_rt)->first();
-
-                    return $mappingRtRw->ketua . '&nbsp&nbsp&nbsp' . $add;
+                    if ($role_id == 10) {
+                        return $mappingRtRw->ketua . '&nbsp&nbsp&nbsp' . $add;
+                    } else {
+                        return $mappingRtRw->ketua;
+                    }
                 } else {
                     return $role_id == 10 ? $add : '-';
                 }
@@ -118,7 +126,7 @@ class RTRWController extends Controller
             ->editColumn('kelurahan_id', function ($p) {
                 return $p->n_kelurahan;
             })
-            ->rawColumns(['id', 'action', 'rt', 'ketua_rt', 'ketua_rw'])
+            ->rawColumns(['id', 'action', 'rt', 'rw', 'ketua_rt', 'ketua_rw'])
             ->addIndexColumn()
             ->toJson();
     }
@@ -195,6 +203,33 @@ class RTRWController extends Controller
         $data->update(array_merge($input, ['n_kecamatan' => $n_kecamatan, 'n_kelurahan' => $n_kelurahan]));
 
         return response()->json(['message' => "Berhasil memperbaharui data."]);
+    }
+
+    public function show(Request $request, $id)
+    {
+        $title = $this->title;
+        $desc  = $this->desc;
+        $active_rtrw = $this->active_rtrw;
+        $kategori = $request->kategori;
+
+        $data = RTRW::find($id);
+
+        if ($kategori == 'rt') {
+            $listKetua = MappingRT::where('rtrw_id', $id)->get();
+        }
+
+        if ($kategori == 'rw') {
+            $listKetua = MappingRW::where('kecamatan_id', $data->kecamatan_id)->where('kelurahan_id', $data->kelurahan_id)->where('rw', $data->rw)->get();
+        }
+
+        return view('pages.rtrw.show', compact(
+            'title',
+            'desc',
+            'active_rtrw',
+            'listKetua',
+            'kategori',
+            'data'
+        ));
     }
 
     public function destroy($id)
