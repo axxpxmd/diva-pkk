@@ -97,6 +97,14 @@
                         <label class="col-sm-4 col-form-label fw-bold">Status Pengisian</label>
                         <label class="col-sm-8 col-form-label">{{ $data->status_is == 1 ? 'Sudah Lengkap' : 'Belum Lengkap' }}</label>
                     </div>
+                    <div class="row p-0">
+                        <label class="col-sm-4 col-form-label fw-bold">Diinput Oleh</label>
+                        <label class="col-sm-8 col-form-label">{{ $data->created_by }}</label>
+                    </div>
+                    <div class="row p-0">
+                        <label class="col-sm-4 col-form-label fw-bold">Diupdate Oleh</label>
+                        <label class="col-sm-8 col-form-label">{{ $data->updated_by }}</label>
+                    </div>
                 </div>
             </div>
             <div class="bg-light-secondary p-2 rounded mt-2">

@@ -144,7 +144,7 @@ class RumahController extends Controller
 
         $input = $request->all();
         // $input['sumber_air'] = json_encode($request->sumber_air);
-        $input['status'] = 0;
+        $input['status_isi'] = 0;
         $input['created_by'] = Auth::user()->nama;
         Rumah::create($input);
 
