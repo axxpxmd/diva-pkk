@@ -61,6 +61,7 @@
                             <th>Layak Huni</th>
                             <th>Jumlah KK</th>
                             <th>Anggota</th>
+                            <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -87,6 +88,7 @@
                                 <span class="fw-bold">Dasawisma</span>
                             </div>
                             @include('layouts.alamat2')
+                            @if ($role_id == 2)
                             <div class="row mb-2">
                                 <label for="dasawisma_id" class="col-sm-4 col-form-label fw-bold text-end">Dasawisma <span class="text-danger">*</span></label>
                                 <div class="col-sm-8">
@@ -98,6 +100,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @endif
                             <hr>
                             <div class="bg-light-secondary p-2 rounded mb-3">
                                 <span class="fw-bold">Detail Rumah</span>
@@ -114,6 +117,7 @@
                                     <input type="text" name="kepala_rumah" id="kepala_rumah" class="form-control" placeholder="Nama Kepala Rumah" autocomplete="off" required>
                                 </div>
                             </div>
+                            @if ($role_id == 2)
                             <div class="row mb-2">
                                 <label for="jamban" class="col-sm-4 col-form-label text-end fw-bold">Jumlah Jamban <span class="text-danger">*</span></label>
                                 <div class="col-sm-8">
@@ -151,8 +155,19 @@
                                     <input type="text" id="lainnya_value" onkeyup="valueToLainnya()" class="form-control mt-2" style="display: none" placeholder="Tambahkan Lainnya" autocomplete="off">
                                 </div>
                             </div>
+                            @endif
+                            @if ($role_id != 2)
+                            <div class="row mt-3">
+                                <div class="col-sm-4"></div>
+                                <div class="col-sm-8">
+                                    <button type="submit" class="btn btn-success fs-14" id="btnSave" title="Simpan Data"><i class="bi bi-save m-r-8"></i>Simpan <span id="txtSave"></span></button>
+                                    <a href="#" onclick="add()" class="m-l-5 text-danger fw-bold  fs-14" title="Kosongkan Form"><i class="bi bi-arrow-clockwise m-r-8"></i>Reset</a>
+                                </div>
+                            </div>
+                            @endif
                         </div>
                         <div class="col-sm-6">
+                            @if ($role_id == 2)
                             <div class="row mb-2">
                                 <label for="tempat_smph" class="col-sm-4 col-form-label text-end fw-bold">Pembuangan Sampah <span class="text-danger">*</span></label>
                                 <div class="col-sm-4 m-t-6">
@@ -228,7 +243,9 @@
                                     </label>
                                 </div>
                             </div>
+                            @endif
                             
+                            @if ($role_id == 2)
                             <div class="row mt-3">
                                 <div class="col-sm-4"></div>
                                 <div class="col-sm-8">
@@ -236,6 +253,7 @@
                                     <a href="#" onclick="add()" class="m-l-5 text-danger fw-bold  fs-14" title="Kosongkan Form"><i class="bi bi-arrow-clockwise m-r-8"></i>Reset</a>
                                 </div>
                             </div>
+                            @endif
                         </div>
                     </div>
                 </form>
@@ -272,6 +290,7 @@
             {data: 'layak_huni', name: 'layak_huni',  className: 'text-center'},
             {data: 'jumlah_kk', name: 'jumlah_kk', className: 'text-center'},
             {data: 'jumlah_anggota', name: 'jumlah_anggota', className: 'text-center'},
+            {data: 'status_isi', name: 'status_isi', className: 'text-center'},
             {data: 'action', name: 'action', className: 'text-center', orderable: false, searchable: false}
         ]
     });

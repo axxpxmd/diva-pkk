@@ -29,6 +29,7 @@ class RumahController extends Controller
 
         $dasawisma_id = Auth::user()->dasawisma_id;
         $rtrw_id = Auth::user()->rtrw_id;
+        $role_id = Auth::user()->modelHasRole->role_id;
 
         $check_rtrw = Auth::user()->rtrw;
 
@@ -63,7 +64,8 @@ class RumahController extends Controller
             'kelurahanDisplay',
             'kecamatans',
             'kecamatan_id',
-            'kelurahan_id'
+            'kelurahan_id',
+            'role_id'
         ));
     }
 
@@ -91,7 +93,7 @@ class RumahController extends Controller
                 return $p->kk->count() . " <a href='" . route('rumah.show', $p->id) . "' class='text-info fs-16' title='Tambah KK'><i class='bi bi-file-plus-fill m-l-5'></i></a>";
             })
             ->editColumn('dasawisma_id', function ($p) {
-                return $p->dasawisma->nama;
+                return $p->dasawisma ? $p->dasawisma->nama : '-';
             })
             ->editColumn('kriteria_rmh', function ($p) {
                 $sehat = '<span class="badge bg-success">Sehat</span>';
@@ -108,7 +110,13 @@ class RumahController extends Controller
             ->addColumn('jumlah_anggota', function ($p) {
                 return $p->anggota->count() . ' Orang';
             })
-            ->rawColumns(['id', 'kriteria_rmh', 'action', 'kepala_rumah', 'jumlah_kk', 'layak_huni'])
+            ->editColumn('status_isi', function($p) {
+                $lengkap = '<span class="badge bg-success">Lengkap</span>';
+                $tidakLengkap = '<span class="badge bg-danger">Belum</span>';
+
+                return $p->status_isi == 1 ? $lengkap : $tidakLengkap;
+            })
+            ->rawColumns(['id', 'kriteria_rmh', 'action', 'kepala_rumah', 'jumlah_kk', 'layak_huni', 'status_isi'])
             ->addIndexColumn()
             ->toJson();
     }
@@ -116,17 +124,17 @@ class RumahController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'dasawisma_id' => 'required',
+            // 'dasawisma_id' => 'required',
             'rtrw_id' => 'required',
             'kepala_rumah' => 'required|max:100',
             'alamat_detail' => 'required|max:200',
-            'jamban' => 'required',
-            'sumber_air' => 'required|array|max:200',
-            'tempat_smph' => 'required',
-            'saluran_pmbngn' => 'required',
-            'stiker_p4k' => 'required',
-            'kriteria_rmh' => 'required',
-            'layak_huni' => 'required'
+            // 'jamban' => 'required',
+            // 'sumber_air' => 'required|array|max:200',
+            // 'tempat_smph' => 'required',
+            // 'saluran_pmbngn' => 'required',
+            // 'stiker_p4k' => 'required',
+            // 'kriteria_rmh' => 'required',
+            // 'layak_huni' => 'required'
         ]);
 
         // Check Duplikat
@@ -135,7 +143,8 @@ class RumahController extends Controller
             return response()->json(['message' => "Error, data rumah sudah pernah disimpan."], 422);
 
         $input = $request->all();
-        $input['sumber_air'] = json_encode($request->sumber_air);
+        // $input['sumber_air'] = json_encode($request->sumber_air);
+        $input['status'] = 0;
         $input['created_by'] = Auth::user()->nama;
         Rumah::create($input);
 
