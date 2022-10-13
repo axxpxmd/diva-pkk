@@ -41,7 +41,8 @@ class Rumah extends Model
          */
 
         $data =  $this->hasMany(Anggota::class, 'rumah_id')
-            ->join('anggota_details', 'anggota_details.anggota_id', '=', 'anggota.id');
+            ->join('anggota_details', 'anggota_details.anggota_id', '=', 'anggota.id')
+            ->where('status_hidup', 1);
 
         switch ($jenis) {
             case '1':

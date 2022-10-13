@@ -7,12 +7,10 @@ use DataTables;
 use Illuminate\Http\Request;
 
 // Models
-use App\Models\RTRW;
-use App\Models\User;
 use App\Models\Dasawisma;
-use App\Models\DasawismaUser;
 use App\Models\Kecamatan;
-use App\Models\Kelurahan;
+use App\Models\DasawismaUser;
+use App\Models\User;
 
 class DasawismaController extends Controller
 {
@@ -74,8 +72,13 @@ class DasawismaController extends Controller
                     return $edit . $delete;
                 }
             })
+            ->editColumn('nama', function ($p) {
+                $action = "<a href='" . route('dasawisma.show', $p->id) . "' class='text-info' title='Menampilkan Data'>" . $p->nama . "</a>";
+
+                return $action;
+            })
             ->addColumn('alamat', function ($p) {
-                return $p->rtrw->kecamatan->n_kecamatan . ' - ' . $p->rtrw->kelurahan->n_kelurahan . ' - RT ' . $p->rtrw->rt . ' / RW ' . $p->rtrw->rw;
+                return $p->rtrw->kecamatan->n_kecamatan . ' - ' . $p->rtrw->kelurahan->n_kelurahan . ' - RW ' . $p->rtrw->rw . ' / RT ' . $p->rtrw->rt;
             })
             ->editColumn('ketua_id', function ($p) {
                 $totalKetua =  $p->dasawismaUser->count();
@@ -87,7 +90,10 @@ class DasawismaController extends Controller
                     return $totalKetua . $show;
                 }
             })
-            ->rawColumns(['id', 'action', 'ketua_id'])
+            ->addColumn('jumlah', function ($p) {
+                return 'Rumah ' . $p->rumah->count() . ' / ' . 'KK ' . $p->kk->count() . ' / ' . 'Warga ' . $p->warga->count();
+            })
+            ->rawColumns(['id', 'action', 'ketua_id', 'nama'])
             ->addIndexColumn()
             ->toJson();
     }
@@ -106,6 +112,24 @@ class DasawismaController extends Controller
         }
 
         return $dataUser;
+    }
+
+    public function show($id)
+    {
+        $title = $this->title;
+        $desc  = $this->desc;
+        $active_dasawisma = $this->active_dasawisma;
+
+        $data = Dasawisma::find($id);
+        $listKetua = User::where('dasawisma_id', $id)->get();
+
+        return view('pages.dasawisma.show', compact(
+            'title',
+            'desc',
+            'active_dasawisma',
+            'data',
+            'listKetua'
+        ));
     }
 
     public function store(Request $request)

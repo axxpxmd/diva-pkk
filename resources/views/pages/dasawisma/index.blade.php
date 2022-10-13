@@ -43,6 +43,7 @@
                             <th>Nama</th>
                             <th>Alamat</th>
                             <th>Jumlah Ketua</th>
+                            <th>Jumlah</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -127,6 +128,7 @@
             {data: 'nama', name: 'nama'},
             {data: 'alamat', name: 'alamat'},
             {data: 'ketua_id', name: 'ketua_id', className: 'text-center'},
+            {data: 'jumlah', name: 'jumlah', className: 'text-center'},
             {data: 'action', name: 'action', className: 'text-center', orderable: false, searchable: false}
         ]
     });
