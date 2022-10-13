@@ -134,7 +134,6 @@
                             <th class="text-center">Lama Menjabat</th>
                             <th class="text-center">Status Login</th>
                             <th class="text-center">Status</th>
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -159,13 +158,10 @@
                                         <span class="badge bg-light-danger">Tidak Aktif</span>
                                     @endif
                                 </td>
-                                <td class="text-center">
-                                    <a href="#" onclick="edit({{ $i->id }})"><i class="bi bi-pencil-fill"></i></a>
-                                </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="10" class="text-center">Tidak ada data.</td>
+                                <td colspan="9" class="text-center">Tidak ada data.</td>
                             </tr>
                         @endforelse
                     </tbody>
