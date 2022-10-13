@@ -15,16 +15,19 @@
             <div class="row mt-2">
                 <div class="col-sm-6">
                     <div class="row p-0">
-                        <label class="col-sm-2 col-form-label fw-bold">Kecamatan</label>
-                        <label class="col-sm-8 col-form-label">{{ $kelurahan->kecamatan->n_kecamatan}}</label>
+                        <label class="col-sm-4 col-form-label fw-bold">Kecamatan</label>
+                        <label class="col-sm-8 col-form-label">{{ $kelurahan->kecamatan->n_kecamatan }} &nbsp; ( {{ $kelurahan->kecamatan->kode }} )</label>
                     </div>
                     <div class="row p-0">
-                        <label class="col-sm-2 col-form-label fw-bold">Kelurahan</label>
-                        <label class="col-sm-8 col-form-label">{{ $kelurahan->n_kelurahan}}</label>
+                        <label class="col-sm-4 col-form-label fw-bold">Kelurahan</label>
+                        <label class="col-sm-8 col-form-label">{{ $kelurahan->n_kelurahan }}</label>
+                    </div>
+                    <div class="row p-0">
+                        <label class="col-sm-4 col-form-label fw-bold">Kode Kelurahan</label>
+                        <label class="col-sm-8 col-form-label">{{ $kelurahan->kode }}</label>
                     </div>
                 </div>
             </div>
-            <hr>
             <div class="table-responsive">
                 <table class="table data-table table-hover table-bordered" style="width:100%;">
                     <thead>
