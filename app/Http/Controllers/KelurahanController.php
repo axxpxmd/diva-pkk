@@ -68,12 +68,35 @@ class KelurahanController extends Controller
                     return $add;
                 }
             })
+            ->editColumn('n_kelurahan', function ($p) {
+                $action = "<a href='" . route('kelurahan.show', $p->id) . "' class='text-info' title='Menampilkan Data'>" . $p->n_kelurahan . "</a>";
+
+                return $action;
+            })
             ->addColumn('jumlah', function ($p) {
                 return 'RT ' . $p->rt->count() . ' / ' . 'RW ' . $p->rw->count() . ' / ' . 'Rumah ' . $p->rumah->count() . ' / ' . 'KK ' . $p->kk->count() . ' / ' . 'Warga ' . $p->warga->count();
             })
-            ->rawColumns(['id', 'ketua_kelurahan'])
+            ->rawColumns(['id', 'ketua_kelurahan', 'n_kelurahan'])
             ->addIndexColumn()
             ->toJson();
+    }
+
+    public function show($id)
+    {
+        $title = $this->title;
+        $desc  = $this->desc;
+        $active_kelurahan = $this->active_kelurahan;
+
+        $data = Kelurahan::find($id);
+        $listKetua = MappingKelurahan::where('kelurahan_id', $id)->get();
+
+        return view('pages.kelurahan.show', compact(
+            'title',
+            'desc',
+            'active_kelurahan',
+            'listKetua',
+            'data'
+        ));
     }
 
     public function createKetuaKelurahan($id)
