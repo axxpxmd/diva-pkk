@@ -33,7 +33,7 @@ class Rumah extends Model
          * 3. Balita
          * 4. PUS
          * 5. WUS
-         * 6. 3 Buat
+         * 6. 3 Buta
          * 7. Ibu Hamil
          * 8. Ibu Menyusui
          * 9. Berkebutuhan Khusus
