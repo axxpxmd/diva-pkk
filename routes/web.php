@@ -16,7 +16,6 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\AnggotaKeluargaController;
-use App\Models\RTRW;
 
 /*
 |--------------------------------------------------------------------------
