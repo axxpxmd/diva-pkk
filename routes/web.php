@@ -16,6 +16,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\AnggotaKeluargaController;
+use App\Models\RTRW;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,12 +45,14 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::post('/store-ketua-rt', [RTRWController::class, 'storeKetuaRT'])->name('rt-rw.storeKetuaRT');
     Route::get('/edit-ketua-rt/{id}', [RTRWController::class, 'editKetuaRT'])->name('rt-rw.editKetuaRT');
     Route::post('/update-ketua-rt', [RTRWController::class, 'updateKetuaRT'])->name('rt-rw.updateKetuaRT');
+    Route::delete('/delete-ketua-rt/{id}', [RTRWController::class, 'deteleKetuaRT'])->name('rt-rw.deteleKetuaRT');
 
     Route::resource('/kelurahan', KelurahanController::class);
     Route::get('/create-ketua-kelurahan/{id}', [KelurahanController::class, 'createKetuaKelurahan'])->name('kelurahan.createKetuaKelurahan');
     Route::post('/store-ketua-kelurahan', [KelurahanController::class, 'storeKetuaKelurahan'])->name('kelurahan.storeKetuaKelurahan');
     Route::get('/edit-ketua-kelurahan/{id}', [KelurahanController::class, 'editKetuaKelurahan'])->name('kelurahan.editKetuaKelurahan');
     Route::post('/update-ketua-kelurahan', [KelurahanController::class, 'updateKetuaKelurahan'])->name('kelurahan.updateKetuaKelurahan');
+    Route::delete('/delete-ketua-kelurahan/{id}', [KelurahanController::class, 'deleteKetua'])->name('kelurahan.deleteKetua');
 
     Route::resource('/dasawisma', DasawismaController::class);
     Route::get('/show-ketua/{id}', [DasawismaController::class, 'showKetua'])->name('dasawisma.showKetua');

@@ -103,13 +103,10 @@ class RTRWController extends Controller
 
                 if ($p->ketua_rt) {
                     $mappingRtRw = MappingRT::where('id', $p->ketua_rt)->first();
-                    if ($role_id == 10) {
-                        return $mappingRtRw->ketua . '&nbsp&nbsp&nbsp' . $add;
-                    } else {
-                        return $mappingRtRw->ketua;
-                    }
+
+                    return $mappingRtRw->ketua . '&nbsp&nbsp&nbsp' . $add;
                 } else {
-                    return $role_id == 10 ? $add : '-';
+                    return $add;
                 }
             })
             ->editColumn('ketua_rw', function ($p) use ($role_id) {
@@ -120,7 +117,7 @@ class RTRWController extends Controller
 
                     return $mappingRW->ketua . '&nbsp&nbsp&nbsp' . $add;
                 } else {
-                    return $role_id == 10 ? $add : '-';
+                    return $add;
                 }
             })
             ->editColumn('kelurahan_id', function ($p) {
@@ -218,8 +215,10 @@ class RTRWController extends Controller
             $listKetua = MappingRT::where('rtrw_id', $id)->get();
         }
 
+        $totalRT = 0;
         if ($kategori == 'rw') {
             $listKetua = MappingRW::where('kecamatan_id', $data->kecamatan_id)->where('kelurahan_id', $data->kelurahan_id)->where('rw', $data->rw)->get();
+            $totalRT   = RTRW::where('kecamatan_id', $data->kecamatan_id)->where('kelurahan_id', $data->kelurahan_id)->where('rw', $data->rw)->get();
         }
 
         return view('pages.rtrw.show', compact(
@@ -228,7 +227,8 @@ class RTRWController extends Controller
             'active_rtrw',
             'listKetua',
             'kategori',
-            'data'
+            'data',
+            'totalRT'
         ));
     }
 
@@ -617,5 +617,38 @@ class RTRWController extends Controller
         return redirect()
             ->route('rt-rw.createKetuaRT', [$rtrw_id, 'kategori=' . $kategori])
             ->withSuccess("Selamat, Data berhasil diperbarui.");
+    }
+
+    public function deteleKetuaRT(Request $request, $id)
+    {
+        $kategori = $request->kategori;
+
+        if ($kategori == 'rt') {
+            $data = MappingRT::find($id);
+            
+            if ($data->status == 1) {
+                $ketua_rt = RTRW::where('ketua_rt', $id)->first();
+                $ketua_rt->update([
+                    'ketau_rt' => null
+                ]);
+            }
+
+            $data->delete();
+        }
+
+        if ($kategori == 'rw') {
+            $data = MappingRW::destroy($id);
+
+            if ($data->status == 1) {
+                $ketua_rw = RTRW::where('ketua_rw', $id)->first();
+                $ketua_rw->update([
+                    'ketau_rw' => null
+                ]);
+            }
+
+            $data->delete();
+        }
+
+        return response()->json(['message' => "Berhasil menghapus data."]);
     }
 }

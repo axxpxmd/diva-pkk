@@ -71,7 +71,8 @@
                                     @endif
                                 </td>
                                 <td class="text-center">
-                                    <a href="#" onclick="edit({{ $i->id }})"><i class="bi bi-pencil-fill"></i></a>
+                                    <a href="#" onclick="edit({{ $i->id }})" class="text-info m-r-5"><i class="bi bi-pencil-fill"></i></a>
+                                    <a href="#" onclick="deleteKetua({{ $i->id }})" class="text-danger"><i class="bi bi-trash-fill"></i></a>
                                 </td>
                             </tr>
                         @empty
@@ -169,6 +170,33 @@
             $('#awal_menjabat').val(data.awal_menjabat);
             $('#akhir_menjabat').val(data.akhir_menjabat);
             $('#status').val(data.status).trigger("change.select2");
+        });
+    }
+
+    function deleteKetua(id){
+        $.confirm({
+            title: 'Konfirmasi',
+            content: 'Apakah Anda yakin ingin menghapus data ini ?',
+            icon: 'bi bi-question text-danger',
+            theme: 'modern',
+            closeIcon: true,
+            animation: 'scale',
+            type: 'red',
+            buttons: {
+                ok: {
+                    text: "ok!",
+                    btnClass: 'btn-primary',
+                    keys: ['enter'],
+                    action: function(){
+                        $.post("{{ route('kelurahan.deleteKetua', ':id') }}".replace(':id', id), {'_method' : 'DELETE'}, function(data) {
+                            successRemove(data.message)
+                        }, "JSON").fail(function(){
+                            reload();
+                        });
+                    }
+                },
+                cancel: function(){}
+            }
         });
     }
 </script>

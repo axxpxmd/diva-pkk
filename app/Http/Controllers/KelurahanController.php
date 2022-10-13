@@ -274,4 +274,20 @@ class KelurahanController extends Controller
             ->route('kelurahan.createKetuaKelurahan', $kelurahan_id)
             ->withSuccess("Selamat, Data berhasil diperbarui.");
     }
+
+    public function deleteKetua($id)
+    {
+        $data = MappingKelurahan::find($id);
+
+        if ($data->status == 1) {
+            $ketua_kelurahan = Kelurahan::where('ketua_kelurahan', $id)->first();
+            $ketua_kelurahan->update([
+                'ketua_kelurahan' => null
+            ]);
+        }
+
+        $data->delete();
+
+        return response()->json(['message' => "Berhasil menghapus data."]);
+    }
 }
