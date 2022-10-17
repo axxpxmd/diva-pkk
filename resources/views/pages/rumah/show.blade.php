@@ -56,6 +56,8 @@
                                 @foreach(json_decode($data->sumber_air) as $value)
                                     <li>{{ $value }}</li>
                                 @endforeach
+                            @else
+                                -
                             @endif
                         </label>
                     </div>
@@ -95,7 +97,13 @@
                     </div>
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Status Pengisian</label>
-                        <label class="col-sm-8 col-form-label">{{ $data->status_is == 1 ? 'Sudah Lengkap' : 'Belum Lengkap' }}</label>
+                        <label class="col-sm-8 col-form-label">
+                            @if ($data->status_is == 1)
+                                <span class="badge bg-light-success">Sudah Lengkap</span>
+                            @else
+                            <span class="badge bg-light-danger">Belum Lengkap</span>
+                            @endif
+                        </label>
                     </div>
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Diinput Oleh</label>
@@ -103,7 +111,7 @@
                     </div>
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Diupdate Oleh</label>
-                        <label class="col-sm-8 col-form-label">{{ $data->updated_by }}</label>
+                        <label class="col-sm-8 col-form-label">{{ $data->updated_by ? $data->updated_by : '-'  }}</label>
                     </div>
                 </div>
             </div>

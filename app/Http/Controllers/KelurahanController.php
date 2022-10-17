@@ -6,6 +6,7 @@ use DataTables;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 // Models
 use App\Models\User;
@@ -53,19 +54,28 @@ class KelurahanController extends Controller
     {
         $data = Kelurahan::queryTable($kelurahan_id);
 
+        $role_id = Auth::user()->modelHasRole->role_id;
+
         return DataTables::of($data)
             ->editColumn('kecamatan_id', function ($p) {
                 return $p->kecamatan->n_kecamatan;
             })
-            ->addColumn('ketua_kelurahan', function ($p) {
+            ->addColumn('ketua_kelurahan', function ($p) use($role_id) {
                 $add = "<a href='" . route('kelurahan.createKetuaKelurahan', $p->id) . "' class='text-info' title='Tambah Ketua RT'><i class='bi bi-person-plus-fill'></i></a>";
 
                 if ($p->ketua_kelurahan) {
                     $mappingKelurahan = MappingKelurahan::where('id', $p->ketua_kelurahan)->first();
-
-                    return $mappingKelurahan->ketua . '&nbsp&nbsp&nbsp' . $add;
+                    if ($role_id == 5) {
+                        return $mappingKelurahan->ketua;
+                    }else{
+                        return $mappingKelurahan->ketua . '&nbsp&nbsp&nbsp' . $add;
+                    }
                 } else {
-                    return $add;
+                    if ($role_id == 5) {
+                        return '-';
+                    }else{
+                        return $add;
+                    }
                 }
             })
             ->editColumn('n_kelurahan', function ($p) {

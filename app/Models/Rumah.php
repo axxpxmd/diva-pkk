@@ -12,7 +12,9 @@ class Rumah extends Model
 
     public function dasawisma()
     {
-        return $this->belongsTo(Dasawisma::class, 'dasawisma_id');
+        return $this->belongsTo(Dasawisma::class, 'dasawisma_id')->withDefault([
+            'nama' => '-'
+        ]);
     }
 
     public function rtrw()

@@ -103,10 +103,17 @@ class RTRWController extends Controller
 
                 if ($p->ketua_rt) {
                     $mappingRtRw = MappingRT::where('id', $p->ketua_rt)->first();
-
-                    return $mappingRtRw->ketua . '&nbsp&nbsp&nbsp' . $add;
+                    if ($role_id == 3 || $role_id == 4) {
+                        return $mappingRtRw->ketua;
+                    } else {
+                        return $mappingRtRw->ketua . '&nbsp&nbsp&nbsp' . $add;
+                    }
                 } else {
-                    return $add;
+                    if ($role_id == 3 || $role_id == 4) {
+                       return '-';
+                    } else {
+                        return $add;
+                    }
                 }
             })
             ->editColumn('ketua_rw', function ($p) use ($role_id) {
@@ -625,7 +632,7 @@ class RTRWController extends Controller
 
         if ($kategori == 'rt') {
             $data = MappingRT::find($id);
-            
+
             if ($data->status == 1) {
                 $ketua_rt = RTRW::where('ketua_rt', $id)->first();
                 $ketua_rt->update([
