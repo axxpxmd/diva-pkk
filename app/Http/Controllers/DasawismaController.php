@@ -7,10 +7,10 @@ use DataTables;
 use Illuminate\Http\Request;
 
 // Models
+use App\Models\User;
 use App\Models\Dasawisma;
 use App\Models\Kecamatan;
 use App\Models\DasawismaUser;
-use App\Models\User;
 
 class DasawismaController extends Controller
 {
