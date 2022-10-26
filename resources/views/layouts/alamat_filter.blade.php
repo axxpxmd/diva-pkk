@@ -1,4 +1,4 @@
-@if (isset($kecamatanDisplay))
+@if (isset($kecamatanDisplay) ? $kecamatanDisplay == true : '')
 <div class="row mb-2">
     <label for="kecamatan_filter" class="col-form-label col-md-3 text-end fw-bolder fs-14">Kecamatan </label>
     <div class="col-sm-8">
@@ -10,7 +10,7 @@
     </div>
 </div>
 @endif
-@if (isset($kelurahanDisplay))
+@if (isset($kelurahanDisplay) ? $kelurahanDisplay == true : '')
 <div class="row mb-2">
     <label for="kelurahan_filter" class="col-form-label col-md-3 text-end fw-bolder fs-14">Kelurahan </label>
     <div class="col-sm-8">
@@ -20,7 +20,7 @@
     </div>
 </div>
 @endif
-@if (isset($rwDisplay))
+@if (isset($rwDisplay) ? $rwDisplay == true : '')
 <div class="row mb-2">
     <label for="rw_filter" class="col-form-label col-md-3 text-end fw-bolder fs-14">RW </label>
     <div class="col-sm-8">
@@ -30,7 +30,7 @@
     </div>
 </div>
 @endif
-@if (isset($rtrwDisplay))
+@if (isset($rtrwDisplay) ? $rtrwDisplay == true : '')
 <div class="row mb-2">
     <label for="rtrw_filter" class="col-form-label col-md-3 text-end fw-bolder fs-14">RT / RW </label>
     <div class="col-sm-8">

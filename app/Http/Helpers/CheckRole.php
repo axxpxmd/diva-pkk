@@ -25,13 +25,20 @@ class CheckRole
             $rtrw_id = 0;
             $rw = 0;
             $rt = 0;
-        } else { 
+        } elseif ($role_id == 3 || $role_id == 4) {
             $dasawisma_id = $user->dasawisma_id;
             $kecamatan_id = $user->kecamatan_id;
             $kelurahan_id = $user->kelurahan_id;
             $rtrw_id = $user->rtrw_id;
             $rw = $user->rw;
             $rt = $user->rt;
+        } elseif ($role_id == 2) {
+            $dasawisma_id = $user->dasawisma_id;
+            $kecamatan_id = $user->rtrw->kecamatan_id;
+            $kelurahan_id = $user->rtrw->kelurahan_id;
+            $rtrw_id = $user->rtrw_id;
+            $rw = $user->rtrw->rw;
+            $rt = $user->rtrw->rt;
         }
 
         return [$dasawisma_id, $kecamatan_id, $kelurahan_id, $rtrw_id, $rw, $rt, $role_id];

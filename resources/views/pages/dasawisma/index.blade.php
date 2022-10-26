@@ -5,9 +5,11 @@
     <p class="text-subtitle text-muted">{{ $desc }}</p>
 </div>
 <section class="section animate__animated animate__fadeInRight">
+    @if ($role_id != 2)
     <div class="mb-3 text-right">
         <a href="#" onclick="add()" class="btn btn-sm btn-success px-2"><i class="bi bi-plus font-weight-bold fs-16 m-r-5"></i>Tambah Data</a>
     </div>
+    @endif
     <div class="card my-2">
         <div class="card-body">
             <div class="row">
@@ -186,6 +188,7 @@
         $('#kelurahan_id').attr('disabled', true)
         $('#rtrw_id').attr('disabled', true)
         $.get("{{ Route('dasawisma.edit', ':id') }}".replace(':id', id), function(data){
+            console.log(data)
             save_method = 'edit';
             $('#txtTitle').html('Edit');
             $('#txtSave').html("Perubahan");
@@ -195,6 +198,44 @@
             openForm();
             $('#id').val(data.id);
             $('#nama').val(data.nama);
+            $('#kecamatan_id').val(data.kecamatan_id).trigger("change.select2");
+
+            rtrw_id      = data.rtrw_id;
+            dasawisma_id = data.dasawisma_id;
+            kecamatan_id = data.kecamatan_id
+            kelurahan_id = data.kelurahan_id
+
+            // get kelurahan
+            url = "{{ route('kelurahanByKecamatan', ':id') }}".replace(':id', kecamatan_id);
+            optionKelurahan = "<option value=''>&nbsp;</option>";
+            $.get(url, function(dataKelurahan){
+                if(dataKelurahan){
+                    $.each(dataKelurahan, function(index, value){
+                        optionKelurahan += "<option value='" + value.id + "'>" + value.n_kelurahan +"</li>";
+                    });
+                    $('#kelurahan_id').empty().html(optionKelurahan);
+
+                    $("#kelurahan_id").val(data.kelurahan_id).trigger("change.select2");
+                }else{
+                    $('#kelurahan_id').html(optionKelurahan);
+                } 
+            }, 'JSON'); 
+
+            // get rtrw
+            url = "{{ route('rtrwByKelurahan', ':id') }}".replace(':id', kelurahan_id);
+            optionRTRW = "<option value=''>&nbsp;</option>";
+            $.get(url, function(dataRTRW){
+                if(dataRTRW){
+                    $.each(dataRTRW, function(index, value){
+                        optionRTRW += "<option value='" + value.id + "'>" + 'RW ' + value.rw + ' / RT ' + value.rt + "</li>";
+                    });
+                    $('#rtrw_id').empty().html(optionRTRW);
+
+                    $("#rtrw_id").val(rtrw_id). trigger("change.select2");
+                }else{
+                    $('#rtrw_id').html(optionRTRW);
+                } 
+            }, 'JSON'); 
         });
     }
     

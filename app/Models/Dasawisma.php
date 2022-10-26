@@ -19,7 +19,7 @@ class Dasawisma extends Model
         return $this->hasMany(DasawismaUser::class, 'dasawisma_id');
     }
 
-    public static function queryTable($rw, $kecamatan_id, $kelurahan_id)
+    public static function queryTable($kecamatan_id, $kelurahan_id, $rw, $rt)
     {
         $data = Dasawisma::select('dasawismas.id as id', 'rtrw_id', 'nama')
             ->join('rt_rw', 'rt_rw.id', '=', 'dasawismas.rtrw_id')
@@ -31,6 +31,9 @@ class Dasawisma extends Model
             })
             ->when($rw, function ($q) use ($rw) {
                 return $q->where('rw', $rw);
+            })
+            ->when($rt, function ($q) use ($rt) {
+                return $q->where('rt', $rt);
             });
 
         return $data->OrderBy('dasawismas.id', 'DESC')->get();

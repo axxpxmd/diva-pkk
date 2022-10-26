@@ -18,7 +18,7 @@
                         <label class="col-sm-8 col-form-label">{{ $data->rtrw->n_kecamatan }}</label>
                     </div>
                     <div class="row p-0">
-                        <label class="col-sm-4 col-form-label fw-bold">Kecamatan</label>
+                        <label class="col-sm-4 col-form-label fw-bold">Kelurahan</label>
                         <label class="col-sm-8 col-form-label">{{ $data->rtrw->n_kelurahan }}</label>
                     </div>
                     <div class="row p-0">

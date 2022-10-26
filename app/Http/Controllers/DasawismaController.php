@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use DataTables;
 
 use Illuminate\Http\Request;
+use App\Http\Helpers\CheckRole;
 
 // Models
 use App\Models\User;
@@ -18,9 +19,10 @@ class DasawismaController extends Controller
     protected $desc  = 'Menu ini berisikan data Dasawisma';
     protected $active_dasawisma = true;
 
-    public function __construct()
+    public function __construct(CheckRole $checkRole)
     {
         $this->middleware(['permission:dasawisma']);
+        $this->checkRole = $checkRole;
     }
 
     public function index(Request $request)
@@ -29,17 +31,25 @@ class DasawismaController extends Controller
         $desc  = $this->desc;
         $active_dasawisma = $this->active_dasawisma;
 
-        $rw = $request->rw_filter;
-        $kecamatan_id = $request->kecamatan_filter;
-        $kelurahan_id = $request->kelurahan_filter;
+        list($dasawisma_id, $kecamatan_id, $kelurahan_id, $rtrw_id, $rw, $rt, $role_id) = $this->checkRole->getFilterValue();
+
+        $kecamatan_id = $kecamatan_id ? $kecamatan_id : $request->kecamatan_filter;
+        $kelurahan_id = $kelurahan_id ? $kelurahan_id : $request->kelurahan_filter;
+        $rw = $rw ? $rw : $request->rw_filter;
         if ($request->ajax()) {
-            return $this->dataTable($rw, $kecamatan_id, $kelurahan_id);
+            return $this->dataTable($kecamatan_id, $kelurahan_id, $rw, $rt, $role_id);
         }
 
         $kecamatans = Kecamatan::select('id', 'n_kecamatan')->where('kabupaten_id', 40)->get();
 
         // Filter
-        $rwDisplay = true;
+        if ($role_id == 2) {
+            $rwDisplay = false;
+            $rtrwDisplay = true;
+        }else{
+            $rtrwDisplay = false;
+            $rwDisplay = true;
+        }
         $kecamatanDisplay = true;
         $kelurahanDisplay = true;
 
@@ -48,28 +58,39 @@ class DasawismaController extends Controller
             'desc',
             'active_dasawisma',
             'kecamatans',
-            'rwDisplay',
+            'rtrwDisplay',
             'kecamatanDisplay',
-            'kelurahanDisplay'
+            'kelurahanDisplay',
+            'role_id',
+            'kecamatan_id',
+            'kelurahan_id', 
+            'rw',
+            'rt',
+            'rtrw_id',
+            'rwDisplay'
         ));
     }
 
-    public function dataTable($rw, $kecamatan_id, $kelurahan_id)
+    public function dataTable($kecamatan_id, $kelurahan_id, $rw, $rt, $role_id)
     {
-        $data = Dasawisma::queryTable($rw, $kecamatan_id, $kelurahan_id);
+        $data = Dasawisma::queryTable($kecamatan_id, $kelurahan_id, $rw, $rt,);
 
         return DataTables::of($data)
             ->rawColumns(['id', 'nama'])
-            ->addColumn('action', function ($p) {
+            ->addColumn('action', function ($p) use ($role_id) {
                 $check = $p->dasawismaUser->count();
 
                 $edit = '<a href="#" onclick="edit(' . $p->id . ')" class="text-info m-r-5" title="Edit Data"><i class="bi bi-pencil-fill"></i></a>';
                 $delete = '<a href="#" onclick="remove(' . $p->id . ')" class="text-danger" title="Delete Data"><i class="bi bi-trash-fill"></i></a>';
 
-                if ($check) {
-                    return $edit;
+                if ($role_id != 2) {
+                    if ($check) {
+                        return $edit;
+                    } else {
+                        return $edit . $delete;
+                    }
                 } else {
-                    return $edit . $delete;
+                    return '-';
                 }
             })
             ->editColumn('nama', function ($p) {
@@ -152,7 +173,15 @@ class DasawismaController extends Controller
     {
         $data = Dasawisma::find($id);
 
-        return $data;
+        $dataDasawisma = [
+            'id' => $data->id,
+            'nama' => $data->nama,
+            'kecamatan_id' => $data->rtrw->kecamatan_id,
+            'kelurahan_id' => $data->rtrw->kelurahan_id,
+            'rtrw_id' => $data->rtrw_id
+        ];
+
+        return $dataDasawisma;
     }
 
     public function update(Request $request, $id)
