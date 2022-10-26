@@ -25,13 +25,13 @@
                         <div class="col-md-4 mb-2">
                             <div class="p-2 bg-info text-white rounded text-center">
                                 <p class="mb-0 fw-bolder fs-16 mb-1">Jumlah RT</p>
-                                <p class="mb-0 fs-14"></p>
+                                <p class="mb-0 fs-14">{{ $totalRT }}</p>
                             </div>
                         </div>
                         <div class="col-md-4 mb-2">
                             <div class="p-2 bg-danger text-white rounded text-center">
                                 <p class="mb-0 fw-bolder fs-16 mb-1">Jumlah RW</p>
-                                <p class="mb-0 fs-14"></p>
+                                <p class="mb-0 fs-14">{{ $totalRW }}</p>
                             </div>
                         </div>
                     </div>

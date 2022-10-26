@@ -52,6 +52,10 @@ class RTRWController extends Controller
         $kecamatanDisplay = true;
         $kelurahanDisplay = true;
 
+        // Total
+        $totalRT = RTRW::count();
+        $totalRW = RTRW::groupBy('rw')->count();
+
         return view('pages.rtrw.index', compact(
             'title',
             'desc',
@@ -60,6 +64,8 @@ class RTRWController extends Controller
             'kecamatanDisplay',
             'kelurahanDisplay',
             'rwDisplay',
+            'totalRT',
+            'totalRW'
         ));
     }
 
