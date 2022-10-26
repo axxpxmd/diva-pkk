@@ -137,7 +137,6 @@
         getParamFilter()
     });
 
-
     function getParamFilter()
     {
         tahun =  $("#tahun").val(); 

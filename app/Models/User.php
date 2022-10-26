@@ -35,7 +35,7 @@ class User extends Authenticatable
         $data =  User::select('users.id as id', 'dasawisma_id', 'rtrw_id', 'username', 'no_telp', 'nik', 'alamat', 'nama')
             ->join('model_has_roles', 'model_has_roles.model_id', '=', 'users.id')
             ->join('rt_rw', 'rt_rw.id', '=', 'users.rtrw_id')
-            ->whereNotIn('model_has_roles.role_id', [1])
+            ->whereIn('model_has_roles.role_id', [2])
             ->when($kecamatan_id, function ($q) use ($kecamatan_id) {
                 return $q->where('rt_rw.kecamatan_id', $kecamatan_id);
             })

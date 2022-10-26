@@ -46,7 +46,7 @@ class KaderController extends Controller
         $kelurahanDisplay = true;
 
         // 
-        $jumlahKader = User::join('model_has_roles', 'model_has_roles.model_id', '=', 'users.id')->where('model_has_roles.role_id', 2)->count();
+        $totalKader = User::join('model_has_roles', 'model_has_roles.model_id', '=', 'users.id')->where('model_has_roles.role_id', 2)->count();
 
         return view('pages.kader.index', compact(
             'title',
@@ -60,7 +60,7 @@ class KaderController extends Controller
             'rtrwDisplay',
             'kecamatanDisplay',
             'kelurahanDisplay',
-            'jumlahKader'
+            'totalKader'
         ));
     }
 
