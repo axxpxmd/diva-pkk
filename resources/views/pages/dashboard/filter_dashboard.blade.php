@@ -70,9 +70,6 @@
         getParamFilter()
     });
 
-    kelurahan_id = "{{ isset($kelurahan_id) ? $kelurahan_id : 0 }}"
-    rtrw_id = "{{ isset($rtrw_id) ? $rtrw_id : 0 }}"
-
     $(document).ready(function(){
         $("#kecamatan_filter").trigger('change');
     })
@@ -93,6 +90,7 @@
                     });
                     $('#kelurahan_filter').empty().html(optionKelurahan);
 
+                    kelurahan_id = "{{ isset($kelurahan_id) ? $kelurahan_id : 0 }}"
                     if (kelurahan_id) {
                         $("#kelurahan_filter").val(kelurahan_id);
                         $("#kelurahan_filter").trigger('change');
@@ -124,6 +122,7 @@
                     });
                     $('#rtrw_filter').empty().html(optionRTRW);
 
+                    rtrw_id = "{{ isset($rtrw_id) ? $rtrw_id : 0 }}"
                     if (rtrw_id) {
                         $("#rtrw_filter").val(rtrw_id);   
                         $("#rtrw_filter").trigger('change');

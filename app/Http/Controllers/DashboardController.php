@@ -43,8 +43,6 @@ class DashboardController extends Controller
         $kecamatan = Kecamatan::find($kecamatan_id);
         $kelurahan = Kelurahan::find($kelurahan_id);
 
-        // dd($kecamatan_id);
-
         return view('pages.dashboard.index', compact(
             'title',
             'active_dashboard',
