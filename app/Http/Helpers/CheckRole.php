@@ -4,7 +4,7 @@ namespace App\Http\Helpers;
 
 use Illuminate\Support\Facades\Auth;
 
-class Filter
+class CheckRole
 {
     public static function getFilterValue()
     {
@@ -34,6 +34,6 @@ class Filter
             $rt = $user->rt;
         }
 
-        return [$dasawisma_id, $kecamatan_id, $kelurahan_id, $rtrw_id, $rw, $rt];
+        return [$dasawisma_id, $kecamatan_id, $kelurahan_id, $rtrw_id, $rw, $rt, $role_id];
     }
 }

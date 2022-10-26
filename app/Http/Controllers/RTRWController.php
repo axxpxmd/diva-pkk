@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Helpers\Filter;
 use DataTables;
 
 use Illuminate\Http\Request;
+use App\Http\Helpers\CheckRole;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,10 +24,10 @@ class RTRWController extends Controller
     protected $desc  = 'Menu ini berisikan data RT / RW';
     protected $active_rtrw = true;
 
-    public function __construct(Filter $filterValue)
+    public function __construct(CheckRole $checkRole)
     {
         $this->middleware(['permission:rt/rw']);
-        $this->filterValue = $filterValue;
+        $this->checkRole = $checkRole;
     }
 
     public function index(Request $request)
@@ -36,13 +36,13 @@ class RTRWController extends Controller
         $desc  = $this->desc;
         $active_rtrw = $this->active_rtrw;
 
-        list($dasawisma_id, $kecamatan_id, $kelurahan_id, $rtrw_id, $rw, $rt) = $this->filterValue->getFilterValue();
+        list($dasawisma_id, $kecamatan_id, $kelurahan_id, $rtrw_id, $rw, $rt, $role_id) = $this->checkRole->getFilterValue();
 
         $kecamatan_id = $kecamatan_id ? $kecamatan_id : $request->kecamatan_filter;
         $kelurahan_id = $kelurahan_id ? $kelurahan_id : $request->kelurahan_filter;
         $rw = $rw ? $rw : $request->rw_filter;
         if ($request->ajax()) {
-            return $this->dataTable($kecamatan_id, $kelurahan_id, $rw);
+            return $this->dataTable($kecamatan_id, $kelurahan_id, $rw, $role_id);
         }
 
         $kecamatans = Kecamatan::select('id', 'n_kecamatan')->where('kabupaten_id', 40)->get();
@@ -65,18 +65,17 @@ class RTRWController extends Controller
             'kelurahanDisplay',
             'rwDisplay',
             'totalRT',
-            'totalRW'
+            'totalRW',
+            'role_id'
         ));
     }
 
-    public function dataTable($kecamatan_id, $kelurahan_id, $rw)
+    public function dataTable($kecamatan_id, $kelurahan_id, $rw, $role_id)
     {
         $data = RTRW::queryTable($kecamatan_id, $kelurahan_id, $rw);
 
-        $role_id = Auth::user()->modelHasRole->role_id;
-
         return DataTables::of($data)
-            ->addColumn('action', function ($p) {
+            ->addColumn('action', function ($p) use($role_id) {
                 $checkDasawisma = $p->dasawisma->count();
                 $checkKetuaRT = $p->ketuaRT->count();
                 $checkKetuaRW = $p->ketua_rw;
@@ -84,13 +83,15 @@ class RTRWController extends Controller
                 $edit = '<a href="#" onclick="edit(' . $p->id . ')" class="text-info m-r-5" title="Edit Data"><i class="bi bi-pencil-fill"></i></a>';
                 $delete = '<a href="#" onclick="remove(' . $p->id . ')" class="text-danger" title="Delete Data"><i class="bi bi-trash-fill"></i></a>';
 
-                if ($checkDasawisma || $checkKetuaRT || $checkKetuaRW) {
-                    return $edit;
+                if ($role_id == 3 || $role_id == 4) {
+                    return '-';
                 } else {
-                    return $edit . $delete;
+                    if ($checkDasawisma || $checkKetuaRT || $checkKetuaRW) {
+                        return $edit;
+                    } else {
+                        return $edit . $delete;
+                    }
                 }
-
-                return '-';
             })
             ->editColumn('rt', function ($p) {
                 $action = "<a href='" . route('rt-rw.show', [$p->id, 'kategori=rt']) . "' class='text-info' title='Menampilkan Data'>" . $p->rt . "</a>";
@@ -132,9 +133,17 @@ class RTRWController extends Controller
                 if ($p->ketua_rw) {
                     $mappingRW = MappingRW::where('id', $p->ketua_rw)->first();
 
-                    return $mappingRW->ketua . '&nbsp&nbsp&nbsp' . $add;
+                    if ($role_id == 3 || $role_id == 4) {
+                        return $mappingRW->ketua;
+                    } else {
+                        return $mappingRW->ketua . '&nbsp&nbsp&nbsp' . $add;
+                    }
                 } else {
-                    return $add;
+                    if ($role_id == 3 || $role_id == 4) {
+                        return '-';
+                     } else {
+                         return $add;
+                     }
                 }
             })
             ->editColumn('kelurahan_id', function ($p) {

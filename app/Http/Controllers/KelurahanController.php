@@ -22,7 +22,7 @@ class KelurahanController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['permission:rt/rw']);
+        $this->middleware(['permission:kelurahan']);
     }
 
     public function index(Request $request)
