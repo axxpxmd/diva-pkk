@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Helpers\Filter;
 use DataTables;
 
 use Illuminate\Http\Request;
@@ -23,9 +24,10 @@ class RTRWController extends Controller
     protected $desc  = 'Menu ini berisikan data RT / RW';
     protected $active_rtrw = true;
 
-    public function __construct()
+    public function __construct(Filter $filterValue)
     {
         $this->middleware(['permission:rt/rw']);
+        $this->filterValue = $filterValue;
     }
 
     public function index(Request $request)
@@ -34,11 +36,13 @@ class RTRWController extends Controller
         $desc  = $this->desc;
         $active_rtrw = $this->active_rtrw;
 
-        $rw = $request->rw_filter;
-        $kecamatan_id = $request->kecamatan_filter;
-        $kelurahan_id = $request->kelurahan_filter;
+        list($dasawisma_id, $kecamatan_id, $kelurahan_id, $rtrw_id, $rw, $rt) = $this->filterValue->getFilterValue();
+
+        $kecamatan_id = $kecamatan_id ? $kecamatan_id : $request->kecamatan_filter;
+        $kelurahan_id = $kelurahan_id ? $kelurahan_id : $request->kelurahan_filter;
+        $rw = $rw ? $rw : $request->rw_filter;
         if ($request->ajax()) {
-            return $this->dataTable($rw, $kecamatan_id, $kelurahan_id);
+            return $this->dataTable($kecamatan_id, $kelurahan_id, $rw);
         }
 
         $kecamatans = Kecamatan::select('id', 'n_kecamatan')->where('kabupaten_id', 40)->get();
@@ -59,9 +63,9 @@ class RTRWController extends Controller
         ));
     }
 
-    public function dataTable($rw, $kecamatan_id, $kelurahan_id)
+    public function dataTable($kecamatan_id, $kelurahan_id, $rw)
     {
-        $data = RTRW::queryTable($rw, $kecamatan_id, $kelurahan_id);
+        $data = RTRW::queryTable($kecamatan_id, $kelurahan_id, $rw);
 
         $role_id = Auth::user()->modelHasRole->role_id;
 
