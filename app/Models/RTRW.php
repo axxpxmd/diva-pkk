@@ -109,7 +109,7 @@ class RTRW extends Model
         return $data;
     }
 
-    public static function queryTable($kecamatan_id, $kelurahan_id, $rw)
+    public static function queryTable($kecamatan_id, $kelurahan_id, $rw, $rt)
     {
         $data = RTRW::select('id', 'kecamatan_id', 'kelurahan_id', 'n_kecamatan', 'n_kelurahan', 'rt', 'rw', 'keterangan', 'ketua_rt', 'ketua_rw')
             ->when($kecamatan_id, function ($q) use ($kecamatan_id) {
@@ -120,6 +120,9 @@ class RTRW extends Model
             })
             ->when($rw, function ($q) use ($rw) {
                 return $q->where('rw', $rw);
+            })
+            ->when($rt, function ($q) use ($rt) {
+                return $q->where('rt', $rt);
             });
 
         return $data->orderBy('id', 'ASC')->get();

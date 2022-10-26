@@ -42,13 +42,19 @@ class RTRWController extends Controller
         $kelurahan_id = $kelurahan_id ? $kelurahan_id : $request->kelurahan_filter;
         $rw = $rw ? $rw : $request->rw_filter;
         if ($request->ajax()) {
-            return $this->dataTable($kecamatan_id, $kelurahan_id, $rw, $role_id);
+            return $this->dataTable($kecamatan_id, $kelurahan_id, $rw, $rt, $role_id);
         }
 
         $kecamatans = Kecamatan::select('id', 'n_kecamatan')->where('kabupaten_id', 40)->get();
 
         // Filter
-        $rwDisplay = true;
+        if ($role_id == 3) {
+            $rtrwDisplay = true;
+            $rwDisplay = false;
+        } else {
+            $rtrwDisplay = false;
+            $rwDisplay = true;
+        }
         $kecamatanDisplay = true;
         $kelurahanDisplay = true;
 
@@ -64,18 +70,24 @@ class RTRWController extends Controller
             'kecamatanDisplay',
             'kelurahanDisplay',
             'rwDisplay',
+            'rtrwDisplay',
             'totalRT',
             'totalRW',
-            'role_id'
+            'role_id',
+            'kecamatan_id',
+            'kelurahan_id',
+            'rtrw_id',
+            'rw',
+            'rt'
         ));
     }
 
-    public function dataTable($kecamatan_id, $kelurahan_id, $rw, $role_id)
+    public function dataTable($kecamatan_id, $kelurahan_id, $rw, $rt, $role_id)
     {
-        $data = RTRW::queryTable($kecamatan_id, $kelurahan_id, $rw);
+        $data = RTRW::queryTable($kecamatan_id, $kelurahan_id, $rw, $rt, );
 
         return DataTables::of($data)
-            ->addColumn('action', function ($p) use($role_id) {
+            ->addColumn('action', function ($p) use ($role_id) {
                 $checkDasawisma = $p->dasawisma->count();
                 $checkKetuaRT = $p->ketuaRT->count();
                 $checkKetuaRW = $p->ketua_rw;
@@ -121,7 +133,7 @@ class RTRWController extends Controller
                     }
                 } else {
                     if ($role_id == 3 || $role_id == 4) {
-                       return '-';
+                        return '-';
                     } else {
                         return $add;
                     }
@@ -141,9 +153,9 @@ class RTRWController extends Controller
                 } else {
                     if ($role_id == 3 || $role_id == 4) {
                         return '-';
-                     } else {
-                         return $add;
-                     }
+                    } else {
+                        return $add;
+                    }
                 }
             })
             ->editColumn('kelurahan_id', function ($p) {
@@ -655,10 +667,11 @@ class RTRWController extends Controller
             if ($data->status == 1) {
                 $ketua_rt = RTRW::where('ketua_rt', $id)->first();
                 $ketua_rt->update([
-                    'ketau_rt' => null
+                    'ketua_rt' => null
                 ]);
             }
-
+            
+            User::where('username', $data->nik)->delete();
             $data->delete();
         }
 
@@ -668,10 +681,11 @@ class RTRWController extends Controller
             if ($data->status == 1) {
                 $ketua_rw = RTRW::where('ketua_rw', $id)->first();
                 $ketua_rw->update([
-                    'ketau_rw' => null
+                    'ketua_rw' => null
                 ]);
             }
 
+            User::where('username', $data->nik)->delete();
             $data->delete();
         }
 
