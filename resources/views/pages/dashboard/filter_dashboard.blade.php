@@ -22,9 +22,9 @@
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <label for="kecamatan_id" class="col-sm-3 col-form-label fw-bold">Kecamatan</label>
+                    <label for="kecamatan_filter" class="col-sm-3 col-form-label fw-bold">Kecamatan</label>
                     <div class="col-sm-9">
-                        <select class="form-select select2" name="kecamatan_id" id="kecamatan_id">
+                        <select class="form-select select2" name="kecamatan_filter" id="kecamatan_filter">
                             <option value="">Pilih</option>
                             @foreach ($kecamatans as $i)
                             <option value="{{ $i->id }}" {{ $kecamatan_id == $i->id ? 'selected' : '' }}>{{ $i->n_kecamatan }}</option>
@@ -33,17 +33,17 @@
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <label for="kelurahan_id" class="col-sm-3 col-form-label fw-bold">Kelurahan</label>
+                    <label for="kelurahan_filter" class="col-sm-3 col-form-label fw-bold">Kelurahan</label>
                     <div class="col-sm-9">
-                        <select class="form-select select2" name="kelurahan_id" id="kelurahan_id">
+                        <select class="form-select select2" name="kelurahan_filter" id="kelurahan_filter">
                             <option value="">Pilih</option>
                         </select>
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <label for="rtrw_id" class="col-sm-3 col-form-label fw-bold">RT / RW</label>
+                    <label for="rtrw_filter" class="col-sm-3 col-form-label fw-bold">RT / RW</label>
                     <div class="col-sm-9">
-                        <select class="form-select select2" name="rtrw_id" id="rtrw_id">
+                        <select class="form-select select2" name="rtrw_filter" id="rtrw_filter">
                             <option value="">Pilih</option>
                         </select>
                     </div>
@@ -66,7 +66,7 @@
     });
 
     // RTRW
-    $('#rtrw_id').on('change', function(){
+    $('#rtrw_filter').on('change', function(){
         getParamFilter()
     });
 
@@ -74,64 +74,64 @@
     rtrw_id = "{{ isset($rtrw_id) ? $rtrw_id : 0 }}"
 
     $(document).ready(function(){
-        $("#kecamatan_id").trigger('change');
+        $("#kecamatan_filter").trigger('change');
     })
-    $('#kecamatan_id').on('change', function(){
-        $('#kelurahan_id').val("").trigger("change.select2");
-        $('#rtrw_id').val("").trigger("change.select2");
+    $('#kecamatan_filter').on('change', function(){
+        $('#kelurahan_filter').val("").trigger("change.select2");
+        $('#rtrw_filter').val("").trigger("change.select2");
         val = $(this).val();
         optionKelurahan = "<option value=''>Pilih</option>";
         if(val == ""){
-            $('#kelurahan_id').html(optionKelurahan);
+            $('#kelurahan_filter').html(optionKelurahan);
         }else{
-            $('#kelurahan_id').html("<option value=''>Loading...</option>");
+            $('#kelurahan_filter').html("<option value=''>Loading...</option>");
             url = "{{ route('kelurahanByKecamatan', ':id') }}".replace(':id', val);
             $.get(url, function(data){
                 if(data){
                     $.each(data, function(index, value){
                         optionKelurahan += "<option value='" + value.id + "'>" + value.n_kelurahan +"</li>";
                     });
-                    $('#kelurahan_id').empty().html(optionKelurahan);
+                    $('#kelurahan_filter').empty().html(optionKelurahan);
 
                     if (kelurahan_id) {
-                        $("#kelurahan_id").val(kelurahan_id);
-                        $("#kelurahan_id").trigger('change');
+                        $("#kelurahan_filter").val(kelurahan_id);
+                        $("#kelurahan_filter").trigger('change');
                     } else {
-                        $("#kelurahan_id").val($("#kelurahan_id option:first").val());
+                        $("#kelurahan_filter").val($("#kelurahan_filter option:first").val());
                     }
                     getParamFilter()
                    
                 }else{
-                    $('#kelurahan_id').html(optionKelurahan);
+                    $('#kelurahan_filter').html(optionKelurahan);
                 }
             }, 'JSON'); 
         }
     });
 
-    $('#kelurahan_id').on('change', function(){
-        $('#rtrw_id').val("").trigger("change.select2");
+    $('#kelurahan_filter').on('change', function(){
+        $('#rtrw_filter').val("").trigger("change.select2");
         val = $(this).val();
         optionRTRW = "<option value=''>Pilih</option>";
         if(val == ""){
-            $('#rtrw_id').html(optionRTRW);
+            $('#rtrw_filter').html(optionRTRW);
         }else{
-            $('#rtrw_id').html("<option value=''>Loading...</option>");
+            $('#rtrw_filter').html("<option value=''>Loading...</option>");
             url = "{{ route('rtrwByKelurahan', ':id') }}".replace(':id', val);
             $.get(url, function(data){
                 if(data){
                     $.each(data, function(index, value){
                         optionRTRW += "<option value='" + value.id + "'>" + 'RW ' + value.rw + ' / RT ' + value.rt + "</li>";
                     });
-                    $('#rtrw_id').empty().html(optionRTRW);
+                    $('#rtrw_filter').empty().html(optionRTRW);
 
                     if (rtrw_id) {
-                        $("#rtrw_id").val(rtrw_id);   
-                        $("#rtrw_id").trigger('change');
+                        $("#rtrw_filter").val(rtrw_id);   
+                        $("#rtrw_filter").trigger('change');
                     } else {
-                        $("#rtrw_id").val($("#rtrw_id option:first").val());
+                        $("#rtrw_filter").val($("#rtrw_filter option:first").val());
                     }
                 }else{
-                    $('#rtrw_id').html(optionRTRW);
+                    $('#rtrw_filter').html(optionRTRW);
                 }
             }, 'JSON'); 
         }
@@ -142,11 +142,11 @@
     function getParamFilter()
     {
         tahun =  $("#tahun").val(); 
-        kecamatan_id = $("#kecamatan_id").val();
-        kelurahan_id = $("#kelurahan_id").val();
-        rtrw_id = $("#rtrw_id").val();
+        kecamatan_id = $("#kecamatan_filter").val();
+        kelurahan_id = $("#kelurahan_filter").val();
+        rtrw_id = $("#rtrw_filter").val();
 
-        url = "{{ route('dashboard') }}?tahun=" + tahun + "&kecamatan_id=" + kecamatan_id + "&kelurahan_id=" + kelurahan_id + "&rtrw_id=" + rtrw_id;
+        url = "{{ route('dashboard') }}?tahun=" + tahun + "&kecamatan_filter=" + kecamatan_id + "&kelurahan_filter=" + kelurahan_id + "&rtrw_filter=" + rtrw_id;
 
         $('#filterData').attr('href', url);
     }
