@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Anggota;
 use DataTables;
+use App\Models\Anggota;
 
 use Illuminate\Http\Request;
+use App\Http\Helpers\CheckRole;
 use Illuminate\Support\Facades\Auth;
 
 // Models
@@ -21,35 +22,57 @@ class RumahController extends Controller
     protected $desc  = 'Menu ini berisikan data rumah';
     protected $active_rumah = true;
 
+    public function __construct(CheckRole $checkRole)
+    {
+        $this->middleware(['permission:rumah']);
+        $this->checkRole = $checkRole;
+    }
+
+    public function checkFilter()
+    {
+        $role_id = Auth::user()->modelHasRole->role_id;
+
+        // Filter
+        if ($role_id == 3) {
+            $rtrwDisplay = true;
+            $rwDisplay = false;
+            $rtDisplay = false;
+        }else{
+            $rtrwDisplay = false;
+            $rwDisplay = true;
+            $rtDisplay = true;
+        }
+
+        $kecamatanDisplay = true;
+        $kelurahanDisplay = true;
+
+        return [$kecamatanDisplay, $kelurahanDisplay, $rtrwDisplay, $rwDisplay, $rtDisplay];
+    }
+
     public function index(Request $request)
     {
         $title = $this->title;
         $desc  = $this->desc;
         $active_rumah = $this->active_rumah;
 
-        $dasawisma_id = Auth::user()->dasawisma_id;
-        $rtrw_id = Auth::user()->rtrw_id;
-        $role_id = Auth::user()->modelHasRole->role_id;
-
-        $check_rtrw = Auth::user()->rtrw;
+        list($dasawisma_id, $kecamatan_id, $kelurahan_id, $rtrw_id, $rw, $rt, $role_id) = $this->checkRole->getFilterValue();
 
         $layak_huni   = $request->layak_huni;
         $kriteria_rmh = $request->kriteria_rmh;
-        $rtrw_id      = $check_rtrw ? $rtrw_id : $request->rtrw_filter;
-        $kecamatan_id = $check_rtrw ? $check_rtrw->kecamatan_id : $request->kecamatan_filter;
-        $kelurahan_id = $check_rtrw ? $check_rtrw->kelurahan_id : $request->kelurahan_filter;
+        $kecamatan_id = $kecamatan_id ? $kecamatan_id : $request->kecamatan_filter;
+        $kelurahan_id = $kelurahan_id ? $kelurahan_id : $request->kelurahan_filter;
+        $rtrw_id      = $rtrw_id ? $rtrw_id : $request->rtrw_filter;
+        $rw           = $rw ? $rw : $request->rw_filter;
+
         if ($request->ajax()) {
-            return $this->dataTable($rtrw_id, $kecamatan_id, $kelurahan_id, $layak_huni, $kriteria_rmh, $dasawisma_id);
+            return $this->dataTable($kecamatan_id, $kelurahan_id, $rtrw_id, $rt, $rw, $dasawisma_id, $kriteria_rmh, $layak_huni);
         }
 
         $dasawismas = Dasawisma::select('id', 'nama')->get();
         $rtrws = RTRW::select('id', 'kecamatan_id', 'kelurahan_id', 'rw', 'rt')->with(['kecamatan', 'kelurahan'])->get();
         $kecamatans = Kecamatan::select('id', 'n_kecamatan')->where('kabupaten_id', 40)->get();
 
-        // Filter
-        $rtrwDisplay = true;
-        $kecamatanDisplay = true;
-        $kelurahanDisplay = true;
+        list($kecamatanDisplay, $kelurahanDisplay, $rtrwDisplay, $rwDisplay, $rtDisplay) = $this->checkFilter();
 
         return view('pages.rumah.index', compact(
             'title',
@@ -65,13 +88,16 @@ class RumahController extends Controller
             'kecamatans',
             'kecamatan_id',
             'kelurahan_id',
-            'role_id'
+            'role_id',
+            'rwDisplay',
+            'rtDisplay',
+            'rw'
         ));
     }
 
-    public function dataTable($rtrw_id, $kecamatan_id, $kelurahan_id, $layak_huni, $kriteria_rmh, $dasawisma_id)
+    public function dataTable($kecamatan_id, $kelurahan_id, $rtrw_id, $rt, $rw, $dasawisma_id, $kriteria_rmh, $layak_huni)
     {
-        $data = Rumah::queryTable($rtrw_id, $kecamatan_id, $kelurahan_id, $layak_huni, $kriteria_rmh, $dasawisma_id);
+        $data = Rumah::queryTable($kecamatan_id, $kelurahan_id, $rtrw_id, $rt, $rw, $dasawisma_id, $kriteria_rmh, $layak_huni);
 
         return DataTables::of($data)
             ->addColumn('action', function ($p) {
@@ -110,7 +136,7 @@ class RumahController extends Controller
             ->addColumn('jumlah_anggota', function ($p) {
                 return $p->anggota->count() . ' Orang';
             })
-            ->editColumn('status_isi', function($p) {
+            ->editColumn('status_isi', function ($p) {
                 $lengkap = '<span class="badge bg-success">Lengkap</span>';
                 $tidakLengkap = '<span class="badge bg-danger">Blm Lengkap</span>';
 

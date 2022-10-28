@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Kecamatan;
 use App\Models\Kelurahan;
+use App\Models\ModelHasRole;
 use App\Models\MappingKelurahan;
 
 class KelurahanController extends Controller
@@ -60,20 +61,20 @@ class KelurahanController extends Controller
             ->editColumn('kecamatan_id', function ($p) {
                 return $p->kecamatan->n_kecamatan;
             })
-            ->addColumn('ketua_kelurahan', function ($p) use($role_id) {
+            ->addColumn('ketua_kelurahan', function ($p) use ($role_id) {
                 $add = "<a href='" . route('kelurahan.createKetuaKelurahan', $p->id) . "' class='text-info' title='Tambah Ketua RT'><i class='bi bi-person-plus-fill'></i></a>";
 
                 if ($p->ketua_kelurahan) {
                     $mappingKelurahan = MappingKelurahan::where('id', $p->ketua_kelurahan)->first();
                     if ($role_id == 5) {
                         return $mappingKelurahan->ketua;
-                    }else{
+                    } else {
                         return $mappingKelurahan->ketua . '&nbsp&nbsp&nbsp' . $add;
                     }
                 } else {
                     if ($role_id == 5) {
                         return '-';
-                    }else{
+                    } else {
                         return $add;
                     }
                 }
@@ -147,6 +148,7 @@ class KelurahanController extends Controller
          * 2. kelurahan_mappings (create)
          * 3. kelurahan (create)
          * 4. users (create)
+         * 5. model_has_roles (create)
          */
 
         DB::beginTransaction(); //* DB Transaction Begin
@@ -190,8 +192,15 @@ class KelurahanController extends Controller
                     'nik' => $request->nik,
                     'foto' => 'default.png'
                 ];
-                User::create($data_user);
+                $user = User::create($data_user);
             }
+
+            //* Tahap 5
+            $model_has_role = new ModelHasRole();
+            $model_has_role->role_id    = 5;
+            $model_has_role->model_type = 'app\Models\User';
+            $model_has_role->model_id   = $user->id;
+            $model_has_role->save();
         } catch (\Throwable $th) {
             DB::rollback(); //* DB Transaction Failed
             return redirect()
@@ -296,6 +305,7 @@ class KelurahanController extends Controller
             ]);
         }
 
+        User::where('username', $data->nik)->delete();
         $data->delete();
 
         return response()->json(['message' => "Berhasil menghapus data."]);

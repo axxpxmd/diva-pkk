@@ -39,6 +39,13 @@ class CheckRole
             $rtrw_id = $user->rtrw_id;
             $rw = $user->rtrw->rw;
             $rt = $user->rtrw->rt;
+        } elseif ($role_id == 5) {
+            $dasawisma_id = 0;
+            $kecamatan_id = $user->kecamatan_id;
+            $kelurahan_id = $user->kelurahan_id;
+            $rtrw_id = 0;
+            $rw = 0;
+            $rt = 0;
         }
 
         return [$dasawisma_id, $kecamatan_id, $kelurahan_id, $rtrw_id, $rw, $rt, $role_id];

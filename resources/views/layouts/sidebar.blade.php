@@ -35,7 +35,7 @@
         </div>
         <div class="sidebar-menu">
             <ul class="menu mt-3">
-                <span class="fs-14 fw-bold">{{ Auth::user()->nama }}</span>
+                <span class="fs-14 fw-bold">{{ Auth::user()->nama }} / {{ Auth::user()->modelHasRole->role->name }}</span>
                 <hr class="mt-1 mb-3">
                 <li class="sidebar-item {{ isset($active_dashboard) ? 'active' : '-' }}">
                     <a href="{{ route('home') }}" class='sidebar-link'>

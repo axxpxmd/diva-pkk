@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Dasawisma;
-use App\Models\KartuKeluarga;
+use Illuminate\Http\Request;
 
 // Models
 use App\Models\RTRW;
-use App\Models\Kelurahan;
 use App\Models\Rumah;
-use App\Models\User;
+use App\Models\Dasawisma;
+use App\Models\Kelurahan;
+use App\Models\KartuKeluarga;
 
 class UtilityController extends Controller
 {
@@ -37,6 +37,16 @@ class UtilityController extends Controller
     public function rwByKelurahan($id)
     {
         $data = RTRW::select('rw', 'kelurahan_id')->where('kelurahan_id', $id)->groupBy('rw')->get();
+
+        return $data;
+    }
+
+    public function rtByRw(Request $request, $id)
+    {
+        $kecamatan_id = $request->kecamatan_id;
+        $kelurahan_id = $request->kelurahan_id;
+
+        $data = RTRW::where('kecamatan_id', $kecamatan_id)->where('kelurahan_id', $kelurahan_id)->where('rw', $id)->get();
 
         return $data;
     }
