@@ -30,6 +30,26 @@ class RTRWController extends Controller
         $this->checkRole = $checkRole;
     }
 
+    public function checkFilter()
+    {
+        $role_id = Auth::user()->modelHasRole->role_id;
+
+        // Filter
+        if ($role_id == 3) {
+            $rtrwDisplay = true;
+            $rwDisplay = false;
+        } else {
+            $rtrwDisplay = false;
+            $rwDisplay = true;
+        }
+
+        $rtDisplay = false;
+        $kecamatanDisplay = true;
+        $kelurahanDisplay = true;
+
+        return [$kecamatanDisplay, $kelurahanDisplay, $rtrwDisplay, $rwDisplay, $rtDisplay];
+    }
+
     public function index(Request $request)
     {
         $title = $this->title;
@@ -47,16 +67,7 @@ class RTRWController extends Controller
 
         $kecamatans = Kecamatan::select('id', 'n_kecamatan')->where('kabupaten_id', 40)->get();
 
-        // Filter
-        if ($role_id == 3) {
-            $rtrwDisplay = true;
-            $rwDisplay = false;
-        } else {
-            $rtrwDisplay = false;
-            $rwDisplay = true;
-        }
-        $kecamatanDisplay = true;
-        $kelurahanDisplay = true;
+        list($kecamatanDisplay, $kelurahanDisplay, $rtrwDisplay, $rwDisplay, $rtDisplay) = $this->checkFilter();
 
         // Total
         $totalRT = RTRW::count();
@@ -233,7 +244,7 @@ class RTRWController extends Controller
             $data  = RTRW::find($id);
             $data->update(array_merge($input, ['n_kecamatan' => $n_kecamatan, 'n_kelurahan' => $n_kelurahan]));
 
-            //* Check existing data
+            //* Check Duplicate
             $check = RTRW::where('kecamatan_id', $kecamatan_id)->where('kelurahan_id', $kelurahan_id)->where('rt', $rt)->where('rw', $rw)->count();
             if ($check > 1) {
                 DB::rollback(); //* DB Transaction Failed

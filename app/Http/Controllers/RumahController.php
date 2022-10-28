@@ -7,6 +7,7 @@ use App\Models\Anggota;
 
 use Illuminate\Http\Request;
 use App\Http\Helpers\CheckRole;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 // Models
@@ -37,7 +38,7 @@ class RumahController extends Controller
             $rtrwDisplay = true;
             $rwDisplay = false;
             $rtDisplay = false;
-        }else{
+        } else {
             $rtrwDisplay = false;
             $rwDisplay = true;
             $rtDisplay = true;
@@ -156,7 +157,6 @@ class RumahController extends Controller
         $role_id = Auth::user()->modelHasRole->role_id;
         if ($role_id == 3) {
             $request->validate([
-                'rtrw_id' => 'required',
                 'kepala_rumah' => 'required|max:100',
                 'alamat_detail' => 'required|max:200'
             ]);
@@ -185,10 +185,10 @@ class RumahController extends Controller
         if ($role_id != 3) {
             $input['sumber_air'] = json_encode($request->sumber_air);
             $input['status_isi'] = 1;
-        }else{
+        } else {
             $input['status_isi'] = 0;
         }
-       
+
         $input['created_by'] = Auth::user()->nama;
         Rumah::create($input);
 
@@ -301,22 +301,30 @@ class RumahController extends Controller
             ]);
         }
 
-        // Check Duplikat
-        $check = Rumah::where('kepala_rumah', $request->kepala_rumah)->where('alamat_detail', $request->alamat_detail)->count();
-        if ($check > 1)
-            return response()->json(['message' => "Error, data rumah sudah pernah disimpan."], 422);
+        DB::beginTransaction(); //* DB Transaction Begin
+        try {
+            $input = $request->all();
+            if ($role_id != 3) {
+                $input['sumber_air'] = json_encode($request->sumber_air);
+                $input['status_isi'] = 1;
+            } else {
+                $input['status_isi'] = 0;
+            }
+            $input['updated_by'] = Auth::user()->nama;
 
-        $input = $request->all();
-        if ($role_id != 3) {
-            $input['sumber_air'] = json_encode($request->sumber_air);
-            $input['status_isi'] = 1;
-        }else{
-            $input['status_isi'] = 0;
+            $data = Rumah::find($id);
+            $data->update($input);
+
+            //* Check Duplicate
+            $check = Rumah::where('kepala_rumah', $request->kepala_rumah)->where('alamat_detail', $request->alamat_detail)->count();
+            if ($check > 1)
+                return response()->json(['message' => "Error, data rumah sudah pernah disimpan."], 422);
+        } catch (\Throwable $th) {
+            DB::rollback(); //* DB Transaction Failed
+            return response()->json(['message' => "Terjadi kesalahan, silahkan hubungi administrator"], 500);
         }
-        $input['updated_by'] = Auth::user()->nama;
 
-        $data = Rumah::find($id);
-        $data->update($input);
+        DB::commit(); //* DB Transaction Success
 
         return response()->json(['message' => "Berhasil memperbaharui data."]);
     }
