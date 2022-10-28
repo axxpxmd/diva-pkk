@@ -57,6 +57,11 @@
     rw = "{{ isset($rw) ? $rw : 0 }}"
     rt = "{{ isset($rt) ? $rt : 0 }}"
 
+    console.log(kelurahan)
+    console.log(rtrw_id)
+    console.log(rt)
+    console.log(rw)
+
     $(document).ready(function() {
         $('.select2').select2();
     });
@@ -67,19 +72,18 @@
     });
     $('#kecamatan_filter').on('change', function(){
         val = $(this).val();
-        optionKelurahan = "";
+        optionKelurahanFilter = "";
         if(val == ""){
-            $('#kelurahan_filter').html(optionKelurahan);
+            $('#kelurahan_filter').html(optionKelurahanFilter);
         }else{
             $('#kelurahan_filter').html("<option value=''>Loading...</option>");
             url = "{{ route('kelurahanByKecamatan', ':id') }}".replace(':id', val);
             $.get(url, function(data){
-                console.log(kelurahan)
                 if(data){
                     $.each(data, function(index, value){
-                        optionKelurahan += "<option value='" + value.id + "'>" + value.n_kelurahan +"</li>";
+                        optionKelurahanFilter += "<option value='" + value.id + "'>" + value.n_kelurahan +"</li>";
                     });
-                    $('#kelurahan_filter').empty().html(optionKelurahan);
+                    $('#kelurahan_filter').empty().html(optionKelurahanFilter);
 
                     if (kelurahan != 0) {
                         $("#kelurahan_filter").val(kelurahan);
@@ -89,7 +93,7 @@
                         $("#kelurahan_filter").val($("#kelurahan_filter option:first").val());
                     }
                 }else{
-                    $('#kelurahan_filter').html(optionKelurahan);
+                    $('#kelurahan_filter').html(optionKelurahanFilter);
                 }
             }, 'JSON'); 
         }
@@ -105,7 +109,6 @@
             $('#rw_filter').html("<option value=''>Loading...</option>");
             url = "{{ route('rwByKelurahan', ':id') }}".replace(':id', val);
             $.get(url, function(data){
-                console.log(rw)
                 if(data){
                     $.each(data, function(index, value){
                         optionRW += "<option value='" + value.rw + "'>" + 'RW ' + value.rw + "</li>";
@@ -140,7 +143,6 @@
             url = `{{ route('rtByRw', ':id') }}`.replace(':id', val);
             addParams = url  + '?kecamatan_id=' + kecamatan_id + '&kelurahan_id=' + kelurahan_id
             $.get(addParams, function(data){
-                console.log(rt)
                 if(data){
                     $.each(data, function(index, value){
                         optionRT += "<option value='" + value.rt + "'>" + 'RT ' + value.rt + "</li>";
@@ -173,7 +175,6 @@
             $('#rtrw_filter').html("<option value=''>Loading...</option>");
             url = "{{ route('rtrwByKelurahan', ':id') }}".replace(':id', val);
             $.get(url, function(data){
-                console.log(rtrw_id)
                 if(data){
                     $.each(data, function(index, value){
                         optionRTRW += "<option value='" + value.id + "'>" + 'RW ' + value.rw + ' / RT ' + value.rt + "</li>";

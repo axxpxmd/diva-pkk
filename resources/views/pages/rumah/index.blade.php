@@ -298,7 +298,8 @@
                 data.kriteria_rmh = $('#kriteria_rmh').val();
                 data.kecamatan_filter = $('#kecamatan_filter').val();
                 data.kelurahan_filter = $('#kelurahan_filter').val();
-                data.rtrw_filter = $('#rtrw_filter').val();
+                data.rw_filter = $('#rw_filter').val();
+                data.rt_filter = $('#rt_filter').val();
             }
         },
         columns: [

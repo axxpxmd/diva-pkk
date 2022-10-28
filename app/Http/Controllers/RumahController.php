@@ -61,9 +61,9 @@ class RumahController extends Controller
         $kriteria_rmh = $request->kriteria_rmh;
         $kecamatan_id = $kecamatan_id ? $kecamatan_id : $request->kecamatan_filter;
         $kelurahan_id = $kelurahan_id ? $kelurahan_id : $request->kelurahan_filter;
-        $rtrw_id      = $rtrw_id ? $rtrw_id : $request->rtrw_filter;
-        $rw           = $rw ? $rw : $request->rw_filter;
-
+        $rw = $rw ? $rw : $request->rw_filter;
+        $rt = $rt ? $rt : $request->rt_filter;
+        $rtrw_id = $rtrw_id ? $rtrw_id : $request->rtrw_id_filter;
         if ($request->ajax()) {
             return $this->dataTable($kecamatan_id, $kelurahan_id, $rtrw_id, $rt, $rw, $dasawisma_id, $kriteria_rmh, $layak_huni);
         }
@@ -94,6 +94,7 @@ class RumahController extends Controller
             'rwDisplay',
             'rtDisplay',
             'rw',
+            'rt',
             'belumLengkap'
         ));
     }

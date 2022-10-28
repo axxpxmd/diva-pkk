@@ -98,6 +98,12 @@ class Rumah extends Model
             ->when($rtrw_id, function ($q) use ($rtrw_id) {
                 return $q->where('rtrw_id', $rtrw_id);
             })
+            ->when($rw, function ($q) use ($rw) {
+                return $q->where('rw', $rw);
+            })
+            ->when($rt, function ($q) use ($rt) {
+                return $q->where('rt', $rt);
+            })
             ->when($layak_huni != 99, function ($q) use ($layak_huni) {
                 return $q->where('layak_huni', $layak_huni);
             })
