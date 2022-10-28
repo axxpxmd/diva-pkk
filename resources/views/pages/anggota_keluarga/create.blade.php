@@ -48,12 +48,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Form 1
     $('#btnForm1Next').click(function(event){
-        var status_dlm_klrga = $('input[name="status_dlm_klrga[]"]:checked')
-        if (status_dlm_klrga.length == 0) {
-            $('input[name="status_dlm_klrga[]"]').prop('required', true);
-        }else{
-            $('input[name="status_dlm_klrga[]"]').prop('required', false);
-        }
         $('#jenis_kb_display').hide();
         $('#jenis_kb').val(null).trigger("change.select2");
         $("#jenis_kb").prop({'required': false, 'checked': false});
@@ -84,6 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
             pendidikan = $('#pendidikan').val();
             dasawisma_id = $('#dasawisma_id').val();
             status_kawin = $('#status_kawin').val();
+            status_dlm_klrga = $('#status_dlm_klrga').val();
             rtrw_id = $('#rtrw_id').val();
             almt_luar_tangsel = $('#almt_luar_tangsel').val();
 
@@ -94,11 +89,6 @@ document.addEventListener('DOMContentLoaded', function () {
             akta_kelahiran = $('input[name="akta_kelahiran"]:checked').val();
             status_pendidkan = $('input[name="status_pendidkan"]:checked').val();
             terdaftar_dukcapil = $('input[name="terdaftar_dukcapil"]:checked').val();
-
-            // Checkbox 
-            var status_dlm_klrga = $('input[name="status_dlm_klrga[]"]:checked').map(function() {
-                return $(this).val();   
-            }).get();
 
             $.ajax({
                 url: "{{ route('anggota-keluarga.checkValidationForm1') }}",

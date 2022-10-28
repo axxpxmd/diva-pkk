@@ -7,7 +7,7 @@
         <div class="row mb-2">
             <label for="dasawisma_id" class="col-sm-4 col-form-label fw-bold text-end">Dasawisma <span class="text-danger">*</span></label>
             <div class="col-sm-8">
-                <select class="form-control select2" name="dasawisma_id" id="dasawisma_id">
+                <select class="form-control select2" name="dasawisma_id" id="dasawisma_id" {{ $dasawisma_id ? 'disabled' : '' }}>
                     <option value="">Pilih</option>
                 </select>
                 <div class="invalid-feedback">
@@ -18,7 +18,7 @@
         <div class="row mb-2">
             <label class="col-sm-4 col-form-label fw-bold text-end">Rumah <span class="text-danger">*</span></label>
             <div class="col-sm-8">
-                <select class="form-control select2" name="rumah_id" id="rumah_id">
+                <select class="form-control select2" name="rumah_id" id="rumah_id" {{ $rumah_id ? 'disabled' : '' }}>
                     <option value="">Pilih</option>
                 </select>
                 <div class="invalid-feedback">
@@ -179,46 +179,21 @@
         </div>
     </div>
     <div class="col-sm-6">
-        <div class="row">
-            <label class="col-sm-4 col-form-label text-end fw-bold">Status Keluarga <span class="text-danger">*</span></label>
-            <div class="col-sm-3 m-t-6">
-                <input type="checkbox" name="status_dlm_klrga[]" id="status_dlm_klrga" value="Kepala Keluarga" class="form-check-input">
-                <label class="form-check-label m-l-10">
-                    Kepala Keluarga
-                </label>
-            </div>
-            <div class="col-sm-3 m-t-6">
-                <input type="checkbox" name="status_dlm_klrga[]" id="status_dlm_klrga" value="Suami" class="form-check-input">
-                <label class="form-check-label m-l-10">
-                    Suami
-                </label>
-            </div>
-            <div class="col-sm-2 m-t-6">
-                <input type="checkbox" name="status_dlm_klrga[]" id="status_dlm_klrga" value="Istri" class="form-check-input">
-                <label class="form-check-label m-l-10">
-                    Istri
-                </label>
-            </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-sm-4"></div>
-            <div class="col-sm-3 m-t-6">
-                <input type="checkbox" name="status_dlm_klrga[]" id="status_dlm_klrga" value="Anak" class="form-check-input">
-                <label class="form-check-label m-l-10">
-                    Anak
-                </label>
-            </div>
-            <div class="col-sm-3 m-t-6">
-                <input type="checkbox" name="status_dlm_klrga[]" id="status_dlm_klrga" value="Lansia" class="form-check-input">
-                <label class="form-check-label m-l-10">
-                    Lansia
-                </label>
-            </div>
-            <div class="col-sm-2 m-t-6">
-                <input type="checkbox" name="status_dlm_klrga[]" id="status_dlm_klrga" value="Lainnya" class="form-check-input">
-                <label class="form-check-label m-l-10">
-                    Lainnya
-                </label>
+        <div class="row mb-2">
+            <label class="col-sm-4 col-form-label fw-bold text-end">Status Perkawinan <span class="text-danger">*</span></label>
+            <div class="col-sm-8">
+                <select class="select2 form-select" id="status_dlm_klrga" name="status_dlm_klrga" required>
+                    <option value="">Pilih</option>
+                    <option value="Kepala Keluarga">Kepala Keluarga</option>
+                    <option value="Suami">Suami</option>
+                    <option value="Istri">Istri</option>
+                    <option value="Anak">Anak</option>
+                    <option value="Lansia">Lansia</option>
+                    <option value="Lainnya">Lainnya</option>
+                </select>
+                <div class="invalid-feedback">
+                    Silahkan pilih status Keluarga.
+                </div>
             </div>
         </div>
         <div class="row mb-2">

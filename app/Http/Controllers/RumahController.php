@@ -64,7 +64,7 @@ class RumahController extends Controller
         $kelurahan_id = $kelurahan_id ? $kelurahan_id : $request->kelurahan_filter;
         $rw = $rw ? $rw : $request->rw_filter;
         $rt = $rt ? $rt : $request->rt_filter;
-        $rtrw_id = $rtrw_id ? $rtrw_id : $request->rtrw_id_filter;
+        $rtrw_id = $rtrw_id ? $rtrw_id : $request->rtrw_filter;
         if ($request->ajax()) {
             return $this->dataTable($kecamatan_id, $kelurahan_id, $rtrw_id, $rt, $rw, $dasawisma_id, $kriteria_rmh, $layak_huni);
         }

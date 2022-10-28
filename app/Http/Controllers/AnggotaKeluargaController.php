@@ -62,7 +62,7 @@ class AnggotaKeluargaController extends Controller
         $kelurahan_id = $kelurahan_id ? $kelurahan_id : $request->kelurahan_filter;
         $rw = $rw ? $rw : $request->rw_filter;
         $rt = $rt ? $rt : $request->rt_filter;
-        $rtrw_id = $rtrw_id ? $rtrw_id : $request->rtrw_id_filter;
+        $rtrw_id = $rtrw_id ? $rtrw_id : $request->rtrw_filter;
         if ($request->ajax()) {
             return $this->dataTable($rtrw_id, $kecamatan_id, $kelurahan_id, $kelamin, $status_hidup, $dasawisma_id, $rumah_id);
         }
@@ -115,7 +115,7 @@ class AnggotaKeluargaController extends Controller
 
                 return $p->status_hidup == 1 ? $hidup : $meninggal;
             })
-            ->editColumn('domisili', function($p) {
+            ->editColumn('domisili', function ($p) {
                 return $p->anggotaDetail->domisili == 1 ? 'Tangsel' : 'Luar Tangsel';
             })
             ->rawColumns(['id', 'action', 'nama', 'status_hidup'])
@@ -129,19 +129,31 @@ class AnggotaKeluargaController extends Controller
         $desc  = $this->desc;
         $active_anggota = $this->active_anggota;
 
+        list($dasawisma_id, $kecamatan_id, $kelurahan_id, $rtrw_id, $rw, $rt, $role_id) = $this->checkRole->getFilterValue();
+
         $status   = $request->status;
         $rumah_id = $request->rumah_id;
         $no_kk    = $request->no_kk;
 
-        $dasawisma_id =  $request->dasawisma_id ? $request->dasawisma_id : Auth::user()->dasawisma_id;
-        $rtrw_id = $request->rtrw_id ? $request->rtrw_id : Auth::user()->dasawisma->rtrw_id;
+        if ($rumah_id && $no_kk) {
+            $rtrw = RTRW::select('id', 'kecamatan_id', 'kelurahan_id', 'rw', 'rt')->where('id', $request->rtrw_id)->first();
+            $kecamatan_id = $rtrw->kecamatan_id;
+            $kelurahan_id = $rtrw->kelurahan_id;
+            $rw = $rtrw->rw;
+            $rt = $rtrw->rt;
+            $rtrw_id = $request->rtrw_id;
+            $dasawisma_id = $request->dasawisma_id;
+        } else {
+            $kecamatan_id = $kecamatan_id ? $kecamatan_id : $request->kecamatan_filter;
+            $kelurahan_id = $kelurahan_id ? $kelurahan_id : $request->kelurahan_filter;
+            $rw = $rw ? $rw : $request->rw_filter;
+            $rt = $rt ? $rt : $request->rt_filter;
+            $rtrw_id = $rtrw_id ? $rtrw_id : $request->rtrw_filter;
+        }
 
         $dasawismas = Dasawisma::select('id', 'nama')->get();
         $rtrw = RTRW::select('id', 'kecamatan_id', 'kelurahan_id', 'rw', 'rt')->where('id', $rtrw_id)->first();
         $kecamatans = Kecamatan::select('id', 'n_kecamatan')->where('kabupaten_id', 40)->get();
-
-        $kelurahan_id = $rtrw ? $rtrw->kelurahan_id : 0;
-        $kecamatan_id = $rtrw ? $rtrw->kecamatan_id : 0;
 
         return view('pages.anggota_keluarga.create', compact(
             'title',
@@ -301,7 +313,7 @@ class AnggotaKeluargaController extends Controller
                 'pendidikan' => $request->pendidikan,
                 'pekerjaan' => $request->pekerjaan,
                 'jabatan' => $request->jabatan,
-                'status_dlm_klrga' =>  $request->status_dlm_klrga ? json_encode($request->status_dlm_klrga) : null,
+                'status_dlm_klrga' =>  $request->status_dlm_klrga,
                 'no_registrasi' => $noRegistrasi,
                 'created_by' => Auth::user()->nama
             ];
