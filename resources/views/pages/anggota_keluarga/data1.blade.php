@@ -251,6 +251,7 @@
                     <option value="Swasta">Swasta</option>
                     <option value="Wirausaha">Wirausaha</option>
                     <option value="Pelajar / Mahasiswa">Pelajar / Mahasiswa</option>
+                    <option value="Belum Bekerja">Belum Bekerja</option>
                     <option value="Lainnya">Lainnya</option>
                 </select>
                 <div class="invalid-feedback">
