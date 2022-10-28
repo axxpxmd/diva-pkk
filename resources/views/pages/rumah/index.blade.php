@@ -91,7 +91,7 @@
                     <div id="alert"></div>
                     <div class="row">
                         @if ($role_id == 3)
-                        <input type="text" name="rtrw_id" value="{{ $rtrw_id }}">
+                        <input type="text" class="d-none" name="rtrw_id" value="{{ $rtrw_id }}">
                         <div class="col-sm-12">
                             <div class="bg-light-secondary p-2 rounded mb-3">
                                 <span class="fw-bold">Dasawisma</span>

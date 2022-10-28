@@ -307,8 +307,6 @@ class RumahController extends Controller
             if ($role_id != 3) {
                 $input['sumber_air'] = json_encode($request->sumber_air);
                 $input['status_isi'] = 1;
-            } else {
-                $input['status_isi'] = 0;
             }
             $input['updated_by'] = Auth::user()->nama;
 

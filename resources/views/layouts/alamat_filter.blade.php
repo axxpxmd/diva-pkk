@@ -34,7 +34,7 @@
 <div class="row mb-2">
     <label for="rt_filter" class="col-form-label col-md-3 text-end fw-bolder fs-14">RT </label>
     <div class="col-sm-8">
-        <select class="form-select select2" name="rt_filter" id="rt_filter" {{ isset($rw) ? 'disabled' : '-' }}>
+        <select class="form-select select2" name="rt_filter" id="rt_filter" {{ isset($rt) ? 'disabled' : '-' }}>
             <option value="">Pilih</option>
         </select>
     </div>

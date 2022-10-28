@@ -8,6 +8,7 @@ use DataTables;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use App\Http\Helpers\CheckRole;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,22 +26,28 @@ class AnggotaKeluargaController extends Controller
     protected $desc  = 'Menu ini berisikan data anggota keluarga';
     protected $active_anggota = true;
 
+    public function __construct(CheckRole $checkRole)
+    {
+        $this->middleware(['permission:anggota kk']);
+        $this->checkRole = $checkRole;
+    }
+
     public function index(Request $request)
     {
         $title = $this->title;
         $desc  = $this->desc;
         $active_anggota = $this->active_anggota;
 
-        $rtrw_id      = Auth::user()->rtrw_id;
-        $check_rtrw   = Auth::user()->rtrw;
-        $dasawisma_id = Auth::user()->dasawisma_id;
+        list($dasawisma_id, $kecamatan_id, $kelurahan_id, $rtrw_id, $rw, $rt, $role_id) = $this->checkRole->getFilterValue();
 
         $kelamin      = $request->kelamin;
         $status_hidup = $request->status_hidup;
         $rumah_id     = $request->rumah_filter;
-        $rtrw_id      = $check_rtrw ? $rtrw_id : $request->rtrw_filter;
-        $kecamatan_id = $check_rtrw ? $check_rtrw->kecamatan_id : $request->kecamatan_filter;
-        $kelurahan_id = $check_rtrw ? $check_rtrw->kelurahan_id : $request->kelurahan_filter;
+        $kecamatan_id = $kecamatan_id ? $kecamatan_id : $request->kecamatan_filter;
+        $kelurahan_id = $kelurahan_id ? $kelurahan_id : $request->kelurahan_filter;
+        $rw = $rw ? $rw : $request->rw_filter;
+        $rt = $rt ? $rt : $request->rt_filter;
+        $rtrw_id = $rtrw_id ? $rtrw_id : $request->rtrw_id_filter;
         if ($request->ajax()) {
             return $this->dataTable($rtrw_id, $kecamatan_id, $kelurahan_id, $kelamin, $status_hidup, $dasawisma_id, $rumah_id);
         }
