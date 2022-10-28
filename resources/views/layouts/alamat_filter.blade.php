@@ -66,7 +66,7 @@
     });
     $('#kecamatan_filter').on('change', function(){
         val = $(this).val();
-        optionKelurahan = "<option value=''>Pilih</option>";
+        optionKelurahan = "";
         if(val == ""){
             $('#kelurahan_filter').html(option);
         }else{
@@ -79,10 +79,11 @@
                     });
                     $('#kelurahan_filter').empty().html(optionKelurahan);
 
-                    if (kelurahan_id) {
+                    if (kelurahan_id != 0) {
                         $("#kelurahan_filter").val(kelurahan_id);
                         $("#kelurahan_filter").trigger('change');
                     } else {
+                        $("#kelurahan_filter").trigger('change');
                         $("#kelurahan_filter").val($("#kelurahan_filter option:first").val());
                     }
                 }else{
@@ -95,7 +96,7 @@
     // RW
     $('#kelurahan_filter').on('change', function(){
         val = $(this).val();
-        optionRW = "<option value=''>Pilih</option>";
+        optionRW = "";
         if(val == ""){
             $('#rw_filter').html(option);
         }else{
@@ -108,10 +109,11 @@
                     });
                     $('#rw_filter').empty().html(optionRW);
 
-                    if (rw) {
+                    if (rw != 0) {
                         $("#rw_filter").val(rw);
                         $("#rw_filter").trigger('change');
                     } else {
+                        $("#rw_filter").trigger('change');
                         $("#rw_filter").val($("#rw_filter option:first").val());
                     }
                 }else{
@@ -129,7 +131,7 @@
 
         optionRW = "<option value=''>Pilih</option>";
         if(val == ""){
-            $('#rt_filter').html(option);
+            $('#rt_filter').html(optionRW);
         }else{
             $('#rt_filter').html("<option value=''>Loading...</option>");
             url = `{{ route('rtByRw', ':id') }}`.replace(':id', val);
@@ -150,6 +152,7 @@
         }
     });
 
+    // RTRW
     $('#kelurahan_filter').on('change', function(){
         val = $(this).val();
         optionRTRW = "<option value=''>Pilih</option>";

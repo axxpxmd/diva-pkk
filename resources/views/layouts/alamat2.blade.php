@@ -1,10 +1,10 @@
 <div class="row mb-2">
     <label for="kecamatan_id" class="col-sm-4 col-form-label fw-bold text-end">Kecamatan <span class="text-danger">*</span></label>
     <div class="col-sm-8">
-        <select class="form-select select2" name="kecamatan_id" id="kecamatan_id">
+        <select class="form-select select2" name="kecamatan_id" id="kecamatan_id" {{ isset($kecamatan_id) ? 'disabled' : '-' }}>
             <option value="">Pilih</option>
             @foreach ($kecamatans as $i)
-                <option value="{{ $i->id }}" {{ isset($kecamatan_id) ? $i->id == $kecamatan_id ? 'selected' : '-' : '' }}>{{ $i->n_kecamatan }}</option>
+            <option value="{{ $i->id }}" {{ isset($kecamatan_id) ? $kecamatan_id == $i->id ? 'selected' : '-' : '-' }}>{{ $i->n_kecamatan }}</option>
             @endforeach
         </select>
     </div>
@@ -12,7 +12,7 @@
 <div class="row mb-2">
     <label for="kelurahan_id" class="col-sm-4 col-form-label fw-bold text-end">Kelurahan <span class="text-danger">*</span></label>
     <div class="col-sm-8">
-        <select class="form-select select2" name="kelurahan_id" id="kelurahan_id">
+        <select class="form-select select2" name="kelurahan_id" id="kelurahan_id" {{ isset($kelurahan_id) ? 'disabled' : '-' }}>
             <option value="">Pilih</option>
         </select>
     </div>
@@ -20,7 +20,7 @@
 <div class="row mb-2">
     <label for="rtrw_id" class="col-sm-4 col-form-label fw-bold text-end">RT / RW <span class="text-danger">*</span></label>
     <div class="col-sm-8">
-        <select class="form-select select2" name="rtrw_id" id="rtrw_id">
+        <select class="form-select select2" name="rtrw_id" id="rtrw_id" {{ isset($rtrw_id) ? 'disabled' : '-' }}>
             <option value="">Pilih</option>
         </select>
     </div>

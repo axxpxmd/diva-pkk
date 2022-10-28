@@ -74,6 +74,8 @@ class RumahController extends Controller
 
         list($kecamatanDisplay, $kelurahanDisplay, $rtrwDisplay, $rwDisplay, $rtDisplay) = $this->checkFilter();
 
+        $belumLengkap = Rumah::where('status_isi', 0)->count();
+
         return view('pages.rumah.index', compact(
             'title',
             'desc',
@@ -91,7 +93,8 @@ class RumahController extends Controller
             'role_id',
             'rwDisplay',
             'rtDisplay',
-            'rw'
+            'rw',
+            'belumLengkap'
         ));
     }
 
@@ -149,19 +152,28 @@ class RumahController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            // 'dasawisma_id' => 'required',
-            'rtrw_id' => 'required',
-            'kepala_rumah' => 'required|max:100',
-            'alamat_detail' => 'required|max:200',
-            // 'jamban' => 'required',
-            // 'sumber_air' => 'required|array|max:200',
-            // 'tempat_smph' => 'required',
-            // 'saluran_pmbngn' => 'required',
-            // 'stiker_p4k' => 'required',
-            // 'kriteria_rmh' => 'required',
-            // 'layak_huni' => 'required'
-        ]);
+        $role_id = Auth::user()->modelHasRole->role_id;
+        if ($role_id == 3) {
+            $request->validate([
+                'rtrw_id' => 'required',
+                'kepala_rumah' => 'required|max:100',
+                'alamat_detail' => 'required|max:200'
+            ]);
+        } else {
+            $request->validate([
+                'dasawisma_id' => 'required',
+                'rtrw_id' => 'required',
+                'kepala_rumah' => 'required|max:100',
+                'alamat_detail' => 'required|max:200',
+                'jamban' => 'required',
+                'sumber_air' => 'required|array|max:200',
+                'tempat_smph' => 'required',
+                'saluran_pmbngn' => 'required',
+                'stiker_p4k' => 'required',
+                'kriteria_rmh' => 'required',
+                'layak_huni' => 'required'
+            ]);
+        }
 
         // Check Duplikat
         $check = Rumah::where('kepala_rumah', $request->kepala_rumah)->where('alamat_detail', $request->alamat_detail)->count();
@@ -169,8 +181,13 @@ class RumahController extends Controller
             return response()->json(['message' => "Error, data rumah sudah pernah disimpan."], 422);
 
         $input = $request->all();
-        // $input['sumber_air'] = json_encode($request->sumber_air);
-        $input['status_isi'] = 0;
+        if ($role_id != 3) {
+            $input['sumber_air'] = json_encode($request->sumber_air);
+            $input['status_isi'] = 1;
+        }else{
+            $input['status_isi'] = 0;
+        }
+       
         $input['created_by'] = Auth::user()->nama;
         Rumah::create($input);
 
@@ -260,22 +277,41 @@ class RumahController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'dasawisma_id' => 'required',
-            'rtrw_id' => 'required',
-            'kepala_rumah' => 'required|max:100',
-            'alamat_detail' => 'required|max:200',
-            'jamban' => 'required',
-            'sumber_air' => 'required|array|max:200',
-            'tempat_smph' => 'required',
-            'saluran_pmbngn' => 'required',
-            'stiker_p4k' => 'required',
-            'kriteria_rmh' => 'required',
-            'layak_huni' => 'required'
-        ]);
+        $role_id = Auth::user()->modelHasRole->role_id;
+        if ($role_id == 3) {
+            $request->validate([
+                'rtrw_id' => 'required',
+                'kepala_rumah' => 'required|max:100',
+                'alamat_detail' => 'required|max:200'
+            ]);
+        } else {
+            $request->validate([
+                'dasawisma_id' => 'required',
+                'rtrw_id' => 'required',
+                'kepala_rumah' => 'required|max:100',
+                'alamat_detail' => 'required|max:200',
+                'jamban' => 'required',
+                'sumber_air' => 'required|array|max:200',
+                'tempat_smph' => 'required',
+                'saluran_pmbngn' => 'required',
+                'stiker_p4k' => 'required',
+                'kriteria_rmh' => 'required',
+                'layak_huni' => 'required'
+            ]);
+        }
+
+        // Check Duplikat
+        $check = Rumah::where('kepala_rumah', $request->kepala_rumah)->where('alamat_detail', $request->alamat_detail)->count();
+        if ($check > 1)
+            return response()->json(['message' => "Error, data rumah sudah pernah disimpan."], 422);
 
         $input = $request->all();
-        $input['sumber_air'] = json_encode($request->sumber_air);
+        if ($role_id != 3) {
+            $input['sumber_air'] = json_encode($request->sumber_air);
+            $input['status_isi'] = 1;
+        }else{
+            $input['status_isi'] = 0;
+        }
         $input['updated_by'] = Auth::user()->nama;
 
         $data = Rumah::find($id);

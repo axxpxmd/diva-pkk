@@ -8,9 +8,16 @@
     <div class="card">  
         <h5 class="card-header bg-info text-white mb-2 p-3 fs-18">Data Rumah</h5>
         <div class="card-body fs-14">
+            @if ($data->status_isi == 0)
+            <div class="alert alert-light-danger fw-bold fs-14" role="alert">
+                Data ini belum terisi dengan lengkap, silahkan lengkapi data.    
+            </div>
+            @endif
             <div class="my-3">
                 <a href="{{ route('rumah.index') }}" class="fs-14 text-danger fw-bold m-r-10"><i class="bi bi-arrow-left m-r-8"></i>Kembali</a>
+                @if ($data->status_isi == 1)
                 <a href="{{ route('cetakRumah', $data->id) }}" target="blank" class="btn btn-sm btn-info m-r-5"><i class="bi bi-file-pdf-fill m-r-8"></i>Data Rumah</a>
+                @endif
             </div>
             <hr>
             <div class="row mt-2">

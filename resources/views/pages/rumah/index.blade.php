@@ -49,6 +49,11 @@
             </div>
         </div>
     </div> 
+    @if ($belumLengkap != 0)
+    <div class="alert alert-light-warning fs-14 fw-bold" role="alert">
+        Terdapat <b>{{ $belumLengkap }}</b> data rumah yang belum lengkap !    
+    </div>
+    @endif
     <div class="card">  
         <div class="card-body">
             <div class="table-responsive">
@@ -114,9 +119,12 @@
                                 </div>
                             </div>
                         </div>
-                        @endif
-                        @if ($role_id == 2 || $role_id == 9)
+                        @else
                         <div class="col-sm-6">
+                            <div class="bg-light-secondary p-2 rounded mb-3">
+                                <span class="fw-bold">Dasawisma</span>
+                            </div>
+                            @include('layouts.alamat2')
                             <div class="row mb-2">
                                 <label for="dasawisma_id" class="col-sm-4 col-form-label fw-bold text-end">Dasawisma <span class="text-danger">*</span></label>
                                 <div class="col-sm-8">
@@ -390,6 +398,7 @@
     };
 
     function add(){
+        formReset();
         openForm();
         reset();
         save_method = "add";
