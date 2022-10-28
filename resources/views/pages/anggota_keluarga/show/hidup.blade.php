@@ -117,11 +117,7 @@
         </div>
         <div class="row p-0">
             <label class="col-sm-4 col-form-label fw-bold">Status Keluarga</label>
-            <label class="col-sm-8 col-form-label">
-                @foreach(json_decode($anggota->status_dlm_klrga) as $value)
-                    <li>{{ $value }}</li>
-                @endforeach
-            </label>
+            <label class="col-sm-8 col-form-label">{{ $anggota->status_dlm_klrga }}</label>
         </div>
         <div class="row p-0">
             <label class="col-sm-4 col-form-label fw-bold">Agama</label>
@@ -138,6 +134,14 @@
         <div class="row p-0">
             <label class="col-sm-4 col-form-label fw-bold">Jabatan</label>
             <label class="col-sm-8 col-form-label">{{ $anggota->jabatan }}</label>
+        </div>
+        <div class="row p-0">
+            <label class="col-sm-4 col-form-label fw-bold">Diinput Oleh</label>
+            <label class="col-sm-8 col-form-label">{{ $anggota->created_by }} / {{ $anggota->created_at }}</label>
+        </div>
+        <div class="row p-0">
+            <label class="col-sm-4 col-form-label fw-bold">Diupdate Oleh</label>
+            <label class="col-sm-8 col-form-label">{{ $anggota->updated_by ? $anggota->updated_by . ' / ' . $anggota->updated_at : '-'  }}</label>
         </div>
     </div>
 </div>
