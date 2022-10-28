@@ -3,11 +3,12 @@
         <div class="bg-light-secondary p-2 rounded mb-3">
             <span class="fw-bold">Dasawisma</span>
         </div>
+        <input type="text" class="d-none" name="rtrw_id" value="{{ $rtrw_id }}">
         @include('layouts.alamat2')
         <div class="row mb-2">
             <label for="dasawisma_id" class="col-sm-4 col-form-label fw-bold text-end">Dasawisma <span class="text-danger">*</span></label>
             <div class="col-sm-8">
-                <select class="form-control select2" name="dasawisma_id" id="dasawisma_id" {{ $dasawisma_id ? 'disabled' : '' }}>
+                <select class="form-control select2" name="dasawisma_id" id="dasawisma_id">
                     <option value="">Pilih</option>
                 </select>
                 <div class="invalid-feedback">
@@ -18,7 +19,7 @@
         <div class="row mb-2">
             <label class="col-sm-4 col-form-label fw-bold text-end">Rumah <span class="text-danger">*</span></label>
             <div class="col-sm-8">
-                <select class="form-control select2" name="rumah_id" id="rumah_id" {{ $rumah_id ? 'disabled' : '' }}>
+                <select class="form-control select2" name="rumah_id" id="rumah_id">
                     <option value="">Pilih</option>
                 </select>
                 <div class="invalid-feedback">

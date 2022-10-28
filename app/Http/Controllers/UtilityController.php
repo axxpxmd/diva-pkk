@@ -72,7 +72,7 @@ class UtilityController extends Controller
         $rw = $request->rw;
         $rt = $id;
 
-        $data = Rumah::join('rt_rw', 'rt_rw.id', '=', 'rumah.rtrw_id')
+        $data = Rumah::select('rumah.id as id', 'kepala_rumah', 'alamat_detail')->join('rt_rw', 'rt_rw.id', '=', 'rumah.rtrw_id')
             ->where('kecamatan_id', $kecamatan_id)
             ->where('kelurahan_id', $kelurahan_id)
             ->where('rw', $rw)

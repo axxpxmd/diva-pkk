@@ -64,7 +64,7 @@ class AnggotaKeluargaController extends Controller
         $rt = $rt ? $rt : $request->rt_filter;
         $rtrw_id = $rtrw_id ? $rtrw_id : $request->rtrw_filter;
         if ($request->ajax()) {
-            return $this->dataTable($rtrw_id, $kecamatan_id, $kelurahan_id, $kelamin, $status_hidup, $dasawisma_id, $rumah_id);
+            return $this->dataTable($rtrw_id, $kecamatan_id, $kelurahan_id, $kelamin, $status_hidup, $dasawisma_id, $rumah_id, $rw, $rt);
         }
 
         $dasawismas = Dasawisma::select('id', 'nama')->get();
@@ -93,9 +93,9 @@ class AnggotaKeluargaController extends Controller
         ));
     }
 
-    public function dataTable($rtrw_id, $kecamatan_id, $kelurahan_id, $kelamin, $status_hidup, $dasawisma_id, $rumah_id)
+    public function dataTable($rtrw_id, $kecamatan_id, $kelurahan_id, $kelamin, $status_hidup, $dasawisma_id, $rumah_id, $rw, $rt)
     {
-        $data = Anggota::queryTable($rtrw_id, $kecamatan_id, $kelurahan_id, $kelamin, $status_hidup, $dasawisma_id, $rumah_id);
+        $data = Anggota::queryTable($rtrw_id, $kecamatan_id, $kelurahan_id, $kelamin, $status_hidup, $dasawisma_id, $rumah_id, $rw, $rt);
 
         return DataTables::of($data)
             ->addColumn('action', function ($p) {
@@ -187,7 +187,7 @@ class AnggotaKeluargaController extends Controller
             'tgl_lahir' => 'required',
             'akta_kelahiran' => 'required',
             'status_kawin' => 'required',
-            'status_dlm_klrga' => 'required|array',
+            'status_dlm_klrga' => 'required',
             'agama' => 'required',
             'status_pendidkan' => 'required',
             'pendidikan' => 'required',
