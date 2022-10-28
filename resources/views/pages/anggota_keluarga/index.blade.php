@@ -5,9 +5,11 @@
     <p class="text-subtitle text-muted">{{ $desc }}</p>
 </div>
 <section class="section animate__animated animate__fadeInRight">
+    @if ($role_id != 4 && $role_id != 5)
     <div class="mb-3 text-right">
         <a href="#" data-bs-toggle="modal" data-bs-target="#modalForm" class="btn btn-sm btn-success px-2"><i class="bi bi-plus fw-bolder fs-16 m-r-5"></i>Tambah Data</a>
     </div>
+    @endif
     <div class="card my-2">
         <div class="card-body">
             <div class="row">

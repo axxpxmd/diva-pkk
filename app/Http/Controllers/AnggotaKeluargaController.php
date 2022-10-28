@@ -88,7 +88,8 @@ class AnggotaKeluargaController extends Controller
             'rtDisplay',
             'rt',
             'rw',
-            'dasawisma_id'
+            'dasawisma_id',
+            'role_id'
         ));
     }
 
