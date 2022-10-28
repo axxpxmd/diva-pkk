@@ -180,7 +180,7 @@
     </div>
     <div class="col-sm-6">
         <div class="row mb-2">
-            <label class="col-sm-4 col-form-label fw-bold text-end">Status Perkawinan <span class="text-danger">*</span></label>
+            <label class="col-sm-4 col-form-label fw-bold text-end">Status Keluarga <span class="text-danger">*</span></label>
             <div class="col-sm-8">
                 <select class="select2 form-select" id="status_dlm_klrga" name="status_dlm_klrga" required>
                     <option value="">Pilih</option>
