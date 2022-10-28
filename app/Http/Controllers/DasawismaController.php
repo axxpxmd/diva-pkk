@@ -6,6 +6,7 @@ use DataTables;
 
 use Illuminate\Http\Request;
 use App\Http\Helpers\CheckRole;
+use Illuminate\Support\Facades\Auth;
 
 // Models
 use App\Models\User;
@@ -25,6 +26,26 @@ class DasawismaController extends Controller
         $this->checkRole = $checkRole;
     }
 
+    public function checkFilter()
+    {
+        $role_id = Auth::user()->modelHasRole->role_id;
+
+        // Filter
+        if ($role_id == 3) {
+            $rtDisplay = false;
+            $rwDisplay = false;
+            $rtrwDisplay = true;
+        } else {
+            $rtrwDisplay = false;
+            $rwDisplay = true;
+            $rtDisplay = true;
+        }
+        $kecamatanDisplay = true;
+        $kelurahanDisplay = true;
+
+        return [$kecamatanDisplay, $kelurahanDisplay, $rtrwDisplay, $rwDisplay, $rtDisplay];
+    }
+
     public function index(Request $request)
     {
         $title = $this->title;
@@ -36,22 +57,14 @@ class DasawismaController extends Controller
         $kecamatan_id = $kecamatan_id ? $kecamatan_id : $request->kecamatan_filter;
         $kelurahan_id = $kelurahan_id ? $kelurahan_id : $request->kelurahan_filter;
         $rw = $rw ? $rw : $request->rw_filter;
+        $rt = $rt ? $rt : $request->rt_filter;
         if ($request->ajax()) {
             return $this->dataTable($kecamatan_id, $kelurahan_id, $rw, $rt, $role_id);
         }
-
+        
         $kecamatans = Kecamatan::select('id', 'n_kecamatan')->where('kabupaten_id', 40)->get();
 
-        // Filter
-        if ($role_id == 2) {
-            $rwDisplay = false;
-            $rtrwDisplay = true;
-        }else{
-            $rtrwDisplay = false;
-            $rwDisplay = true;
-        }
-        $kecamatanDisplay = true;
-        $kelurahanDisplay = true;
+        list($kecamatanDisplay, $kelurahanDisplay, $rtrwDisplay, $rwDisplay, $rtDisplay) = $this->checkFilter();
 
         return view('pages.dasawisma.index', compact(
             'title',
@@ -63,17 +76,18 @@ class DasawismaController extends Controller
             'kelurahanDisplay',
             'role_id',
             'kecamatan_id',
-            'kelurahan_id', 
+            'kelurahan_id',
             'rw',
             'rt',
             'rtrw_id',
-            'rwDisplay'
+            'rwDisplay',
+            'rtDisplay'
         ));
     }
 
     public function dataTable($kecamatan_id, $kelurahan_id, $rw, $rt, $role_id)
     {
-        $data = Dasawisma::queryTable($kecamatan_id, $kelurahan_id, $rw, $rt,);
+        $data = Dasawisma::queryTable($kecamatan_id, $kelurahan_id, $rw, $rt);
 
         return DataTables::of($data)
             ->rawColumns(['id', 'nama'])

@@ -5,9 +5,9 @@
     <p class="text-subtitle text-muted">{{ $desc }}</p>
 </div>
 <section class="section animate__animated animate__fadeInRight">
-    @if ($role_id != 2)
+    @if ($role_id != 3)
     <div class="mb-3 text-right">
-        <a href="#" onclick="add()" class="btn btn-sm btn-success px-2"><i class="bi bi-plus font-weight-bold fs-16 m-r-5"></i>Tambah Data</a>
+        <a href="#" oncl    ick="add()" class="btn btn-sm btn-success px-2"><i class="bi bi-plus font-weight-bold fs-16 m-r-5"></i>Tambah Data</a>
     </div>
     @endif
     <div class="card my-2">
@@ -123,6 +123,7 @@
                 data.kecamatan_filter = $('#kecamatan_filter').val();
                 data.kelurahan_filter = $('#kelurahan_filter').val();
                 data.rw_filter = $('#rw_filter').val();
+                data.rt_filter = $('#rt_filter').val();
             }
         },
         columns: [

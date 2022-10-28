@@ -34,7 +34,7 @@
 <div class="row mb-2">
     <label for="rt_filter" class="col-form-label col-md-3 text-end fw-bolder fs-14">RT </label>
     <div class="col-sm-8">
-        <select class="form-select select2" name="rt_filter" id="rt_filter">
+        <select class="form-select select2" name="rt_filter" id="rt_filter" {{ isset($rw) ? 'disabled' : '-' }}>
             <option value="">Pilih</option>
         </select>
     </div>
@@ -52,9 +52,10 @@
 @endif
 @push('script')
 <script type="text/javascript">
-    kelurahan_id = "{{ isset($kelurahan_id) ? $kelurahan_id : 0 }}"
+    kelurahan = "{{ isset($kelurahan_id) ? $kelurahan_id : 0 }}"
     rtrw_id = "{{ isset($rtrw_id) ? $rtrw_id : 0 }}"
     rw = "{{ isset($rw) ? $rw : 0 }}"
+    rt = "{{ isset($rt) ? $rt : 0 }}"
 
     $(document).ready(function() {
         $('.select2').select2();
@@ -68,19 +69,20 @@
         val = $(this).val();
         optionKelurahan = "";
         if(val == ""){
-            $('#kelurahan_filter').html(option);
+            $('#kelurahan_filter').html(optionKelurahan);
         }else{
             $('#kelurahan_filter').html("<option value=''>Loading...</option>");
             url = "{{ route('kelurahanByKecamatan', ':id') }}".replace(':id', val);
             $.get(url, function(data){
+                console.log(kelurahan)
                 if(data){
                     $.each(data, function(index, value){
                         optionKelurahan += "<option value='" + value.id + "'>" + value.n_kelurahan +"</li>";
                     });
                     $('#kelurahan_filter').empty().html(optionKelurahan);
 
-                    if (kelurahan_id != 0) {
-                        $("#kelurahan_filter").val(kelurahan_id);
+                    if (kelurahan != 0) {
+                        $("#kelurahan_filter").val(kelurahan);
                         $("#kelurahan_filter").trigger('change');
                     } else {
                         $("#kelurahan_filter").trigger('change');
@@ -98,11 +100,12 @@
         val = $(this).val();
         optionRW = "";
         if(val == ""){
-            $('#rw_filter').html(option);
+            $('#rw_filter').html(optionRW);
         }else{
             $('#rw_filter').html("<option value=''>Loading...</option>");
             url = "{{ route('rwByKelurahan', ':id') }}".replace(':id', val);
             $.get(url, function(data){
+                console.log(rw)
                 if(data){
                     $.each(data, function(index, value){
                         optionRW += "<option value='" + value.rw + "'>" + 'RW ' + value.rw + "</li>";
@@ -129,24 +132,32 @@
         kecamatan_id = $("#kecamatan_filter").val();
         kelurahan_id = $("#kelurahan_filter").val();
 
-        optionRW = "<option value=''>Pilih</option>";
+        optionRT = "";
         if(val == ""){
-            $('#rt_filter').html(optionRW);
+            $('#rt_filter').html(optionRT);
         }else{
             $('#rt_filter').html("<option value=''>Loading...</option>");
             url = `{{ route('rtByRw', ':id') }}`.replace(':id', val);
             addParams = url  + '?kecamatan_id=' + kecamatan_id + '&kelurahan_id=' + kelurahan_id
             $.get(addParams, function(data){
-                console.log(data)
+                console.log(rt)
                 if(data){
                     $.each(data, function(index, value){
-                        optionRW += "<option value='" + value.rt + "'>" + 'RT ' + value.rt + "</li>";
+                        optionRT += "<option value='" + value.rt + "'>" + 'RT ' + value.rt + "</li>";
                     });
-                    $('#rt_filter').empty().html(optionRW);
 
-                    $("#rt_filter").val($("#rt_filter option:first").val());
+                    if (rt != 0) {
+                        $("#rt_filter").val(rt);
+                        $("#rt_filter").trigger('change');
+                    } else {
+                        optionRT +=  "<option value=''>Semua</option>";
+                        $("#rt_filter").trigger('change');
+                        $("#rt_filter").val($("#rt_filter option:first").val());
+                    }
+
+                    $('#rt_filter').empty().html(optionRT);
                 }else{
-                    $('#rt_filter').html(optionRW);
+                    $('#rt_filter').html(optionRT);
                 }
             }, 'JSON'); 
         }
@@ -155,13 +166,14 @@
     // RTRW
     $('#kelurahan_filter').on('change', function(){
         val = $(this).val();
-        optionRTRW = "<option value=''>Pilih</option>";
+        optionRTRW = "";
         if(val == ""){
-            $('#rtrw_filter').html(option);
+            $('#rtrw_filter').html(optionRTRW);
         }else{
             $('#rtrw_filter').html("<option value=''>Loading...</option>");
             url = "{{ route('rtrwByKelurahan', ':id') }}".replace(':id', val);
             $.get(url, function(data){
+                console.log(rtrw_id)
                 if(data){
                     $.each(data, function(index, value){
                         optionRTRW += "<option value='" + value.id + "'>" + 'RW ' + value.rw + ' / RT ' + value.rt + "</li>";

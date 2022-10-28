@@ -84,7 +84,7 @@ class RTRWController extends Controller
 
     public function dataTable($kecamatan_id, $kelurahan_id, $rw, $rt, $role_id)
     {
-        $data = RTRW::queryTable($kecamatan_id, $kelurahan_id, $rw, $rt, );
+        $data = RTRW::queryTable($kecamatan_id, $kelurahan_id, $rw, $rt,);
 
         return DataTables::of($data)
             ->addColumn('action', function ($p) use ($role_id) {
@@ -223,19 +223,28 @@ class RTRWController extends Controller
         $rt = $request->rt;
         $rw = $request->rw;
 
-        $kelurahan = Kelurahan::find($kelurahan_id);
-        $n_kelurahan = $kelurahan->n_kelurahan;
-        $n_kecamatan = $kelurahan->kecamatan->n_kecamatan;
+        DB::beginTransaction(); //* DB Transaction Begin
+        try {
+            $kelurahan = Kelurahan::find($kelurahan_id);
+            $n_kelurahan = $kelurahan->n_kelurahan;
+            $n_kecamatan = $kelurahan->kecamatan->n_kecamatan;
 
-        //* Check existing data
-        $check = RTRW::where('kecamatan_id', $kecamatan_id)->where('kelurahan_id', $kelurahan_id)->where('rt', $rt)->where('rw', $rw)->count();
-        if ($check == 2) {
-            return response()->json(['message' => "Data sudah pernah disimpan."], 422);
+            $input = $request->all();
+            $data  = RTRW::find($id);
+            $data->update(array_merge($input, ['n_kecamatan' => $n_kecamatan, 'n_kelurahan' => $n_kelurahan]));
+
+            //* Check existing data
+            $check = RTRW::where('kecamatan_id', $kecamatan_id)->where('kelurahan_id', $kelurahan_id)->where('rt', $rt)->where('rw', $rw)->count();
+            if ($check > 1) {
+                DB::rollback(); //* DB Transaction Failed
+                return response()->json(['message' => "Data sudah pernah disimpan."], 422);
+            }
+        } catch (\Throwable $th) {
+            DB::rollback(); //* DB Transaction Failed
+            return response()->json(['message' => "Terjadi kesalahan, silahkan hubungi administrator"], 500);
         }
 
-        $input = $request->all();
-        $data  = RTRW::find($id);
-        $data->update(array_merge($input, ['n_kecamatan' => $n_kecamatan, 'n_kelurahan' => $n_kelurahan]));
+        DB::commit(); //* DB Transaction Success
 
         return response()->json(['message' => "Berhasil memperbaharui data."]);
     }
@@ -670,7 +679,7 @@ class RTRWController extends Controller
                     'ketua_rt' => null
                 ]);
             }
-            
+
             User::where('username', $data->nik)->delete();
             $data->delete();
         }
