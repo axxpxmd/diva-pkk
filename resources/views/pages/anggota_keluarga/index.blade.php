@@ -129,17 +129,21 @@
         ]
     });
 
-    $('#rtrw_filter').on('change', function(){
-        $('#rumah_filter').val("").trigger("change.select2");
-        val = $(this).val();
+    $('#rt_filter').on('change', function(){
+        val = $("#rt_filter").val();
+        rw  = $("#rw_filter").val();
+        kecamatan_id = $("#kecamatan_filter").val();
+        kelurahan_id = $("#kelurahan_filter").val();
+        console.log(val)
+       
         optionRumah = "<option value=''>Pilih</option>";
         if(val == ""){
             $('#rumah_filter').html(optionRumah);
         }else{
             $('#rumah_filter').html("<option value=''>Loading...</option>");
             url = "{{ route('rumahByRTRW', ':id') }}".replace(':id', val);
-            $.get(url, function(data){
-                console.log(data);
+            addParams = url  + '?kecamatan_id=' + kecamatan_id + '&kelurahan_id=' + kelurahan_id + '&rw=' + rw
+            $.get(addParams, function(data){
                 if(data){
                     $.each(data, function(index, value){
                         optionRumah += "<option value='" + value.id + "'>" + value.kepala_rumah +"</li>";

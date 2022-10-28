@@ -65,9 +65,19 @@ class UtilityController extends Controller
         return $data;
     }
 
-    public function rumahByRTRW($id)
+    public function rumahByRTRW(Request $request, $id)
     {
-        $data = Rumah::where('rtrw_id', $id)->get();
+        $kecamatan_id = $request->kecamatan_id;
+        $kelurahan_id = $request->kelurahan_id;
+        $rw = $request->rw;
+        $rt = $id;
+
+        $data = Rumah::join('rt_rw', 'rt_rw.id', '=', 'rumah.rtrw_id')
+            ->where('kecamatan_id', $kecamatan_id)
+            ->where('kelurahan_id', $kelurahan_id)
+            ->where('rw', $rw)
+            ->where('rt', $rt)
+            ->get();
 
         return $data;
     }

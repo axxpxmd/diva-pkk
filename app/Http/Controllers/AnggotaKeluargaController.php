@@ -32,6 +32,21 @@ class AnggotaKeluargaController extends Controller
         $this->checkRole = $checkRole;
     }
 
+    public function checkFilter()
+    {
+        $role_id = Auth::user()->modelHasRole->role_id;
+
+        // Filter
+        $rtrwDisplay = false;
+        $rwDisplay = true;
+        $rtDisplay = true;
+
+        $kecamatanDisplay = true;
+        $kelurahanDisplay = true;
+
+        return [$kecamatanDisplay, $kelurahanDisplay, $rtrwDisplay, $rwDisplay, $rtDisplay];
+    }
+
     public function index(Request $request)
     {
         $title = $this->title;
@@ -56,10 +71,7 @@ class AnggotaKeluargaController extends Controller
         $rtrws = RTRW::select('id', 'kecamatan_id', 'kelurahan_id', 'rw', 'rt')->with(['kecamatan', 'kelurahan'])->get();
         $kecamatans = Kecamatan::select('id', 'n_kecamatan')->where('kabupaten_id', 40)->get();
 
-        // Filter
-        $rtrwDisplay = true;
-        $kecamatanDisplay = true;
-        $kelurahanDisplay = true;
+        list($kecamatanDisplay, $kelurahanDisplay, $rtrwDisplay, $rwDisplay, $rtDisplay) = $this->checkFilter();
 
         return view('pages.anggota_keluarga.index', compact(
             'title',
@@ -71,7 +83,12 @@ class AnggotaKeluargaController extends Controller
             'kecamatans',
             'kecamatan_id',
             'kelurahan_id',
-            'rtrw_id'
+            'rtrw_id',
+            'rwDisplay',
+            'rtDisplay',
+            'rt',
+            'rw',
+            'dasawisma_id'
         ));
     }
 

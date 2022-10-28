@@ -57,11 +57,6 @@
     rw = "{{ isset($rw) ? $rw : 0 }}"
     rt = "{{ isset($rt) ? $rt : 0 }}"
 
-    console.log(kelurahan)
-    console.log(rtrw_id)
-    console.log(rt)
-    console.log(rw)
-
     $(document).ready(function() {
         $('.select2').select2();
     });
@@ -147,6 +142,7 @@
                     $.each(data, function(index, value){
                         optionRT += "<option value='" + value.rt + "'>" + 'RT ' + value.rt + "</li>";
                     });
+                    $('#rt_filter').empty().html(optionRT);
 
                     if (rt != 0) {
                         $("#rt_filter").val(rt);
