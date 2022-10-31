@@ -18,8 +18,15 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
+    public function index2()
+    {
+        return view('auth.login2');
+    }
+
     public function login(Request $request)
     {
+        $type = $request->type;
+
         $validator = Validator::make($request->all(), [
             'username' => 'required|max:30',
             'password' => 'required|max:30'
@@ -40,9 +47,15 @@ class LoginController extends Controller
             }
         }
 
-        return redirect(Route('login'))
-            ->withErrors($validator)
-            ->withInput();
+        if ($type == 2) {
+            return redirect('/login2')
+                ->withErrors($validator)
+                ->withInput();
+        } else {
+            return redirect('/login')
+                ->withErrors($validator)
+                ->withInput();
+        }
     }
 
     public function logout()
