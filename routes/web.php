@@ -97,5 +97,6 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::post('/anggota-keluarga/check-validation-form1', [AnggotaKeluargaController::class, 'checkValidationForm1'])->name('anggota-keluarga.checkValidationForm1');
     Route::post('/anggota-keluarga/check-validation-form2',  [AnggotaKeluargaController::class, 'checkValidationForm2'])->name('anggota-keluarga.checkValidationForm2');
     Route::post('/anggota-keluarga/store-hidup', [AnggotaKeluargaController::class, 'storeHidup'])->name('anggota-keluarga.storeHidup');
-    Route::post('/anggote-keluarga/store-meninggal', [AnggotaKeluargaController::class, 'storeMeninggal'])->name('anggota-keluarga.storeMeninggal');
+    Route::post('/anggota-keluarga/store-meninggal', [AnggotaKeluargaController::class, 'storeMeninggal'])->name('anggota-keluarga.storeMeninggal');
+    Route::post('/anggota-keluarga/store-rt', [AnggotaKeluargaController::class, 'storeRT'])->name('anggota-keluarga.storeRT');
 });

@@ -155,7 +155,13 @@ class AnggotaKeluargaController extends Controller
         $rtrw = RTRW::select('id', 'kecamatan_id', 'kelurahan_id', 'rw', 'rt')->where('id', $rtrw_id)->first();
         $kecamatans = Kecamatan::select('id', 'n_kecamatan')->where('kabupaten_id', 40)->get();
 
-        return view('pages.anggota_keluarga.create', compact(
+        if ($role_id == 3) {
+            $view = 'pages.anggota_keluarga.createRT';
+        } else {
+            $view = 'pages.anggota_keluarga.create';
+        }
+
+        return view($view, compact(
             'title',
             'desc',
             'active_anggota',
@@ -270,6 +276,95 @@ class AnggotaKeluargaController extends Controller
         return $c_kel . '.' . $year . '.' . $generateNoRegistrasi;
     }
 
+    public function storeRT(Request $request)
+    {
+        // dd($request->all());
+        $request->validate([
+            'rumah_id' => 'required',
+            'rtrw_id' => 'required',
+            'terdaftar_dukcapil' => 'required|in:0, 1',
+            'nik' => 'required_if:terdaftar_dukcapil,1',
+            'domisili' => 'required_if:terdaftar_dukcapil,1|in:0,1',
+            'no_kk' => 'required_if:terdaftar_dukcapil,1',
+            'nama' => 'required|string|max:100',
+            'kelamin' => 'required|in:Laki - laki,Perempuan',
+            'tmpt_lahir' => 'required|string|max:200',
+            'tgl_lahir' => 'required',
+            'akta_kelahiran' => 'required',
+            'status_kawin' => 'required',
+            'status_dlm_klrga' => 'required',
+            'agama' => 'required',
+            'status_pendidkan' => 'required',
+            'pendidikan' => 'required',
+            'pekerjaan' => 'required'
+        ]);
+
+          /* Tahapan : 
+         * 1. Generate No Registrasi
+         * 2. Store Data
+         */
+
+        //* Tahap 1
+        $rtrw  = RTRW::find($request->rtrw_id);
+        $c_kel = $rtrw->kelurahan->kode;
+        $kel_id = $rtrw->kelurahan->id;
+
+        $noRegistrasi = $this->genereateNoRegist($c_kel, $kel_id);
+
+        $checkGenerate = [
+            'noRegistrasi'  => $noRegistrasi,
+        ];
+        Validator::make($checkGenerate, [
+            'noRegistrasi'  => 'required|unique:anggota,no_registrasi',
+        ])->validate();
+
+        DB::beginTransaction(); //* DB Transaction Begin
+        try {
+            //* Tahap 2
+            $data1Anggota = [
+                'status_hidup' => 1,
+                'rumah_id' => $request->rumah_id,
+                'rtrw_id' => $request->rtrw_id,
+                'nik' => $request->nik,
+                'no_kk' => $request->no_kk,
+                'nama' => $request->nama,
+                'kelamin' => $request->kelamin,
+                'tmpt_lahir' => $request->tmpt_lahir,
+                'tgl_lahir' => $request->tgl_lahir,
+                'akta_kelahiran' => $request->akta_kelahiran,
+                'status_kawin' => $request->status_kawin,
+                'agama' => $request->agama,
+                'status_pendidkan' => $request->status_pendidkan,
+                'pendidikan' => $request->pendidikan,
+                'pekerjaan' => $request->pekerjaan,
+                'jabatan' => $request->jabatan,
+                'status_dlm_klrga' =>  $request->status_dlm_klrga,
+                'no_registrasi' => $noRegistrasi,
+                'created_by' => Auth::user()->nama,
+                'status_lengkap' => 0
+            ];
+            $anggota = Anggota::create($data1Anggota);
+
+            $data1AnggotaDetail = [
+                'anggota_id' => $anggota->id,
+                'domisili' => $request->domisili,
+                'almt_luar_tangsel' => $request->almt_luar_tangsel,
+                'terdaftar_dukcapil' => $request->terdaftar_dukcapil,
+                'wus' => $request->wus,
+                'pus' => $request->pus,
+                'created_by' => Auth::user()->nama
+            ];
+            AnggotaDetail::create($data1AnggotaDetail);
+        } catch (\Throwable $th) {
+            DB::rollback(); //* DB Transaction Failed
+            return response()->json(['message' => "Terjadi kesalahan, silahkan hubungi administrator"], 500);
+        }
+
+        DB::commit(); //* DB Transaction Success
+
+        return response()->json(['message' => "Berhasil Menyimpan data."]);
+    }
+
     public function storeHidup(Request $request)
     {
         /* Tahapan : 
@@ -315,7 +410,8 @@ class AnggotaKeluargaController extends Controller
                 'jabatan' => $request->jabatan,
                 'status_dlm_klrga' =>  $request->status_dlm_klrga,
                 'no_registrasi' => $noRegistrasi,
-                'created_by' => Auth::user()->nama
+                'created_by' => Auth::user()->nama,
+                'status_lengkap' => 1
             ];
             $anggota = Anggota::create($data1Anggota);
 
