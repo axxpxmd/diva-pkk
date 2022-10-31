@@ -58,9 +58,16 @@ class LoginController extends Controller
         }
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        Auth::logout();
-        return redirect('/');
+        $role_id = Auth::user()->modelHasRole->role_id;
+
+        if ($role_id == 3 || $role_id == 4 || $role_id == 5 || $role_id == 6) {
+            Auth::logout();
+            return redirect('/login2');
+        } else {
+            Auth::logout();
+            return redirect('/login');
+        }
     }
 }
