@@ -64,6 +64,11 @@
             </div>
         </div>
     </div> 
+    @if ($belumLengkap != 0)
+    <div class="alert alert-light-warning fs-14 fw-bold" role="alert">
+        Terdapat <b>{{ $belumLengkap }}</b> data warga yang belum lengkap !    
+    </div>
+    @endif
     <div class="card">  
         <div class="card-body">
              <div class="table-responsive">
@@ -79,6 +84,7 @@
                             <th>Status Kawin</th>
                             <th>No Registrasi</th>
                             <th>Status</th>
+                            <th>Status Isi</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -133,6 +139,7 @@
             {data: 'status_kawin', name: 'status_kawin'},
             {data: 'no_registrasi', name: 'no_registrasi'},
             {data: 'status_hidup', name: 'status_hidup', className: 'text-center'},
+            {data: 'status_isi', name: 'status_isi', className: 'text-center'},
             {data: 'action', name: 'action', className: 'text-center', orderable: false, searchable: false}
         ]
     });

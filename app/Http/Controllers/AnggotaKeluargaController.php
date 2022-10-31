@@ -73,6 +73,8 @@ class AnggotaKeluargaController extends Controller
 
         list($kecamatanDisplay, $kelurahanDisplay, $rtrwDisplay, $rwDisplay, $rtDisplay) = $this->checkFilter();
 
+        $belumLengkap = Anggota::where('status_lengkap', 0)->count();
+
         return view('pages.anggota_keluarga.index', compact(
             'title',
             'desc',
@@ -89,7 +91,8 @@ class AnggotaKeluargaController extends Controller
             'rt',
             'rw',
             'dasawisma_id',
-            'role_id'
+            'role_id',
+            'belumLengkap'
         ));
     }
 
@@ -118,7 +121,13 @@ class AnggotaKeluargaController extends Controller
             ->editColumn('domisili', function ($p) {
                 return $p->anggotaDetail->domisili == 1 ? 'Tangsel' : 'Luar Tangsel';
             })
-            ->rawColumns(['id', 'action', 'nama', 'status_hidup'])
+            ->editColumn('status_isi', function ($p) {
+                $lengkap = '<span class="badge bg-success">Lengkap</span>';
+                $tidakLengkap = '<span class="badge bg-danger">Blm Lengkap</span>';
+
+                return $p->status_lengkap == 1 ? $lengkap : $tidakLengkap;
+            })
+            ->rawColumns(['id', 'action', 'nama', 'status_hidup', 'status_isi'])
             ->addIndexColumn()
             ->toJson();
     }
