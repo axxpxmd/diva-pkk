@@ -26,16 +26,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mb-4">
-                        <div class="col-sm-3"></div>
-                        <div class="col-sm-8">
-                            <button class="btn btn-success btn-sm mr-2" onclick="pressOnChange()"><i class="bi bi-filter m-r-8"></i>Filter</button>
-                        </div> 
-                    </div>
                 </div>
                 <div class="col-md-6 px-0">
                     <div class="row mb-2">
-                        <label for="status_hidup" class="col-form-label col-md-3 text-right fw-bolder fs-14">Status </label>
+                        <label for="status_hidup" class="col-form-label col-md-3 text-end fw-bolder fs-14">Status </label>
                         <div class="col-sm-8">
                             <select class="form-select select2" id="status_hidup" name="status_hidup">
                                 <option value="99">Semua</option>
@@ -45,7 +39,7 @@
                         </div>
                     </div>
                     <div class="row mb-2">
-                        <label for="kelamin" class="col-form-label col-md-3 text-right fw-bolder fs-14">Kelamin </label>
+                        <label for="kelamin" class="col-form-label col-md-3 text-end fw-bolder fs-14">Kelamin </label>
                         <div class="col-sm-8">
                             <select class="form-select select2" id="kelamin" name="kelamin">
                                 <option value="99">Semua</option>
@@ -53,6 +47,12 @@
                                 <option value="Perempuan">Perempuan</option>
                             </select>
                         </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-8">
+                            <button class="btn btn-success btn-sm mr-2" onclick="pressOnChange()"><i class="bi bi-filter m-r-8"></i>Filter</button>
+                        </div> 
                     </div>
                 </div>
             </div>

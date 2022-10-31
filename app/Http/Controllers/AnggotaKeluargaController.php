@@ -22,8 +22,8 @@ use App\Models\AnggotaDetail;
 
 class AnggotaKeluargaController extends Controller
 {
-    protected $title = 'Anggota Keluarga';
-    protected $desc  = 'Menu ini berisikan data anggota keluarga';
+    protected $title = 'Warga';
+    protected $desc  = 'Menu ini berisikan data warga';
     protected $active_anggota = true;
 
     public function __construct(CheckRole $checkRole)
