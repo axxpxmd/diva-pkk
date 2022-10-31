@@ -105,7 +105,7 @@
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Status Pengisian</label>
                         <label class="col-sm-8 col-form-label">
-                            @if ($data->status_is == 1)
+                            @if ($data->status_isi == 1)
                                 <span class="badge bg-light-success">Sudah Lengkap</span>
                             @else
                             <span class="badge bg-light-danger">Belum Lengkap</span>

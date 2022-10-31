@@ -278,7 +278,6 @@ class AnggotaKeluargaController extends Controller
 
     public function storeRT(Request $request)
     {
-        // dd($request->all());
         $request->validate([
             'rumah_id' => 'required',
             'rtrw_id' => 'required',

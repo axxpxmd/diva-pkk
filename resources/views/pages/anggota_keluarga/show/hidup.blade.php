@@ -4,8 +4,10 @@
 @endphp
 <div class="my-3">
     <a href="{{ route('anggota-keluarga.index') }}" class="fs-14 text-danger fw-bold m-r-10"><i class="bi bi-arrow-left m-r-8"></i>Kembali</a>
+    @if ($anggota->status_lengkap != 0)
     <a href="{{ route('cetakAnggota', $anggota->id) }}" target="blank" class="btn btn-sm btn-info m-r-5 mb-5-m"><i class="bi bi-file-pdf-fill m-r-8"></i>Data Warga</a>
     <a href="{{ route('cetakKegiatanWarga', $anggota->id) }}" target="blank" class="btn btn-sm btn-success"><i class="bi bi-file-pdf-fill m-r-8"></i>Kegiatan Warga</a>
+    @endif
 </div>
 <div class="bg-light-secondary p-2 rounded mt-2">
     <h6 class="text-center text-black m-1">Data 1 : Berisikan data diri anggota keluarga</h6>
@@ -134,6 +136,16 @@
         <div class="row p-0">
             <label class="col-sm-4 col-form-label fw-bold">Jabatan</label>
             <label class="col-sm-8 col-form-label">{{ $anggota->jabatan }}</label>
+        </div>
+        <div class="row p-0">
+            <label class="col-sm-4 col-form-label fw-bold">Status Pengisian</label>
+            <label class="col-sm-8 col-form-label">
+                @if ($anggota->status_lengkap == 1)
+                    <span class="badge bg-light-success">Sudah Lengkap</span>
+                @else
+                <span class="badge bg-light-danger">Belum Lengkap</span>
+                @endif
+            </label>
         </div>
         <div class="row p-0">
             <label class="col-sm-4 col-form-label fw-bold">Diinput Oleh</label>
