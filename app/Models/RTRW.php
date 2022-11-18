@@ -28,6 +28,16 @@ class RTRW extends Model
         return $this->hasMany(MappingRT::class, 'rtrw_id', 'id');
     }
 
+    public function nKetuaRT()
+    {
+        return $this->belongsTo(MappingRT::class, 'ketua_rt', 'id');
+    }
+
+    public function nKetuaRW()
+    {
+        return $this->belongsTo(MappingRW::class, 'ketua_rw', 'id');
+    }
+
     public function dasawisma()
     {
         return $this->hasMany(Dasawisma::class, 'rtrw_id', 'id');

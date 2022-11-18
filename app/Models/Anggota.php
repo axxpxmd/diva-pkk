@@ -19,6 +19,11 @@ class Anggota extends Model
         return $this->belongsTo(Rumah::class, 'rumah_id');
     }
 
+    public function rtrw()
+    {
+        return $this->belongsTo(RTRW::class, 'rtrw_id');
+    }
+
     public function kk()
     {
         return $this->belongsTo(KartuKeluarga::class, 'no_kk', 'no_kk');

@@ -117,6 +117,14 @@
                         </a>
                     </li>
                 @endcan
+                @can('pengajuan')
+                    <li class="sidebar-item {{ isset($active_pengajuan) ? 'active' : '-' }}">
+                        <a href="{{ route('pengajuan.index') }}" class='sidebar-link'>
+                            <i class="bi bi-file-text-fill text-info"></i>
+                            <span>Pengajuan</span>
+                        </a>
+                    </li>
+                @endcan
 
                 <!-- Profile -->
                 <li class="sidebar-title rounded p-2"><b>Profile</b></li>

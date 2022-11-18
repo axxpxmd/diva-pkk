@@ -13,6 +13,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KelurahanController;
 use App\Http\Controllers\DasawismaController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\AnggotaKeluargaController;
@@ -100,4 +101,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::post('/anggota-keluarga/store-hidup', [AnggotaKeluargaController::class, 'storeHidup'])->name('anggota-keluarga.storeHidup');
     Route::post('/anggota-keluarga/store-meninggal', [AnggotaKeluargaController::class, 'storeMeninggal'])->name('anggota-keluarga.storeMeninggal');
     Route::post('/anggota-keluarga/store-rt', [AnggotaKeluargaController::class, 'storeRT'])->name('anggota-keluarga.storeRT');
+
+    Route::resource('/pengajuan', PengajuanController::class);
+    Route::get('/pengajuan/cetak/{id}', [PengajuanController::class, 'cetak'])->name('pengajuan.cetak');
 });
