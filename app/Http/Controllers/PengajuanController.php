@@ -9,9 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 // Models
-use App\Models\Pengajuan;
 use App\Models\User;
-use App\Models\UserPengajuan;
+use App\Models\Pengajuan;
 
 class PengajuanController extends Controller
 {
@@ -61,7 +60,7 @@ class PengajuanController extends Controller
                 return $action;
             })
             ->editColumn('tgl_pengajuan', function ($p) {
-                return Carbon::createFromFormat('Y-m-d', $p->tgl_pengajuan)->format('d-F-Y');
+                return Carbon::createFromFormat('Y-m-d', $p->tgl_pengajuan)->format('d F Y');
             })
             ->addColumn('jml_perihal', function ($p) {
                 return $p->perihal->count() . ' Perihal ';
@@ -83,6 +82,8 @@ class PengajuanController extends Controller
                 return  "<a target='blank' href='" . route('pengajuan.cetak', $p->id) . "' class='text-info' title='Surat'><i class='bi bi-file-text'></i></a>";
             })
             ->addColumn('action', function ($p) {
+                $sendttd = "<a href='#' onclick='updateStatusTTD(" . $p->id . ")' class='amber-text' title='Kirim Untuk TTD'><i class='icon icon-send'></i></a>";
+
                 return '-';
             })
             ->rawColumns(['id', 'nama', 'surat', 'status'])
@@ -173,5 +174,18 @@ class PengajuanController extends Controller
         return redirect()
             ->route('pengajuan.show', $id)
             ->withSuccess('Surat berhasil ditolak / dikembalikan.');
+    }
+
+    public function kirimRW($id)
+    {
+        $pengajuan = Pengajuan::find($id);
+        $pengajuan->update([
+            'alasan' => null,
+            'status' => 4
+        ]);
+
+        return redirect()
+            ->route('pengajuan.show', $id)
+            ->withSuccess('Surat berhasil dikirim ke RW.');
     }
 }

@@ -7,7 +7,7 @@
 <section class="section animate__animated animate__fadeInRight">
     @include('layouts.alert')
     <div class="my-3">
-        <a href="{{ route('kelurahan.index') }}" class="fs-14 text-danger fw-bold m-r-10"><i class="bi bi-arrow-left m-r-8"></i>Kembali</a>
+        <a href="{{ route('pengajuan.index') }}" class="fs-14 text-danger fw-bold m-r-10"><i class="bi bi-arrow-left m-r-8"></i>Kembali</a>
     </div>
     <div class="card">  
         <h5 class="card-header bg-info text-white mb-2 p-3 fs-18">Menampilkan Detail Surat</h5>
@@ -66,10 +66,19 @@
             <div class="container col-md-12 mt-5">
                 <div class="row justify-content-center">
                     <div class="col-auto">
-                        <button class="btn btn-sm btn-success m-r-5" data-bs-toggle="modal" data-bs-target="#ttd"><i class="bi bi-pencil m-r-8"></i>Setujui / TTD</button>
+                        <button class="btn btn-sm btn-success m-r-5" data-bs-toggle="modal" data-bs-target="#ttd"><i class="bi bi-check m-r-8"></i>Setujui / TTD</button>
                     </div>
                     <div class="col-auto">
                         <button class="btn btn-sm btn-danger"  data-bs-toggle="modal" data-bs-target="#tolak"><i class="bi bi-arrow-clockwise m-r-8"></i>Tolak / Kembalikan</button>
+                    </div>
+                </div>
+            </div>
+            @endif
+            @if ($data->status == 3)
+            <div class="container col-md-12 mt-5">
+                <div class="row justify-content-center">
+                    <div class="col-auto">
+                        <a href="{{ route('pengajuan.kirimRW', $data->id) }}" class="btn btn-sm btn-primary m-r-5"><i class="bi bi-send m-r-8"></i>Kirim ke RW</a>
                     </div>
                 </div>
             </div>

@@ -107,4 +107,5 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('/pengajuan/cetak/{id}', [PengajuanController::class, 'cetak'])->name('pengajuan.cetak');
     Route::post('/pengajuan/setujui/{id}', [PengajuanController::class, 'setujui'])->name('pengajuan.setujui');
     Route::post('/pengajuan/tolak/{id}', [PengajuanController::class, 'tolak'])->name('pengajuan.tolak');
+    Route::get('/pengajuan/kirim-ke-rw/{id}', [PengajuanController::class, 'kirimRW'])->name('pengajuan.kirimRW');
 });
