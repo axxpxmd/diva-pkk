@@ -51,7 +51,7 @@ class PengajuanController extends Controller
 
     public function dataTable($status, $rtrw_id)
     {
-        $data = Pengajuan::queryTable($status, $rtrw_id);
+        $data = Pengajuan::queryTableRT($status, $rtrw_id);
 
         return DataTables::of($data)
             ->addColumn('nama', function ($p) {
