@@ -82,8 +82,6 @@ class PengajuanController extends Controller
                 return  "<a target='blank' href='" . route('pengajuan.cetak', $p->id) . "' class='text-info' title='Surat'><i class='bi bi-file-text'></i></a>";
             })
             ->addColumn('action', function ($p) {
-                $sendttd = "<a href='#' onclick='updateStatusTTD(" . $p->id . ")' class='amber-text' title='Kirim Untuk TTD'><i class='icon icon-send'></i></a>";
-
                 return '-';
             })
             ->rawColumns(['id', 'nama', 'surat', 'status'])
@@ -111,18 +109,23 @@ class PengajuanController extends Controller
     {
         $data = Pengajuan::find($id);
 
-        // QR Code
-        $fileName = 'google.com';
-        $file_url = 'google.com';
+        // QR Code RT
+        $file_url = route('validasiRT', $id);
         $b   = base64_encode(\SimpleSoftwareIO\QrCode\Facades\QrCode::format('png')->merge(public_path('images/logo-png.png'), 0.2, true)->size(900)->errorCorrection('H')->margin(0)->generate($file_url));
-        $img = '<img width="60" height="61" src="data:image/png;base64, ' . $b . '" alt="qr code" />';
+        $qrRT = '<img width="60" height="61" src="data:image/png;base64, ' . $b . '" alt="qr code" />';
+
+        // QR Code RW
+        $file_url = route('validasiRW', $id);
+        $b   = base64_encode(\SimpleSoftwareIO\QrCode\Facades\QrCode::format('png')->merge(public_path('images/logo-png.png'), 0.2, true)->size(900)->errorCorrection('H')->margin(0)->generate($file_url));
+        $qrRW = '<img width="60" height="61" src="data:image/png;base64, ' . $b . '" alt="qr code" />';
 
         $pdf = app('dompdf.wrapper');
         $pdf->getDomPDF()->set_option("enable_php", true);
         $pdf->setPaper('legal', 'portrait');
         $pdf->loadView('pages.pengajuan.surat', compact(
             'data',
-            'img'
+            'qrRT',
+            'qrRW'
         ));
 
         return $pdf->stream($data->anggota->nama . ' ( ' . $data->no_surat . ' ) ' . ".pdf");

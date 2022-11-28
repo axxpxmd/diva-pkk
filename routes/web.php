@@ -17,6 +17,7 @@ use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\AnggotaKeluargaController;
+use App\Http\Controllers\ValidasiSuratController;
 
 /*
 |--------------------------------------------------------------------------
@@ -108,4 +109,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::post('/pengajuan/setujui/{id}', [PengajuanController::class, 'setujui'])->name('pengajuan.setujui');
     Route::post('/pengajuan/tolak/{id}', [PengajuanController::class, 'tolak'])->name('pengajuan.tolak');
     Route::get('/pengajuan/kirim-ke-rw/{id}', [PengajuanController::class, 'kirimRW'])->name('pengajuan.kirimRW');
+
+    Route::get('/validasi/surat-rt/{id}', [ValidasiSuratController::class, 'validasiRT'])->name('validasiRT');
+    Route::get('/validasi/surat-rw/{id}', [ValidasiSuratController::class, 'validasiRW'])->name('validasiRW');
 });

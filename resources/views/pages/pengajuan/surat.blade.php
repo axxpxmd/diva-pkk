@@ -149,7 +149,7 @@
                         @if ($data->status == 6)
                         <table class="m-t-20">
                             <tr class="a">
-                                <td style="padding: 5px !important" width="8%" class="a"> {!! $img !!}</td>
+                                <td style="padding: 5px !important" width="8%" class="a"> {!! $qrRW !!}</td>
                                 <td style="padding: 5px !important" width="92%" class="a">
                                     <p class="m-b-0 m-t-0 fs-10" style="font-style: italic">Telah ditandatangani secara elektronik oleh :</p>
                                     <p class="m-t-0 m-b-0 fs-10 t-blue">{{ $data->nm_ttd }}</p>
@@ -176,7 +176,7 @@
                         @if ($data->status >= 3)
                         <table class="m-t-20">
                             <tr class="a">
-                                <td style="padding: 5px !important" width="8%" class="a"> {!! $img !!}</td>
+                                <td style="padding: 5px !important" width="8%" class="a"> {!! $qrRT !!}</td>
                                 <td style="padding: 5px !important" width="92%" class="a">
                                     <p class="m-b-0 m-t-0 fs-10" style="font-style: italic">Telah ditandatangani secara elektronik oleh :</p>
                                     <p class="m-t-0 m-b-0 fs-10 t-blue">{{ $data->nm_ttd }}</p>
