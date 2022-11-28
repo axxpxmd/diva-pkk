@@ -582,4 +582,22 @@ class AnggotaKeluargaController extends Controller
             'anggota_detail'
         ));
     }
+
+    public function showByNIK($nik)
+    {
+        $title = $this->title;
+        $desc  = $this->desc;
+        $active_anggota = $this->active_anggota;
+
+        $anggota = Anggota::where('nik', $nik)->first();
+        $anggota_detail = AnggotaDetail::where('anggota_id', $anggota->id)->first();
+
+        return view('pages.anggota_keluarga.show.show', compact(
+            'title',
+            'desc',
+            'active_anggota',
+            'anggota',
+            'anggota_detail'
+        ));
+    }
 }

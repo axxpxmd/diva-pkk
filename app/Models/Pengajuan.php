@@ -27,11 +27,17 @@ class Pengajuan extends Model
         return $this->belongsTo(UserPengajuan::class, 'nik', 'nik');
     }
 
-    public function queryTable()
+    public function queryTable($status, $rtrw_id)
     {
-        $data = Pengajuan::all();
+        $data = Pengajuan::select('pengajuans.id as id', 'no_surat', 'tgl_surat', 'tgl_pengajuan', 'pengajuans.nik as nik', 'alasan', 'status')
+            ->join('anggota', 'anggota.nik', 'pengajuans.nik')
+            ->where('anggota.rtrw_id', $rtrw_id)
+            ->whereNotIn('status', [0])
+            ->when($status != 99, function($q) use($status) {
+                return $q->where('status', $status);
+            });
 
-        return $data;
+        return $data->orderBy('pengajuans.created_at', 'DESC')->get();
     }
 
     public function user()

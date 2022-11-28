@@ -101,7 +101,10 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::post('/anggota-keluarga/store-hidup', [AnggotaKeluargaController::class, 'storeHidup'])->name('anggota-keluarga.storeHidup');
     Route::post('/anggota-keluarga/store-meninggal', [AnggotaKeluargaController::class, 'storeMeninggal'])->name('anggota-keluarga.storeMeninggal');
     Route::post('/anggota-keluarga/store-rt', [AnggotaKeluargaController::class, 'storeRT'])->name('anggota-keluarga.storeRT');
+    Route::get('/anggota-keluarga/nik/{nik}', [AnggotaKeluargaController::class, 'showByNIK'])->name('anggota-keluarga.showByNIK');
 
     Route::resource('/pengajuan', PengajuanController::class);
     Route::get('/pengajuan/cetak/{id}', [PengajuanController::class, 'cetak'])->name('pengajuan.cetak');
+    Route::post('/pengajuan/setujui/{id}', [PengajuanController::class, 'setujui'])->name('pengajuan.setujui');
+    Route::post('/pengajuan/tolak/{id}', [PengajuanController::class, 'tolak'])->name('pengajuan.tolak');
 });

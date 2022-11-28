@@ -140,13 +140,11 @@
     <div class="mt-2">
         <table width="100%">
             <tr>
-                <!-- RW -->
                 <td class="text-center">
                     <div style="margin-right: 50px !important">
                         <p class="m-n">Mengetahui,</p>
                         <p class="m-n fs-14">KETUA RW {{ $data->anggota->rtrw->rw }}</p>
                         <p class="m-n fs-14 text-uppercase">KELURAHAN {{ $data->anggota->rtrw->n_kelurahan }}</p>
-                        @if ($data->status == 6)
                         <table class="m-t-20">
                             <tr class="a">
                                 <td style="padding: 5px !important" width="8%" class="a"> {!! $img !!}</td>
@@ -159,21 +157,18 @@
                                 </td>
                             </tr>
                         </table>
-                        @endif
-                        <div class="{{ $data->status == 6 ? 'm-t-20' : 'm-t-112' }}">
-                            <u class="m-n">{{ $data->anggota->rtrw->nKetuaRW->ketua }}</u>
-                            <p class="m-n">NIK. {{ $data->anggota->rtrw->nKetuaRW->nik }}</p>
+                        <div class="m-t-20">
+                            <u class="m-n">{{ $data->anggota->rtrw->nKetuaRT->ketua }}</u>
+                            <p class="m-n">NIK. {{ $data->anggota->rtrw->nKetuaRT->nik }}</p>
                         </div>
                     </div>
                 </td>
-                <!-- RT -->
                 <td class="text-center">
                     <div style="margin-left: 50px !important">
                         <div style="margin-top: 20px !important">
                             <p class="m-n fs-14">KETUA RT {{ $data->anggota->rtrw->rt }} / KETUA RW {{ $data->anggota->rtrw->rw }}</p>
                             <p class="m-n fs-14 text-uppercase">KELURAHAN {{ $data->anggota->rtrw->n_kelurahan }}</p>
                         </div>
-                        @if ($data->status >= 3)
                         <table class="m-t-20">
                             <tr class="a">
                                 <td style="padding: 5px !important" width="8%" class="a"> {!! $img !!}</td>
@@ -186,10 +181,9 @@
                                 </td>
                             </tr>
                         </table>
-                        @endif
-                        <div class="{{ $data->status >= 3 ? 'm-t-20' : 'm-t-112' }}">
-                            <u class="m-n">{{ $data->anggota->rtrw->nKetuaRT->ketua }}</u>
-                            <p class="m-n">NIK. {{ $data->anggota->rtrw->nKetuaRT->nik }}</p>
+                        <div class="m-t-20">
+                            <u class="m-n">{{ $data->anggota->rtrw->nKetuaRW->ketua }}</u>
+                            <p class="m-n">NIK. {{ $data->anggota->rtrw->nKetuaRW->nik }}</p>
                         </div>
                     </div>
                 </td>
