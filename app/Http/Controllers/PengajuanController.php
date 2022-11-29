@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Helpers\CheckRole;
-use App\Models\Kecamatan;
 use DataTables;
 use Carbon\Carbon;
+
+use App\Http\Helpers\CheckRole;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 // Models
 use App\Models\User;
 use App\Models\Pengajuan;
+use App\Models\Kecamatan;
 
 class PengajuanController extends Controller
 {

@@ -152,7 +152,7 @@
                                 <td style="padding: 2px !important" width="8%" class="a"> {!! $qrRW !!}</td>
                                 <td style="padding: 2px !important" width="92%" class="a">
                                     <p class="m-b-0 m-t-0 fs-10" style="font-style: italic">Telah ditandatangani secara elektronik oleh :</p>
-                                    <p class="m-t-0 m-b-0 fs-10 t-blue">{{ $data->anggota->rtrw->nKetuaRW->ketua }}</p>
+                                    <p class="m-t-0 m-b-0 fs-10 text-primary">{{ $data->anggota->rtrw->nKetuaRW->ketua }}</p>
                                     <p class="m-t-0 m-b-0 fs-10">Menggunakan Sertifikat Elektronik.</p>
                                 </td>
                             </tr>
@@ -177,7 +177,7 @@
                                 <td style="padding: 2px !important" width="8%" class="a"> {!! $qrRT !!}</td>
                                 <td style="padding: 2px !important" width="92%" class="a">
                                     <p class="m-b-0 m-t-0 fs-10" style="font-style: italic">Telah ditandatangani secara elektronik oleh :</p>
-                                    <p class="m-t-0 m-b-0 fs-10 t-blue">{{ $data->anggota->rtrw->nKetuaRT->ketua }}</p>
+                                    <p class="m-t-0 m-b-0 fs-10 text-primary">{{ $data->anggota->rtrw->nKetuaRT->ketua }}</p>
                                     <p class="m-t-0 m-b-0 fs-10">Menggunakan Sertifikat Elektronik.</p>
                                 </td>
                             </tr>
