@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Helpers\CheckRole;
+use App\Models\Kecamatan;
 use DataTables;
 use Carbon\Carbon;
 
@@ -15,12 +17,34 @@ use App\Models\Pengajuan;
 class PengajuanController extends Controller
 {
     protected $title = 'Pengajuan';
-    protected $desc  = 'Menu ini berisikan data pengajuan';
+    protected $desc  = 'Menu ini berisikan data pengajuan surat warga';
     protected $active_pengajuan = true;
 
-    public function __construct()
+    public function __construct(CheckRole $checkRole)
     {
         $this->middleware(['permission:pengajuan']);
+        $this->checkRole = $checkRole;
+    }
+
+    public function checkFilter()
+    {
+        $role_id = Auth::user()->modelHasRole->role_id;
+
+        // Filter
+        if ($role_id == 3) {
+            $rtrwDisplay = true;
+            $rwDisplay = false;
+            $rtDisplay = false;
+        } else {
+            $rtrwDisplay = false;
+            $rwDisplay = true;
+            $rtDisplay = true;
+        }
+
+        $kecamatanDisplay = true;
+        $kelurahanDisplay = true;
+
+        return [$kecamatanDisplay, $kelurahanDisplay, $rtrwDisplay, $rwDisplay, $rtDisplay];
     }
 
     public function index(Request $request)
@@ -29,29 +53,43 @@ class PengajuanController extends Controller
         $desc  = $this->desc;
         $active_pengajuan = $this->active_pengajuan;
 
-        $rtrw_id = Auth::user()->rtrw_id;
+        list($dasawisma_id, $kecamatan_id, $kelurahan_id, $rtrw_id, $rw, $rt, $role_id) = $this->checkRole->getFilterValue();
+
         $status = $request->status;
+        $kecamatan_id = $kecamatan_id ? $kecamatan_id : $request->kecamatan_filter;
+        $kelurahan_id = $kelurahan_id ? $kelurahan_id : $request->kelurahan_filter;
+        $rw = $rw ? $rw : $request->rw_filter;
+        $rt = $rt ? $rt : $request->rt_filter;
+        $rtrw_id = $rtrw_id ? $rtrw_id : $request->rtrw_filter;
         if ($request->ajax()) {
-            return $this->dataTable($status, $rtrw_id);
+            return $this->dataTable($kecamatan_id, $kelurahan_id, $rtrw_id, $rt, $rw, $status);
         }
 
-        $proses = Pengajuan::where('status', 1)->count();
-        $ditolak = Pengajuan::where('status', 2)->count();
-        $disetujui = Pengajuan::where('status', 3)->count();
+        $kecamatans = Kecamatan::select('id', 'n_kecamatan')->where('kabupaten_id', 40)->get();
+
+        list($kecamatanDisplay, $kelurahanDisplay, $rtrwDisplay, $rwDisplay, $rtDisplay) = $this->checkFilter();
 
         return view('pages.pengajuan.index', compact(
             'title',
             'desc',
             'active_pengajuan',
-            'proses',
-            'ditolak',
-            'disetujui'
+            'kecamatans',
+            'kecamatanDisplay',
+            'kelurahanDisplay',
+            'rtrwDisplay',
+            'rwDisplay',
+            'rtDisplay',
+            'kecamatan_id',
+            'kelurahan_id',
+            'rw',
+            'rt',
+            'rtrw_id'
         ));
     }
 
-    public function dataTable($status, $rtrw_id)
+    public function dataTable($kecamatan_id, $kelurahan_id, $rtrw_id, $rt, $rw, $status)
     {
-        $data = Pengajuan::queryTableRT($status, $rtrw_id);
+        $data = Pengajuan::queryTable($kecamatan_id, $kelurahan_id, $rtrw_id, $rt, $rw, $status);
 
         return DataTables::of($data)
             ->addColumn('nama', function ($p) {

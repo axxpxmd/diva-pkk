@@ -9,6 +9,9 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6 px-0">
+                    @include('layouts.alamat_filter')
+                </div>
+                <div class="col-md-6 px-0">
                     <div class="row mb-2">
                         <label for="status" class="col-form-label col-md-3 text-end fw-bolder fs-14">Status </label>
                         <div class="col-sm-8">
@@ -25,28 +28,6 @@
                         <div class="col-sm-8">
                             <button class="btn btn-success btn-sm mr-2" onclick="pressOnChange()"><i class="bi bi-filter m-r-8"></i>Filter</button>
                         </div> 
-                    </div>
-                </div>
-                <div class="col-md-6 px-0">
-                    <div class="row justify-content-center">
-                        <div class="col-md-4 mb-2">
-                            <div class="p-2 bg-warning text-white rounded text-center">
-                                <p class="mb-0 fw-bolder fs-16 mb-1">Proses</p>
-                                <p class="mb-0 fs-14">{{ $proses }}</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-2">
-                            <div class="p-2 bg-danger text-white rounded text-center">
-                                <p class="mb-0 fw-bolder fs-16 mb-1">Ditolak</p>
-                                <p class="mb-0 fs-14">{{ $ditolak }}</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-2">
-                            <div class="p-2 bg-success text-white rounded text-center">
-                                <p class="mb-0 fw-bolder fs-16 mb-1">Disetujui</p>
-                                <p class="mb-0 fs-14">{{ $disetujui }}</p>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -86,6 +67,10 @@
             method: 'GET',
             data: function (data) {
                 data.status = $('#status').val();
+                data.kecamatan_filter = $('#kecamatan_filter').val();
+                data.kelurahan_filter = $('#kelurahan_filter').val();
+                data.rw_filter = $('#rw_filter').val();
+                data.rt_filter = $('#rt_filter').val();
             }
         },
         columns: [

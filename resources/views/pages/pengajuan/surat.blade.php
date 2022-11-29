@@ -147,15 +147,13 @@
                         <p class="m-n fs-14">KETUA RW {{ $data->anggota->rtrw->rw }}</p>
                         <p class="m-n fs-14 text-uppercase">KELURAHAN {{ $data->anggota->rtrw->n_kelurahan }}</p>
                         @if ($data->status == 6)
-                        <table class="m-t-20">
+                        <table class="m-t-20 m-l-18">
                             <tr class="a">
-                                <td style="padding: 5px !important" width="8%" class="a"> {!! $qrRW !!}</td>
-                                <td style="padding: 5px !important" width="92%" class="a">
+                                <td style="padding: 2px !important" width="8%" class="a"> {!! $qrRW !!}</td>
+                                <td style="padding: 2px !important" width="92%" class="a">
                                     <p class="m-b-0 m-t-0 fs-10" style="font-style: italic">Telah ditandatangani secara elektronik oleh :</p>
-                                    <p class="m-t-0 m-b-0 fs-10 t-blue">{{ $data->nm_ttd }}</p>
+                                    <p class="m-t-0 m-b-0 fs-10 t-blue">{{ $data->anggota->rtrw->nKetuaRW->ketua }}</p>
                                     <p class="m-t-0 m-b-0 fs-10">Menggunakan Sertifikat Elektronik.</p>
-                                    <p class="m-t-0 m-b-0 fs-10">Verifikasi dokumen bisa dilakukan melalui :</p>
-                                    <p class="m-t-0 m-b-0 fs-10 t-blue" style="font-style: italic">https://tte.kominfo.go.id/verifyPDF</p>
                                 </td>
                             </tr>
                         </table>
@@ -174,15 +172,13 @@
                             <p class="m-n fs-14 text-uppercase">KELURAHAN {{ $data->anggota->rtrw->n_kelurahan }}</p>
                         </div>
                         @if ($data->status >= 3)
-                        <table class="m-t-20">
+                        <table class="m-t-20 m-l-18">
                             <tr class="a">
-                                <td style="padding: 5px !important" width="8%" class="a"> {!! $qrRT !!}</td>
-                                <td style="padding: 5px !important" width="92%" class="a">
+                                <td style="padding: 2px !important" width="8%" class="a"> {!! $qrRT !!}</td>
+                                <td style="padding: 2px !important" width="92%" class="a">
                                     <p class="m-b-0 m-t-0 fs-10" style="font-style: italic">Telah ditandatangani secara elektronik oleh :</p>
-                                    <p class="m-t-0 m-b-0 fs-10 t-blue">{{ $data->nm_ttd }}</p>
+                                    <p class="m-t-0 m-b-0 fs-10 t-blue">{{ $data->anggota->rtrw->nKetuaRT->ketua }}</p>
                                     <p class="m-t-0 m-b-0 fs-10">Menggunakan Sertifikat Elektronik.</p>
-                                    <p class="m-t-0 m-b-0 fs-10">Verifikasi dokumen bisa dilakukan melalui :</p>
-                                    <p class="m-t-0 m-b-0 fs-10 t-blue" style="font-style: italic">https://tte.kominfo.go.id/verifyPDF</p>
                                 </td>
                             </tr>
                         </table>
