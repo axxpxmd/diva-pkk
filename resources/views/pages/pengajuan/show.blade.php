@@ -58,30 +58,47 @@
                 <div class="row p-0">
                     <label class="col-sm-2 col-form-label fw-bold">File Surat</label>
                     <label class="col-sm-10 col-form-label">
-                        <a target="blank" href="{{ route('pengajuan.cetak', $data->id) }}" title="Lihat File Surat" class="text-info fs-18"><i class="bi bi-file-text"></i></a>
+                        <a target="_blank" href="{{ route('pengajuan.cetak', $data->id) }}" title="Lihat File Surat" class="text-info fs-18"><i class="bi bi-file-text"></i></a>
                     </label>
                 </div>
             </div>
-            @if ($data->status == 1)
-            <div class="container col-md-12 mt-5">
-                <div class="row justify-content-center">
-                    <div class="col-auto">
-                        <button class="btn btn-sm btn-success m-r-5" data-bs-toggle="modal" data-bs-target="#ttd"><i class="bi bi-check m-r-8"></i>Setujui / TTD</button>
-                    </div>
-                    <div class="col-auto">
-                        <button class="btn btn-sm btn-danger"  data-bs-toggle="modal" data-bs-target="#tolak"><i class="bi bi-arrow-clockwise m-r-8"></i>Tolak / Kembalikan</button>
-                    </div>
-                </div>
-            </div>
-            @endif
-            @if ($data->status == 3)
-            <div class="container col-md-12 mt-5">
-                <div class="row justify-content-center">
-                    <div class="col-auto">
-                        <a href="{{ route('pengajuan.kirimRW', $data->id) }}" class="btn btn-sm btn-primary m-r-5"><i class="bi bi-send m-r-8"></i>Kirim ke RW</a>
+            @if ($isRT)
+                <!-- RT -->
+                @if ($data->status == 1)
+                <div class="container col-md-12 mt-5">
+                    <div class="row justify-content-center">
+                        <div class="col-auto">
+                            <button class="btn btn-sm btn-success m-r-5" data-bs-toggle="modal" data-bs-target="#ttd"><i class="bi bi-check m-r-8"></i>Setujui / TTD</button>
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn btn-sm btn-danger"  data-bs-toggle="modal" data-bs-target="#tolak"><i class="bi bi-arrow-clockwise m-r-8"></i>Tolak / Kembalikan</button>
+                        </div>
                     </div>
                 </div>
-            </div>
+                @endif
+                @if ($data->status == 3)
+                <div class="container col-md-12 mt-5">
+                    <div class="row justify-content-center">
+                        <div class="col-auto">
+                            <a href="{{ route('pengajuan.kirimRW', $data->id) }}" class="btn btn-sm btn-primary m-r-5"><i class="bi bi-send m-r-8"></i>Kirim ke RW</a>
+                        </div>
+                    </div>
+                </div>
+                @endif
+            @else
+                <!-- RW -->
+                @if ($data->status == 4)
+                <div class="container col-md-12 mt-5">
+                    <div class="row justify-content-center">
+                        <div class="col-auto">
+                            <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#ttd"><i class="bi bi-check m-r-8"></i>Setujui / TTD</button>
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn btn-sm btn-danger"  data-bs-toggle="modal" data-bs-target="#tolak"><i class="bi bi-arrow-clockwise m-r-8"></i>Tolak / Kembalikan</button>
+                        </div>
+                    </div>
+                </div>
+                @endif
             @endif
         </div>
     </div>
@@ -99,6 +116,7 @@
                     {{ method_field('POST') }}
                     {{ csrf_field() }} 
                     <input type="hidden" name="username" value="{{ Auth::user()->username }}">
+                    <input type="hidden" name="isRT" value="{{ $isRT ? 1 : 0 }}">
                     <div class="col-md-12">
                         <div class="row">
                             <label for="password" class="col-form-label s-12 col-md-2 fw-bold">Password</label>
@@ -134,6 +152,7 @@
                 <form class="needs-validation" method="POST" action="{{ route('pengajuan.tolak', $data->id) }}" enctype="multipart/form-data" novalidate>
                     {{ method_field('POST') }}
                     {{ csrf_field() }} 
+                    <input type="hidden" name="isRT" value="{{ $isRT ? 1 : 0 }}">
                     <div class="col-md-12">
                         <div class="row">
                             <label for="alasan" class="col-form-label s-12 col-md-2 fw-bold">Alasan</label>
@@ -144,7 +163,7 @@
                         <div class="row m-t-10">
                             <label class="col-md-2"></label>
                             <div class="col-md-10">
-                                <button type="submit" class="btn btn-sm btn-primary m-r-5"><i class="bi bi-send m-r-5"></i>Kirim</button>
+                                <button type="submit" class="btn btn-sm btn-primary m-r-5"><i class="bi bi-arrow-clockwise m-r-5"></i>Kembalikan</button>
                                 <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal"><i class="bi bi-x m-r-5"></i>Batalkan</button>
                             </div>
                         </div>

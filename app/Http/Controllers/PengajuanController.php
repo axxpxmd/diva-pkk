@@ -55,6 +55,12 @@ class PengajuanController extends Controller
 
         list($dasawisma_id, $kecamatan_id, $kelurahan_id, $rtrw_id, $rw, $rt, $role_id) = $this->checkRole->getFilterValue();
 
+        if ($rt) {
+            $isRT = true;
+        } else {
+            $isRT = false;
+        }
+
         $status = $request->status;
         $kecamatan_id = $kecamatan_id ? $kecamatan_id : $request->kecamatan_filter;
         $kelurahan_id = $kelurahan_id ? $kelurahan_id : $request->kelurahan_filter;
@@ -62,7 +68,7 @@ class PengajuanController extends Controller
         $rt = $rt ? $rt : $request->rt_filter;
         $rtrw_id = $rtrw_id ? $rtrw_id : $request->rtrw_filter;
         if ($request->ajax()) {
-            return $this->dataTable($kecamatan_id, $kelurahan_id, $rtrw_id, $rt, $rw, $status);
+            return $this->dataTable($kecamatan_id, $kelurahan_id, $rtrw_id, $rt, $rw, $status, $isRT);
         }
 
         $kecamatans = Kecamatan::select('id', 'n_kecamatan')->where('kabupaten_id', 40)->get();
@@ -83,13 +89,14 @@ class PengajuanController extends Controller
             'kelurahan_id',
             'rw',
             'rt',
-            'rtrw_id'
+            'rtrw_id',
+            'isRT'
         ));
     }
 
-    public function dataTable($kecamatan_id, $kelurahan_id, $rtrw_id, $rt, $rw, $status)
+    public function dataTable($kecamatan_id, $kelurahan_id, $rtrw_id, $rt, $rw, $status, $isRT)
     {
-        $data = Pengajuan::queryTable($kecamatan_id, $kelurahan_id, $rtrw_id, $rt, $rw, $status);
+        $data = Pengajuan::queryTable($kecamatan_id, $kelurahan_id, $rtrw_id, $rt, $rw, $status, $isRT);
 
         return DataTables::of($data)
             ->addColumn('nama', function ($p) {
@@ -103,17 +110,27 @@ class PengajuanController extends Controller
             ->addColumn('jml_perihal', function ($p) {
                 return $p->perihal->count() . ' Perihal ';
             })
-            ->editColumn('status', function ($p) {
+            ->editColumn('status', function ($p) use ($isRT) {
                 $proses = "<span class='badge bg-warning'>Proses</span>";
                 $disetujui = "<span class='badge bg-success'>Disetujui</span>";
                 $ditolak = "<span class='badge bg-danger'>Ditolak</span>";
 
-                if ($p->status == 1) {
-                    return $proses;
-                } elseif ($p->status == 2) {
-                    return $ditolak;
+                if ($isRT) {
+                    if ($p->status == 1) {
+                        return $proses;
+                    } elseif ($p->status == 2) {
+                        return $ditolak;
+                    } else {
+                        return $disetujui;
+                    }
                 } else {
-                    return $disetujui;
+                    if ($p->status == 4) {
+                        return $proses;
+                    } elseif ($p->status == 5) {
+                        return $ditolak;
+                    } elseif ($p->status == 6) {
+                        return $disetujui;
+                    }
                 }
             })
             ->addColumn('surat', function ($p) {
@@ -135,11 +152,19 @@ class PengajuanController extends Controller
 
         $data = Pengajuan::find($id);
 
+        list($dasawisma_id, $kecamatan_id, $kelurahan_id, $rtrw_id, $rw, $rt, $role_id) = $this->checkRole->getFilterValue();
+        if ($rt) {
+            $isRT = true;
+        } else {
+            $isRT = false;
+        }
+
         return view('pages.pengajuan.show', compact(
             'data',
             'title',
             'desc',
-            'active_pengajuan'
+            'active_pengajuan',
+            'isRT'
         ));
     }
 
@@ -173,6 +198,7 @@ class PengajuanController extends Controller
     {
         $username = $request->username;
         $password = md5($request->password);
+        $isRT = $request->isRT;
 
         try {
             //* Check Password
@@ -185,12 +211,21 @@ class PengajuanController extends Controller
                     ->withErrors('Password Salah.');
             }
 
-            //* Setujui Surat
+            //* 1 = RT | 0 = RW
             $pengajuan = Pengajuan::find($id);
-            $pengajuan->update([
-                'status' => 3,
-                'alasan' => null,
-            ]);
+            if ($isRT == 1) {
+                //* Setujui Surat
+                $pengajuan->update([
+                    'status' => 3,
+                    'alasan' => null,
+                ]);
+            } else {
+                //* Setujui Surat
+                $pengajuan->update([
+                    'status' => 6,
+                    'alasan' => null,
+                ]);
+            }
 
             return redirect()
                 ->route('pengajuan.show', $id)
@@ -205,12 +240,21 @@ class PengajuanController extends Controller
     public function tolak(Request $request, $id)
     {
         $alasan = $request->alasan;
+        $isRT   = $request->isRT;
 
+        //* 1 = RT | 0 = RW
         $pengajuan = Pengajuan::find($id);
-        $pengajuan->update([
-            'alasan' => $alasan,
-            'status' => 2
-        ]);
+        if ($isRT == 1) {
+            $pengajuan->update([
+                'alasan' => $alasan,
+                'status' => 2
+            ]);
+        } else {
+            $pengajuan->update([
+                'alasan' => $alasan,
+                'status' => 5
+            ]);
+        }
 
         return redirect()
             ->route('pengajuan.show', $id)
