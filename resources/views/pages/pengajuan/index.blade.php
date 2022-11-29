@@ -18,11 +18,11 @@
                             <select class="form-select select2" id="status" name="status">
                                 <option value="99">Semua</option>
                                 @if ($isRT)
-                                    <option value="1">Proses</option>
+                                    <option value="1" selected>Proses</option>
                                     <option value="2">Ditolak</option>
                                     <option value="3">Disetujui</option>
                                 @else
-                                    <option value="4">Proses</option>
+                                    <option value="4" selected>Proses</option>
                                     <option value="5">Ditolak</option>
                                     <option value="6">Disetujui</option>
                                 @endif
