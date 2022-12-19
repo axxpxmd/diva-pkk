@@ -1,10 +1,17 @@
+@php
+    $role_id = Auth::user()->modelHasRole->role_id;
+@endphp
 <div id="sidebar" class="active">
     <div class="sidebar-wrapper shadow active">
         <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="logo">
                     <a href="{{ route('dashboard') }}">
+                        @if ($role_id == 3 || $role_id == 4 || $role_id == 5 || $role_id == 6 || $role_id == 10)
+                        <span class="fs-20 text-warning fw-bolder">SIPESAT</span>
+                        @else
                         <span class="fs-20 text-info fw-bolder">DIVA PKK</span>
+                        @endif
                     </a>
                 </div>
                 <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
