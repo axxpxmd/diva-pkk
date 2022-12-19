@@ -680,7 +680,7 @@ class RTRWController extends Controller
     public function deteleKetuaRT(Request $request, $id)
     {
         $kategori = $request->kategori;
-
+     
         if ($kategori == 'rt') {
             $data = MappingRT::find($id);
 
@@ -696,7 +696,7 @@ class RTRWController extends Controller
         }
 
         if ($kategori == 'rw') {
-            $data = MappingRW::destroy($id);
+            $data = MappingRW::find($id);
 
             if ($data->status == 1) {
                 $ketua_rw = RTRW::where('ketua_rw', $id)->first();
