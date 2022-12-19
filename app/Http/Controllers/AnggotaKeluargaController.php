@@ -401,6 +401,7 @@ class AnggotaKeluargaController extends Controller
             $data1Anggota = [
                 'status_hidup' => 1,
                 'rumah_id' => $request->rumah_id,
+                'rtrw_id' => $request->rtrw_id,
                 'nik' => $request->nik,
                 'no_kk' => $request->no_kk,
                 'nama' => $request->nama,
