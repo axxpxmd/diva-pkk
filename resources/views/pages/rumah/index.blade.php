@@ -89,7 +89,7 @@
                     <div id="alert"></div>
                     <div class="row">
                         @if ($role_id == 3)
-                        <input type="text" class="d-none" name="rtrw_id" value="{{ $rtrw_id }}">
+                        <input type="hidden" name="rtrw_id" value="{{ $rtrw_id }}">
                         <div class="col-sm-12">
                             <div class="bg-light-secondary p-2 rounded mb-3">
                                 <span class="fw-bold">Dasawisma</span>
@@ -124,6 +124,9 @@
                                 <span class="fw-bold">Dasawisma</span>
                             </div>
                             @include('layouts.alamat2')
+                            @if ($role_id == 2)
+                            <input type="hidden" name="rtrw_id" value="{{ $rtrw_id }}">
+                            @endif
                             <div class="row mb-2">
                                 <label for="dasawisma_id" class="col-sm-4 col-form-label fw-bold text-end">Dasawisma <span class="text-danger">*</span></label>
                                 <div class="col-sm-8">

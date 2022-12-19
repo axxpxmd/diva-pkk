@@ -191,6 +191,7 @@ class AnggotaKeluargaController extends Controller
         $request->validate([
             'dasawisma_id' => 'required',
             'rumah_id' => 'required',
+            'rtrw_id' => 'required',
             'terdaftar_dukcapil' => 'required|in:0, 1',
             'nik' => 'required_if:terdaftar_dukcapil,1',
             'domisili' => 'required_if:terdaftar_dukcapil,1|in:0,1',
