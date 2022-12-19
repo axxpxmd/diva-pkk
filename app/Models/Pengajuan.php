@@ -29,7 +29,6 @@ class Pengajuan extends Model
 
     public function queryTable($kecamatan_id, $kelurahan_id, $rtrw_id, $rt, $rw, $status, $isRT)
     {
-        // dd($status);
         $data = Pengajuan::select('pengajuans.id as id', 'no_surat', 'tgl_surat', 'tgl_pengajuan', 'pengajuans.nik as nik', 'alasan', 'status')
             ->join('anggota', 'anggota.nik', 'pengajuans.nik')
             ->join('rt_rw', 'rt_rw.id', '=', 'anggota.rtrw_id')
