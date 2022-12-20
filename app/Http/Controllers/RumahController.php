@@ -270,7 +270,8 @@ class RumahController extends Controller
             'kriteria_rmh' => $data->kriteria_rmh,
             'layak_huni' => $data->layak_huni,
             'kelurahan_id' => $data->rtrw->kelurahan_id,
-            'kecamatan_id' => $data->rtrw->kecamatan_id
+            'kecamatan_id' => $data->rtrw->kecamatan_id,
+            'status_isi' => $data->status_isi
         ];
 
         return $dataRumah;

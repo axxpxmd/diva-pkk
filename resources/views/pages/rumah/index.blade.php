@@ -412,6 +412,7 @@
     }
 
     function edit(id){
+        $('#form').removeClass('was-validated');
         $('#loading').show();
         $.get("{{ Route('rumah.edit', ':id') }}".replace(':id', id), function(data){
             save_method = 'edit';
@@ -502,31 +503,39 @@
                 $('#lainnya').val(selectSumberAir[0]);
             }
 
-            // Radio
-            if (data.tempat_smph == 1) {
-                $("#tempat_smph_on").prop("checked", true);
+            if (data.status_isi == 0) {
+                $(".tempat_smph").prop("checked", false);
+                $(".saluran_pmbngn").prop("checked", false);
+                $(".stiker_p4k").prop("checked", false);
+                $(".kriteria_rmh").prop("checked", false);
+                $(".layak_huni").prop("checked", false);
             } else {
-                $("#tempat_smph_off").prop("checked", true);
-            }
-            if (data.saluran_pmbngn == 1) {
-                $("#saluran_pmbngn_on").prop("checked", true);
-            } else {
-                $("#saluran_pmbngn_off").prop("checked", true);
-            }
-            if (data.stiker_p4k == 1) {
-                $("#stiker_p4k_on").prop("checked", true);
-            } else {
-                $("#stiker_p4k_off").prop("checked", true);
-            }
-            if (data.kriteria_rmh == 1) {
-                $("#kriteria_rmh_on").prop("checked", true);
-            } else {
-                $("#kriteria_rmh_off").prop("checked", true);
-            }
-            if (data.layak_huni == 1) {
-                $("#layak_huni_on").prop("checked", true);
-            } else {
-                $("#layak_huni_off").prop("checked", true);
+                // Radio
+                if (data.tempat_smph == 1) {
+                    $("#tempat_smph_on").prop("checked", true);
+                } else {
+                    $("#tempat_smph_off").prop("checked", true);
+                }
+                if (data.saluran_pmbngn == 1) {
+                    $("#saluran_pmbngn_on").prop("checked", true);
+                } else {
+                    $("#saluran_pmbngn_off").prop("checked", true);
+                }
+                if (data.stiker_p4k == 1) {
+                    $("#stiker_p4k_on").prop("checked", true);
+                } else {
+                    $("#stiker_p4k_off").prop("checked", true);
+                }
+                if (data.kriteria_rmh == 1) {
+                    $("#kriteria_rmh_on").prop("checked", true);
+                } else {
+                    $("#kriteria_rmh_off").prop("checked", true);
+                }
+                if (data.layak_huni == 1) {
+                    $("#layak_huni_on").prop("checked", true);
+                } else {
+                    $("#layak_huni_off").prop("checked", true);
+                }   
             }
         });
     }
