@@ -116,4 +116,28 @@ class Rumah extends Model
 
         return $data->orderBy('rumah.id', 'DESC')->get();
     }
+
+    public function belumLengkapTotal($kecamatan_id, $kelurahan_id, $rtrw_id, $rt, $rw)
+    {
+        $data = Rumah::select('rumah.id as id', 'dasawisma_id', 'rtrw_id', 'kepala_rumah', 'alamat_detail', 'kriteria_rmh', 'layak_huni', 'status_isi')
+            ->join('rt_rw', 'rt_rw.id', '=', 'rumah.rtrw_id')
+            ->when($kecamatan_id, function ($q) use ($kecamatan_id) {
+                return $q->where('kecamatan_id', $kecamatan_id);
+            })
+            ->when($kelurahan_id, function ($q) use ($kelurahan_id) {
+                return $q->where('kelurahan_id', $kelurahan_id);
+            })
+            ->when($rtrw_id, function ($q) use ($rtrw_id) {
+                return $q->where('rtrw_id', $rtrw_id);
+            })
+            ->when($rw, function ($q) use ($rw) {
+                return $q->where('rw', $rw);
+            })
+            ->when($rt, function ($q) use ($rt) {
+                return $q->where('rt', $rt);
+            })
+            ->where('status_isi', 0);
+
+        return $data->orderBy('rumah.id', 'DESC')->get();
+    }
 }

@@ -73,7 +73,7 @@ class AnggotaKeluargaController extends Controller
 
         list($kecamatanDisplay, $kelurahanDisplay, $rtrwDisplay, $rwDisplay, $rtDisplay) = $this->checkFilter();
 
-        $belumLengkap = Anggota::where('status_lengkap', 0)->count();
+        $belumLengkap = count(Anggota::belumLengkapTotal($kecamatan_id, $kelurahan_id, $rw, $rt, $rtrw_id));
 
         return view('pages.anggota_keluarga.index', compact(
             'title',
@@ -306,7 +306,7 @@ class AnggotaKeluargaController extends Controller
             'pekerjaan' => 'required'
         ]);
 
-          /* Tahapan : 
+        /* Tahapan : 
          * 1. Generate No Registrasi
          * 2. Store Data
          */

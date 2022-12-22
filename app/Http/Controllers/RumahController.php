@@ -75,7 +75,7 @@ class RumahController extends Controller
 
         list($kecamatanDisplay, $kelurahanDisplay, $rtrwDisplay, $rwDisplay, $rtDisplay) = $this->checkFilter();
 
-        $belumLengkap = Rumah::where('status_isi', 0)->count();
+        $belumLengkap = count(Rumah::belumLengkapTotal($kecamatan_id, $kelurahan_id, $rtrw_id, $rt, $rw));
 
         return view('pages.rumah.index', compact(
             'title',

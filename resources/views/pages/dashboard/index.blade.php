@@ -3,10 +3,10 @@
 <div class="page-heading">
     <div class="row">
         <div class="col-sm-6">
-            <h3>{{ $title }}</h3>
+            <h3>{{ $title }} </h3>
         </div>
         <div class="col-sm-6 text-end">
-            <h3><span class="fs-16 text-black-50">{{ Auth::user()->modelHasRole->role->name }}</span></h3>
+            <h3><span class="fs-16 text-black-50">{{ Auth::user()->modelHasRole->role->name }} {{ Auth::user()->dasawisma_id != 0 ? 'Dasawisma ' . Auth::user()->dasawisma->nama : '' }}</span></h3>
         </div>
     </div>
 </div>
