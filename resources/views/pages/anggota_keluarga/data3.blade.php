@@ -527,7 +527,7 @@
     }
 
     function UP2K(type){
-        jenisUP2K  = '#'+type;
+        jenisUP2K        = '#'+type;
         komoditi         = '#'+type+'_komoditi';
         kuantitas        = '#'+type+'_kuantitas';
         komoditiDisplay  = '#'+type+'_komoditi_display';
