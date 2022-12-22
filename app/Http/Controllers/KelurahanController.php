@@ -66,16 +66,16 @@ class KelurahanController extends Controller
 
                 if ($p->ketua_kelurahan) {
                     $mappingKelurahan = MappingKelurahan::where('id', $p->ketua_kelurahan)->first();
-                    if ($role_id == 5) {
-                        return $mappingKelurahan->ketua;
-                    } else {
+                    if ($role_id == 10) {
                         return $mappingKelurahan->ketua . '&nbsp&nbsp&nbsp' . $add;
+                    } else {
+                        return $mappingKelurahan->ketua;
                     }
                 } else {
-                    if ($role_id == 5) {
-                        return '-';
-                    } else {
+                    if ($role_id == 10) {
                         return $add;
+                    } else {
+                        return '-';
                     }
                 }
             })

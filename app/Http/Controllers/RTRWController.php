@@ -137,16 +137,16 @@ class RTRWController extends Controller
 
                 if ($p->ketua_rt) {
                     $mappingRtRw = MappingRT::where('id', $p->ketua_rt)->first();
-                    if ($role_id == 3 || $role_id == 4) {
-                        return $mappingRtRw->ketua;
-                    } else {
+                    if ($role_id == 5 || $role_id == 6 || $role_id == 10 || $role_id == 10) {
                         return $mappingRtRw->ketua . '&nbsp&nbsp&nbsp' . $add;
+                    } else {
+                        return $mappingRtRw->ketua;
                     }
                 } else {
-                    if ($role_id == 3 || $role_id == 4) {
-                        return '-';
-                    } else {
+                    if ($role_id == 5 || $role_id == 6 || $role_id == 10) {
                         return $add;
+                    } else {
+                        return '-';
                     }
                 }
             })
@@ -156,16 +156,16 @@ class RTRWController extends Controller
                 if ($p->ketua_rw) {
                     $mappingRW = MappingRW::where('id', $p->ketua_rw)->first();
 
-                    if ($role_id == 3 || $role_id == 4) {
-                        return $mappingRW->ketua;
-                    } else {
+                    if ($role_id == 5 || $role_id == 6 || $role_id == 10) {
                         return $mappingRW->ketua . '&nbsp&nbsp&nbsp' . $add;
+                    } else {
+                        return $mappingRW->ketua;
                     }
                 } else {
-                    if ($role_id == 3 || $role_id == 4) {
-                        return '-';
-                    } else {
+                    if ($role_id == 5 || $role_id == 6 || $role_id == 10) {
                         return $add;
+                    } else {
+                        return '-';
                     }
                 }
             })
