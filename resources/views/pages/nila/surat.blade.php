@@ -83,7 +83,7 @@
             </tr>
             <tr>
                 <td>Jabatan</td>
-                <td>&nbsp;&nbsp; : Kepala <span class="text-uppercase">{{ $n_dinas }}</span></td>
+                <td>&nbsp;&nbsp; : Kepala {{ $n_dinas }} Kota Tangerang Selatan</td>
             </tr>
         </table>
     
