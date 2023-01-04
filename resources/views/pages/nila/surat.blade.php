@@ -50,7 +50,7 @@
     <table class="mb-2" style="width: 100%">
         <tr>
             <td>
-                <img src="{{ asset('images/logo/tangsel.png') }}" width="80" alt="">
+                <img src="{{ public_path('images/logo/tangsel.png') }}" width="80" alt="">
             </td>
             <td class="text-center" style="vertical-align: top !important;">
                 <div class="text-center">
