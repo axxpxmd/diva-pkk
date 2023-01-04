@@ -126,7 +126,7 @@
                 <tr>
                     <td width="50%"></td>
                     <td width="50%" class="text-center">
-                        <p>Kepala Dinas</p>
+                        <p>Kepala</p>
                         <table class="m-l-15">
                             <tr class="a">
                                 <td style="padding: 2px !important" width="8%" class="a"> {!! $QR !!}</td>
