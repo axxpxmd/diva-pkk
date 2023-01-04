@@ -17,6 +17,7 @@ use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\AnggotaKeluargaController;
+use App\Http\Controllers\NilaController;
 use App\Http\Controllers\ValidasiSuratController;
 
 /*
@@ -113,3 +114,6 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
 Route::get('/validasi/surat-rt/{id}', [ValidasiSuratController::class, 'validasiRT'])->name('validasiRT');
 Route::get('/validasi/surat-rw/{id}', [ValidasiSuratController::class, 'validasiRW'])->name('validasiRW');
+
+Route::get('/tanda-tangan/nila', [NilaController::class, 'index'])->name('tandaTanganIndex');
+Route::get('/tanda-tangan/generate-surat', [NilaController::class, 'generateSurat'])->name('tandaTanganGenerateSurat');
