@@ -34,6 +34,6 @@ class NilaController extends Controller
             'no_surat'
         ));
 
-        return $pdf->stream("test.pdf");
+        return $pdf->stream($nip . ".pdf");
     }
 }
