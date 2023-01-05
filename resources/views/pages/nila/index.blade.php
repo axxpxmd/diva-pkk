@@ -7,25 +7,31 @@
                 <div class="row mb-2">
                     <label for="n_dinas" class="col-sm-3 col-form-label fw-bold">Nama Dinas <span class="text-danger">*</span></label>
                     <div class="col-sm-9">
-                      <input type="text" name="n_dinas" id="n_dinas" placeholder="Nama Dinas" class="form-control" autocomplete="off" required>
+                      <input type="text" name="n_dinas" id="n_dinas" placeholder="Nama Dinas" class="form-control" autocomplete="off">
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <label for="alamat_dinas" class="col-sm-3 col-form-label fw-bold">Alamat Dinas <span class="text-danger">*</span></label>
+                    <div class="col-sm-9">
+                      <textarea type="text" name="alamat_dinas" id="alamat_dinas" placeholder="Alamat Dinas" class="form-control" autocomplete="off"></textarea>
                     </div>
                 </div>
                 <div class="row mb-2">
                     <label for="no_surat" class="col-sm-3 col-form-label fw-bold">Nomor Surat <span class="text-danger">*</span></label>
                     <div class="col-sm-9">
-                      <input type="text" name="no_surat" id="no_surat" placeholder="Nomor Surat" class="form-control" autocomplete="off" required>
+                      <input type="text" name="no_surat" id="no_surat" placeholder="Nomor Surat" class="form-control" autocomplete="off">
                     </div>
                 </div>
                 <div class="row mb-2">
                     <label for="nama" class="col-sm-3 col-form-label fw-bold">Nama <span class="text-danger">*</span></label>
                     <div class="col-sm-9">
-                      <input type="text" name="nama" id="nama" placeholder="Nama Kepala Dinas" class="form-control" autocomplete="off" required>
+                      <input type="text" name="nama" id="nama" placeholder="Nama Kepala Dinas" class="form-control" autocomplete="off">
                     </div>
                 </div>
                 <div class="row mb-2">
                     <label for="nip" class="col-sm-3 col-form-label fw-bold">NIP <span class="text-danger">*</span></label>
                     <div class="col-sm-9">
-                      <input type="number" name="nip" id="nip" placeholder="NIP Kepala Dinas" class="form-control" autocomplete="off" required>
+                      <input type="number" name="nip" id="nip" placeholder="NIP Kepala Dinas" class="form-control" autocomplete="off">
                     </div>
                 </div>
                 <div class="row mb-2">
@@ -48,8 +54,9 @@
         no_surat = $('#no_surat').val();
         nama = $('#nama').val();
         nip = $('#nip').val();
+        alamat_dinas = $('#alamat_dinas').val();
 
-        url = "{{ route('tandaTanganGenerateSurat') }}?n_dinas=" + n_dinas + "&no_surat=" + no_surat + "&nama=" + nama + "&nip=" + nip;
+        url = "{{ route('tandaTanganGenerateSurat') }}?n_dinas=" + n_dinas + "&no_surat=" + no_surat + "&nama=" + nama + "&nip=" + nip + "&alamat_dinas=" + alamat_dinas;
         
         $('#generateSurat').attr('href', url)
     }

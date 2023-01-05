@@ -56,7 +56,7 @@
                 <div class="text-center">
                     <p class="font-weight-bolder m-0">PEMERINTAH KOTA TANGERANG SELATAN</p>
                     <p class="font-weight-bolder m-0 text-uppercase">{{ $n_dinas }}</p>
-                    <span>Jl. Maruga Raya No.1 Serua - Ciputat Kota Tangerang Selatan Provinsi Banten</span>
+                    <span>{{ $alamat_dinas }}</span>
                 </div>
             </td>
         </tr>

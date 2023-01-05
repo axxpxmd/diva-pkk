@@ -17,6 +17,7 @@ class NilaController extends Controller
         $nip  = $request->nip;
         $n_dinas  = $request->n_dinas;
         $no_surat = $request->no_surat;
+        $alamat_dinas = $request->alamat_dinas;
 
         // QR Code
         $url  = 'https://amando.tangerangselatankota.go.id/uploads/surat/' . $nip . '.pdf';
@@ -31,7 +32,8 @@ class NilaController extends Controller
             'nama',
             'nip',
             'n_dinas',
-            'no_surat'
+            'no_surat',
+            'alamat_dinas'
         ));
 
         return $pdf->stream($nip . ".pdf");
