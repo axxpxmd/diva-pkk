@@ -112,13 +112,13 @@
             <tr>
                 <td style="vertical-align: top !important;">Judul Penelitian</td>
                 <td style="vertical-align: top !important;">:</td>
-                <td>Pengaruh Partisipasi Anggaran Terhadap Kinerja Manajerial Dengan <i>Psychological Capital</i> Dan <i>Job Relevant Information</i> Sebagai Variabel Mediasi </td>
+                <td class="text-justify">Pengaruh Partisipasi Anggaran Terhadap Kinerja Manajerial Dengan <i>Psychological Capital</i> Dan <i>Job Relevant Information</i> Sebagai Variabel Mediasi </td>
             </tr>
         </table>
     
         <div class="mt-4">
-            <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dengan ini menyatakan bahwa Mahasiswa tersebut telah melaksanakan penelitian tesis pada <span class="text-uppercase">{{ $n_dinas }}</span> Kota Tangerang Selatan Selama 1 Bulan ( 1 – 30 November 2022)</p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Demikian surat keterangan ini dibuat untuk diketahui dan dipergunakan sebagaimana mestinya.</p>
+            <p class="m-0 text-justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dengan ini menyatakan bahwa Mahasiswa tersebut telah melaksanakan penelitian tesis pada <span class="text-uppercase">{{ $n_dinas }}</span> Kota Tangerang Selatan Selama 1 Bulan ( 1 – 30 November 2022)</p>
+            <p class="text-justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Demikian surat keterangan ini dibuat untuk diketahui dan dipergunakan sebagaimana mestinya.</p>
         </div>
 
         <div class="mt-5">
