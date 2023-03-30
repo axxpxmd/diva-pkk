@@ -1,11 +1,3 @@
-@php
-    if ($role_id == 3 || $role_id == 4 || $role_id == 5 || $role_id == 6 || $role_id == 10) {
-        $title = 'SIPESAT';
-    } else {
-        $title = 'DIVA PKK';
-    }
-@endphp
-
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -17,7 +9,7 @@
 
     <!-- Title --> 
     <link rel="icon" href="{{ asset('images/logo/tangsel.png') }}" type="image/x-icon">
-    <title>{{ $title }} | {{ $title }}</title>
+    <title>SIPESAT</title>
 
     <!-- CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/main/app.css') }}">
