@@ -130,13 +130,21 @@ class RumahController extends Controller
                 $sehat = '<span class="badge bg-success">Sehat</span>';
                 $KurangSehat = '<span class="badge bg-danger">Kurang Sehat</span>';
 
-                return $p->kriteria_rmh == 1 ? $sehat : $KurangSehat;
+                if ($p->status_isi == 0) {
+                    return '-';
+                } else {
+                    return $p->kriteria_rmh == 1 ? $sehat : $KurangSehat;
+                }
             })
             ->editColumn('layak_huni', function ($p) {
                 $ya = '<span class="badge bg-success">Ya</span>';
                 $tidak = '<span class="badge bg-danger">Tidak</span>';
 
-                return $p->layak_huni == 1 ? $ya : $tidak;
+                if ($p->status_isi == 0) {
+                    return '-';
+                } else {
+                    return $p->layak_huni == 1 ? $ya : $tidak;
+                }
             })
             ->addColumn('jumlah_anggota', function ($p) {
                 return $p->anggota->count() . ' Orang';

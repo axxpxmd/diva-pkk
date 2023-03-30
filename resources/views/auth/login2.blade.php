@@ -36,9 +36,9 @@
 								<div class="text-center p-2">
                                     <h5 class="m-0 text-grey">Selamat Datang Di
                                         <br>
-                                        <b>LOREM IPSUM</b>
+                                        <b>SIPESAT</b>
                                     </h5>
-                                    <span class="fs-13">Pemberdayaan Dan Kesejahteraan Keluarga (PKK) Kota Tangerang Selatan</span>
+                                    <span class="fs-13">Sistem Pengajuan Surat RT/RW</span>
 								</div>
 							</div>
 							<form method="POST" action="{{ route('login', 'type=2') }}" class="signin-form mb-5">

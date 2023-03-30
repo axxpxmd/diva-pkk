@@ -64,7 +64,7 @@
             </div>
         </div>
     </div> 
-    @if ($belumLengkap != 0)
+    @if ($belumLengkap != 0 && Auth::user()->modelHasRole->role_id == [3,4,5,6,10])
     <div class="alert alert-light-warning fs-14 fw-bold" role="alert">
         Terdapat <b>{{ $belumLengkap }}</b> data warga yang belum lengkap !    
     </div>
