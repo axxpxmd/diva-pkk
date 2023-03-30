@@ -168,7 +168,7 @@
                 <td class="text-center">
                     <div style="margin-left: 50px !important">
                         <div style="margin-top: 20px !important">
-                            <p class="m-n fs-14">KETUA RT {{ $data->anggota->rtrw->rt }} / KETUA RW {{ $data->anggota->rtrw->rw }}</p>
+                            <p class="m-n fs-14">KETUA RT {{ $data->anggota->rtrw->rt }} / RW {{ $data->anggota->rtrw->rw }}</p>
                             <p class="m-n fs-14 text-uppercase">KELURAHAN {{ $data->anggota->rtrw->n_kelurahan }}</p>
                         </div>
                         @if ($data->status >= 3)
