@@ -48,7 +48,7 @@ class LoginController extends Controller
         }
 
         if ($type == 2) {
-            return redirect('/login2')
+            return redirect('/login-pengajuanrt')
                 ->withErrors($validator)
                 ->withInput();
         } else {
