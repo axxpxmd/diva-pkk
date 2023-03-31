@@ -607,7 +607,8 @@ class RTRWController extends Controller
                     's_aktif' => $status == 1 ? 1 : 0,
                     'nik' => $request->nik,
                     'no_telp' => $request->no_telp,
-                    'nama' => $request->ketua
+                    'nama' => $request->ketua,
+                    'nik' => $request->nik
                 ]);
 
                 //* Tahap 1.2
@@ -660,7 +661,8 @@ class RTRWController extends Controller
                     's_aktif' => $status == 1 ? 1 : 0,
                     'nik' => $request->nik,
                     'no_telp' => $request->no_telp,
-                    'nama' => $request->ketua
+                    'nama' => $request->ketua,
+                    'nik' => $request->nik
                 ]);
 
                 //* Tahap 1.2

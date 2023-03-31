@@ -65,7 +65,7 @@
 									<button type="submit" class="btn btn-primary btn-block bdr-r-30 px-3">Masuk</button>
 								</div>
                                 @error('user') 
-                                    <div class="alert alert-danger mt-2 mb-0 fs-14 text-center">NIK atau password tidak ditemukan.</div>
+                                    <div class="alert alert-danger mt-2 mb-0 fs-14 text-center">{{ $message }}</div>
                                 @enderror
 							</form>
 						</div>
