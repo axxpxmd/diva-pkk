@@ -54,20 +54,23 @@ class LoginController extends Controller
                 // check RT
                 if ($rt) {
                     $role_id = 3;
+                    $modelHasRole = ModelHasRole::where('model_id', $user->id)->first();
+                    $modelHasRole->update([
+                        'role_id' => $role_id
+                    ]);
                 } else {
                     $validator->errors()->add('user', 'Akun pengguna sudah tidak aktif.');
                 }
                 // check RW
                 if ($rw) {
                     $role_id = 4;
+                    $modelHasRole = ModelHasRole::where('model_id', $user->id)->first();
+                    $modelHasRole->update([
+                        'role_id' => $role_id
+                    ]);
                 } else {
                     $validator->errors()->add('user', 'Akun pengguna sudah tidak aktif.');
                 }
-
-                $modelHasRole = ModelHasRole::where('model_id', $user->id)->first();
-                $modelHasRole->update([
-                    'role_id' => $role_id
-                ]);
 
                 Auth::login($user, $request->remember);
                 return redirect(route('dashboard'));
