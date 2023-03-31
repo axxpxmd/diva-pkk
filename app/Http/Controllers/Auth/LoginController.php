@@ -64,7 +64,7 @@ class LoginController extends Controller
 
         if ($role_id == 3 || $role_id == 4 || $role_id == 5 || $role_id == 6 || $role_id == 10) {
             Auth::logout();
-            return redirect('/login2');
+            return redirect('/login-pengajuanrt');
         } else {
             Auth::logout();
             return redirect('/login');
