@@ -32,7 +32,7 @@ use App\Http\Controllers\ValidasiSuratController;
 */
 
 Route::get('/login', [LoginController::class, 'index'])->middleware('guest');
-Route::get('/login2', [LoginController::class, 'index2'])->middleware('guest');
+Route::get('/login-pengajuanrt', [LoginController::class, 'index2'])->middleware('guest');
 Route::post('/login', [LoginController::class, 'login'])->name('login')->middleware('guest');
 
 Route::group(['middleware' => ['web', 'auth']], function () {
