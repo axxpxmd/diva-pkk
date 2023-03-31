@@ -55,37 +55,43 @@ class LoginController extends Controller
             if ($user->s_aktif != 1) {
                 $validator->errors()->add('user', 'Akun pengguna sudah tidak aktif.');
             } else {
-                $rt = MappingRT::where('nik', $request->username)->where('status', 1)->first();
-                $rw = MappingRW::where('nik', $request->username)->where('status', 1)->first();
+                $checkRole = ModelHasRole::where('model_id', $user->id)->first();
+                if ($checkRole->role_id == 3 || $checkRole->role_id == 4) {
+                    $rt = MappingRT::where('nik', $request->username)->where('status', 1)->first();
+                    $rw = MappingRW::where('nik', $request->username)->where('status', 1)->first();
 
-                if ($rt && $rw) {
-                    $validator->errors()->add('user', 'Silahkan nonaktifkan salah satu akun.');
+                    if ($rt && $rw) {
+                        $validator->errors()->add('user', 'Silahkan nonaktifkan salah satu akun.');
+                    } else {
+                        // check RT
+                        if ($rt) {
+                            ModelHasRole::where('model_id', $user->id)->delete();
+
+                            $model_has_role = new ModelHasRole();
+                            $model_has_role->role_id    = 3;
+                            $model_has_role->model_type = 'app\Models\User';
+                            $model_has_role->model_id   = $user->id;
+                            $model_has_role->save();
+                        }
+                        // check RW
+                        if ($rw) {
+                            ModelHasRole::where('model_id', $user->id)->delete();
+
+                            $model_has_role = new ModelHasRole();
+                            $model_has_role->role_id    = 4;
+                            $model_has_role->model_type = 'app\Models\User';
+                            $model_has_role->model_id   = $user->id;
+                            $model_has_role->save();
+                        }
+
+                        Auth::login($user, $request->remember);
+                        return redirect(route('dashboard'));
+                    }
                 } else {
-                    // check RT
-                    if ($rt) {
-                        ModelHasRole::where('model_id', $user->id)->delete();
-
-                        $model_has_role = new ModelHasRole();
-                        $model_has_role->role_id    = 3;
-                        $model_has_role->model_type = 'app\Models\User';
-                        $model_has_role->model_id   = $user->id;
-                        $model_has_role->save();
-                    }
-                    // check RW
-                    if ($rw) {
-                        ModelHasRole::where('model_id', $user->id)->delete();
-
-                        $model_has_role = new ModelHasRole();
-                        $model_has_role->role_id    = 4;
-                        $model_has_role->model_type = 'app\Models\User';
-                        $model_has_role->model_id   = $user->id;
-                        $model_has_role->save();
-                    }
+                    Auth::login($user, $request->remember);
+                    return redirect(route('dashboard'));
                 }
             }
-
-            Auth::login($user, $request->remember);
-            return redirect(route('dashboard'));
         }
 
         if ($type == 2) {
