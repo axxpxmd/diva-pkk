@@ -47,6 +47,10 @@ class LoginController extends Controller
                 $rt = MappingRT::where('nik', $request->username)->where('status', 1)->first();
                 $rw = MappingRW::where('nik', $request->username)->where('status', 1)->first();
 
+                if ($rt && $rw) {
+                    $validator->errors()->add('user', 'Silahkan nonaktifkan salah satu akun.');
+                }
+
                 // check RT
                 if ($rt) {
                     $role_id = 3;
