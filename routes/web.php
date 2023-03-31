@@ -49,6 +49,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('/edit-ketua-rt/{id}', [RTRWController::class, 'editKetuaRT'])->name('rt-rw.editKetuaRT');
     Route::post('/update-ketua-rt', [RTRWController::class, 'updateKetuaRT'])->name('rt-rw.updateKetuaRT');
     Route::delete('/delete-ketua-rt/{id}', [RTRWController::class, 'deteleKetuaRT'])->name('rt-rw.deteleKetuaRT');
+    Route::get('/get-total-rt', [RTRWController::class, 'getTotal' ])->name('getTotalRT');
 
     Route::resource('/kelurahan', KelurahanController::class);
     Route::get('/create-ketua-kelurahan/{id}', [KelurahanController::class, 'createKetuaKelurahan'])->name('kelurahan.createKetuaKelurahan');

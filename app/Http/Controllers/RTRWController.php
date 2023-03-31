@@ -93,6 +93,34 @@ class RTRWController extends Controller
         ));
     }
 
+    public function getTotal(Request $request)
+    {
+        $kecamatan = $request->kecamatan;
+        $kelurahan = $request->kelurahan;
+        $rw = $request->rw;
+
+        $totalRT = RTRW::where('kecamatan_id', $kecamatan)
+        ->when($kelurahan, function($q) use($kelurahan) {
+            return $q->where('kelurahan_id', $kelurahan);
+        })
+        ->when($rw, function($q) use($rw) {
+            return $q ->where('rw', $rw);
+        })->count();
+
+        $totalRW = RTRW::where('kecamatan_id', $kecamatan)
+        ->when($kelurahan, function($q) use($kelurahan) {
+            return $q->where('kelurahan_id', $kelurahan);
+        })
+        ->groupBy('rw')->count();
+
+        $dataJson = [
+            'totalRT' => $totalRT,
+            'totalRW' => $totalRW
+        ];
+
+        return $dataJson;
+    }
+
     public function dataTable($kecamatan_id, $kelurahan_id, $rw, $rt, $role_id)
     {
         $data = RTRW::queryTable($kecamatan_id, $kelurahan_id, $rw, $rt,);
