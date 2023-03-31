@@ -27,7 +27,7 @@ class LoginController extends Controller
         if ($check_url) {
             return view('auth.login2');
         } else {
-            return view('auth.login2');
+            return view('auth.login');
         }
     }
 
