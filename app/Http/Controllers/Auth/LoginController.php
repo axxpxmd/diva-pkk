@@ -61,10 +61,10 @@ class LoginController extends Controller
                 if ($rt && $rw) {
                     $validator->errors()->add('user', 'Silahkan nonaktifkan salah satu akun.');
                 } else {
-                    ModelHasRole::where('model_id', $user->id)->delete();
-                    
                     // check RT
                     if ($rt) {
+                        ModelHasRole::where('model_id', $user->id)->delete();
+
                         $model_has_role = new ModelHasRole();
                         $model_has_role->role_id    = 3;
                         $model_has_role->model_type = 'app\Models\User';
@@ -73,6 +73,8 @@ class LoginController extends Controller
                     }
                     // check RW
                     if ($rw) {
+                        ModelHasRole::where('model_id', $user->id)->delete();
+
                         $model_has_role = new ModelHasRole();
                         $model_has_role->role_id    = 4;
                         $model_has_role->model_type = 'app\Models\User';
@@ -80,10 +82,10 @@ class LoginController extends Controller
                         $model_has_role->save();
                     }
                 }
-
-                Auth::login($user, $request->remember);
-                return redirect(route('dashboard'));
             }
+
+            Auth::login($user, $request->remember);
+            return redirect(route('dashboard'));
         }
 
         if ($type == 2) {
