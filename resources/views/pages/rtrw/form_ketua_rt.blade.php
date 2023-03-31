@@ -64,7 +64,11 @@
                                     {{ date_diff(new \DateTime($i->awal_menjabat), new \DateTime($i->akhir_menjabat))->format("%y Tahun, %m Bulan, %d Hari"); }}
                                 </td>
                                 <td class="text-center">
-                                    {{ $i->user->s_aktif == 1 ? 'Aktif' : 'Tidak Aktif' }}
+                                    @if ($i->user)
+                                        Ada / {{ $i->user->s_aktif == 1 ? 'Aktif' : 'Tidak Aktif' }}
+                                    @else
+                                        Tidak ada
+                                    @endif
                                 </td>
                                 <td class="text-center">
                                     @if ($i->status == 1)
@@ -74,12 +78,13 @@
                                     @endif
                                 </td>
                                 <td class="text-center">
-                                    <a href="#" onclick="edit({{ $i->id }})" class="text-info m-r-5"><i class="bi bi-pencil-fill"></i></a>
+                                    <a href="{{ route('resetPassword', $i->nik) }}" class="text-success m-r-5" title="Reset Password"><i class="bi bi-arrow-clockwise"></i></a>
+                                    <a href="#" onclick="edit({{ $i->id }})" class="text-info m-r-5" title="Edit Data"><i class="bi bi-pencil-fill"></i></a>
                                     @if ($kategori == 'rt')
-                                        <a href="#" onclick="deleteKetuaRT({{ $i->id }})" class="text-danger"><i class="bi bi-trash-fill"></i></a>
+                                        <a href="#" onclick="deleteKetuaRT({{ $i->id }})" class="text-danger" title="Delete Data"><i class="bi bi-trash-fill"></i></a>
                                     @endif
                                     @if ($kategori == 'rw')
-                                        <a href="#" onclick="deleteKetuaRW({{ $i->id }})" class="text-danger"><i class="bi bi-trash-fill"></i></a>
+                                        <a href="#" onclick="deleteKetuaRW({{ $i->id }})" class="text-danger" title="Delete Data"><i class="bi bi-trash-fill"></i></a>
                                     @endif
                                 </td>
                             </tr>

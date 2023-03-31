@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-
+use App\Models\MappingRT;
+use App\Models\MappingRW;
+use App\Models\ModelHasRole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -42,6 +44,27 @@ class LoginController extends Controller
             if ($user->s_aktif != 1) {
                 $validator->errors()->add('user', 'Akun pengguna sudah tidak aktif.');
             } else {
+                $rt = MappingRT::where('nik', $request->username)->where('status', 1)->first();
+                $rw = MappingRW::where('nik', $request->username)->where('status', 1)->first();
+
+                // check RT
+                if ($rt) {
+                    $role_id = 3;
+                } else {
+                    $validator->errors()->add('user', 'Akun pengguna sudah tidak aktif.');
+                }
+                // check RW
+                if ($rw) {
+                    $role_id = 4;
+                } else {
+                    $validator->errors()->add('user', 'Akun pengguna sudah tidak aktif.');
+                }
+
+                $modelHasRole = ModelHasRole::where('model_id', $user->id)->first();
+                $modelHasRole->update([
+                    'role_id' => $role_id
+                ]);
+
                 Auth::login($user, $request->remember);
                 return redirect(route('dashboard'));
             }

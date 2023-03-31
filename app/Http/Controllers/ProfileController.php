@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 
 // Models
 use App\Models\User;
+use Illuminate\Foundation\Auth\User as IlluminateUser;
 
 class ProfileController extends Controller
 {
@@ -103,5 +104,15 @@ class ProfileController extends Controller
         return redirect()
             ->route('profile.index')
             ->withSuccess('Selamat! Foto berhasil diperbaharui.');
+    }
+
+    public function resetPassword($username)
+    {
+        $data = User::where('username', $username)->first();
+        $data->update([
+            'password' => \md5('123456789')
+        ]);
+
+        return redirect()->back()->withSuccess("Password telah direset menjadi 123456789");
     }
 }
