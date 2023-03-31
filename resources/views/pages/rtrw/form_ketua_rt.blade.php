@@ -78,7 +78,7 @@
                                     @endif
                                 </td>
                                 <td class="text-center">
-                                    <a href="{{ route('resetPassword', $i->nik) }}" class="text-success m-r-5" title="Reset Password"><i class="bi bi-arrow-clockwise"></i></a>
+                                    <a href="{{ route('resetPassword', $i->nik) }}" class="text-success m-r-5" title="Reset Password"><i class="bi bi-bootstrap-reboot"></i></a>
                                     <a href="#" onclick="edit({{ $i->id }})" class="text-info m-r-5" title="Edit Data"><i class="bi bi-pencil-fill"></i></a>
                                     @if ($kategori == 'rt')
                                         <a href="#" onclick="deleteKetuaRT({{ $i->id }})" class="text-danger" title="Delete Data"><i class="bi bi-trash-fill"></i></a>
