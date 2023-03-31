@@ -608,7 +608,7 @@ class RTRWController extends Controller
                     'nik' => $request->nik,
                     'no_telp' => $request->no_telp,
                     'nama' => $request->ketua,
-                    'nik' => $request->nik
+                    'username' => $request->nik
                 ]);
 
                 //* Tahap 1.2
@@ -662,7 +662,7 @@ class RTRWController extends Controller
                     'nik' => $request->nik,
                     'no_telp' => $request->no_telp,
                     'nama' => $request->ketua,
-                    'nik' => $request->nik
+                    'username' => $request->nik
                 ]);
 
                 //* Tahap 1.2
