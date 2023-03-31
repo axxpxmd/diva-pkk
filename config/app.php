@@ -112,6 +112,7 @@ return [
     // SFTP
     'sftp_root' => env('SFTP_ROOT'),
     'sftp_src' => env('SFTP_SRC'),
+    'check_url' => env('CHECK_URL'),
 
     /*
     |--------------------------------------------------------------------------

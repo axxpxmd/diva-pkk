@@ -31,6 +31,7 @@ use App\Http\Controllers\ValidasiSuratController;
 |
 */
 
+
 Route::get('/login', [LoginController::class, 'index'])->middleware('guest');
 Route::get('/loginpengajuanrt', [LoginController::class, 'index2'])->middleware('guest');
 Route::post('/login', [LoginController::class, 'login'])->name('login')->middleware('guest');

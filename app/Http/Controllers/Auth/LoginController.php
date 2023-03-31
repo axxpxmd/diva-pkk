@@ -3,21 +3,32 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\MappingRT;
-use App\Models\MappingRW;
-use App\Models\ModelHasRole;
+
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 // Models
 use App\Models\User;
+use App\Models\MappingRT;
+use App\Models\MappingRW;
+use App\Models\ModelHasRole;
 
 class LoginController extends Controller
 {
     public function index()
     {
-        return view('auth.login');
+        $url = url()->full();
+        $text = config('app.check_url');
+
+        $check_url = Str::contains($url, [$text]);
+
+        if ($check_url) {
+            return view('auth.login2');
+        } else {
+            return view('auth.login2');
+        }
     }
 
     public function index2()
@@ -49,27 +60,25 @@ class LoginController extends Controller
 
                 if ($rt && $rw) {
                     $validator->errors()->add('user', 'Silahkan nonaktifkan salah satu akun.');
-                }
-
-                // check RT
-                if ($rt) {
-                    $role_id = 3;
-                    $modelHasRole = ModelHasRole::where('model_id', $user->id)->first();
-                    $modelHasRole->update([
-                        'role_id' => $role_id
-                    ]);
                 } else {
-                    $validator->errors()->add('user', 'Akun pengguna sudah tidak aktif.');
-                }
-                // check RW
-                if ($rw) {
-                    $role_id = 4;
-                    $modelHasRole = ModelHasRole::where('model_id', $user->id)->first();
-                    $modelHasRole->update([
-                        'role_id' => $role_id
-                    ]);
-                } else {
-                    $validator->errors()->add('user', 'Akun pengguna sudah tidak aktif.');
+                    ModelHasRole::where('model_id', $user->id)->delete();
+                    
+                    // check RT
+                    if ($rt) {
+                        $model_has_role = new ModelHasRole();
+                        $model_has_role->role_id    = 3;
+                        $model_has_role->model_type = 'app\Models\User';
+                        $model_has_role->model_id   = $user->id;
+                        $model_has_role->save();
+                    }
+                    // check RW
+                    if ($rw) {
+                        $model_has_role = new ModelHasRole();
+                        $model_has_role->role_id    = 4;
+                        $model_has_role->model_type = 'app\Models\User';
+                        $model_has_role->model_id   = $user->id;
+                        $model_has_role->save();
+                    }
                 }
 
                 Auth::login($user, $request->remember);
