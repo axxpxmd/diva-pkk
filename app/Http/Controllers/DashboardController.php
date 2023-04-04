@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Helpers\CheckRole;
+use Illuminate\Support\Facades\Auth;
 
 // Models
 use App\Models\RTRW;
@@ -28,7 +29,8 @@ class DashboardController extends Controller
 
         $title = $this->title;
         $active_dashboard = $this->active_dashboard;
-
+        $role_id = Auth::user()->modelHasRole->role_id;
+       
         $kecamatans = Kecamatan::select('id', 'n_kecamatan')->where('kabupaten_id', 40)->get();
 
         list($dasawisma_id, $kecamatan_id, $kelurahan_id, $rtrw_id, $rw, $rt, $role_id) = $this->checkRole->getFilterValue();

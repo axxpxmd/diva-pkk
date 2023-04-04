@@ -44,13 +44,13 @@
     </div>
     <div>
         <div class="row">
-            <div class="col-sm" style="margin-bottom: -15px !important">
+            {{-- <div class="col-sm" style="margin-bottom: -15px !important">
                 <div class="card" style="border-left: 0.35rem solid #FDC90F !important">
                     <div class="card-body fs-14 fw-bold">
                         <div class="row">
                             <div class="col">
                                 <div class="fw-bold fs-14 text-warning mb-1">Jumlah RW</div>
-                                <div class="fw-bold fs-18 text-black">50 <sup class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</sup></div>
+                                <div class="fw-bold fs-18 text-black">50 <sup class="fs-12 text-black-50"></div>
                             </div>
                             <div class="col-auto fs-20">
                                 <i class="bi bi-clipboard-fill text-gray-400"></i>
@@ -65,7 +65,7 @@
                         <div class="row">
                             <div class="col">
                                 <div class="fw-bold fs-14 text-success mb-1">Jumlah RT</div>
-                                <div class="fw-bold fs-18 text-black">120 <sup class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-down text-danger"></i> 5%</sup></div>
+                                <div class="fw-bold fs-18 text-black">120</div>
                             </div>
                             <div class="col-auto fs-20">
                                 <i class="bi bi-clipboard-fill text-gray-400"></i>
@@ -73,7 +73,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <div class="col-sm" style="margin-bottom: -15px !important">
                 <div class="card" style="border-left: 0.35rem solid #FC4B6C !important">
                     <div class="card-body fs-14 fw-bold">
