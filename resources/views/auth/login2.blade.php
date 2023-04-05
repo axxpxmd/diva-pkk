@@ -1,3 +1,15 @@
+@php
+    $url = url()->full();
+    $text = config('app.check_url');
+
+    $check_url = Str::contains($url, [$text]);
+
+    if ($check_url) {
+        $t = 'SIPESAT';
+    } else {
+        $t = 'DIVA PKK';
+    }
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +20,7 @@
 
     <!-- Title -->
     <link rel="icon" href="{{ asset('images/logo/tangsel.png') }}" type="image/x-icon">
-    <title>{{ config('app.name') }} | Form Login</title>
+    <title>{{ $t }} | Form Login</title>
 
     <!-- CSS -->
     <link rel="stylesheet" href="{{ asset('css/util.css') }}">

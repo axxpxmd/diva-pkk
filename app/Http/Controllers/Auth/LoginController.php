@@ -61,7 +61,7 @@ class LoginController extends Controller
                     $rw = MappingRW::where('nik', $request->username)->where('status', 1)->first();
 
                     if ($rt && $rw) {
-                        $validator->errors()->add('user', 'Silahkan nonaktifkan salah satu akun.');
+                        $validator->errors()->add('user', 'Silahkan hubungi admin kelurahan untuk menonaktifkan salah satu akun.');
                     } else {
                         // check RT
                         if ($rt) {

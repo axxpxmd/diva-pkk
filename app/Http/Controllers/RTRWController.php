@@ -100,18 +100,18 @@ class RTRWController extends Controller
         $rw = $request->rw;
 
         $totalRT = RTRW::where('kecamatan_id', $kecamatan)
-        ->when($kelurahan, function($q) use($kelurahan) {
-            return $q->where('kelurahan_id', $kelurahan);
-        })
-        ->when($rw, function($q) use($rw) {
-            return $q ->where('rw', $rw);
-        })->count();
+            ->when($kelurahan, function ($q) use ($kelurahan) {
+                return $q->where('kelurahan_id', $kelurahan);
+            })
+            ->when($rw, function ($q) use ($rw) {
+                return $q->where('rw', $rw);
+            })->count();
 
         $totalRW = RTRW::where('kecamatan_id', $kecamatan)
-        ->when($kelurahan, function($q) use($kelurahan) {
-            return $q->where('kelurahan_id', $kelurahan);
-        })
-        ->groupBy('rw')->count();
+            ->when($kelurahan, function ($q) use ($kelurahan) {
+                return $q->where('kelurahan_id', $kelurahan);
+            })
+            ->groupBy('rw')->count();
 
         $dataJson = [
             'totalRT' => $totalRT,
@@ -385,7 +385,7 @@ class RTRWController extends Controller
          *    2.1 Check status aktif ketua RW
          *    2.2 rw_mappings (create)
          *    2.3 rt_rw (update)
-         *    2.4 user (create)
+         *    2.4 user (create) 
          *    2.5 model_has_roles (create)
          */
 
@@ -403,6 +403,13 @@ class RTRWController extends Controller
                     }
                 }
 
+                $mappingRW = MappingRW::where('nik', $request->nik)->where('status', 1)->first();
+                if ($mappingRW) {
+                    return redirect()
+                        ->route('rt-rw.createKetuaRT', [$rtrw_id, 'kategori=' . $kategori])
+                        ->withErrors("NIK tersebut masih terdaftar aktif sebagai ketua RW, Silahkan nonaktifkan terlebih dahulu untuk menambah data.");
+                }
+
                 //* Tahap 1.2
                 $input = $request->all();
                 $input = $request->except(['kategori']);
@@ -415,24 +422,24 @@ class RTRWController extends Controller
                     ]);
                 }
 
-                $checkUser = User::where('nik', $request->nik)->count();
-                if (!$checkUser) {
-                    //* Tahap 1.4
-                    $data_user = [
-                        'dasawisma_id' => 0,
-                        'rtrw_id' => $rtrw_id,
-                        'kecamatan_id' => $rtrw->kecamatan_id,
-                        'kelurahan_id' => $rtrw->kelurahan_id,
-                        'rw' => $rtrw->rw,
-                        'rt' => $rtrw->rt,
-                        'username' => $request->nik,
-                        'password' => \md5('123456789'),
-                        'no_telp' => $request->no_hp,
-                        's_aktif' => $status == 1 ? 1 : 0,
-                        'nama' => $request->ketua,
-                        'nik' => $request->nik,
-                        'foto' => 'default.png'
-                    ];
+                //* Tahap 1.4
+                $user = User::where('nik', $request->nik)->count();
+                $data_user = [
+                    'dasawisma_id' => 0,
+                    'rtrw_id' => $rtrw_id,
+                    'kecamatan_id' => $rtrw->kecamatan_id,
+                    'kelurahan_id' => $rtrw->kelurahan_id,
+                    'rw' => $rtrw->rw,
+                    'rt' => $rtrw->rt,
+                    'username' => $request->nik,
+                    'password' => \md5('123456789'),
+                    'no_telp' => $request->no_hp,
+                    's_aktif' => $status == 1 ? 1 : 0,
+                    'nama' => $request->ketua,
+                    'nik' => $request->nik,
+                    'foto' => 'default.png'
+                ];
+                if (!$user) {
                     $userRT = User::create($data_user);
 
                     //* Tahap 1.5
@@ -441,6 +448,13 @@ class RTRWController extends Controller
                     $model_has_role->model_type = 'app\Models\User';
                     $model_has_role->model_id   = $userRT->id;
                     $model_has_role->save();
+                }else{
+                    $user->update($data_user);
+
+                    //* Tahap 1.5
+                    $model_has_role = ModelHasRole::where('model_id', $user->id)->update([
+                        'role_id' => 3
+                    ]);
                 }
             } catch (\Throwable $th) {
                 DB::rollback(); //* DB Transaction Failed
@@ -466,6 +480,13 @@ class RTRWController extends Controller
                             ->route('rt-rw.createKetuaRT', [$rtrw_id, 'kategori=' . $kategori])
                             ->withErrors("Terdapat Ketua yang masih aktif menjabat.");
                     }
+                }
+
+                $mappingRT = MappingRT::where('nik', $request->nik)->where('status', 1)->first();
+                if ($mappingRT) {
+                    return redirect()
+                        ->route('rt-rw.createKetuaRT', [$rtrw_id, 'kategori=' . $kategori])
+                        ->withErrors("NIK tersebut masih terdaftar aktif sebagai ketua RT, Silahkan nonaktifkan terlebih dahulu untuk menambah data.");
                 }
 
                 //* Tahap 2.2
@@ -495,24 +516,24 @@ class RTRWController extends Controller
                     }
                 }
 
-                $checkUser = User::where('nik', $request->nik)->count();
-                if (!$checkUser) {
-                    //* Tahap 2.4
-                    $data_user = [
-                        'dasawisma_id' => 0,
-                        'rtrw_id' => 0,
-                        'rtrw_id' => $rtrw_id,
-                        'kecamatan_id' => $rtrw->kecamatan_id,
-                        'kelurahan_id' => $rtrw->kelurahan_id,
-                        'rw' => $rtrw->rw,
-                        'username' => $request->nik,
-                        'password' => \md5('123456789'),
-                        'no_telp' => $request->no_hp,
-                        's_aktif' => 1,
-                        'nama' => $request->ketua,
-                        'nik' => $request->nik,
-                        'foto' => 'default.png'
-                    ];
+                //* Tahap 2.4
+                $user = User::where('nik', $request->nik)->first();
+                $data_user = [
+                    'dasawisma_id' => 0,
+                    'rtrw_id' => 0,
+                    'rtrw_id' => $rtrw_id,
+                    'kecamatan_id' => $rtrw->kecamatan_id,
+                    'kelurahan_id' => $rtrw->kelurahan_id,
+                    'rw' => $rtrw->rw,
+                    'username' => $request->nik,
+                    'password' => \md5('123456789'),
+                    'no_telp' => $request->no_hp,
+                    's_aktif' => 1,
+                    'nama' => $request->ketua,
+                    'nik' => $request->nik,
+                    'foto' => 'default.png'
+                ];
+                if (!$user) {
                     $userRW = User::create($data_user);
 
                     //* Tahap 1.5
@@ -521,6 +542,13 @@ class RTRWController extends Controller
                     $model_has_role->model_type = 'app\Models\User';
                     $model_has_role->model_id   = $userRW->id;
                     $model_has_role->save();
+                } else {
+                    $user->update($data_user);
+
+                    //* Tahap 1.5
+                    $model_has_role = ModelHasRole::where('model_id', $user->id)->update([
+                        'role_id' => 4
+                    ]);
                 }
             } catch (\Throwable $th) {
                 DB::rollback(); //* DB Transaction Failed
@@ -600,6 +628,13 @@ class RTRWController extends Controller
                     }
                 }
 
+                $mappingRW = MappingRW::where('nik', $request->nik)->where('status', 1)->first();
+                if ($mappingRW) {
+                    return redirect()
+                        ->route('rt-rw.createKetuaRT', [$rtrw_id, 'kategori=' . $kategori])
+                        ->withErrors("NIK tersebut masih terdaftar aktif sebagai ketua RW, Silahkan nonaktifkan terlebih dahulu mengupdate data.");
+                }
+
                 //* Tahap 1.4
                 $data  = MappingRT::find($id);
                 $user = User::where('nik', $data->nik)->first();
@@ -610,6 +645,11 @@ class RTRWController extends Controller
                     'nama' => $request->ketua,
                     'username' => $request->nik
                 ]);
+                if ($status == 1) {
+                    ModelHasRole::where('model_id', $user->id)->update([
+                        'role_id' => 3
+                    ]);
+                }
 
                 //* Tahap 1.2
                 $input = $request->all();
@@ -654,6 +694,13 @@ class RTRWController extends Controller
                     }
                 }
 
+                $mappingRT = MappingRT::where('nik', $request->nik)->where('status', 1)->first();
+                if ($mappingRT) {
+                    return redirect()
+                        ->route('rt-rw.createKetuaRT', [$rtrw_id, 'kategori=' . $kategori])
+                        ->withErrors("NIK tersebut masih terdaftar aktif sebagai ketua RT, Silahkan nonaktifkan terlebih dahulu untuk mengupdate data.");
+                }
+
                 //* Tahap 1.4
                 $data = MappingRW::find($id);
                 $user = User::where('nik', $data->nik)->first();
@@ -664,6 +711,11 @@ class RTRWController extends Controller
                     'nama' => $request->ketua,
                     'username' => $request->nik
                 ]);
+                if ($status == 1) {
+                    ModelHasRole::where('model_id', $user->id)->update([
+                        'role_id' => 4
+                    ]);
+                }
 
                 //* Tahap 1.2
                 $input = [
@@ -710,7 +762,7 @@ class RTRWController extends Controller
     public function deteleKetuaRT(Request $request, $id)
     {
         $kategori = $request->kategori;
-     
+
         if ($kategori == 'rt') {
             $data = MappingRT::find($id);
 
