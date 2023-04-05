@@ -133,7 +133,7 @@
                             <th class="text-center">Akhir Menjabat</th>
                             <th class="text-center">Lama Menjabat</th>
                             <th class="text-center">Status Login</th>
-                            <th class="text-center">Status</th>
+                            <th class="text-center">Status Jabatan</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -149,7 +149,11 @@
                                     {{ date_diff(new \DateTime($i->awal_menjabat), new \DateTime($i->akhir_menjabat))->format("%y Tahun, %m Bulan, %d Hari"); }}
                                 </td>
                                 <td class="text-center">
-                                    {{ $i->user ? 'Ada' : 'Tidak Ada' }}
+                                    @if ($i->user)
+                                        Ada / {{ $i->user->s_aktif == 1 ? 'Aktif' : 'Tidak Aktif' }}
+                                    @else
+                                        Tidak ada
+                                    @endif
                                 </td>
                                 <td class="text-center">
                                     @if ($i->status == 1)

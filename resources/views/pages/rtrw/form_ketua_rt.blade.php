@@ -47,7 +47,7 @@
                             <th class="text-center">Akhir Menjabat</th>
                             <th class="text-center">Lama Menjabat</th>
                             <th class="text-center">Status Login</th>
-                            <th class="text-center">Status</th>
+                            <th class="text-center">Status Jabatan</th>
                             <th></th>
                         </tr>
                     </thead>
