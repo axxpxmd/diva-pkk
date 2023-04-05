@@ -86,7 +86,7 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="row p-0">
-                        <label class="col-sm-4 col-form-label fw-bold">3 Buta</label>
+                        <label class="col-sm-4 col-form-label fw-bold">3 Buta <span class="fs-12 text-black-50">(Baca, Tulis, Hitung)</span></label>
                         <label class="col-sm-8 col-form-label">{{ $data->warga(6)->count() }} Orang</label>
                     </div> 
                     <div class="row p-0">
