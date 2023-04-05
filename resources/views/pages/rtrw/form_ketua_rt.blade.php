@@ -16,7 +16,7 @@
                 <div class="col-sm-6">
                     <div class="row p-0">
                         <label class="col-sm-2 col-form-label fw-bold">Kecamatan</label>
-                        <label class="col-sm-8 col-form-label">{{ $rtrw->kecamatan->n_kecamatan }}</label>
+                        <label class="col-sm-8 col-form-label">{{ $rtrw->kecamatan->n_kecamatan }} </label>
                     </div>
                     <div class="row p-0">
                         <label class="col-sm-2 col-form-label fw-bold">Kelurahan</label>

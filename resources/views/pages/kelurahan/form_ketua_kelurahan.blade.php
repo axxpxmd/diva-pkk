@@ -16,7 +16,7 @@
                 <div class="col-sm-6">
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Kecamatan</label>
-                        <label class="col-sm-8 col-form-label">{{ $kelurahan->kecamatan->n_kecamatan }} &nbsp; ( {{ $kelurahan->kecamatan->kode }} )</label>
+                        <label class="col-sm-8 col-form-label">{{ $kelurahan->kecamatan->n_kecamatan }} &nbsp; ( Kode : {{ $kelurahan->kecamatan->kode }} )</label>
                     </div>
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Kelurahan</label>
