@@ -14,6 +14,8 @@ use App\Models\Kecamatan;
 use App\Models\Kelurahan;
 use App\Models\ModelHasRole;
 use App\Models\MappingKelurahan;
+use App\Models\MappingRT;
+use App\Models\MappingRW;
 
 class KelurahanController extends Controller
 {
@@ -162,6 +164,14 @@ class KelurahanController extends Controller
                         ->withErrors("Terdapat Ketua yang masih aktif menjabat.");
                 }
             }
+            $mappingRT = MappingRT::checkStatusAktif($request->nik);
+            $mappingRW = MappingRW::checkStatusAktif($request->nik);
+            if ($mappingRW || $mappingRT) {
+                $ketua = $mappingRW ? 'RW' : 'RT';
+                return redirect()
+                    ->route('kelurahan.createKetuaKelurahan', $kelurahan_id)
+                    ->withErrors("NIK tersebut masih terdaftar aktif sebagai ketua " . $ketua . " , Silahkan nonaktifkan terlebih dahulu untuk menambah data.");
+            }
 
             //* Tahap 2
             $input = $request->all();
@@ -177,30 +187,37 @@ class KelurahanController extends Controller
             }
 
             //* Tahap 4
-            $checkUser = User::where('nik', $request->nik)->count();
+            $checkUser = User::where('nik', $request->nik)->first();
+            $data_user = [
+                'dasawisma_id' => 0,
+                'rtrw_id' => 0,
+                'kelurahan_id' => $request->kelurahan_id,
+                'kecamatan_id' => $request->kecamatan_id,
+                'username' => $request->nik,
+                'password' => \md5('123456789'),
+                'no_telp' => $request->no_hp,
+                's_aktif' => $status == 1 ? 1 : 0,
+                'nama' => $request->ketua,
+                'nik' => $request->nik,
+                'foto' => 'default.png'
+            ];
             if (!$checkUser) {
-                $data_user = [
-                    'dasawisma_id' => 0,
-                    'rtrw_id' => 0,
-                    'kelurahan_id' => $request->kelurahan_id,
-                    'kecamatan_id' => $request->kecamatan_id,
-                    'username' => $request->nik,
-                    'password' => \md5('123456789'),
-                    'no_telp' => $request->no_hp,
-                    's_aktif' => $status == 1 ? 1 : 0,
-                    'nama' => $request->ketua,
-                    'nik' => $request->nik,
-                    'foto' => 'default.png'
-                ];
                 $user = User::create($data_user);
-            }
 
-            //* Tahap 5
-            $model_has_role = new ModelHasRole();
-            $model_has_role->role_id    = 5;
-            $model_has_role->model_type = 'app\Models\User';
-            $model_has_role->model_id   = $user->id;
-            $model_has_role->save();
+                //* Tahap 5
+                $model_has_role = new ModelHasRole();
+                $model_has_role->role_id    = 5;
+                $model_has_role->model_type = 'app\Models\User';
+                $model_has_role->model_id   = $user->id;
+                $model_has_role->save();
+            } else {
+                $checkUser->update($data_user);
+
+                //* Tahap 1.5
+                $model_has_role = ModelHasRole::where('model_id', $checkUser->id)->update([
+                    'role_id' => 5
+                ]);
+            }
         } catch (\Throwable $th) {
             DB::rollback(); //* DB Transaction Failed
             return redirect()
@@ -255,15 +272,29 @@ class KelurahanController extends Controller
                 }
             }
 
+            $mappingRT = MappingRT::checkStatusAktif($request->nik);
+            $mappingRW = MappingRW::checkStatusAktif($request->nik);
+            if ($mappingRW || $mappingRT) {
+                $ketua = $mappingRW ? 'RW' : 'RT';
+                return redirect()
+                    ->route('kelurahan.createKetuaKelurahan', $kelurahan_id)
+                    ->withErrors("NIK tersebut masih terdaftar aktif sebagai ketua " . $ketua . " , Silahkan nonaktifkan terlebih dahulu untuk mengupdate data.");
+            }
+
             //* Tahap 4
             $data  = MappingKelurahan::find($id);
             $user = User::where('nik', $data->nik)->first();
             $user->update([
                 's_aktif' => $status == 1 ? 1 : 0,
                 'nik' => $request->nik,
-                'no_telp' => $request->no_telp,
+                'no_telp' => $request->no_hp,
                 'nama' => $request->ketua
             ]);
+            if ($status == 1) {
+                ModelHasRole::where('model_id', $user->id)->update([
+                    'role_id' => 3
+                ]);
+            }
 
             //* Tahap 2
             $input = $request->all();
@@ -305,7 +336,11 @@ class KelurahanController extends Controller
             ]);
         }
 
-        User::where('username', $data->nik)->delete();
+        $mappingRT = MappingRT::checkStatusAktif($data->nik);
+        $mappingRW = MappingRW::checkStatusAktif($data->nik);
+        if ($mappingRW || $mappingRT) {
+            User::where('username', $data->nik)->delete();
+        }
         $data->delete();
 
         return response()->json(['message' => "Berhasil menghapus data."]);

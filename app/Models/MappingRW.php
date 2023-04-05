@@ -13,4 +13,11 @@ class MappingRW extends Model
     {
         return $this->belongsTo(User::class, 'nik', 'nik');
     }
+
+    public static function checkStatusAktif($nik)
+    {
+        $data = MappingRW::where('nik', $nik)->where('status', 1)->first();
+
+        return $data;
+    }
 }

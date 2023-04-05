@@ -14,6 +14,7 @@ use App\Models\RTRW;
 use App\Models\User;
 use App\Models\Kecamatan;
 use App\Models\Kelurahan;
+use App\Models\MappingKelurahan;
 use App\Models\MappingRT;
 use App\Models\MappingRW;
 use App\Models\ModelHasRole;
@@ -403,11 +404,13 @@ class RTRWController extends Controller
                     }
                 }
 
-                $mappingRW = MappingRW::where('nik', $request->nik)->where('status', 1)->first();
-                if ($mappingRW) {
+                $mappingRW = MappingRW::checkStatusAktif($request->nik);
+                $mappingKelurahan = MappingKelurahan::checkStatusAktif($request->nik);
+                if ($mappingRW || $mappingKelurahan) {
+                    $ketua = $mappingRW ? 'RW' : 'Kelurahan';
                     return redirect()
                         ->route('rt-rw.createKetuaRT', [$rtrw_id, 'kategori=' . $kategori])
-                        ->withErrors("NIK tersebut masih terdaftar aktif sebagai ketua RW, Silahkan nonaktifkan terlebih dahulu untuk menambah data.");
+                        ->withErrors("NIK tersebut masih terdaftar aktif sebagai ketua " . $ketua . "  , Silahkan nonaktifkan terlebih dahulu untuk menambah data.");
                 }
 
                 //* Tahap 1.2
@@ -423,7 +426,7 @@ class RTRWController extends Controller
                 }
 
                 //* Tahap 1.4
-                $user = User::where('nik', $request->nik)->count();
+                $user = User::where('nik', $request->nik)->first();
                 $data_user = [
                     'dasawisma_id' => 0,
                     'rtrw_id' => $rtrw_id,
@@ -482,11 +485,13 @@ class RTRWController extends Controller
                     }
                 }
 
-                $mappingRT = MappingRT::where('nik', $request->nik)->where('status', 1)->first();
-                if ($mappingRT) {
+                $mappingRT = MappingRT::checkStatusAktif($request->nik);
+                $mappingKelurahan = MappingKelurahan::checkStatusAktif($request->nik);
+                if ($mappingRT || $mappingKelurahan) {
+                    $ketua = $mappingRT ? 'RT' : 'Kelurahan';
                     return redirect()
                         ->route('rt-rw.createKetuaRT', [$rtrw_id, 'kategori=' . $kategori])
-                        ->withErrors("NIK tersebut masih terdaftar aktif sebagai ketua RT, Silahkan nonaktifkan terlebih dahulu untuk menambah data.");
+                        ->withErrors("NIK tersebut masih terdaftar aktif sebagai ketua " . $ketua . "  , Silahkan nonaktifkan terlebih dahulu untuk menambah data.");
                 }
 
                 //* Tahap 2.2
@@ -628,11 +633,13 @@ class RTRWController extends Controller
                     }
                 }
 
-                $mappingRW = MappingRW::where('nik', $request->nik)->where('status', 1)->first();
-                if ($mappingRW) {
+                $mappingRW = MappingRW::checkStatusAktif($request->nik);
+                $mappingKelurahan = MappingKelurahan::checkStatusAktif($request->nik);
+                if ($mappingRW || $mappingKelurahan) {
+                    $ketua = $mappingRW ? 'RW' : 'Kelurahan';
                     return redirect()
                         ->route('rt-rw.createKetuaRT', [$rtrw_id, 'kategori=' . $kategori])
-                        ->withErrors("NIK tersebut masih terdaftar aktif sebagai ketua RW, Silahkan nonaktifkan terlebih dahulu mengupdate data.");
+                        ->withErrors("NIK tersebut masih terdaftar aktif sebagai ketua " . $ketua . "  , Silahkan nonaktifkan terlebih dahulu untuk mengupdate data.");
                 }
 
                 //* Tahap 1.4
@@ -641,7 +648,7 @@ class RTRWController extends Controller
                 $user->update([
                     's_aktif' => $status == 1 ? 1 : 0,
                     'nik' => $request->nik,
-                    'no_telp' => $request->no_telp,
+                    'no_telp' => $request->no_hp,
                     'nama' => $request->ketua,
                     'username' => $request->nik
                 ]);
@@ -694,11 +701,13 @@ class RTRWController extends Controller
                     }
                 }
 
-                $mappingRT = MappingRT::where('nik', $request->nik)->where('status', 1)->first();
-                if ($mappingRT) {
+                $mappingRT = MappingRT::checkStatusAktif($request->nik);
+                $mappingKelurahan = MappingKelurahan::checkStatusAktif($request->nik);
+                if ($mappingRT || $mappingKelurahan) {
+                    $ketua = $mappingRT ? 'RT' : 'Kelurahan';
                     return redirect()
                         ->route('rt-rw.createKetuaRT', [$rtrw_id, 'kategori=' . $kategori])
-                        ->withErrors("NIK tersebut masih terdaftar aktif sebagai ketua RT, Silahkan nonaktifkan terlebih dahulu untuk mengupdate data.");
+                        ->withErrors("NIK tersebut masih terdaftar aktif sebagai ketua " . $ketua . "  , Silahkan nonaktifkan terlebih dahulu untuk mengupdate data.");
                 }
 
                 //* Tahap 1.4
@@ -707,7 +716,7 @@ class RTRWController extends Controller
                 $user->update([
                     's_aktif' => $status == 1 ? 1 : 0,
                     'nik' => $request->nik,
-                    'no_telp' => $request->no_telp,
+                    'no_telp' => $request->no_hp,
                     'nama' => $request->ketua,
                     'username' => $request->nik
                 ]);

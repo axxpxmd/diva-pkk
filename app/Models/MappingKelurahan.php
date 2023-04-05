@@ -18,4 +18,11 @@ class MappingKelurahan extends Model
     {
         return $this->belongsTo(User::class, 'nik', 'nik');
     }
+
+    public static function checkStatusAktif($nik)
+    {
+        $data = MappingKelurahan::where('nik', $nik)->where('status', 1)->first();
+
+        return $data;
+    }
 }

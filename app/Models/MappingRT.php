@@ -19,4 +19,11 @@ class MappingRT extends Model
     {
         return $this->belongsTo(User::class, 'nik', 'nik');
     }
+
+    public static function checkStatusAktif($nik)
+    {
+        $data = MappingRT::where('nik', $nik)->where('status', 1)->first();
+
+        return $data;
+    }
 }
