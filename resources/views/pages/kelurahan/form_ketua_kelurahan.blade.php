@@ -87,7 +87,7 @@
         </div>
     </div>
     <div class="card">
-        <h5 class="card-header bg-info text-white mb-2 p-3 fs-18"><span id="textTitle">Tambah</span> Ketua Kelurahan</h5>
+        <h5 class="card-header bg-success text-white mb-2 p-3 fs-18"><span id="textTitle">Tambah</span> Ketua Kelurahan</h5>
         <div class="card-body">
             <div class="col-md-6 container">
                 <form id="form" class="fs-14 needs-validation" method="POST" action="{{ route('kelurahan.storeKetuaKelurahan') }}" novalidate>

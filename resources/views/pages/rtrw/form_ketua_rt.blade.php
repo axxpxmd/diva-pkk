@@ -80,11 +80,13 @@
                                 <td class="text-center">
                                     <a href="{{ route('resetPassword', $i->nik) }}" class="text-success m-r-8" title="Reset Password"><i class="bi bi-bootstrap-reboot"></i></a>
                                     <a href="#" onclick="edit({{ $i->id }})" class="text-info m-r-8" title="Edit Data"><i class="bi bi-pencil-fill"></i></a>
-                                    @if ($kategori == 'rt')
+                                    @if ($i->status == 0)
+                                        @if ($kategori == 'rt')
                                         <a href="#" onclick="deleteKetuaRT({{ $i->id }})" class="text-danger" title="Delete Data"><i class="bi bi-trash-fill"></i></a>
-                                    @endif
-                                    @if ($kategori == 'rw')
-                                        <a href="#" onclick="deleteKetuaRW({{ $i->id }})" class="text-danger" title="Delete Data"><i class="bi bi-trash-fill"></i></a>
+                                        @endif
+                                        @if ($kategori == 'rw')
+                                            <a href="#" onclick="deleteKetuaRW({{ $i->id }})" class="text-danger" title="Delete Data"><i class="bi bi-trash-fill"></i></a>
+                                        @endif
                                     @endif
                                 </td>
                             </tr>
@@ -99,7 +101,7 @@
         </div>
     </div>
     <div class="card">
-        <h5 class="card-header bg-info text-white mb-2 p-3 fs-18"><span id="textTitle">Tambah</span> Ketua {{ $kategori == 'rt' ? 'RT' : 'RW' }}</h5>
+        <h5 class="card-header bg-success text-white mb-2 p-3 fs-18"><span id="textTitle">Tambah</span> Ketua {{ $kategori == 'rt' ? 'RT' : 'RW' }}</h5>
         <div class="card-body">
             <div class="col-md-6 container">
                 <form id="form" class="fs-14 needs-validation" method="POST" action="{{ route('rt-rw.storeKetuaRT', ['kategori'=>$kategori]) }}" novalidate>

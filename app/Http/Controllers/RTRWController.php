@@ -448,7 +448,7 @@ class RTRWController extends Controller
                     $model_has_role->model_type = 'app\Models\User';
                     $model_has_role->model_id   = $userRT->id;
                     $model_has_role->save();
-                }else{
+                } else {
                     $user->update($data_user);
 
                     //* Tahap 1.5
@@ -773,7 +773,11 @@ class RTRWController extends Controller
                 ]);
             }
 
-            User::where('username', $data->nik)->delete();
+            $mappingRW = MappingRW::where('nik', $data->nik)->first();
+            if (!$mappingRW) {
+                User::where('username', $data->nik)->delete();
+            }
+
             $data->delete();
         }
 
@@ -787,8 +791,11 @@ class RTRWController extends Controller
                 ]);
             }
 
-            User::where('username', $data->nik)->delete();
-            $data->delete();
+            $mappingRT = MappingRT::where('nik', $data->nik)->first();
+            if (!$mappingRT) {
+                User::where('username', $data->nik)->delete();
+                $data->delete();
+            }
         }
 
         return response()->json(['message' => "Berhasil menghapus data."]);
