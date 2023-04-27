@@ -6,7 +6,7 @@
 </div>
 <section class="section animate__animated animate__fadeInRight">
     <div class="my-3">
-        <a href="{{ route('rumah.index') }}" class="fs-14 text-danger fw-bold m-r-10"><i class="bi bi-arrow-left m-r-8"></i>Kembali</a>
+        <a href="{{ route('rt-rw.index') }}" class="fs-14 text-danger fw-bold m-r-10"><i class="bi bi-arrow-left m-r-8"></i>Kembali</a>
     </div>
     <div class="card">  
         <h5 class="card-header bg-info text-white mb-2 p-3 fs-18">Data {{ $kategori == 'rt' ? 'RT '. $data->rt : 'RW '. $data->rw }}</h5>
