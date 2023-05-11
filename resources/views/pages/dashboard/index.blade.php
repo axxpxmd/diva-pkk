@@ -182,7 +182,7 @@
                     <div class="card">
                         <div class="card-header bg-info text-white fw-bold fs-16 px-3 py-2">Status Perkawinan</div>
                         <div class="card-body p-2">
-                            @include('pages.dashboard.test')
+                            @include('pages.dashboard.perkawinan_pie')
                         </div>
                     </div>
                 </div>
