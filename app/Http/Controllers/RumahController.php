@@ -76,6 +76,7 @@ class RumahController extends Controller
         list($kecamatanDisplay, $kelurahanDisplay, $rtrwDisplay, $rwDisplay, $rtDisplay) = $this->checkFilter();
 
         $belumLengkap = count(Rumah::belumLengkapTotal($kecamatan_id, $kelurahan_id, $rtrw_id, $rt, $rw));
+        $isDivaPKK = $this->checkRole->isDivaPKK();
 
         return view('pages.rumah.index', compact(
             'title',
@@ -96,7 +97,8 @@ class RumahController extends Controller
             'rtDisplay',
             'rw',
             'rt',
-            'belumLengkap'
+            'belumLengkap',
+            'isDivaPKK'
         ));
     }
 

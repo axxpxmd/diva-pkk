@@ -2,7 +2,7 @@
 @section('content')
 <div class="page-heading mb-0">
     <h3>{{ $title }}</h3>
-    <p class="text-subtitle text-muted">{{ $desc }}</p>
+    <p class="text-subtitle text-muted">{{ $desc }}isDivaPKK</p>
 </div>
 <section class="section animate__animated animate__fadeInRight">
     @if ($role_id != 4 && $role_id != 5)
@@ -47,7 +47,7 @@
             </div>
         </div>
     </div> 
-    @if ($belumLengkap != 0)
+    @if ($belumLengkap != 0 && $isDivaPKK = true)
     <div class="alert alert-light-warning fs-14 fw-bold" role="alert">
         Terdapat <b>{{ $belumLengkap }}</b> data rumah yang belum lengkap !    
     </div>

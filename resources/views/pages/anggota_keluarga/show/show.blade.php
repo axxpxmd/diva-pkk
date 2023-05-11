@@ -14,10 +14,12 @@
             @endif
         </h5>
         <div class="card-body fs-14">
-            @if ($anggota->status_lengkap == 0)
-            <div class="alert alert-light-danger fw-bold fs-14" role="alert">
-                Data ini belum terisi dengan lengkap, silahkan lengkapi data.    
-            </div>
+            @if (Auth::user()->modelHasRole->role_id == [3,4,5,6,10])
+                @if ($anggota->status_lengkap == 0)
+                <div class="alert alert-light-danger fw-bold fs-14" role="alert">
+                    Data ini belum terisi dengan lengkap, silahkan lengkapi data.    
+                </div>
+                @endif
             @endif
             @if ($anggota->status_hidup == 1)
                 @include('pages.anggota_keluarga.show.hidup')

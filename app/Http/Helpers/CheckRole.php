@@ -50,4 +50,17 @@ class CheckRole
 
         return [$dasawisma_id, $kecamatan_id, $kelurahan_id, $rtrw_id, $rw, $rt, $role_id];
     }
+
+    public static function isDivaPKK()
+    {
+        $role_id = Auth::user()->modelHasRole->role_id;
+
+        if ($role_id == [1,2,9]) {
+            $isDivaPKK = true;
+        } else {
+            $isDivaPKK = false;
+        }
+
+        return $isDivaPKK;
+    }
 }

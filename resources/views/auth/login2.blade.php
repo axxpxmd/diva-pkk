@@ -69,7 +69,7 @@
 								</div>
                                 <div class="form-group mb-2">
 									<div class="custom-control custom-checkbox small">
-                                        <input type="checkbox" name="remember" readonly class="custom-control-input" id="customCheck">
+                                        <input type="checkbox" readonly class="custom-control-input" id="customCheck">
                                         <label class="custom-control-label" for="customCheck">Ingat Saya</label>
                                     </div>
 								</div>

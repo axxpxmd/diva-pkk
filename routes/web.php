@@ -17,7 +17,6 @@ use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\AnggotaKeluargaController;
-use App\Http\Controllers\NilaController;
 use App\Http\Controllers\ValidasiSuratController;
 
 /*
