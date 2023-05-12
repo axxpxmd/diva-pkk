@@ -80,7 +80,7 @@
                         <div class="row">
                             <div class="col">
                                 <div class="fw-bold fs-14 text-danger mb-1">Jumlah Rumah</div>
-                                <div class="fw-bold fs-18 text-black">304 <sup class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</sup></div>
+                                <div class="fw-bold fs-18 text-black">{{ $totalRumah }} <sup class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 0%</sup></div>
                             </div>
                             <div class="col-auto fs-20">
                                 <i class="bi bi-house-fill text-gray-400"></i>
@@ -95,7 +95,7 @@
                         <div class="row">
                             <div class="col">
                                 <div class="fw-bold fs-14 text-info mb-1">Jumlah KK</div>
-                                <div class="fw-bold fs-18 text-black">505 <sup class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-down text-danger"></i> 14%</sup></div>
+                                <div class="fw-bold fs-18 text-black">{{ $jumlahKK }} <sup class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-down text-danger"></i> 0%</sup></div>
                             </div>
                             <div class="col-auto fs-20">
                                 <i class="bi bi-file-earmark-text-fill text-gray-400"></i>
@@ -110,7 +110,7 @@
                         <div class="row">
                             <div class="col">
                                 <div class="fw-bold fs-14 text-primary mb-1">Jumlah Warga</div>
-                                <div class="fw-bold fs-18 text-black">932 <sup class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</sup></div>
+                                <div class="fw-bold fs-18 text-black">{{ $jumlahAnggota }} <sup class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 0%</sup></div>
                             </div>
                             <div class="col-auto fs-20">
                                 <i class="bi bi-people-fill text-gray-400"></i>
