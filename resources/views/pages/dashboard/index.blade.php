@@ -143,33 +143,33 @@
                                             <td class="text-center">1</td>
                                             <td>PUS</td>
                                             <td class="text-center">
-                                                500 
+                                                {{ $totalPus }} 
                                                 <sup class="text-black-50"><i class="fw-bold bi bi-arrow-down text-danger"></i> 10%</sup>
                                             </td>
                                             <td class="text-center">
-                                                10%
+                                                0%
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="text-center">2</td>
                                             <td>WUS</td>
                                             <td class="text-center">
-                                                500
+                                                {{ $totalWus }}
                                                 <sup class="text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</sup>
                                             </td>
                                                 <td class="text-center">
-                                                40%
+                                                0%
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="text-center">3</td>
                                             <td>Stunting</td>
                                             <td class="text-center">
-                                                500
+                                                {{ $totalStunting }}
                                                 <sup class="text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</sup>
                                             </td>
                                                 <td class="text-center">
-                                                2%
+                                                0%
                                             </td>
                                         </tr>
                                     </tbody>
@@ -192,7 +192,7 @@
                             <div class="card">
                                 <div class="card-body px-2 py-3 text-center">
                                     <div class="fw-bold fs-14 text-danger mb-3">Tangsel</div>
-                                    <div class="fw-bold fs-18 text-black">400 <sup class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</sup></div>
+                                    <div class="fw-bold fs-18 text-black">{{ $totalDomTangsel }} <sup class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 0%</sup></div>
                                 </div>
                             </div>
                         </div>
@@ -200,7 +200,7 @@
                             <div class="card">
                                 <div class="card-body px-2 py-3 text-center">
                                     <div class="fw-bold fs-14 text-success mb-3">Luar Tangsel</div>
-                                    <div class="fw-bold fs-18 text-black">890 <sup class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-down text-danger"></i> 10%</sup></div>
+                                    <div class="fw-bold fs-18 text-black">{{ $totalDomLuarTangsel }} <sup class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-down text-danger"></i> 0%</sup></div>
                                 </div>
                             </div>
                         </div>

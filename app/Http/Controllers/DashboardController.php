@@ -88,6 +88,12 @@ class DashboardController extends Controller
             })
             ->count();
 
+        $totalPus = Anggota::anggota(4, $kecamatan_filter, $kelurahan_filter, $rtrw_filter);
+        $totalWus = Anggota::anggota(5, $kecamatan_filter, $kelurahan_filter, $rtrw_filter);
+        $totalStunting = Anggota::anggota(11, $kecamatan_filter, $kelurahan_filter, $rtrw_filter);
+        $totalDomTangsel = Anggota::anggota(12, $kecamatan_filter, $kelurahan_filter, $rtrw_filter);
+        $totalDomLuarTangsel = Anggota::anggota(13, $kecamatan_filter, $kelurahan_filter, $rtrw_filter);
+
         return view('pages.dashboard.index', compact(
             'title',
             'active_dashboard',
@@ -101,7 +107,12 @@ class DashboardController extends Controller
             'rtrw',
             'totalRumah',
             'jumlahKK',
-            'jumlahAnggota'
+            'jumlahAnggota',
+            'totalPus',
+            'totalWus',
+            'totalStunting',
+            'totalDomTangsel',
+            'totalDomLuarTangsel'
         ));
     }
 }
