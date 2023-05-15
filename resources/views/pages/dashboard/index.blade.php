@@ -210,7 +210,7 @@
                             <div class="card" style="border-bottom: 0.35rem solid #FC4B6C !important">
                                 <div class="card-body px-2 py-3 text-center">
                                     <div class="fw-bold fs-14 text-danger mb-3">Lajang</div>
-                                    <div class="fw-bold fs-18 text-black">400 <sup class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</sup></div>
+                                    <div class="fw-bold fs-18 text-black">{{ $totalLajang }} <sup class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 0%</sup></div>
                                 </div>
                             </div>
                         </div>
@@ -218,7 +218,7 @@
                             <div class="card" style="border-bottom: 0.35rem solid #39CB7F !important">
                                 <div class="card-body px-2 py-3 text-center">
                                     <div class="fw-bold fs-14 text-success mb-3">Menikah</div>
-                                    <div class="fw-bold fs-18 text-black">890 <sup class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-down text-danger"></i> 10%</sup></div>
+                                    <div class="fw-bold fs-18 text-black">{{ $totalMenikah }} <sup class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-down text-danger"></i> 0%</sup></div>
                                 </div>
                             </div>
                         </div>
@@ -226,7 +226,7 @@
                             <div class="card" style="border-bottom: 0.35rem solid #4e73df  !important">
                                 <div class="card-body px-2 py-3 text-center">
                                     <div class="fw-bold fs-14 text-primary mb-3">Janda</div>
-                                    <div class="fw-bold fs-18 text-black">300 <sup class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</sup></div>
+                                    <div class="fw-bold fs-18 text-black">{{ $totalJanda }} <sup class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 0%</sup></div>
                                 </div>
                             </div>
                         </div>
@@ -234,7 +234,7 @@
                             <div class="card" style="border-bottom: 0.35rem solid #FDC90F !important">
                                 <div class="card-body px-2 py-3 text-center">
                                     <div class="fw-bold fs-14 text-warning mb-3">Duda</div>
-                                    <div class="fw-bold fs-18 text-black">200 <sup class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</sup></div>
+                                    <div class="fw-bold fs-18 text-black">{{ $totalDuda }} <sup class="fs-12 text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 0%</sup></div>
                                 </div>
                             </div>
                         </div>

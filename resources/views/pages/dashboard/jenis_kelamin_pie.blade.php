@@ -15,16 +15,16 @@
                 <th class="text-primary">Perempuan</th>
                 <td> &nbsp; : &nbsp; </td>
                 <td>
-                    <span class="text-black fw-bold">200</span> 
-                    <sup class="fs-12 text-black-50"><i class="bi bi-arrow-down text-danger"></i> 4%</sup>
+                    <span class="text-black fw-bold">{{ $totalPerempuan }}</span> 
+                    <sup class="fs-12 text-black-50"><i class="bi bi-arrow-down text-danger"></i> 0%</sup>
                 </td>
             </tr>
             <tr>
                 <th class="text-warning">Laki - Laki</th>
                 <td> &nbsp; : &nbsp; </td>
                 <td>
-                    <span class="text-black fw-bold">429</span>
-                    <sup class="fs-12 text-black-50"><i class="bi bi-arrow-up text-success"></i> 4%</sup>
+                    <span class="text-black fw-bold">{{ $totalLakiLaki }}</span>
+                    <sup class="fs-12 text-black-50"><i class="bi bi-arrow-up text-success"></i> 0%</sup>
                 </td>
             </tr>
         </table>
@@ -88,11 +88,11 @@
             colorByPoint: true,
             data: [{
                 name: 'Laki - Laki',
-                y: 429,
+                y: {{ $totalLakiLaki }},
                 color: '#FDC90F',
             }, {
                 name: 'Perempuan',
-                y: 200,
+                y: {{ $totalPerempuan }},
                 color: '#4e73df',
                 sliced: true
             }]

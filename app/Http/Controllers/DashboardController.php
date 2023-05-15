@@ -93,6 +93,12 @@ class DashboardController extends Controller
         $totalStunting = Anggota::anggota(11, $kecamatan_filter, $kelurahan_filter, $rtrw_filter);
         $totalDomTangsel = Anggota::anggota(12, $kecamatan_filter, $kelurahan_filter, $rtrw_filter);
         $totalDomLuarTangsel = Anggota::anggota(13, $kecamatan_filter, $kelurahan_filter, $rtrw_filter);
+        $totalLakiLaki = Anggota::anggota(1, $kecamatan_filter, $kelurahan_filter, $rtrw_filter);
+        $totalPerempuan = Anggota::anggota(2, $kecamatan_filter, $kelurahan_filter, $rtrw_filter);
+        $totalLajang = Anggota::anggota(14, $kecamatan_filter, $kelurahan_filter, $rtrw_filter);
+        $totalMenikah = Anggota::anggota(15, $kecamatan_filter, $kelurahan_filter, $rtrw_filter);
+        $totalJanda = Anggota::anggota(16, $kecamatan_filter, $kelurahan_filter, $rtrw_filter);
+        $totalDuda = Anggota::anggota(17, $kecamatan_filter, $kelurahan_filter, $rtrw_filter);
 
         return view('pages.dashboard.index', compact(
             'title',
@@ -112,7 +118,13 @@ class DashboardController extends Controller
             'totalWus',
             'totalStunting',
             'totalDomTangsel',
-            'totalDomLuarTangsel'
+            'totalDomLuarTangsel',
+            'totalLakiLaki',
+            'totalPerempuan',
+            'totalLajang',
+            'totalMenikah',
+            'totalJanda',
+            'totalDuda'
         ));
     }
 }

@@ -45,6 +45,10 @@ class Anggota extends Model
          * 11. Stunting
          * 12. Domisili Tangsel
          * 13. Domisili Luar Tangsel
+         * 14. Lajang
+         * 15. Menikah
+         * 16. Janda
+         * 17. Duda
          */
 
         $data =  Anggota::join('rt_rw', 'rt_rw.id', '=', 'anggota.rtrw_id')
@@ -99,6 +103,18 @@ class Anggota extends Model
                 break;
             case '13':
                 $data->where('anggota_details.domisili', 0);
+                break;
+            case '14':
+                $data->where('status_kawin', 'LIKE', '%Lajang%');
+                break;
+            case '15':
+                $data->where('status_kawin', 'LIKE', '%Menikah%');
+                break;
+            case '16':
+                $data->where('status_kawin', 'LIKE', '%Janda%');
+                break;
+            case '17':
+                $data->where('status_kawin', 'LIKE', '%Duda%');
                 break;
             default:
                 # code...

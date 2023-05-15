@@ -72,20 +72,20 @@
                 colorByPoint: true,
                 data: [{
                     name: 'Lajang',
-                    y: 400,
+                    y: {{ $totalLajang }},
                     color: '#FC4B6C',
                 }, {
                     name: 'Menikah',
-                    y: 890,
+                    y: {{ $totalMenikah }},
                     color: '#39CB7F',
                     sliced: true
                 }, {
                     name: 'Janda',
-                    y: 300,
+                    y: {{ $totalJanda }},
                     color: '#4e73df',
                 }, {
                     name: 'Duda',
-                    y: 200,
+                    y: {{ $totalDuda }},
                     color: '#FDC90F',
                 }]
             }]
