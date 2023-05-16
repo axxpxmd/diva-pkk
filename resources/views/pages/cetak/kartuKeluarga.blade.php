@@ -71,16 +71,20 @@
             <td>TAHUN</td>
             <td> : &nbsp;{{ $data->thn_input }}</td>
             <td>TEMPAT SAMPAH</td>
-            <td> : {{ $data->rumah->tempat_smph == 1 ? 'Ya' : 'Tidak' }}</td>
+            <td> : &nbsp;{{ $data->rumah->tempat_smph == 1 ? 'Ya' : 'Tidak' }}</td>
         </tr>
         <tr>
-            <td></td>
-            <td></td>
+            <td>No KK</td>
+            <td>: &nbsp;{{ $data->no_kk }}</td>
             <td style="vertical-align: top !important">SUMBER AIR</td>
             <td>
-                @foreach (json_decode($data->rumah->sumber_air) as $value)
-                    <span>- {{ $value }}</span><br>
-                @endforeach
+                @if ($data->status_isi != 0)
+                    @foreach (json_decode($data->rumah->sumber_air) as $value)
+                        <span>- {{ $value }}</span><br>
+                    @endforeach
+                @else
+                    : &nbsp;Belum ditinjau    
+                @endif
             </td>
         </tr>
     </table>
