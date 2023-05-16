@@ -34,41 +34,41 @@ class DashboardController extends Controller
         $active_dashboard = $this->active_dashboard;
         $role_id = Auth::user()->modelHasRole->role_id;
 
+        if ($role_id == 1 || $role_id == 9 || $role_id == 10) {
+            $disable = false;
+        } else {
+            $disable = true;
+        }
+
         $kecamatans = Kecamatan::select('id', 'n_kecamatan')->where('kabupaten_id', 40)->get();
 
         list($dasawisma_id, $kecamatan_id, $kelurahan_id, $rtrw_id, $rw, $rt, $role_id) = $this->checkRole->getFilterValue();
 
-        // Params
-        $tahun_filter = $request->tahun;
-        $rtrw_filter  = $request->rtrw_filter ? $request->rtrw_filter : null;
-        $kecamatan_filter = $request->kecamatan_filter ? $request->kecamatan_filter : null;
-        $kelurahan_filter = $request->kelurahan_filter ? $request->kelurahan_filter : null;
-
         //* Filter
-        $tahun   = $tahun ? $tahun : $tahun;
-        $rtrw_id = $rtrw_id ? $rtrw_id : $rtrw_filter;
-        $kecamatan_id = $kecamatan_id ? $kecamatan_id : $kecamatan_filter;
-        $kelurahan_id = $kelurahan_id ? $kelurahan_id : $kelurahan_filter;
+        $tahun   = $tahun ? $tahun : $request->tahun;
+        $rtrw_id = $rtrw_id ? $rtrw_id : $request->rtrw_filter;
+        $kecamatan_id = $kecamatan_id ? $kecamatan_id : $request->kecamatan_filter;
+        $kelurahan_id = $kelurahan_id ? $kelurahan_id : $request->kelurahan_filter;
 
         $rtrw = RTRW::find($rtrw_id);
         $kecamatan = Kecamatan::find($kecamatan_id);
         $kelurahan = Kelurahan::find($kelurahan_id);
 
-        $totalRumah = Rumah::totalRumah($kecamatan_filter, $kelurahan_filter, $rtrw_filter);
-        $jumlahKK = KartuKeluarga::totalKK($kecamatan_filter, $kelurahan_filter, $rtrw_filter);
-        $jumlahAnggota = Anggota::totalWarga($kecamatan_filter, $kelurahan_filter, $rtrw_filter);
-       
-        $totalPus = Anggota::anggota(4, $kecamatan_filter, $kelurahan_filter, $rtrw_filter);
-        $totalWus = Anggota::anggota(5, $kecamatan_filter, $kelurahan_filter, $rtrw_filter);
-        $totalStunting = Anggota::anggota(11, $kecamatan_filter, $kelurahan_filter, $rtrw_filter);
-        $totalDomTangsel = Anggota::anggota(12, $kecamatan_filter, $kelurahan_filter, $rtrw_filter);
-        $totalDomLuarTangsel = Anggota::anggota(13, $kecamatan_filter, $kelurahan_filter, $rtrw_filter);
-        $totalLakiLaki = Anggota::anggota(1, $kecamatan_filter, $kelurahan_filter, $rtrw_filter);
-        $totalPerempuan = Anggota::anggota(2, $kecamatan_filter, $kelurahan_filter, $rtrw_filter);
-        $totalLajang = Anggota::anggota(14, $kecamatan_filter, $kelurahan_filter, $rtrw_filter);
-        $totalMenikah = Anggota::anggota(15, $kecamatan_filter, $kelurahan_filter, $rtrw_filter);
-        $totalJanda = Anggota::anggota(16, $kecamatan_filter, $kelurahan_filter, $rtrw_filter);
-        $totalDuda = Anggota::anggota(17, $kecamatan_filter, $kelurahan_filter, $rtrw_filter);
+        $totalRumah = Rumah::totalRumah($kecamatan_id, $kelurahan_id, $rtrw_id);
+        $jumlahKK = KartuKeluarga::totalKK($kecamatan_id, $kelurahan_id, $rtrw_id);
+        $jumlahAnggota = Anggota::totalWarga($kecamatan_id, $kelurahan_id, $rtrw_id);
+
+        $totalPus = Anggota::anggota(4, $kecamatan_id, $kelurahan_id, $rtrw_id);
+        $totalWus = Anggota::anggota(5, $kecamatan_id, $kelurahan_id, $rtrw_id);
+        $totalStunting = Anggota::anggota(11, $kecamatan_id, $kelurahan_id, $rtrw_id);
+        $totalDomTangsel = Anggota::anggota(12, $kecamatan_id, $kelurahan_id, $rtrw_id);
+        $totalDomLuarTangsel = Anggota::anggota(13, $kecamatan_id, $kelurahan_id, $rtrw_id);
+        $totalLakiLaki = Anggota::anggota(1, $kecamatan_id, $kelurahan_id, $rtrw_id);
+        $totalPerempuan = Anggota::anggota(2, $kecamatan_id, $kelurahan_id, $rtrw_id);
+        $totalLajang = Anggota::anggota(14, $kecamatan_id, $kelurahan_id, $rtrw_id);
+        $totalMenikah = Anggota::anggota(15, $kecamatan_id, $kelurahan_id, $rtrw_id);
+        $totalJanda = Anggota::anggota(16, $kecamatan_id, $kelurahan_id, $rtrw_id);
+        $totalDuda = Anggota::anggota(17, $kecamatan_id, $kelurahan_id, $rtrw_id);
 
         //* RUMAH
 
@@ -96,7 +96,8 @@ class DashboardController extends Controller
             'totalLajang',
             'totalMenikah',
             'totalJanda',
-            'totalDuda'
+            'totalDuda',
+            'disable'
         ));
     }
 }

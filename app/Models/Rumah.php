@@ -27,21 +27,21 @@ class Rumah extends Model
         return $this->hasMany(KartuKeluarga::class, 'rumah_id');
     }
 
-    public function totalRumah($kecamatan_filter, $kelurahan_filter, $rtrw_filter)
+    public function totalRumah($kecamatan_id, $kelurahan_id, $rtrw_id)
     {
-        $kecamatan_filter = $kecamatan_filter == 'null' ? null : $kecamatan_filter;
-        $kelurahan_filter = $kelurahan_filter == 'null' ? null : $kelurahan_filter;
-        $rtrw_filter = $rtrw_filter == 'null' ? null : $rtrw_filter;
+        $kecamatan_id = $kecamatan_id == 'null' ? null : $kecamatan_id;
+        $kelurahan_id = $kelurahan_id == 'null' ? null : $kelurahan_id;
+        $rtrw_id = $rtrw_id == 'null' ? null : $rtrw_id;
 
         return Rumah::join('rt_rw', 'rt_rw.id', '=', 'rumah.rtrw_id')
-            ->when($kecamatan_filter != null, function ($q) use ($kecamatan_filter) {
-                return $q->where('kecamatan_id', $kecamatan_filter);
+            ->when($kecamatan_id != null, function ($q) use ($kecamatan_id) {
+                return $q->where('kecamatan_id', $kecamatan_id);
             })
-            ->when($kelurahan_filter != null, function ($q) use ($kelurahan_filter) {
-                return $q->where('kelurahan_id', $kelurahan_filter);
+            ->when($kelurahan_id != null, function ($q) use ($kelurahan_id) {
+                return $q->where('kelurahan_id', $kelurahan_id);
             })
-            ->when($rtrw_filter != null, function ($q) use ($rtrw_filter) {
-                return $q->where('rtrw_id', $rtrw_filter);
+            ->when($rtrw_id != null, function ($q) use ($rtrw_id) {
+                return $q->where('rtrw_id', $rtrw_id);
             })
             ->count();
     }

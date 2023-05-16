@@ -24,8 +24,8 @@
                 <div class="row mb-2">
                     <label for="kecamatan_filter" class="col-sm-3 col-form-label fw-bold">Kecamatan</label>
                     <div class="col-sm-9">
-                        <select class="form-select select2" name="kecamatan_filter" id="kecamatan_filter">
-                            <option value="">Pilih</option>
+                        <select class="form-select select2" name="kecamatan_filter" id="kecamatan_filter" {{ $disable ? 'disabled' : '-' }}>
+                            <option value="">Pilih </option>
                             @foreach ($kecamatans as $i)
                             <option value="{{ $i->id }}" {{ $kecamatan_id == $i->id ? 'selected' : '' }}>{{ $i->n_kecamatan }}</option>
                             @endforeach
@@ -35,7 +35,7 @@
                 <div class="row mb-2">
                     <label for="kelurahan_filter" class="col-sm-3 col-form-label fw-bold">Kelurahan</label>
                     <div class="col-sm-9">
-                        <select class="form-select select2" name="kelurahan_filter" id="kelurahan_filter">
+                        <select class="form-select select2" name="kelurahan_filter" id="kelurahan_filter" {{ $disable ? 'disabled' : '-' }}>
                             <option value="">Pilih</option>
                         </select>
                     </div>
@@ -43,7 +43,7 @@
                 <div class="row mb-2">
                     <label for="rtrw_filter" class="col-sm-3 col-form-label fw-bold">RT / RW</label>
                     <div class="col-sm-9">
-                        <select class="form-select select2" name="rtrw_filter" id="rtrw_filter">
+                        <select class="form-select select2" name="rtrw_filter" id="rtrw_filter" {{ $disable ? 'disabled' : '-' }}>
                             <option value="">Pilih</option>
                         </select>
                     </div>

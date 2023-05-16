@@ -126,7 +126,7 @@
                                                 <sup class="text-black-50"><i class="fw-bold bi bi-arrow-down text-danger"></i> 10%</sup>
                                             </td>
                                             <td class="text-center">
-                                                {{ $totalPus / $jumlahAnggota * 100 }}%
+                                                {{ $jumlahAnggota ? $totalPus / $jumlahAnggota * 100 . '%' : '0%' }}
                                             </td>
                                         </tr>
                                         <tr>
@@ -137,7 +137,7 @@
                                                 <sup class="text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</sup>
                                             </td>
                                             <td class="text-center">
-                                                {{ $totalWus / $jumlahAnggota * 100 }}%
+                                                {{ $jumlahAnggota ? $totalWus / $jumlahAnggota * 100 . '%' : '0%' }}
                                             </td>
                                         </tr>
                                         <tr>
@@ -148,7 +148,7 @@
                                                 <sup class="text-black-50"><i class="fw-bold bi bi-arrow-up text-success"></i> 10%</sup>
                                             </td>
                                             <td class="text-center">
-                                                {{ $totalStunting / $jumlahAnggota * 100 }}%
+                                                {{ $jumlahAnggota ? $totalStunting / $jumlahAnggota * 100 . '%' : '0%' }}
                                             </td>
                                         </tr>
                                     </tbody>
