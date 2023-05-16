@@ -218,12 +218,15 @@ class RumahController extends Controller
             return $this->dataTableKK($id);
         }
 
+        $isDivaPKK = $this->checkRole->isDivaPKK();
+
         return view('pages.rumah.show', compact(
             'title',
             'desc',
             'active_rumah',
             'id',
-            'data'
+            'data',
+            'isDivaPKK'
         ));
     }
 

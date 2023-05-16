@@ -8,11 +8,11 @@
     <div class="card">  
         <h5 class="card-header bg-info text-white mb-2 p-3 fs-18">Data Rumah</h5>
         <div class="card-body fs-14">
-            {{-- @if ($data->status_isi == 0)
+            @if ($data->status_isi == 0 && $isDivaPKK == true)
             <div class="alert alert-light-danger fw-bold fs-14" role="alert">
                 Data ini belum terisi dengan lengkap, silahkan lengkapi data.    
             </div>
-            @endif --}}
+            @endif
             <div class="my-3">
                 <a href="{{ route('rumah.index') }}" class="fs-14 text-danger fw-bold m-r-10"><i class="bi bi-arrow-left m-r-8"></i>Kembali</a>
                 @if ($data->status_isi == 1)
@@ -54,72 +54,98 @@
                     </div>
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Jamban Rumah</label>
-                        <label class="col-sm-8 col-form-label">{{ $data->jamban == 0 ? 'Tidak Punya' : $data->jamban.' Buah' }}</label>
+                        @if ($data->status_id != 0)
+                            <label class="col-sm-8 col-form-label">{{ $data->jamban == 0 ? 'Tidak Punya' : $data->jamban.' Buah' }}</label>
+                        @else
+                            <label class="col-sm-8 col-form-label">Belum ditinjau</label>
+                        @endif
                     </div>
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Sumber Air</label>
-                        <label class="col-sm-8 col-form-label">
-                            @if ($data->sumber_air )
-                                @foreach(json_decode($data->sumber_air) as $value)
-                                    <li>{{ $value }}</li>
-                                @endforeach
-                            @else
-                                -
-                            @endif
-                        </label>
+                        @if ($data->status_id != 0)
+                            <label class="col-sm-8 col-form-label">
+                                @if ($data->sumber_air )
+                                    @foreach(json_decode($data->sumber_air) as $value)
+                                        <li>{{ $value }}</li>
+                                    @endforeach
+                                @else
+                                    -
+                                @endif
+                            </label>
+                        @else
+                            <label class="col-sm-8 col-form-label">Belum ditinjau</label>
+                        @endif
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Pembuangan Sampah</label>
-                        <label class="col-sm-8 col-form-label">{{ $data->tempat_smph == 1 ? 'Ya' : 'Tidak' }}</label>
+                        @if ($data->status_id != 0)
+                            <label class="col-sm-8 col-form-label">{{ $data->tempat_smph == 1 ? 'Ya' : 'Tidak' }}</label>
+                        @else
+                            <label class="col-sm-8 col-form-label">Belum ditinjau</label>
+                        @endif
                     </div>
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Pembuangan Limbah</label>
-                        <label class="col-sm-8 col-form-label">{{ $data->saluran_pmbngn == 1 ? 'Ya' : 'Tidak' }}</label>
+                        @if ($data->status_id != 0)
+                            <label class="col-sm-8 col-form-label">{{ $data->saluran_pmbngn == 1 ? 'Ya' : 'Tidak' }}</label>
+                        @else
+                            <label class="col-sm-8 col-form-label">Belum ditinjau</label>
+                        @endif
                     </div>
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Stiker P4K</label>
-                        <label class="col-sm-8 col-form-label">{{ $data->stiker_p4k == 1 ? 'Ya' : 'Tidak' }}</label>
+                        @if ($data->status_id != 0)
+                            <label class="col-sm-8 col-form-label">{{ $data->stiker_p4k == 1 ? 'Ya' : 'Tidak' }}</label>
+                        @else
+                            <label class="col-sm-8 col-form-label">Belum ditinjau</label>
+                        @endif
                     </div>
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Kriteria Rumah</label>
-                        <label class="col-sm-8 col-form-label">
-                            @if ($data->status_isi == 0)
-                                <span>-</span>
-                            @else
-                                @if ($data->kriteria_rmh == 1)
-                                    <span class="badge bg-light-success">Sehat</span>
+                        @if ($data->status_id != 0)
+                            <label class="col-sm-8 col-form-label">
+                                @if ($data->status_isi == 0)
+                                    <span>-</span>
                                 @else
-                                    <span class="badge bg-light-danger">Tidak Sehat</span>
+                                    @if ($data->kriteria_rmh == 1)
+                                        <span class="badge bg-light-success">Sehat</span>
+                                    @else
+                                        <span class="badge bg-light-danger">Tidak Sehat</span>
+                                    @endif
                                 @endif
-                            @endif
-                        </label>
+                            </label>
+                        @else
+                            <label class="col-sm-8 col-form-label">Belum ditinjau</label>
+                        @endif
                     </div>
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Layak Huni</label>
-                        <label class="col-sm-8 col-form-label">
-                            @if ($data->status_isi == 0)
-                                <span>-</span>
-                            @else
-                                @if ($data->layak_huni == 1)
-                                    <span class="badge bg-light-success">Layak</span>
+                        @if ($data->status_id != 0)
+                            <label class="col-sm-8 col-form-label">
+                                @if ($data->status_isi == 0)
+                                    <span>-</span>
                                 @else
-                                    <span class="badge bg-light-danger">Tidak Layak</span>
+                                    @if ($data->layak_huni == 1)
+                                        <span class="badge bg-light-success">Layak</span>
+                                    @else
+                                        <span class="badge bg-light-danger">Tidak Layak</span>
+                                    @endif
                                 @endif
-                            @endif
-                        </label>
+                            </label>
+                        @else
+                            <label class="col-sm-8 col-form-label">Belum ditinjau</label>
+                        @endif
                     </div>
+                    @if ($data->status_isi != 0 && $isDivaPKK == true)
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Status Pengisian</label>
                         <label class="col-sm-8 col-form-label">
-                            @if ($data->status_isi == 1)
-                                <span class="badge bg-light-success">Sudah Lengkap</span>
-                            @else
-                            <span class="badge bg-light-danger">Belum Lengkap</span>
-                            @endif
+                            <span class="badge bg-light-success">Sudah Lengkap</span>
                         </label>
                     </div>
+                    @endif
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Diinput Oleh</label>
                         <label class="col-sm-8 col-form-label">{{ $data->created_by }} / {{ $data->created_at }}</label>

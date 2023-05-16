@@ -55,12 +55,12 @@ class CheckRole
     {
         $role_id = Auth::user()->modelHasRole->role_id;
 
-        if ($role_id == [1,2,9]) {
+        if ($role_id == 1 || $role_id == 2 || $role_id == 9) {
             $isDivaPKK = true;
         } else {
             $isDivaPKK = false;
         }
-
+        
         return $isDivaPKK;
     }
 }

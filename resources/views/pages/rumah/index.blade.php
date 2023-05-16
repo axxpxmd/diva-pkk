@@ -47,7 +47,7 @@
             </div>
         </div>
     </div> 
-    @if ($belumLengkap != 0 && $isDivaPKK = true)
+    @if ($belumLengkap != 0 && $isDivaPKK == true)
     <div class="alert alert-light-warning fs-14 fw-bold" role="alert">
         Terdapat <b>{{ $belumLengkap }}</b> data rumah yang belum lengkap !    
     </div>
