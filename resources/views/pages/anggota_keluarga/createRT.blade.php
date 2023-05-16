@@ -334,7 +334,7 @@
         }
     });
 
-    $('#dasawisma_id').on('change', function(){
+    $('#rtrw_id').on('change', function(){
         $('#rumah_id').val("").trigger("change.select2");
         val = $(this).val();
         optionRumah = "<option value=''>Pilih</option>";
