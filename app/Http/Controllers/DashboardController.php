@@ -54,40 +54,10 @@ class DashboardController extends Controller
         $kecamatan = Kecamatan::find($kecamatan_id);
         $kelurahan = Kelurahan::find($kelurahan_id);
 
-        $totalRumah = Rumah::join('rt_rw', 'rt_rw.id', '=', 'rumah.rtrw_id')
-            ->when($kecamatan_filter != 'null', function ($q) use ($kecamatan_filter) {
-                return $q->where('kecamatan_id', $kecamatan_filter);
-            })
-            ->when($kelurahan_filter != 'null', function ($q) use ($kelurahan_filter) {
-                return $q->where('kelurahan_id', $kelurahan_filter);
-            })
-            ->when($rtrw_filter != 'null', function ($q) use ($rtrw_filter) {
-                return $q->where('rtrw_id', $rtrw_filter);
-            })
-            ->count();
-        $jumlahKK = KartuKeluarga::join('rt_rw', 'rt_rw.id', '=', 'kk.rtrw_id')
-            ->when($kecamatan_filter != 'null', function ($q) use ($kecamatan_filter) {
-                return $q->where('kecamatan_id', $kecamatan_filter);
-            })
-            ->when($kelurahan_filter != 'null', function ($q) use ($kelurahan_filter) {
-                return $q->where('kelurahan_id', $kelurahan_filter);
-            })
-            ->when($rtrw_filter != 'null', function ($q) use ($rtrw_filter) {
-                return $q->where('rtrw_id', $rtrw_filter);
-            })
-            ->count();
-        $jumlahAnggota = Anggota::join('rt_rw', 'rt_rw.id', '=', 'anggota.rtrw_id')
-            ->when($kecamatan_filter != 'null', function ($q) use ($kecamatan_filter) {
-                return $q->where('kecamatan_id', $kecamatan_filter);
-            })
-            ->when($kelurahan_filter != 'null', function ($q) use ($kelurahan_filter) {
-                return $q->where('kelurahan_id', $kelurahan_filter);
-            })
-            ->when($rtrw_filter != 'null', function ($q) use ($rtrw_filter) {
-                return $q->where('rtrw_id', $rtrw_filter);
-            })
-            ->count();
-
+        $totalRumah = Rumah::totalRumah($kecamatan_filter, $kelurahan_filter, $rtrw_filter);
+        $jumlahKK = KartuKeluarga::totalKK($kecamatan_filter, $kelurahan_filter, $rtrw_filter);
+        $jumlahAnggota = Anggota::totalWarga($kecamatan_filter, $kelurahan_filter, $rtrw_filter);
+       
         $totalPus = Anggota::anggota(4, $kecamatan_filter, $kelurahan_filter, $rtrw_filter);
         $totalWus = Anggota::anggota(5, $kecamatan_filter, $kelurahan_filter, $rtrw_filter);
         $totalStunting = Anggota::anggota(11, $kecamatan_filter, $kelurahan_filter, $rtrw_filter);
@@ -99,6 +69,8 @@ class DashboardController extends Controller
         $totalMenikah = Anggota::anggota(15, $kecamatan_filter, $kelurahan_filter, $rtrw_filter);
         $totalJanda = Anggota::anggota(16, $kecamatan_filter, $kelurahan_filter, $rtrw_filter);
         $totalDuda = Anggota::anggota(17, $kecamatan_filter, $kelurahan_filter, $rtrw_filter);
+
+        //* RUMAH
 
         return view('pages.dashboard.index', compact(
             'title',

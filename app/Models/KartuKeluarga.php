@@ -15,6 +15,25 @@ class KartuKeluarga extends Model
         return $this->belongsTo(Rumah::class, 'rumah_id');
     }
 
+    public function totalKK($kecamatan_filter, $kelurahan_filter, $rtrw_filter)
+    {
+        $kecamatan_filter = $kecamatan_filter == 'null' ? null : $kecamatan_filter;
+        $kelurahan_filter = $kelurahan_filter == 'null' ? null : $kelurahan_filter;
+        $rtrw_filter = $rtrw_filter == 'null' ? null : $rtrw_filter;
+
+        return KartuKeluarga::join('rt_rw', 'rt_rw.id', '=', 'kk.rtrw_id')
+            ->when($kecamatan_filter != null, function ($q) use ($kecamatan_filter) {
+                return $q->where('kecamatan_id', $kecamatan_filter);
+            })
+            ->when($kelurahan_filter != null, function ($q) use ($kelurahan_filter) {
+                return $q->where('kelurahan_id', $kelurahan_filter);
+            })
+            ->when($rtrw_filter != null, function ($q) use ($rtrw_filter) {
+                return $q->where('rtrw_id', $rtrw_filter);
+            })
+            ->count();
+    }
+
     public function anggota($jenis = null)
     {
         /**

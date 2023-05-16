@@ -29,6 +29,26 @@ class Anggota extends Model
         return $this->belongsTo(KartuKeluarga::class, 'no_kk', 'no_kk');
     }
 
+    public function totalWarga($kecamatan_filter, $kelurahan_filter, $rtrw_filter)
+    {
+        $kecamatan_filter = $kecamatan_filter == 'null' ? null : $kecamatan_filter;
+        $kelurahan_filter = $kelurahan_filter == 'null' ? null : $kelurahan_filter;
+        $rtrw_filter = $rtrw_filter == 'null' ? null : $rtrw_filter;
+
+        return Anggota::join('rt_rw', 'rt_rw.id', '=', 'anggota.rtrw_id')
+            ->where('status_hidup', 1)
+            ->when($kecamatan_filter != null, function ($q) use ($kecamatan_filter) {
+                return $q->where('kecamatan_id', $kecamatan_filter);
+            })
+            ->when($kelurahan_filter != null, function ($q) use ($kelurahan_filter) {
+                return $q->where('kelurahan_id', $kelurahan_filter);
+            })
+            ->when($rtrw_filter != null, function ($q) use ($rtrw_filter) {
+                return $q->where('rtrw_id', $rtrw_filter);
+            })
+            ->count();
+    }
+
     public function anggota($jenis = null, $kecamatan_filter, $kelurahan_filter, $rtrw_filter)
     {
         /**
@@ -51,16 +71,20 @@ class Anggota extends Model
          * 17. Duda
          */
 
+        $kecamatan_filter = $kecamatan_filter == 'null' ? null : $kecamatan_filter;
+        $kelurahan_filter = $kelurahan_filter == 'null' ? null : $kelurahan_filter;
+        $rtrw_filter = $rtrw_filter == 'null' ? null : $rtrw_filter;
+
         $data =  Anggota::join('rt_rw', 'rt_rw.id', '=', 'anggota.rtrw_id')
             ->join('anggota_details', 'anggota_details.anggota_id', '=', 'anggota.id')
             ->where('status_hidup', 1)
-            ->when($kecamatan_filter != 'null', function ($q) use ($kecamatan_filter) {
+            ->when($kecamatan_filter != null, function ($q) use ($kecamatan_filter) {
                 return $q->where('kecamatan_id', $kecamatan_filter);
             })
-            ->when($kelurahan_filter != 'null', function ($q) use ($kelurahan_filter) {
+            ->when($kelurahan_filter != null, function ($q) use ($kelurahan_filter) {
                 return $q->where('kelurahan_id', $kelurahan_filter);
             })
-            ->when($rtrw_filter != 'null', function ($q) use ($rtrw_filter) {
+            ->when($rtrw_filter != null, function ($q) use ($rtrw_filter) {
                 return $q->where('rtrw_id', $rtrw_filter);
             });
 
