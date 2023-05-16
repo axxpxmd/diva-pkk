@@ -51,7 +51,8 @@
                 <div class="row">
                     <div class="col-sm-3"></div>
                     <div class="col-sm-9">
-                        <a href="#" id="filterData" class="btn btn-success fs-14"><i class="bi bi-filter m-r-8"></i>Filter</a>
+                        <a href="#" id="filterData" class="btn btn-success fs-14 m-r-10"><i class="bi bi-filter m-r-8"></i>Filter</a>
+                        <a href="{{ route('dashboard') }}" class="btn btn-danger fs-14"><i class="bi bi-arrow-clockwise m-r-8"></i>Reset</a>
                     </div>
                 </div>
             </div>

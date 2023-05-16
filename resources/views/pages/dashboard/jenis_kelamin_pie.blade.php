@@ -70,7 +70,7 @@
         plotOptions: {
             pie: {
                 allowPointSelect: true,
-                size: '100%',
+                size: '80%',
                 cursor: 'pointer',
                 dataLabels: {
                     crop: false,
