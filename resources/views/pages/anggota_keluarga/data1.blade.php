@@ -286,6 +286,7 @@
 <script type="text/javascript">
     dasawisma_id = "{{ $dasawisma_id }}"
     rumah_id = "{{ $rumah_id }}"
+    rtrw_id = "{{ $rtrw_id }}"
 
     $('#rtrw_id').on('change', function(){
         $('#dasawisma_id').val("").trigger("change.select2");
@@ -316,9 +317,9 @@
         }
     });
 
-    $('#dasawisma_id').on('change', function(){
+    // $('#dasawisma_id').on('change', function(){
         $('#rumah_id').val("").trigger("change.select2");
-        val = $(this).val();
+        val = rtrw_id
         optionRumah = "<option value=''>Pilih</option>";
         if(val == ""){
             $('#rumah_id').html(optionRumah);
@@ -342,7 +343,7 @@
                 }
             }, 'JSON'); 
         }
-    });
+    // });
 
     $('#rumah_id').on('change', function(){
         val = $(this).val();

@@ -60,7 +60,7 @@ class UtilityController extends Controller
 
     public function rumahByDasawisma($id)
     {
-        $data = Rumah::where('dasawisma_id', $id)->get();
+        $data = Rumah::where('rtrw_id', $id)->get();
 
         return $data;
     }
