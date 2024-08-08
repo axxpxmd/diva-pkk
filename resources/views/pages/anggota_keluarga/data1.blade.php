@@ -305,28 +305,33 @@
                     $('#dasawisma_id').empty().html(optionDasawisma);
 
                     if (dasawisma_id) {
-                        $("#dasawisma_id").val(dasawisma_id); 
-                        $("#dasawisma_id").trigger('change'); 
+                        $("#dasawisma_id").val(dasawisma_id);
+                        $("#dasawisma_id").trigger('change');
                     } else {
                         $("#dasawisma_id").val($("#dasawisma_id option:first").val());
                     }
                 }else{
                     $('#dasawisma_id').html(optionDasawisma);
                 }
-            }, 'JSON'); 
+            }, 'JSON');
         }
     });
 
-    // $('#dasawisma_id').on('change', function(){
+    $('#dasawisma_id').on('change', function(){
         $('#rumah_id').val("").trigger("change.select2");
-        val = rtrw_id
         optionRumah = "<option value=''>Pilih</option>";
+        if (rtrw_id) {
+            val = rtrw_id;
+        } else {
+            val =  val = $(this).val();
+        }
         if(val == ""){
             $('#rumah_id').html(optionRumah);
         }else{
             $('#rumah_id').html("<option value=''>Loading...</option>");
             url = "{{ route('rumahByDasawisma', ':id') }}".replace(':id', val);
             $.get(url, function(data){
+                console.log(val)
                 if(data){
                     $.each(data, function(index, value){
                         optionRumah += "<option value='" + value.id + "'>" + value.kepala_rumah + ' / ' + value.alamat_detail +"</li>";
@@ -334,16 +339,16 @@
                     $('#rumah_id').empty().html(optionRumah);
 
                     if (rumah_id) {
-                        $("#rumah_id").val(rumah_id);   
+                        $("#rumah_id").val(rumah_id);
                     } else {
                         $("#rumah_id").val($("#rumah_id option:first").val());
                     }
                 }else{
                     $('#rumah_id').html(optionRumah);
                 }
-            }, 'JSON'); 
+            }, 'JSON');
         }
-    // });
+    });
 
     $('#rumah_id').on('change', function(){
         val = $(this).val();
@@ -364,10 +369,10 @@
                 }else{
                     $('#no_kk').html(option);
                 }
-            }, 'JSON'); 
+            }, 'JSON');
         }
     });
-    
+
     $("input[name='status_pendidkan']").on('change', function(){
         val = $(this).val();
         $('#pendidikanDisplay').show();
@@ -379,7 +384,7 @@
         } else {
             $('#jenjangDisplay').hide();
         }
-       
+
         var tamatSekolah = [{"name":"SD/MI"},{"name":"SMP/Sederajat"},{"name":"SMA/Sederajat"},{"name":"Diploma"},{"name":"S1"},{"name":"S2"},{"name":"S3"}];
         var putusSekolah = [{"name":"SD/MI"},{"name":"SMP/Sederajat"},{"name":"SMA/Sederajat"}];
 
@@ -387,7 +392,7 @@
             $.each(tamatSekolah, function(index, value){
                 option += "<option value='" + value.name + "'>" + value.name +"</li>";
             });
-            $('#pendidikan').empty().html(option);   
+            $('#pendidikan').empty().html(option);
         } else {
             $.each(putusSekolah, function(index, value){
                 option += "<option value='" + value.name + "'>" + value.name +"</li>";
@@ -425,7 +430,7 @@
                 if (terdaftar_dukcapil == 1) {
                     $('#no_kk').val(data.no_kk)
                 }
-            }, 'JSON');    
+            }, 'JSON');
         } else {
             $('#no_kk').val('')
         }
@@ -455,9 +460,9 @@
         }
 
         var diff_ms = Date.now() - val.getTime();
-        var age_dt = new Date(diff_ms); 
+        var age_dt = new Date(diff_ms);
         var age = Math.abs(age_dt.getUTCFullYear() - 1970);
-        var ageResult = isNaN(age) === false ? age + ' Tahun' : '. . .' 
+        var ageResult = isNaN(age) === false ? age + ' Tahun' : '. . .'
         $('#age').html(ageResult);
 
         // Cek Status Anak

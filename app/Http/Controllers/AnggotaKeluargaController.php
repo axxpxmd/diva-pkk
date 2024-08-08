@@ -306,7 +306,7 @@ class AnggotaKeluargaController extends Controller
             'pekerjaan' => 'required'
         ]);
 
-        /* Tahapan : 
+        /* Tahapan :
          * 1. Generate No Registrasi
          * 2. Store Data
          */
@@ -374,7 +374,7 @@ class AnggotaKeluargaController extends Controller
 
     public function storeHidup(Request $request)
     {
-        /* Tahapan : 
+        /* Tahapan :
          * 1. Generate No Registrasi
          * 2. Data 1
          * 3. Data 2
