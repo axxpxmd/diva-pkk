@@ -19,6 +19,7 @@ use App\Models\Anggota;
 use App\Models\Dasawisma;
 use App\Models\Kecamatan;
 use App\Models\AnggotaDetail;
+use App\Models\KartuKeluarga;
 
 class AnggotaKeluargaController extends Controller
 {
@@ -170,7 +171,10 @@ class AnggotaKeluargaController extends Controller
             $view = 'pages.anggota_keluarga.create';
         }
 
+        $rumah_by_kk = KartuKeluarga::join('rumah', 'rumah.id', '=', 'kk.rumah_id')->where('kk.no_kk', $no_kk)->get();
+
         return view($view, compact(
+            'rumah_by_kk',
             'title',
             'desc',
             'active_anggota',

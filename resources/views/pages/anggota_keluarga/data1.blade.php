@@ -16,6 +16,18 @@
                 </div>
             </div>
         </div>
+        @if ($no_kk)
+        <div class="row mb-2">
+            <label class="col-sm-4 col-form-label fw-bold text-end">Rumah <span class="text-danger">*</span></label>
+            <div class="col-sm-8">
+                <select class="form-control select2" name="rumah_id">
+                    @foreach ($rumah_by_kk as $i)
+                        <option value="{{ $i->rumah_id }}">{{ $i->kepala_rumah }} / {{ $i->alamat_detail }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        @else
         <div class="row mb-2">
             <label class="col-sm-4 col-form-label fw-bold text-end">Rumah <span class="text-danger">*</span></label>
             <div class="col-sm-8">
@@ -27,6 +39,7 @@
                 </div>
             </div>
         </div>
+        @endif
         <hr>
         <div class="row mb-2">
             <label class="col-sm-4 col-form-label text-end fw-bold">Terdaftar Dukcapil <span class="text-danger">*</span></label>
@@ -287,6 +300,7 @@
     dasawisma_id = "{{ $dasawisma_id }}"
     rumah_id = "{{ $rumah_id }}"
     rtrw_id = "{{ $rtrw_id }}"
+    no_kk = "{{ $no_kk }}"
 
     $('#rtrw_id').on('change', function(){
         $('#dasawisma_id').val("").trigger("change.select2");
@@ -323,7 +337,7 @@
         if (rtrw_id) {
             val = rtrw_id;
         } else {
-            val =  val = $(this).val();
+            val = $(this).val();
         }
         if(val == ""){
             $('#rumah_id').html(optionRumah);
