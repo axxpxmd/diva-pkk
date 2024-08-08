@@ -5,12 +5,12 @@
     <p class="text-subtitle text-muted">{{ $desc }}</p>
 </div>
 <section class="section animate__animated animate__fadeInRight">
-    <div class="card">  
+    <div class="card">
         <h5 class="card-header bg-info text-white mb-2 p-3 fs-18">Data Rumah</h5>
         <div class="card-body fs-14">
             @if ($data->status_isi == 0 && $isDivaPKK == true)
             <div class="alert alert-light-danger fw-bold fs-14" role="alert">
-                Data ini belum terisi dengan lengkap, silahkan lengkapi data.    
+                Data ini belum terisi dengan lengkap, silahkan lengkapi data.
             </div>
             @endif
             <div class="my-3">
@@ -33,19 +33,19 @@
                             <div class="row p-0">
                                 <label class="col-sm-4 col-form-label fw-bold">RT</label>
                                 <label class="col-sm-8 col-form-label">{{ $data->rtrw->rt }}</label>
-                            </div> 
+                            </div>
                             <div class="row p-0">
                                 <label class="col-sm-4 col-form-label fw-bold">RW</label>
                                 <label class="col-sm-8 col-form-label">RW {{ $data->rtrw->rw }}</label>
-                            </div> 
+                            </div>
                             <div class="row p-0">
                                 <label class="col-sm-4 col-form-label fw-bold">Kelurahan</label>
                                 <label class="col-sm-8 col-form-label">{{ $data->rtrw->kelurahan->n_kelurahan }}</label>
-                            </div> 
+                            </div>
                             <div class="row p-0">
                                 <label class="col-sm-4 col-form-label fw-bold">Kecamatan</label>
                                 <label class="col-sm-8 col-form-label">{{ $data->rtrw->kecamatan->n_kecamatan }}</label>
-                            </div> 
+                            </div>
                         </label>
                     </div>
                     <div class="row p-0">
@@ -54,7 +54,7 @@
                     </div>
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Jamban Rumah</label>
-                        @if ($data->status_id != 0)
+                        @if ($data->status_id == 1)
                             <label class="col-sm-8 col-form-label">{{ $data->jamban == 0 ? 'Tidak Punya' : $data->jamban.' Buah' }}</label>
                         @else
                             <label class="col-sm-8 col-form-label">Belum ditinjau</label>
@@ -62,7 +62,7 @@
                     </div>
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Sumber Air</label>
-                        @if ($data->status_id != 0)
+                        @if ($data->status_id == 1)
                             <label class="col-sm-8 col-form-label">
                                 @if ($data->sumber_air )
                                     @foreach(json_decode($data->sumber_air) as $value)
@@ -80,7 +80,7 @@
                 <div class="col-sm-6">
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Pembuangan Sampah</label>
-                        @if ($data->status_id != 0)
+                        @if ($data->status_id == 1)
                             <label class="col-sm-8 col-form-label">{{ $data->tempat_smph == 1 ? 'Ya' : 'Tidak' }}</label>
                         @else
                             <label class="col-sm-8 col-form-label">Belum ditinjau</label>
@@ -88,7 +88,7 @@
                     </div>
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Pembuangan Limbah</label>
-                        @if ($data->status_id != 0)
+                        @if ($data->status_id == 1)
                             <label class="col-sm-8 col-form-label">{{ $data->saluran_pmbngn == 1 ? 'Ya' : 'Tidak' }}</label>
                         @else
                             <label class="col-sm-8 col-form-label">Belum ditinjau</label>
@@ -96,7 +96,7 @@
                     </div>
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Stiker P4K</label>
-                        @if ($data->status_id != 0)
+                        @if ($data->status_id == 1)
                             <label class="col-sm-8 col-form-label">{{ $data->stiker_p4k == 1 ? 'Ya' : 'Tidak' }}</label>
                         @else
                             <label class="col-sm-8 col-form-label">Belum ditinjau</label>
@@ -104,7 +104,7 @@
                     </div>
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Kriteria Rumah</label>
-                        @if ($data->status_id != 0)
+                        @if ($data->status_id == 1)
                             <label class="col-sm-8 col-form-label">
                                 @if ($data->status_isi == 0)
                                     <span>-</span>
@@ -122,7 +122,7 @@
                     </div>
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Layak Huni</label>
-                        @if ($data->status_id != 0)
+                        @if ($data->status_id == 1)
                             <label class="col-sm-8 col-form-label">
                                 @if ($data->status_isi == 0)
                                     <span>-</span>
@@ -172,29 +172,29 @@
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Laki - Laki</label>
                         <label class="col-sm-8 col-form-label">{{ $data->anggota(1)->count() }} Orang</label>
-                    </div> 
+                    </div>
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Perempuan</label>
                         <label class="col-sm-8 col-form-label">{{ $data->anggota(2)->count() }} Orang</label>
-                    </div> 
+                    </div>
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Balita</label>
                         <label class="col-sm-8 col-form-label">{{ $data->anggota(3)->count() }} Anak</label>
-                    </div> 
+                    </div>
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">PUS</label>
                         <label class="col-sm-8 col-form-label">{{ $data->anggota(4)->count() }} Pasang</label>
-                    </div> 
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">WUS</label>
                         <label class="col-sm-8 col-form-label">{{ $data->anggota(5)->count() }} Orang</label>
-                    </div> 
+                    </div>
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">3 Buta</label>
                         <label class="col-sm-8 col-form-label">{{ $data->anggota(6)->count() }} Orang</label>
-                    </div> 
+                    </div>
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Ibu Hamil</label>
                         <label class="col-sm-8 col-form-label">{{ $data->anggota(7)->count() }} Orang</label>
@@ -202,15 +202,15 @@
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Ibu Menyusui</label>
                         <label class="col-sm-8 col-form-label">{{ $data->anggota(8)->count() }} Orang</label>
-                    </div> 
+                    </div>
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Berkebutuhan Khusus</label>
                         <label class="col-sm-8 col-form-label">{{ $data->anggota(9)->count() }} Orang</label>
-                    </div> 
+                    </div>
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Lansia</label>
                         <label class="col-sm-8 col-form-label">{{ $data->anggota(10)->count() }} Orang</label>
-                    </div> 
+                    </div>
                 </div>
             </div>
         </div>
@@ -218,7 +218,7 @@
     <div class="mb-3 text-right">
         <a href="#" onclick="add()" class="btn btn-sm btn-success px-2"><i class="bi bi-plus font-weight-bold fs-16 m-r-5"></i>Tambah Data</a>
     </div>
-    <div class="card">  
+    <div class="card">
         <h5 class="card-header bg-info text-white mb-2 p-3 fs-18">Daftar Kartu Keluarga</h5>
         <div class="card-body">
              <div class="table-responsive">
@@ -387,11 +387,11 @@
         if ($(this)[0].checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
-        }else{    
+        }else{
             $('#loading').show();
             $('#alert').html('');
             $('#btnSave').attr('disabled', true);
-            
+
             url = (save_method == 'add') ? "{{ route('rumah.storeKK') }}" : "{{ route('rumah.updateKK', ':id') }}".replace(':id', $('#id').val());
             $.post(url, $(this).serialize(), function(data){
                 $('#alert').html("<div class='alert alert-success alert-dismissible' role='alert'><strong>Sukses!</strong> " + data.message + "</div>");
