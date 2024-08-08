@@ -62,6 +62,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('/show-ketua/{id}', [DasawismaController::class, 'showKetua'])->name('dasawisma.showKetua');
 
     Route::resource('/kader', KaderController::class);
+    Route::get('/kader/reset-password/{id}', [KaderController::class, 'resetPassword'])->name('kader.resetPassword');
 
     Route::resource('/permission', PermissionController::class);
 

@@ -45,7 +45,7 @@ class KaderController extends Controller
         $kecamatanDisplay = true;
         $kelurahanDisplay = true;
 
-        // 
+        //
         $totalKader = User::join('model_has_roles', 'model_has_roles.model_id', '=', 'users.id')->where('model_has_roles.role_id', 2)->count();
 
         return view('pages.kader.index', compact(
@@ -72,9 +72,10 @@ class KaderController extends Controller
             ->rawColumns(['id', 'nama'])
             ->addColumn('action', function ($p) {
                 $edit = '<a href="#" onclick="edit(' . $p->id . ')" class="text-info m-r-5" title="Edit Data"><i class="bi bi-pencil-fill"></i></a>';
-                $delete = '<a href="#" onclick="remove(' . $p->id . ')" class="text-danger" title="Delete Data"><i class="bi bi-trash-fill"></i></a>';
+                $reset_password = '<a href="' . route("kader.resetPassword", $p->id) . '" class="text-warning m-r-5" title="Reset Password"><i class="bi bi-arrow-clockwise"></i></a>';
+                $delete = '<a href="#" onclick="remove(' . $p->id . ')" class="text-danger m-r-5" title="Delete Data"><i class="bi bi-trash-fill"></i></a>';
 
-                return $edit . $delete;
+                return $edit . $delete . $reset_password;
             })
             ->editColumn('dasawisma_id', function ($p) {
                 return $p->dasawisma->nama;
@@ -101,7 +102,7 @@ class KaderController extends Controller
             'role_id.required' => 'Role Wajib diisi'
         ]);
 
-        /* Tahapan : 
+        /* Tahapan :
          * 1. users
          * 2. dasawimsa_users
          * 3. model_has_roles
@@ -187,7 +188,7 @@ class KaderController extends Controller
             'role_id.required' => 'Role Wajib diisi'
         ]);
 
-        /* Tahapan : 
+        /* Tahapan :
          * 1. users
          * 2. dasawisma_users
          * 2. model_has_roles
@@ -246,5 +247,16 @@ class KaderController extends Controller
         $data_dasawisma_user->delete();
 
         return response()->json(['message' => "Berhasil menghapus data."]);
+    }
+
+    public function resetPassword($id)
+    {
+        User::where('id', $id)->update([
+            'password' => \md5('123456789')
+        ]);
+
+        return redirect()->back()->with('success', 'Berhasil reset password.');
+
+        // return response()->json(['message' => "Berhasil reset password."]);
     }
 }

@@ -17,7 +17,7 @@
                         <div class="col-sm-3"></div>
                         <div class="col-sm-8">
                             <button class="btn btn-success btn-sm mr-2" onclick="pressOnChange()"><i class="bi bi-filter m-r-8"></i>Filter</button>
-                        </div> 
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6 px-0">
@@ -32,8 +32,9 @@
                 </div>
             </div>
         </div>
-    </div> 
-    <div class="card">  
+    </div>
+    @include('layouts.alert')
+    <div class="card">
         <div class="card-body">
              <div class="table-responsive">
                 <table id="dataTable" class="table data-table display nowrap table-hover table-bordered" style="width:100%;">
@@ -122,6 +123,7 @@
                             </select>
                         </div>
                     </div>
+                    <hr>
                     <div class="row">
                         <div class="col-3"></div>
                         <div class="col-9">
@@ -188,7 +190,7 @@
                 }else{
                     $('#dasawisma_id').html(option);
                 }
-            }, 'JSON'); 
+            }, 'JSON');
         }
     });
 
@@ -262,8 +264,8 @@
                     $("#kelurahan_id").val(data.kelurahan_id).trigger("change.select2");
                 }else{
                     $('#kelurahan_id').html(optionKelurahan);
-                } 
-            }, 'JSON'); 
+                }
+            }, 'JSON');
 
             // get rtrw
             url = "{{ route('rtrwByKelurahan', ':id') }}".replace(':id', kelurahan_id);
@@ -278,8 +280,8 @@
                     $("#rtrw_id").val(rtrw_id). trigger("change.select2");
                 }else{
                     $('#rtrw_id').html(optionRTRW);
-                } 
-            }, 'JSON'); 
+                }
+            }, 'JSON');
 
             // get dasawisma
             url = "{{ route('dasawismaByRTRW', ':id') }}".replace(':id', rtrw_id);
@@ -295,20 +297,20 @@
                     $("#dasawisma_id").val(dasawisma_id).trigger("change.select2");
                 }else{
                     $('#dasawisma_id').html(optionDaswisma);
-                } 
-            }, 'JSON'); 
+                }
+            }, 'JSON');
         });
     }
-    
+
     $('#form').on('submit', function (event) {
         if ($(this)[0].checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
-        }else{    
+        }else{
             $('#loading').show();
             $('#alert').html('');
             $('#btnSave').attr('disabled', true);
-            
+
             url = (save_method == 'add') ? "{{ route('kader.store') }}" : "{{ route('kader.update', ':id') }}".replace(':id', $('#id').val());
             $.post(url, $(this).serialize(), function(data){
                 $('#alert').html("<div class='alert alert-success alert-dismissible' role='alert'><strong>Sukses!</strong> " + data.message + "</div>");
