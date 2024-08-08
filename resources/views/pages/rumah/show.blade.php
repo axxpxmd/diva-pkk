@@ -54,7 +54,7 @@
                     </div>
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Jamban Rumah</label>
-                        @if ($data->status_id == 1)
+                        @if ($data->status_isi == 1)
                             <label class="col-sm-8 col-form-label">{{ $data->jamban == 0 ? 'Tidak Punya' : $data->jamban.' Buah' }}</label>
                         @else
                             <label class="col-sm-8 col-form-label">Belum ditinjau</label>
@@ -62,7 +62,7 @@
                     </div>
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Sumber Air</label>
-                        @if ($data->status_id == 1)
+                        @if ($data->status_isi == 1)
                             <label class="col-sm-8 col-form-label">
                                 @if ($data->sumber_air )
                                     @foreach(json_decode($data->sumber_air) as $value)
@@ -80,7 +80,7 @@
                 <div class="col-sm-6">
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Pembuangan Sampah</label>
-                        @if ($data->status_id == 1)
+                        @if ($data->status_isi == 1)
                             <label class="col-sm-8 col-form-label">{{ $data->tempat_smph == 1 ? 'Ya' : 'Tidak' }}</label>
                         @else
                             <label class="col-sm-8 col-form-label">Belum ditinjau</label>
@@ -88,7 +88,7 @@
                     </div>
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Pembuangan Limbah</label>
-                        @if ($data->status_id == 1)
+                        @if ($data->status_isi == 1)
                             <label class="col-sm-8 col-form-label">{{ $data->saluran_pmbngn == 1 ? 'Ya' : 'Tidak' }}</label>
                         @else
                             <label class="col-sm-8 col-form-label">Belum ditinjau</label>
@@ -96,7 +96,7 @@
                     </div>
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Stiker P4K</label>
-                        @if ($data->status_id == 1)
+                        @if ($data->status_isi == 1)
                             <label class="col-sm-8 col-form-label">{{ $data->stiker_p4k == 1 ? 'Ya' : 'Tidak' }}</label>
                         @else
                             <label class="col-sm-8 col-form-label">Belum ditinjau</label>
@@ -104,7 +104,7 @@
                     </div>
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Kriteria Rumah</label>
-                        @if ($data->status_id == 1)
+                        @if ($data->status_isi == 1)
                             <label class="col-sm-8 col-form-label">
                                 @if ($data->status_isi == 0)
                                     <span>-</span>
@@ -122,7 +122,7 @@
                     </div>
                     <div class="row p-0">
                         <label class="col-sm-4 col-form-label fw-bold">Layak Huni</label>
-                        @if ($data->status_id == 1)
+                        @if ($data->status_isi == 1)
                             <label class="col-sm-8 col-form-label">
                                 @if ($data->status_isi == 0)
                                     <span>-</span>
